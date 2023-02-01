@@ -33,8 +33,9 @@
 
 # -----
 
-# Carpeta de Visual Studio
+# Visual Studio
 .vs
+*.vcxproj.user
 
 # Otras cosas
 *.ilk
