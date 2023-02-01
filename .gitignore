@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Otras cosas
+.ilk
+.pdb
+.vs
+
+# Por si acaso
+.log
+.txt
