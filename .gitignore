@@ -33,14 +33,16 @@
 
 # -----
 
-# Otras cosas
-.ilk
-.pdb
+# Carpeta de Visual Studio
 .vs
 
+# Otras cosas
+*.ilk
+*.pdb
+
 # Por si acaso
-.log
-.txt
+*.log
+*.txt
 
 # Dependencias NO
 !dependencies/**
