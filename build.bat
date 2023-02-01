@@ -4,6 +4,7 @@ set dir_raiz=%~dp0
 set dir_fuentes=%dir_raiz%dependencies\ogre\sources\ogre-13.6.1
 set dir_sol_config=%dir_raiz%dependencies\ogre\builds\x64
 
+:: PREPARAR LAS DEPENDENCIAS
 :: Situarse junto al ejecutable
 cd .\dependencies\cmake\bin
 :: Configurar fuentes para la plataforma
@@ -15,5 +16,9 @@ cd .\dependencies\cmake\bin
 .\cmake.exe --build %dir_sol_config% --config Release --target install
 :: Volver a la raíz
 cd ..\..\..
+
+:: COMPILAR LA SOLUCIÓN DEL MOTOR
+:: niveles de verborrea: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic].
+msbuild .\Magma.sln -p:Configuration=Release -noLogo -verbosity:minimal -maxCpuCount
 
 echo ========-----========__Fin_del_Script__========-----========
