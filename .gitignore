@@ -31,6 +31,8 @@
 *.out
 *.app
 
+# -----
+
 # Otras cosas
 .ilk
 .pdb
@@ -39,3 +41,9 @@
 # Por si acaso
 .log
 .txt
+
+# Dependencias NO
+!dependencies/**
+
+# Builds
+dependencies/**/builds
