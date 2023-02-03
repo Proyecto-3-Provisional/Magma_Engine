@@ -50,3 +50,11 @@
 
 # Builds
 dependencies/**/builds
+
+# Temporales
+temporary
+
+# Ejecutables NO y recursos
+!executables/**
+executables/*
+!executables/assets

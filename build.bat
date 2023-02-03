@@ -16,6 +16,13 @@ cd .\dependencies\cmake\bin
 .\cmake.exe --build %dir_sol_config% --config Release --target install
 :: Volver a la raíz
 cd ..\..\..
+:: Copia de ficheros necesarios al dir. de salida
+mkdir executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\OgreMain.dll .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\OgreOverlay.dll .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\plugins.cfg .\executables
+copy .\dependencies\ogre\builds\x64\SDL2-build\Release\SDL2.dll .\executables
+
 
 :: COMPILAR LA SOLUCIÓN DEL MOTOR
 :: niveles de verborrea: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic].
