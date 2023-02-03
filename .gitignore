@@ -54,7 +54,7 @@ dependencies/**/builds
 # Temporales
 temporary
 
-# Ejecutables NO y recursos
+# Ejecutables; y recursos NO
 !executables/**
 executables/*
 !executables/assets
