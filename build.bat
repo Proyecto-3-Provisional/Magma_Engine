@@ -13,7 +13,7 @@ cd .\dependencies\cmake\bin
 :: OGRE DEBUG
 :: Configurar fuentes para la plataforma
 :: valor por defecto CMAKE_CONFIGURATION_TYPES="Debug;Release;MinSizeRel;RelWithDebInfo"
-.\cmake.exe -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=on -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes% -B %dir_sol_config%
+.\cmake.exe -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_PLUGIN_DIR=%dir_raiz%executables -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=on -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_PLUGIN_STBI=off -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes% -B %dir_sol_config%
 :: Compilar solución fuente generada
 .\cmake.exe --build %dir_sol_config% --config Debug
 :: "Instalar" OGRE -> dir. "sdk"
@@ -21,7 +21,7 @@ cd .\dependencies\cmake\bin
 
 :: OGRE RELEASE
 :: Configurar fuentes para la plataforma
-.\cmake.exe -DCMAKE_BUILD_TYPE="Release" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=on -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes% -B %dir_sol_config%
+.\cmake.exe -DCMAKE_BUILD_TYPE="Release" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_PLUGIN_DIR=%dir_raiz%executables -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=on -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_PLUGIN_STBI=off -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes% -B %dir_sol_config%
 :: Compilar solución fuente generada
 .\cmake.exe --build %dir_sol_config% --config Release
 :: "Instalar" OGRE -> dir. "sdk"
@@ -44,14 +44,19 @@ copy .\dependencies\ogre\builds\x64\sdk\bin\OgreMain.dll .\executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\OgreMain_d.dll .\executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\OgreOverlay.dll .\executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\OgreOverlay_d.dll .\executables
-copy .\dependencies\ogre\builds\x64\sdk\bin\plugins.cfg .\executables
 copy .\dependencies\ogre\builds\x64\SDL2-build\Release\SDL2.dll .\executables
 copy .\dependencies\ogre\builds\x64\SDL2-build\Debug\SDL2d.dll .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\plugins.cfg .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\RenderSystem_GL.dll .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\RenderSystem_GL_d.dll .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\Plugin_ParticleFX.dll .\executables
+copy .\dependencies\ogre\builds\x64\sdk\bin\Plugin_ParticleFX_d.dll .\executables
 
 
-:: COMPILAR LA SOLUCIÓN DEL MOTOR
-:: niveles de verborrea: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic].
+:: COMPILAR LA SOLUCIÓN DEL MOTOR ::
+:: niveles de verborrea: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic]
 msbuild .\Magma.sln -p:Configuration=Debug -noLogo -verbosity:minimal -maxCpuCount
 msbuild .\Magma.sln -p:Configuration=Release -noLogo -verbosity:minimal -maxCpuCount
+
 
 echo ========-----========__Fin_del_Script__========-----========

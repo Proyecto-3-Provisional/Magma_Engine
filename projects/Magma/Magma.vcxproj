@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sources\Magma\App.cpp" />
+    <ClCompile Include="..\..\sources\Magma\AppContext.cpp" />
     <ClCompile Include="..\..\sources\Magma\main.cpp" />
     <ClCompile Include="..\..\sources\Magma\Ogro.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\sources\Magma\App.h" />
+    <ClInclude Include="..\..\sources\Magma\AppContext.h" />
     <ClInclude Include="..\..\sources\Magma\Ogro.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
