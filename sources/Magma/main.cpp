@@ -4,7 +4,7 @@
 #include "OgreRoot.h" // ?¿
 #include "OgreLogManager.h" // ?¿
 
-int main(int argc, char const** argv) {
+int mainCode() {
 	std::cout << "Hola Mundo\n";
 
 	App app;
@@ -19,3 +19,13 @@ int main(int argc, char const** argv) {
 
 	return 0;
 }
+
+#if _DEBUG
+int main(int argc, char const** argv) {
+	return mainCode();
+}
+#else
+int __stdcall WinMain(void*, void*, char* cmdLine, int) {
+	return mainCode();
+}
+#endif
