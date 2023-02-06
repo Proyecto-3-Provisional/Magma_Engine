@@ -61,13 +61,14 @@ void App::setupScene(void)
   //------------------------------------------------------------------------
 
   Ogre::Entity* ent = mSM->createEntity("cube.mesh");
+  ent->setMaterialName("default");
 
-  mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("nCube");
+  mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("CubeNode");
   mCubeNode->attachObject(ent);
 
   mCubeNode->setPosition(0, 0, 0);
   mCubeNode->setScale(2, 2, 2);
   mCubeNode->yaw(Ogre::Degree(-45));
-  mCubeNode->showBoundingBox(true);
+  mCubeNode->showBoundingBox(false);
   mCubeNode->setVisible(true);
 }
