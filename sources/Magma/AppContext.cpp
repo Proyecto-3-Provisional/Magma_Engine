@@ -44,6 +44,9 @@ void AppContext::closeApp()
 void AppContext::createRoot()
 {
 	Ogre::String pluginsPath;
+	Ogre::String configPath;
+	Ogre::String logPath;
+
 	pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
 
 	if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
@@ -52,12 +55,15 @@ void AppContext::createRoot()
 		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "IG2ApplicationContext::createRoot");
 	}
 
-	mSolutionPath = pluginsPath; // añadido para definir directorios relativos al de la solución 
-	mSolutionPath.erase(mSolutionPath.find_last_of("\\") + 1, mSolutionPath.size() - 1);
-	mFSLayer->setHomePath(mSolutionPath); // para los archivos de configuración ogre. (en el bin de la solubión)
-	mSolutionPath.erase(mSolutionPath.find_last_of("\\") + 1, mSolutionPath.size() - 1); // quito /bin
+	configPath = mFSLayer->getWritablePath("ogre.cfg");
+	logPath = mFSLayer->getWritablePath("ogre.log");
 
-	mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"), mFSLayer->getWritablePath("ogre.log"));
+	mRoot = new Ogre::Root(pluginsPath, configPath, logPath);
+
+	appPath = pluginsPath; // directorio de la app
+	appPath.erase(appPath.find_last_of("\\") + 1, appPath.size() - 1);
+	mFSLayer->setHomePath(appPath); // para los archivos de configuración de OGRE
+	//////appPath.erase(appPath.find_last_of("\\") + 1, appPath.size() - 1); // quito /bin ¿?¿?
 
 	mOverlaySystem = new Ogre::OverlaySystem();
 }
@@ -187,45 +193,18 @@ void AppContext::loadResources()
 
 void AppContext::locateResources()
 {
-	// load resource paths from config file
-	Ogre::ConfigFile cf;
+	// Recursos en carpeta assets
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+		Ogre::FileSystemLayer::resolveBundlePath(appPath + "assets"),
+		"FileSystem");
 
-	Ogre::String resourcesPath = mFSLayer->getConfigFilePath("resources.cfg");
-	if (Ogre::FileSystemLayer::fileExists(resourcesPath))
-	{
-		cf.load(resourcesPath);
-	}
-	else
-	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-			Ogre::FileSystemLayer::resolveBundlePath(mSolutionPath + "\\media"),
-			"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-	}
-
-	Ogre::String sec, type, arch;
-	// go through all specified resource groups
-	Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
-	for (seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
-		sec = seci->first;
-		const Ogre::ConfigFile::SettingsMultiMap& settings = seci->second;
-		Ogre::ConfigFile::SettingsMultiMap::const_iterator i;
-
-		// go through all resource paths
-		for (i = settings.begin(); i != settings.end(); i++)
-		{
-			type = i->first;
-			arch = Ogre::FileSystemLayer::resolveBundlePath(i->second);
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch, type, sec);
-		}
-	}
-
-	sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+	Ogre::String sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
 	const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
 
 	assert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
 
-	arch = genLocs.front().archive->getName();
-	type = genLocs.front().archive->getType();
+	Ogre::String arch = genLocs.front().archive->getName();
+	Ogre::String type = genLocs.front().archive->getType();
 
 	// Add locations for supported shader languages
 	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))

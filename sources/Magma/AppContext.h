@@ -85,14 +85,8 @@ protected:
 
 	Ogre::Root* mRoot;        // OGRE root
 	NativeWindowPair mWindow; // the window
-
-	//Ogre::FileSystemLayer* mFSLayer; // File system abstraction layer
-	Ogre::String homePath;
-	Ogre::String pluginsPath;
-	Ogre::String configPath;
-	Ogre::String logPath;
-	Ogre::String resourcesPath;
-	Ogre::String mSolutionPath;    // IG2: variable para hacer las rutas relativas al directorio de la solución
+	
+	Ogre::String appPath;
 
 	Ogre::OverlaySystem* mOverlaySystem;
 	Ogre::FileSystemLayer* mFSLayer;

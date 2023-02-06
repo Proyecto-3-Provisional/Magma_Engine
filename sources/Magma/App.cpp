@@ -60,16 +60,14 @@ void App::setupScene(void)
  
   //------------------------------------------------------------------------
 
-  // finally something to render
+  Ogre::Entity* ent = mSM->createEntity("cube.mesh");
 
-  ///////Ogre::Entity* ent = mSM->createEntity("Sinbad.mesh");
+  mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("nCube");
+  mCubeNode->attachObject(ent);
 
-  ///////mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-  ///////mSinbadNode->attachObject(ent);
-
-  //mSinbadNode->setPosition(400, 100, -300);
-  ///////mSinbadNode->setScale(20, 20, 20);
-  //mSinbadNode->yaw(Ogre::Degree(-45));
-  //mSinbadNode->showBoundingBox(true);
-  //mSinbadNode->setVisible(false);
+  mCubeNode->setPosition(0, 0, 0);
+  mCubeNode->setScale(2, 2, 2);
+  mCubeNode->yaw(Ogre::Degree(-45));
+  mCubeNode->showBoundingBox(true);
+  mCubeNode->setVisible(true);
 }
