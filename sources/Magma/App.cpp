@@ -49,7 +49,7 @@ void App::setupScene(void)
 
   Ogre::Light* luz = mSM->createLight("Luz");
   luz->setType(Ogre::Light::LT_DIRECTIONAL);
-  luz->setDiffuseColour(0.75, 0.75, 0.75);
+  luz->setDiffuseColour(0.90, 0.90, 0.90);
 
   mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
   //mLightNode = mCamNode->createChildSceneNode("nLuz");
@@ -71,4 +71,9 @@ void App::setupScene(void)
   mCubeNode->yaw(Ogre::Degree(-45));
   mCubeNode->showBoundingBox(false);
   mCubeNode->setVisible(true);
+}
+
+void App::rotate()
+{
+	mCubeNode->yaw(Ogre::Degree(rotationVelocity));
 }

@@ -81,6 +81,8 @@ public:
 	//By default the values from ogre.cfg are used for w, h and miscParams.
 	virtual NativeWindowPair createWindow(const Ogre::String& name);
 
+	bool salir = false; // TEMPORALMENTE --- ¿Salir de la app?
+
 protected:
 
 	Ogre::Root* mRoot;        // OGRE root

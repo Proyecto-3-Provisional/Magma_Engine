@@ -9,13 +9,18 @@ int mainCode() {
 
 	App app;
 	try {
-		app.initApp();
-		app.getRoot()->startRendering();
+		app.initApp(); // Inicio
+		while (!app.salir) {
+			// Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
+			app.getRoot()->renderOneFrame(); // startRendering
+			app.rotate(); // Rotar cubo para ver cambios entre fotogramas
+		}
 	}
 	catch (Ogre::Exception& e) {
-		Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+		Ogre::String errMsg = "An exception has occured: " + e.getFullDescription() + "\n";
+		Ogre::LogManager::getSingleton().logMessage(errMsg);
 	}
-	app.closeApp();
+	app.closeApp(); // Fin
 
 	return 0;
 }

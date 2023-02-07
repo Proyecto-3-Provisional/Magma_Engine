@@ -161,12 +161,18 @@ void AppContext::pollEvents() // from frameStarted
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		/*
-		if (evt.keysym.sym == SDLK_ESCAPE) mRoot->queueEndRendering();
-		*/
+		// SE PULSA LA TECLA 'ESCAPE'
+		if (event.key.keysym.sym == SDLK_ESCAPE) {
+			//mRoot->queueEndRendering();
+
+			// Esto hace que el bucle de main() se detenga
+			// vvv //
+			salir = true;
+		}
+
 		switch (event.type)
 		{
-		case SDL_QUIT:
+		case SDL_QUIT: // CRUZ DE CERRAR VENTANA
 			mRoot->queueEndRendering();
 			break;
 		case SDL_WINDOWEVENT:
