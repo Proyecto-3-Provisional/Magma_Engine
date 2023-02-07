@@ -4,16 +4,27 @@
 #include "OgreRoot.h" // ?¿
 #include "OgreLogManager.h" // ?¿
 
+#include "SDL_timer.h"
+
 int mainCode() {
-	std::cout << "Hola Mundo\n";
+	std::cout << "======== MAGMA iniciado ========\n";
+
+	float lastFrameTime = SDL_GetTicks(); // Milisegundos transcurridos desde el inicio
+	float timeSinceLastFrame = 0;
 
 	App app;
 	try {
 		app.initApp(); // Inicio
 		while (!app.salir) {
+			timeSinceLastFrame = SDL_GetTicks() - lastFrameTime; // Milisegundos transcurridos desde el inicio
+			lastFrameTime = SDL_GetTicks();
+			///std::cout << lastFrameTime << "<--- \n";
+			///std::cout << timeSinceLastFrame << "<--- \n";
+
 			// Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
 			app.getRoot()->renderOneFrame(); // startRendering
-			app.rotate(); // Rotar cubo para ver cambios entre fotogramas
+			app.rotate(timeSinceLastFrame); // Rotar cubo para ver cambios entre fotogramas
+
 		}
 	}
 	catch (Ogre::Exception& e) {

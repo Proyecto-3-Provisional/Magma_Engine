@@ -8,7 +8,7 @@ public:
   explicit App() : AppContext("MagmaTest") { };  // new -> setup()
   virtual ~App() { };    // delete -> shutdown()
 
-  void rotate();
+  void rotate(float deltaTime);
  
 protected:
   virtual void setup();
@@ -21,5 +21,5 @@ protected:
   Ogre::SceneNode* mCubeNode = nullptr;
 
 private:
-    float rotationVelocity = 0.5;
+    float rotationVelocity = 0.05;
 };

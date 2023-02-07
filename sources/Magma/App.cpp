@@ -73,7 +73,7 @@ void App::setupScene(void)
   mCubeNode->setVisible(true);
 }
 
-void App::rotate()
+void App::rotate(float deltaTime)
 {
-	mCubeNode->yaw(Ogre::Degree(rotationVelocity));
+	mCubeNode->yaw(Ogre::Degree(rotationVelocity * deltaTime));
 }
