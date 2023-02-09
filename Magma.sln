@@ -4,23 +4,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magma", "projects\Magma\Magma.vcxproj", "{DFE5C86B-4401-4A41-8001-12475B5333B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{922B7516-F118-42BE-9AEB-749C8D010118} = {922B7516-F118-42BE-9AEB-749C8D010118}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "projects\Render\Render.vcxproj", "{922B7516-F118-42BE-9AEB-749C8D010118}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Debug|x64.ActiveCfg = Debug|x64
 		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Debug|x64.Build.0 = Debug|x64
-		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Debug|x86.ActiveCfg = Debug|Win32
-		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Debug|x86.Build.0 = Debug|Win32
 		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Release|x64.ActiveCfg = Release|x64
 		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Release|x64.Build.0 = Release|x64
-		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Release|x86.ActiveCfg = Release|Win32
-		{DFE5C86B-4401-4A41-8001-12475B5333B8}.Release|x86.Build.0 = Release|Win32
+		{922B7516-F118-42BE-9AEB-749C8D010118}.Debug|x64.ActiveCfg = Debug|x64
+		{922B7516-F118-42BE-9AEB-749C8D010118}.Debug|x64.Build.0 = Debug|x64
+		{922B7516-F118-42BE-9AEB-749C8D010118}.Release|x64.ActiveCfg = Release|x64
+		{922B7516-F118-42BE-9AEB-749C8D010118}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

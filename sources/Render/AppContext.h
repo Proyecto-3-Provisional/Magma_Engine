@@ -34,7 +34,7 @@ public:
 	Ogre::OverlaySystem * getOverlaySystem() const { return mOverlaySystem; }
 
 	//This function initializes the render system and resources.
-	void initApp();
+	bool initApp();
 
 	//This function closes down the application - saves the configuration then shutdowns.
 	void closeApp();

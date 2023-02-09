@@ -1,9 +1,11 @@
 #include "AppContext.h"
 
 #include <OgreRoot.h>
+#include <OgreFileSystemLayer.h>
 #include <OgreGpuProgramManager.h>
 #include <OgreConfigFile.h>
 #include <OgreRenderWindow.h>
+#include <OgreLogManager.h>
 
 #include <SDL.h>
 ///#include <SDL_video.h>
@@ -22,12 +24,20 @@ AppContext::~AppContext()
 	delete mFSLayer;
 }
 
-void AppContext::initApp()
+bool AppContext::initApp()
 {
-	createRoot();
+	try {
+		createRoot();
 
-	if (oneTimeConfig())
-		setup();
+		if (oneTimeConfig())
+			setup();
+	}
+	catch (Ogre::Exception& e) {
+		Ogre::String errMsg = "An exception has occured: " + e.getFullDescription() + "\n";
+		Ogre::LogManager::getSingleton().logMessage(errMsg);
+		return false;
+	}
+	return true;
 }
 
 void AppContext::closeApp()

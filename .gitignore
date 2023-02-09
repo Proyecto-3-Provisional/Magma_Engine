@@ -58,3 +58,6 @@ temporary
 !executables/**
 executables/*
 !executables/assets
+
+# Librerías
+libraries

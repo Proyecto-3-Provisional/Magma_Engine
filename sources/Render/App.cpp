@@ -4,7 +4,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreViewport.h>
 #include <OgreEntity.h>
-///#include <OgreMeshManager.h>
+#include <OgreMeshManager.h>
 
 ///#include <SDL_keycode.h>
 
@@ -60,17 +60,33 @@ void App::setupScene(void)
  
   //------------------------------------------------------------------------
 
-  Ogre::Entity* ent = mSM->createEntity("cube.mesh");
-  ent->setMaterialName("default");
+  // CUBO
+  Ogre::Entity* cube = mSM->createEntity("cube.mesh"); // crear entidad
+  cube->setMaterialName("logo"); // definir material de la entidad
 
-  mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("CubeNode");
-  mCubeNode->attachObject(ent);
+  mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("CubeNode"); // crear nodo, hijo del 'raíz'
+  mCubeNode->attachObject(cube); // anclar entidad a nodo
 
-  mCubeNode->setPosition(0, 0, 0);
+  // configurar nodo
+  mCubeNode->setPosition(0, 0, 350); // me lo acerco a la cara 350 ud.
   mCubeNode->setScale(2, 2, 2);
   mCubeNode->yaw(Ogre::Degree(-45));
   mCubeNode->showBoundingBox(false);
   mCubeNode->setVisible(true);
+
+  // PLANO
+  // definir malla mPlane1080x800
+  Ogre::MeshManager::getSingleton().createPlane("mPlane1080x800",
+	  Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+	  Ogre::Plane(Ogre::Vector3::UNIT_Z, 0), // vector normal, vector up
+	  1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_Y);
+  // crear entidad
+  Ogre::Entity* plane = mSM->createEntity("mPlane1080x800");
+  plane->setMaterialName("default");
+  // crear nodo
+  mPlaneNode = mSM->getRootSceneNode()->createChildSceneNode("PlaneNode");
+  mPlaneNode->attachObject(plane);
+  mPlaneNode->setPosition(0, 0, -400);
 }
 
 void App::rotate(float deltaTime)
