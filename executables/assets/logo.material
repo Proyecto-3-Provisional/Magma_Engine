@@ -4,7 +4,7 @@ technique {
 		scene_blend alpha_blend
 		diffuse 1.0 1.0 1.0
 		texture_unit {
-			texture magmalogo.dds
+			texture magmalogo.png
 			colour_op replace
 			tex_address_mode wrap
 			}
