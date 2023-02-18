@@ -6,6 +6,8 @@
 
 #include "OgreRoot.h" // ¡!
 
+#include "manager.h"
+
 int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
