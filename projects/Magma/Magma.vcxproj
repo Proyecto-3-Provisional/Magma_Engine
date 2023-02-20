@@ -22,6 +22,9 @@
     <ClCompile Include="..\..\sources\Magma\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ECS\ECS.vcxproj">
+      <Project>{dbd48150-9583-4ca2-9dad-6a208679611b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Render\Render.vcxproj">
       <Project>{922b7516-f118-42be-9aeb-749c8d010118}</Project>
     </ProjectReference>

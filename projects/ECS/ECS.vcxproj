@@ -21,13 +21,13 @@
   <ItemGroup>
     <ClInclude Include="..\..\sources\ECS\component.h" />
     <ClInclude Include="..\..\sources\ECS\entity.h" />
-    <ClInclude Include="..\..\sources\ECS\manager.h" />
+    <ClInclude Include="..\..\sources\ECS\entity_manager.h" />
     <ClInclude Include="..\..\sources\ECS\transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\ECS\component.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity.cpp" />
-    <ClCompile Include="..\..\sources\ECS\manager.cpp" />
+    <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
     <ClCompile Include="..\..\sources\ECS\transform.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

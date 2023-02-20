@@ -6,10 +6,16 @@
 
 #include "OgreRoot.h" // ¡!
 
-#include "manager.h"
+#include "entity_manager.h"
 
 int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
+
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
+
+	magma::EntityManager manager_;
+
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
 	float lastFrameTime = SDL_GetTicks(); // Milisegundos transcurridos desde el inicio
 	float timeSinceLastFrame = 0;
@@ -27,6 +33,21 @@ int mainCode() {
 		// Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
 		app.getRoot()->renderOneFrame(); // startRendering
 		app.rotate(timeSinceLastFrame); // Rotar cubo para ver cambios entre fotogramas
+
+
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
+		
+		
+		manager_->update();
+		
+			sdlutils().clearRenderer();
+		manager_->render();
+		sdlutils().presentRenderer();
+		
+			manager_->refresh();
+
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
+
 	}
 	app.closeApp(); // Fin
 
