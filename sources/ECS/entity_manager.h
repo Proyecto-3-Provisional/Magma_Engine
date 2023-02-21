@@ -4,17 +4,16 @@
 
 class Entity;
 
-namespace magma {
-	class EntityManager {
-	public:
-		EntityManager();
-		virtual ~EntityManager();
+class EntityManager {
+public:
+	EntityManager();
+	virtual ~EntityManager();
 
-		Entity* addEntity();
-		void refresh();
-		void update();
-		void render();
-	private:
-		std::vector<Entity*> ents_;
-	};
-}
+	Entity* addEntity();
+	void refresh();
+	void update();
+	void render();
+private:
+	std::vector<Entity*> ents_;
+};
+

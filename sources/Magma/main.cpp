@@ -7,14 +7,18 @@
 #include "OgreRoot.h" // ¡!
 
 #include "entity_manager.h"
+#include "entity.h"
+#include "transform.h"
 
 int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
-	magma::EntityManager manager_;
-
+	EntityManager* manager_ = new EntityManager();
+	auto e_ = manager_->addEntity();
+	e_->addComponent<Transform>();
+	
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
 	float lastFrameTime = SDL_GetTicks(); // Milisegundos transcurridos desde el inicio
@@ -37,14 +41,11 @@ int mainCode() {
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 		
-		
 		manager_->update();
-		
-			sdlutils().clearRenderer();
-		manager_->render();
-		sdlutils().presentRenderer();
-		
-			manager_->refresh();
+		////sdlutils().clearRenderer();
+		//manager_->render();
+		////sdlutils().presentRenderer();
+		//manager_->refresh();
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 

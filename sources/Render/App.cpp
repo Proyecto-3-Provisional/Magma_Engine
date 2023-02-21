@@ -66,7 +66,7 @@ void App::setupScene(void)
 
   mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("CubeNode"); // crear nodo, hijo del 'raíz'
   mCubeNode->attachObject(cube); // anclar entidad a nodo
-
+  
   // configurar nodo
   mCubeNode->setPosition(0, 0, 350); // me lo acerco a la cara 350 ud.
   mCubeNode->setScale(2, 2, 2);
