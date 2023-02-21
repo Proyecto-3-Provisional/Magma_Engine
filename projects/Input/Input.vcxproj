@@ -18,49 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\sources\Magma\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ECS\ECS.vcxproj">
-      <Project>{dbd48150-9583-4ca2-9dad-6a208679611b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Input\Input.vcxproj">
-      <Project>{860a6525-0260-4e54-b770-99469e896c5f}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Render\Render.vcxproj">
-      <Project>{922b7516-f118-42be-9aeb-749c8d010118}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dfe5c86b-4401-4a41-8001-12475b5333b8}</ProjectGuid>
-    <RootNamespace>Magma</RootNamespace>
+    <ProjectGuid>{860a6525-0260-4e54-b770-99469e896c5f}</ProjectGuid>
+    <RootNamespace>Input</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -85,30 +71,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <PublicIncludeDirectories>
-    </PublicIncludeDirectories>
+    <OutDir>$(SolutionDir)libraries\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)executables\</OutDir>
-    <TargetName>$(ProjectName)_32_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <PublicIncludeDirectories>
-    </PublicIncludeDirectories>
+    <OutDir>$(SolutionDir)libraries\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)executables\</OutDir>
-    <TargetName>$(ProjectName)_32</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PublicIncludeDirectories>
-    </PublicIncludeDirectories>
-    <OutDir>$(SolutionDir)executables\</OutDir>
+    <OutDir>$(SolutionDir)libraries\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PublicIncludeDirectories>
-    </PublicIncludeDirectories>
-    <OutDir>$(SolutionDir)executables\</OutDir>
+    <OutDir>$(SolutionDir)libraries\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -117,16 +92,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2d.lib</AdditionalDependencies>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -136,18 +113,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -155,16 +134,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2d.lib</AdditionalDependencies>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -174,19 +155,27 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
     </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\sources\Input\input_manager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sources\Input\input_manager.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
