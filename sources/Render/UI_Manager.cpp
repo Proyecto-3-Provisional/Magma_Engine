@@ -36,6 +36,7 @@ void UI_Manager::init()
 	textArea->setMetricsMode(Ogre::GMM_PIXELS);
 	textArea->setPosition(0, 0);
 	textArea->setDimensions(100, 100);
+	textArea->setFontName("Arial");
 	textArea->setCaption("Creo que Eva es sospechosa");
 
 	// Tamaño letra, fuente y color
