@@ -10,6 +10,8 @@
 #include "entity.h"
 #include "transform.h"
 
+//#include "Input/input_manager.h"
+
 int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
@@ -19,7 +21,7 @@ int mainCode() {
 	auto e_ = manager_->addEntity();
 	e_->addComponent<Transform>();
 	
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
 
 	float lastFrameTime = SDL_GetTicks(); // Milisegundos transcurridos desde el inicio
 	float timeSinceLastFrame = 0;

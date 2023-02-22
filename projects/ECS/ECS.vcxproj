@@ -20,17 +20,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\ECS\component.h" />
+    <ClInclude Include="..\..\sources\ECS\ecs.h" />
+    <ClInclude Include="..\..\sources\ECS\ecs_defs.h" />
     <ClInclude Include="..\..\sources\ECS\entity.h" />
     <ClInclude Include="..\..\sources\ECS\entity_manager.h" />
     <ClInclude Include="..\..\sources\ECS\transform.h" />
-    <ClInclude Include="..\..\sources\ECS\Vector3Magma.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\ECS\component.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
     <ClCompile Include="..\..\sources\ECS\transform.cpp" />
-    <ClCompile Include="..\..\sources\ECS\Vector3Magma.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

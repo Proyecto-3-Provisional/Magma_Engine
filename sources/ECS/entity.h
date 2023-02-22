@@ -7,6 +7,7 @@ struct Component;
 //#include "component.h"
 #include <array>
 #include <vector>
+#include <string>
 
 //entity va a actuar como una coleccion de componentes
 class Entity {
@@ -28,38 +29,46 @@ public:
 
 	void render();
 
-	//<<< significa editado/comentado para no usar Id's de componentes
-
 	// Adds a component. It receives the type T (to be created), and the
 	// list of arguments (if any) to be passed to the constructor.
 	// The component identifier 'cId' is taken from T::id.
 	template<typename T, typename ...Ts>
-	inline T* addComponent(Ts &&... args) {
+	T* addComponent(Ts &&... args) {
 
-		//<<<
-		/*constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);*/
+		//constexpr cmpId_type cId = T::id;
+		//assert(cId < ecs::maxComponentId);
 
-		// delete the current component, if any
-		//
-		removeComponent<T>();
+		//// delete the current component, if any
+		////
+		//removeComponent<T>(std::string id);
 
-		// create, initialise and install the new component
-		//
+		//// create, initialise and install the new component
+		////
 		Component* c = new T(std::forward<Ts>(args)...);
-		c->setContext(this, mngr_);
-		c->initComponent();
-		//cmps_[cId] = c; //<<<
-		currCmps_.push_back(c);
+		//c->setContext(this, mngr_);
+		//c->initComponent();
+		////cmps_[cId] = c; //<<<
+		//currCmps_.push_back(c);
 
-		// return it to the user so i can be initialised if needed
+		//// return it to the user so i can be initialised if needed
 		return static_cast<T*>(c);
 	}
 
-	//hay que encontrar una forma de quitar un componente sin usar su Id(seguramente facil simplemente con su tipo?)
+	//hay que encontrar una forma de quitar un componente sin usar su Id
 	// Removes the components at position T::id.
 	template<typename T>
-	inline void removeComponent() {
+	void removeComponent() {
+
+		/*auto iter = std::find(currCmps_.begin(), currCmps_.end(),
+			currCmps_[]);
+
+		for (auto i : currCmps_) {
+			if(currCmps_[i].)
+		}
+
+		assert(iter != nullptr);
+
+		currCmps_.erase(iter);*/
 
 		//<<<
 		/*constexpr cmpId_type cId = T::id;

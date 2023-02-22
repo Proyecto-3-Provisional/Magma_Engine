@@ -5,6 +5,8 @@
 class Entity;
 class EntityManager;
 
+#include <string>
+
 struct Component {
 public:
 	Component() : ent_(), mngr_() {}

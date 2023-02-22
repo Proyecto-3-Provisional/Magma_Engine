@@ -33,7 +33,10 @@
     <ClInclude Include="..\..\sources\ECS\entity_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\ECS\Vector3Magma.h">
+    <ClInclude Include="..\..\sources\ECS\ecs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\ecs_defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -48,9 +51,6 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\ECS\Vector3Magma.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

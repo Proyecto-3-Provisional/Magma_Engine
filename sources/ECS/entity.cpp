@@ -27,26 +27,25 @@ void Entity::render() {
 }
 
 //template<typename T, typename ...Ts>
-//void Entity::addComponent(Ts &&... args) {
-//	{
+//T* Entity::addComponent(Ts &&... args) {
+//	
+//	//<<<
+//	/*constexpr cmpId_type cId = T::id;
+//	assert(cId < ecs::maxComponentId);*/
 //
-//		//<<<
-//		/*constexpr cmpId_type cId = T::id;
-//		assert(cId < ecs::maxComponentId);*/
+//	// delete the current component, if any
+//	//
+//	removeComponent<T>();
 //
-//		// delete the current component, if any
-//		//
-//		removeComponent<T>();
+//	// create, initialise and install the new component
+//	//
+//	Component* c = new T(std::forward<Ts>(args)...);
+//	c->setContext(this, mngr_);
+//	c->initComponent();
+//	//cmps_[cId] = c; //<<<
+//	currCmps_.push_back(c);
 //
-//		// create, initialise and install the new component
-//		//
-//		Component* c = new T(std::forward<Ts>(args)...);
-//		c->setContext(this, mngr_);
-//		c->initComponent();
-//		//cmps_[cId] = c; //<<<
-//		currCmps_.push_back(c);
-//
-//		// return it to the user so i can be initialised if needed
-//		return static_cast<T*>(c);
-//	}
+//	// return it to the user so i can be initialised if needed
+//	return static_cast<T*>(c);
+//	
 //}
