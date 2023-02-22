@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\sources\ECS\ecs_defs.h" />
     <ClInclude Include="..\..\sources\ECS\entity.h" />
     <ClInclude Include="..\..\sources\ECS\entity_manager.h" />
+    <ClInclude Include="..\..\sources\ECS\mpl.h" />
     <ClInclude Include="..\..\sources\ECS\transform.h" />
   </ItemGroup>
   <ItemGroup>

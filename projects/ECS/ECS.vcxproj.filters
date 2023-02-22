@@ -39,6 +39,9 @@
     <ClInclude Include="..\..\sources\ECS\ecs_defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\mpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\ECS\component.cpp">

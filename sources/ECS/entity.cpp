@@ -15,15 +15,15 @@ void Entity::update(){
 	v.push_back(c)
 	v[1]->update();*/
 
-	auto n = currCmps_.size();
+	auto n = components_.size();
 	for (auto i = 0u; i < n; i++)
-		currCmps_[i]->update();
+		components_[i]->update();
 }
 
 void Entity::render() {
-	auto n = currCmps_.size();
+	auto n = components_.size();
 	for (auto i = 0u; i < n; i++)
-		currCmps_[i]->render();
+		components_[i]->render();
 }
 
 //template<typename T, typename ...Ts>

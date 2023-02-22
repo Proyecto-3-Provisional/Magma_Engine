@@ -19,7 +19,7 @@ int mainCode() {
 
 	EntityManager* manager_ = new EntityManager();
 	auto e_ = manager_->addEntity();
-	e_->addComponent<Transform>();
+	//e_->addComponent();
 	
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
 

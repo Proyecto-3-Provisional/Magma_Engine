@@ -8,16 +8,17 @@ struct Component;
 #include <array>
 #include <vector>
 #include <string>
+#include "ecs.h"
 
 //entity va a actuar como una coleccion de componentes
 class Entity {
 public:
 	Entity() :
-		mngr_(nullptr), /*cmps_(),*/ currCmps_(), alive_() {
-		currCmps_.reserve(10/*ecs::maxComponentId*/);
+		mngr_(nullptr), /*cmps_(),*/ components_(), alive_() {
+		components_.reserve(10/*ecs::maxComponentId*/);
 	}
 	virtual ~Entity() {
-		for (auto c : currCmps_) {
+		for (auto c : components_) {
 			delete c;
 		}
 	};
@@ -33,7 +34,8 @@ public:
 	// list of arguments (if any) to be passed to the constructor.
 	// The component identifier 'cId' is taken from T::id.
 	template<typename T, typename ...Ts>
-	T* addComponent(Ts &&... args) {
+	inline T* addComponent(Ts &&... args) {
+
 
 		//constexpr cmpId_type cId = T::id;
 		//assert(cId < ecs::maxComponentId);
@@ -44,21 +46,34 @@ public:
 
 		//// create, initialise and install the new component
 		////
-		Component* c = new T(std::forward<Ts>(args)...);
+		//Component* c = new T(std::forward<Ts>(args)...);
 		//c->setContext(this, mngr_);
 		//c->initComponent();
 		////cmps_[cId] = c; //<<<
 		//currCmps_.push_back(c);
 
 		//// return it to the user so i can be initialised if needed
-		return static_cast<T*>(c);
+		//return static_cast<T*>(c);
 	}
 
 	//hay que encontrar una forma de quitar un componente sin usar su Id
 	// Removes the components at position T::id.
 	template<typename T>
 	void removeComponent() {
-
+		auto id = ecs::cmpIdx<T>;
+		if (components_[id] != nullptr)
+		{
+			Component* old_cmp = components_[id];
+			components_[id] = nullptr;
+			components_.erase(
+				std::find_if(
+					components_.begin(),
+					components_.end(),
+					[old_cmp](const Component* c) {
+						return c == old_cmp;
+					}));
+			delete old_cmp;
+		}
 		/*auto iter = std::find(currCmps_.begin(), currCmps_.end(),
 			currCmps_[]);
 
@@ -104,10 +119,8 @@ public:
 	template<typename T>
 	inline T* getComponent() {
 		//<<<
-		/*constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);
-
-		return static_cast<T*>(cmps_[cId]);*/
+		auto id = ecs::cmpIdx<T>;
+		return static_cast<T*>(components_[id]);
 	}
 
 	//cambiar a que sea sin Id
@@ -115,10 +128,8 @@ public:
 	template<typename T>
 	inline bool hasComponent() {
 		//<<<
-		/*constexpr cmpId_type cId = T::id;
-		assert(cId < ecs::maxComponentId);
-
-		return cmps_[cId] != nullptr;*/
+		auto id = ecs::cmpIdx<T>;
+		return components_[id] != nullptr;
 	}
 
 	//// returns the entity's group 'gId'
@@ -129,7 +140,7 @@ public:
 private:
 	bool alive_;
 	EntityManager* mngr_;
-	std::vector<Component*> currCmps_;
+	std::vector<Component*> components_;
 	//desde el juego habria que indicar maxComponentId(cuandtos comps lleva). Por ahora ponemos un maximo de 10. Generalmente indicaria el tipo 1 siempre Transform... no tenemos eso
 	//std::array<Component*, 10/*ecs::maxComponentId*/> cmps_;
 };
