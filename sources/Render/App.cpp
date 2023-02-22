@@ -6,11 +6,7 @@
 #include <OgreEntity.h>
 #include <OgreMeshManager.h>
 
-#include <Overlay/OgreOverlay.h>
-#include <Overlay/OgreOverlayManager.h>
-#include <Overlay/OgreOverlayContainer.h>
-#include <Overlay/OgreTextAreaOverlayElement.h>
-#include <Overlay/OgreFontManager.h>
+#include "UI_Manager.h"
 
 ///#include <SDL_keycode.h>
 
@@ -96,38 +92,10 @@ void App::setupScene(void)
 
 
 																// Pruebas de Overlay Ogre (Falta pasar y adaptar todo para un UI Manager)
-  // Creamos un overlay manager y un panel
-  Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
-  Ogre::Overlay* overlay = overlayManager.create("OverlayName");
-  Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(overlayManager.createOverlayElement("Panel", "PanelName"));
+  // Aqui habria que meter los valores de la ventana
+  UI_Manager* ui = new UI_Manager(200,100);
+  ui->init();
 
-  panel->setMetricsMode(Ogre::GMM_PIXELS);
-  panel->setPosition(10, 10);
-  panel->setDimensions(200, 100);
-  panel->setMaterialName("BaseWhite");
-
-  // Creamos un area de texto sobre la que trabajar
-  Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(overlayManager.createOverlayElement("TextArea", "TextAreaUI"));
-
-  // Preparar dimensiones y contenido texto
-  textArea->setMetricsMode(Ogre::GMM_PIXELS);
-  textArea->setPosition(0, 0);
-  textArea->setDimensions(100, 100);
-  textArea->setCaption("Creo que Eva es sospechosa");
-  
-  // Tamaño letra, fuente y color
-  textArea->setCharHeight(16);
-  
-  textArea->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
-  textArea->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
-
-  //textArea->setFontName("BlueHighway"); // Falla al no haber carga de recursos, especificamente con ttf
-
-  panel->addChild(textArea);
-
-  // Show the overlay
-  overlay->add2D(panel);
-  overlay->show();
 }
 
 void App::rotate(float deltaTime)
