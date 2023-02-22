@@ -8,9 +8,10 @@
 
 UI_Manager::UI_Manager(int dimensionX, int dimensionY)
 {
-	Ogre::Overlay* overlay = overlayMngr_.create("OverlayName");
+	overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
+	Ogre::Overlay* overlay = overlayMngr_->create("OverlayName");
 	
-	generalPanel = static_cast<Ogre::OverlayContainer*>(overlayMngr_.createOverlayElement("Panel", "GeneralPanel"));
+	generalPanel = static_cast<Ogre::OverlayContainer*>(overlayMngr_->createOverlayElement("Panel", "GeneralPanel"));
 
 	// Creamos un panel general para toda la pantalla
 	generalPanel->setMetricsMode(Ogre::GMM_PIXELS);
@@ -29,7 +30,7 @@ void UI_Manager::init()
 	generalPanel->setMaterialName("BaseWhite");
 
 	// Creamos un area de texto sobre la que trabajar
-	Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(overlayMngr_.createOverlayElement("TextArea", "TextAreaUI"));
+	Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(overlayMngr_->createOverlayElement("TextArea", "TextAreaUI"));
 
 	// Preparar dimensiones y contenido texto
 	textArea->setMetricsMode(Ogre::GMM_PIXELS);

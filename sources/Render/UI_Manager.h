@@ -28,7 +28,7 @@ public:
 private:
 	static unique_ptr<UI_Manager> instance;
 
-	Ogre::OverlayManager& overlayMngr_ = Ogre::OverlayManager::getSingleton();;
+	Ogre::OverlayManager* overlayMngr_;
 	Ogre::Overlay* overlay;
 	Ogre::OverlayContainer* generalPanel;
 
