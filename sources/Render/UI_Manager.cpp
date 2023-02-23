@@ -27,7 +27,8 @@ UI_Manager::~UI_Manager() {}
 
 void UI_Manager::init()
 {
-	generalPanel->setMaterialName("BaseWhite");
+	//generalPanel->setMaterialName("BaseWhite");
+	generalPanel->setMaterialName("golf");
 
 	// Creamos un area de texto sobre la que trabajar
 	Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(overlayMngr_->createOverlayElement("TextArea", "TextAreaUI"));
@@ -38,10 +39,11 @@ void UI_Manager::init()
 	textArea->setDimensions(200, 200);
 	
 	textArea->setFontName("Arial");
-	textArea->setCaption("Creo que Eva no es sus, cabrones");
+	textArea->setCaption("Creo que Eva es sus, caballeros");
 
 	// Tamaño letra, fuente y color
 	textArea->setCharHeight(16);
+	//textArea->setCharHeight(32);
 	textArea->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
 	textArea->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
 
