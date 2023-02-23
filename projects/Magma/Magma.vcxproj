@@ -31,9 +31,6 @@
     <ProjectReference Include="..\Render\Render.vcxproj">
       <Project>{922b7516-f118-42be-9aeb-749c8d010118}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Sounds\Sounds.vcxproj">
-      <Project>{0f91cf47-aaac-426e-a721-d108b33cab15}</Project>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
