@@ -36,18 +36,15 @@ void UI_Manager::init()
 	textArea->setMetricsMode(Ogre::GMM_PIXELS);
 	textArea->setPosition(0, 0);
 	textArea->setDimensions(200, 200);
+	
 	textArea->setFontName("Arial");
 	textArea->setCaption("Creo que Eva no es sus, cabrones");
 
 	// Tamaño letra, fuente y color
 	textArea->setCharHeight(16);
-
 	textArea->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
 	textArea->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
 
-	//textArea->setFontName("BlueHighway"); // Falla al no haber carga de recursos, especificamente con ttf
-
 	generalPanel->addChild(textArea);
-
 }
 

@@ -167,12 +167,14 @@
     <ClCompile Include="..\..\sources\Render\AppContext.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Element.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Manager.cpp" />
+    <ClCompile Include="..\..\sources\Render\UI_Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Render\App.h" />
     <ClInclude Include="..\..\sources\Render\AppContext.h" />
     <ClInclude Include="..\..\sources\Render\UI_Element.h" />
     <ClInclude Include="..\..\sources\Render\UI_Manager.h" />
+    <ClInclude Include="..\..\sources\Render\UI_Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,3 @@
-
 #include <string>
 using namespace std;
 
@@ -11,14 +10,12 @@ namespace Ogre {
 class UIElement
 {
 public:
-	UIElement();
+	UIElement(pair<float, float> pos, pair<float, float> size);
 	virtual ~UIElement();
 
 	void show(); 
 	void hide(); 
 	bool isVisible();
-
-	void setMaterial(string const& materialName);
 
 	virtual void setPosition(float x, float y);
 	virtual void setSize(float w, float h);
@@ -32,12 +29,13 @@ public:
 	string getElementName();
 	
 	void setInteractive(bool isInteractive);
-	bool getIsFocusNow();
 
 protected:
 	
 	pair<float, float> position;
 	pair<float, float> size;
 	bool isInteractive_;
+	string name;
+	Ogre::OverlayContainer* ui_object;
 	
 };

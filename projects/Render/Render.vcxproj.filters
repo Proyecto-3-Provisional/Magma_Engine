@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\sources\Render\UI_Element.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\Render\UI_Text.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Render\App.h">
@@ -39,6 +42,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\UI_Element.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\Render\UI_Text.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
