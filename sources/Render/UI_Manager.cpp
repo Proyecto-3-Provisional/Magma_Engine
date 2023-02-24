@@ -28,7 +28,8 @@ UI_Manager::~UI_Manager() {}
 void UI_Manager::init()
 {
 	//generalPanel->setMaterialName("BaseWhite");
-	generalPanel->setMaterialName("golf");
+	//generalPanel->setMaterialName("golf");
+	generalPanel->setMaterialName("rat");
 
 	// Creamos un area de texto sobre la que trabajar
 	Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(overlayMngr_->createOverlayElement("TextArea", "TextAreaUI"));
