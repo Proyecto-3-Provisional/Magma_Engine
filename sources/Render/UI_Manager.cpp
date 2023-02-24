@@ -3,23 +3,24 @@
 #include <Overlay/OgreOverlay.h>
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
-#include <Overlay/OgreTextAreaOverlayElement.h>
-#include <Overlay/OgreFontManager.h>
 
-UI_Manager::UI_Manager(int dimensionX, int dimensionY)
+
+#include "UI_Text.h"
+
+UI_Manager::UI_Manager()
 {
 	overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
-	Ogre::Overlay* overlay = overlayMngr_->create("OverlayName");
+	overlay = overlayMngr_->create("GeneralOverlay");
 	
-	generalPanel = static_cast<Ogre::OverlayContainer*>(overlayMngr_->createOverlayElement("Panel", "GeneralPanel"));
+	//generalPanel = static_cast<Ogre::OverlayContainer*>(overlayMngr_->createOverlayElement("Panel", "GeneralPanel"));
 
 	// Creamos un panel general para toda la pantalla
-	generalPanel->setMetricsMode(Ogre::GMM_PIXELS);
+	/*generalPanel->setMetricsMode(Ogre::GMM_PIXELS);
 	generalPanel->setPosition(0, 0);
 	generalPanel->setDimensions(dimensionX, dimensionY);
 	
 	// Show the overlay
-	overlay->add2D(generalPanel);
+	overlay->add2D(generalPanel);*/
 	overlay->show();
 }
 
@@ -29,25 +30,30 @@ void UI_Manager::init()
 {
 	//generalPanel->setMaterialName("BaseWhite");
 	//generalPanel->setMaterialName("golf");
-	generalPanel->setMaterialName("rat");
+	/*generalPanel->setMaterialName("rat");
 
-	// Creamos un area de texto sobre la que trabajar
-	Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>(overlayMngr_->createOverlayElement("TextArea", "TextAreaUI"));
+	*/
+}
 
-	// Preparar dimensiones y contenido texto
-	textArea->setMetricsMode(Ogre::GMM_PIXELS);
-	textArea->setPosition(0, 0);
-	textArea->setDimensions(200, 200);
-	
-	textArea->setFontName("Arial");
-	textArea->setCaption("Creo que Eva es sus, caballeros");
 
-	// Tamaño letra, fuente y color
-	textArea->setCharHeight(16);
-	//textArea->setCharHeight(32);
-	textArea->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
-	textArea->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
+/****************************************
+	Borra todos los elementos del overlay
+*****************************************/
 
-	generalPanel->addChild(textArea);
+void UI_Manager::cleanPanel()
+{
+	for (UI_Element* elem : elements)
+		delete elem;
+	elements.clear();
+}
+
+/****************************************************************************
+	Crea un texto personalizado y lo mete a la lista de elementos del overlay
+*****************************************************************************/
+
+void UI_Manager::createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent)
+{
+	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY, fontName, textContent);
+	elements.push_back(text);
 }
 

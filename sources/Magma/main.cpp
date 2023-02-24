@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Render/App.h" // GUILLERMO: "...proyectos como espacios de nombres"
+#include "Render/UI_Manager.h"
 
 #include "SDL_timer.h"	// para calcular el tiempo transcurrido entre fotogramas
 
@@ -9,6 +10,8 @@
 #include "entity_manager.h"
 #include "entity.h"
 #include "transform.h"
+
+
 
 //#include "Input/input_manager.h"
 
@@ -23,11 +26,24 @@ int mainCode() {
 	
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
 
+	
+
+
+
 	float lastFrameTime = SDL_GetTicks(); // Milisegundos transcurridos desde el inicio
 	float timeSinceLastFrame = 0;
 	
 	App app;
 	bool correct = app.initApp(); // Inicio
+	
+	//******************************************************
+	//				UI Manager (Para que funcione, es necesario que App / RenderManager se haya ejecutado antes)
+
+	UI_Manager* ui = new UI_Manager();
+	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Yeet");
+
+	//******************************************************
+
 	if (!correct) {
 		app.closeApp(); // Fin
 		return 1;

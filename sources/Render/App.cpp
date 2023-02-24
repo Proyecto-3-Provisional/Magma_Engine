@@ -6,7 +6,6 @@
 #include <OgreEntity.h>
 #include <OgreMeshManager.h>
 
-#include "UI_Manager.h"
 
 ///#include <SDL_keycode.h>
 
@@ -90,11 +89,6 @@ void App::setupScene(void)
   mPlaneNode->attachObject(plane);
   mPlaneNode->setPosition(0, 0, -400);
 
-
-																// Pruebas de Overlay Ogre (Falta pasar y adaptar todo para un UI Manager)
-  // Aqui habria que meter los valores de la ventana
-  UI_Manager* ui = new UI_Manager(200,100);
-  ui->init();
 
 }
 

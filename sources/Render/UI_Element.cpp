@@ -3,15 +3,32 @@
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
 
-UIElement::UIElement(pair<float, float> pos, pair<float, float> size)
+UI_Element::UI_Element(Ogre::Overlay* overReference, string title)
 {
-	ui_object->setMetricsMode(Ogre::GMM_PIXELS);
-	ui_object->setPosition(pos.first, pos.second);
-	ui_object->setDimensions(size.first, size.second);
-
+	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
+	overlay_ = overReference;
+	name = title;
+	isInteractive_ = false;
 }
 
-UIElement::~UIElement()
-{
+UI_Element::~UI_Element() {}
 
+void UI_Element::showElement()
+{
+	overlay_->show();
+}
+
+void UI_Element::hideElement()
+{
+	overlay_->hide();
+}
+
+bool UI_Element::isElementVisible()
+{
+	return overlay_->isVisible();
+}
+
+string UI_Element::getElementName()
+{
+	return name;
 }

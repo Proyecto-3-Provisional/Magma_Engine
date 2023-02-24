@@ -7,35 +7,37 @@ namespace Ogre {
 	class OverlayManager;
 }
 
-class UIElement
+class UI_Element
 {
 public:
-	UIElement(pair<float, float> pos, pair<float, float> size);
-	virtual ~UIElement();
+	UI_Element(Ogre::Overlay* overReference, string name);
+	~UI_Element();
 
-	void show(); 
-	void hide(); 
-	bool isVisible();
+	void showElement(); 
+	void hideElement(); 
+	bool isElementVisible();
 
-	virtual void setPosition(float x, float y);
-	virtual void setSize(float w, float h);
+	//virtual void setPosition(float x, float y) {};
+	//virtual void setSize(float w, float h) {};
 
-	virtual void setWidth(float widthValue);
-	virtual void setHeight(float heightValue);
+	//virtual void setWidth(float widthValue) {};
+	//virtual void setHeight(float heightValue) {};
 
-	virtual pair<float, float> getPosition();
-	virtual pair<float, float> getSize();
+	pair<float, float> getPosition();
+	pair<float, float> getSize();
 
 	string getElementName();
 	
-	void setInteractive(bool isInteractive);
+	void setInteractive(bool isInteractive) {};
 
 protected:
 	
 	pair<float, float> position;
 	pair<float, float> size;
-	bool isInteractive_;
-	string name;
-	Ogre::OverlayContainer* ui_object;
 	
+	Ogre::OverlayManager* overlayMan_;
+	Ogre::Overlay* overlay_;
+
+	string name;
+	bool isInteractive_;
 };

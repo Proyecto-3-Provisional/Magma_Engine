@@ -1,4 +1,5 @@
 #include <memory>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -9,27 +10,26 @@ namespace Ogre {
 	class OverlayManager;
 }
 
+class UI_Element;
+
 class UI_Manager
 {
 public:
-	UI_Manager(int dimensionX, int dimensionY);
+	UI_Manager();
 	~UI_Manager();
-
-	//static UI_Manager* GetInstance();
 
 	void init();
 
 	void update();
 
 	void cleanPanel();
-
-	// void addUIElement();
+	
+	void createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent);
 
 private:
-	static unique_ptr<UI_Manager> instance;
 
 	Ogre::OverlayManager* overlayMngr_;
 	Ogre::Overlay* overlay;
-	Ogre::OverlayContainer* generalPanel;
+	vector<UI_Element*> elements;
 
 };
