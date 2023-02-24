@@ -1,0 +1,300 @@
+material amongus {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			texture_unit {
+				texture amongus_sus.png
+				colour_op replace
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_red {
+	technique {
+		pass {
+			diffuse 0.8 0.0 0.0
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_brown {
+	technique {
+		pass {
+			diffuse 0.4 0.2 0.0
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_orange {
+	technique {
+		pass {
+			diffuse 0.8 0.4 0.0
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_yellow {
+	technique {
+		pass {
+			diffuse 0.8 0.8 0.0
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_lime {
+	technique {
+		pass {
+			diffuse 0.0 0.8 0.0
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_green {
+	technique {
+		pass {
+			diffuse 0.0 0.6 0.0
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_aqua {
+	technique {
+		pass {
+			diffuse 0.0 0.8 0.4
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_cyan {
+	technique {
+		pass {
+			diffuse 0.0 0.8 0.8
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_blue {
+	technique {
+		pass {
+			diffuse 0.0 0.0 0.8
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_purple {
+	technique {
+		pass {
+			diffuse 0.4 0.0 0.8
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_magenta {
+	technique {
+		pass {
+			diffuse 0.8 0.0 0.8
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_pink {
+	technique {
+		pass {
+			diffuse 0.8 0.4 0.6
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_white {
+	technique {
+		pass {
+			diffuse 0.8 0.8 0.8
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_grey_light {
+	technique {
+		pass {
+			diffuse 0.56 0.56 0.56
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_grey_dark {
+	technique {
+		pass {
+			diffuse 0.33 0.33 0.33
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material amongus_black {
+	technique {
+		pass {
+			diffuse 0.1 0.1 0.1
+			texture_unit {
+				texture amongus_color.png
+				colour_op add
+				tex_address_mode wrap
+			}
+			texture_unit {
+				texture amongus_glass.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}

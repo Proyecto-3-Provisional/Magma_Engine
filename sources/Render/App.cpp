@@ -9,6 +9,25 @@
 
 ///#include <SDL_keycode.h>
 
+const Ogre::String crew_colors[] {
+	"amongus_red",
+	"amongus_brown",
+	"amongus_orange",
+	"amongus_yellow",
+	"amongus_lime",
+	"amongus_green",
+	"amongus_aqua",
+	"amongus_cyan",
+	"amongus_blue",
+	"amongus_purple",
+	"amongus_magenta",
+	"amongus_pink",
+	"amongus_white",
+	"amongus_grey_light",
+	"amongus_grey_dark",
+	"amongus_black"
+};
+
 void App::setup(void)
 {
 	AppContext::setup(); // NO OLVIDAR; LO PRIMERO
@@ -62,18 +81,43 @@ void App::setupScene(void)
   //------------------------------------------------------------------------
 
   // CUBO
-  Ogre::Entity* cube = mSM->createEntity("cube.mesh"); // crear entidad
-  cube->setMaterialName("logo"); // definir material de la entidad
+  Ogre::Entity* cube = mSM->createEntity("axolotl.mesh"); // crear entidad
+  cube->setMaterialName("axolotl"); // definir material de la entidad
 
   mCubeNode = mSM->getRootSceneNode()->createChildSceneNode("CubeNode"); // crear nodo, hijo del 'raíz'
   mCubeNode->attachObject(cube); // anclar entidad a nodo
   
   // configurar nodo
-  mCubeNode->setPosition(0, 0, 350); // me lo acerco a la cara 350 ud.
-  mCubeNode->setScale(2, 2, 2);
+  mCubeNode->setPosition(0, 0, 50); // me lo acerco a la cara 50 ud.
+  mCubeNode->setScale(40, 40, 40);
   mCubeNode->yaw(Ogre::Degree(-45));
   mCubeNode->showBoundingBox(false);
   mCubeNode->setVisible(true);
+
+  // Tripulantes
+  mCrewNode = mSM->getRootSceneNode()->createChildSceneNode("CrewNode");
+  mCrewNode->setPosition(0, 0, 50);
+  mCrewNode->setScale(100, 100, 100);
+
+  float delta_degrees = 360 / NUM_CREWMATES;
+  float init_degrees = 90;
+  float degrees = init_degrees;
+  float radius = 3;
+  for (size_t i = 0; i < NUM_CREWMATES; i++)
+  {
+	  Ogre::SceneNode* n = mSM->getSceneNode("CrewNode")->createChildSceneNode();
+	  n->setPosition(Ogre::Vector3(
+		  radius * Ogre::Math::Cos(Ogre::Degree(degrees)),
+		  radius * Ogre::Math::Sin(Ogre::Degree(degrees)),
+		  0));
+	  n->setOrientation(Ogre::Quaternion(Ogre::Degree(degrees - init_degrees), Ogre::Vector3(0, 0, 1)));
+
+	  mCrew[i] = mSM->createEntity("amongus.mesh"); // crear entidad
+	  mCrew[i]->setMaterialName(crew_colors[i]);
+	  n->attachObject(mCrew[i]);
+
+	  degrees -= delta_degrees;
+  }
 
   // PLANO
   // definir malla mPlane1080x800
@@ -88,11 +132,10 @@ void App::setupScene(void)
   mPlaneNode = mSM->getRootSceneNode()->createChildSceneNode("PlaneNode");
   mPlaneNode->attachObject(plane);
   mPlaneNode->setPosition(0, 0, -400);
-
-
 }
 
 void App::rotate(float deltaTime)
 {
 	mCubeNode->yaw(Ogre::Degree(rotationVelocity * deltaTime));
+	mCrewNode->roll(Ogre::Degree(rotationVelocity * deltaTime) * -1);
 }
