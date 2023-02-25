@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\Render\App.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\Render\AppContext.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\sources\Render\UI_Manager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -30,14 +24,14 @@
     <ClCompile Include="..\..\sources\Render\UI_Text.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\Render\render_manager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\Render\render_manager_context.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\Render\App.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\Render\AppContext.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\sources\Render\UI_Manager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -45,6 +39,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\UI_Text.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\Render\render_manager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\Render\render_manager_context.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

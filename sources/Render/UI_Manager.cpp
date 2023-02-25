@@ -3,7 +3,6 @@
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
 
-
 #include "UI_Text.h"
 
 UI_Manager::UI_Manager()
@@ -21,19 +20,24 @@ UI_Manager::UI_Manager()
 	// Show the overlay
 	overlay->add2D(generalPanel);*/
 	overlay->show();
+	overlay->setVisible(true);
 }
 
-UI_Manager::~UI_Manager() {}
+UI_Manager::~UI_Manager()
+{
+}
 
 void UI_Manager::init()
 {
 	//generalPanel->setMaterialName("BaseWhite");
 	//generalPanel->setMaterialName("golf");
 	/*generalPanel->setMaterialName("rat");
-
 	*/
 }
 
+void UI_Manager::update()
+{
+}
 
 /****************************************
 	Borra todos los elementos del overlay
@@ -50,13 +54,16 @@ void UI_Manager::cleanPanel()
 	Crea un texto personalizado y lo mete a la lista de elementos del overlay
 *****************************************************************************/
 
-void UI_Manager::createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent,float colorX, float colorY, float colorZ)
+void UI_Manager::createText(std::string textPanelName, int posX, int posY,
+	int sizeX, int sizeY, std::string fontName, std::string textContent,
+	float colorX, float colorY, float colorZ)
 {
-	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY, fontName, textContent, Ogre::ColourValue(colorX,colorY,colorZ));
+	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY,
+		fontName, textContent, Ogre::ColourValue(colorX,colorY,colorZ));
 	elements.push_back(text);
 }
 
-UI_Element* UI_Manager::getElement(string name)
+UI_Element* UI_Manager::getElement(std::string name)
 {
-
+	return nullptr;
 }

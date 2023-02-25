@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+// Samir Genaim
 
 #pragma once
 
@@ -34,7 +34,6 @@ struct ___DummyGroup____;
 struct ___DummyHandler____;
 #define _HDLRS_LIST_ ___DummyHandler____
 #endif
-
 
 class Entity;
 class Component;
@@ -115,4 +114,3 @@ namespace ecs {
 //#define __CMPID_DECL__(cId) constexpr static ecs::cmpId_type id = cId;
 //
 //} // end of namespace
-

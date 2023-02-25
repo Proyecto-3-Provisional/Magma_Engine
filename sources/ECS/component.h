@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim (modified to some extent or another)
+// Samir Genaim (modified to some extent or another)
 
 #pragma once
 

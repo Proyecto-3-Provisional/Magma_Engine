@@ -16,4 +16,3 @@ public:
 private:
 	std::vector<Entity*> ents_;
 };
-

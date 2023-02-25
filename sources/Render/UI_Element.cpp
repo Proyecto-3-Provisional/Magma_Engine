@@ -4,7 +4,8 @@
 	Asignamos el overlay general y su manager y creamos un panel con su posicion y tamaño al que meterle todos los elementos necesarios
 ***************************************************************************************************************************************/
 
-UI_Element::UI_Element(Ogre::Overlay* overReference, string title, int posX, int posY, int sizeX, int sizeY)
+UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
+	int posX, int posY, int sizeX, int sizeY)
 {
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 	overlay_ = overReference;
@@ -24,7 +25,9 @@ UI_Element::UI_Element(Ogre::Overlay* overReference, string title, int posX, int
 	panel->setDimensions(sizeX, sizeY);
 }
 
-UI_Element::~UI_Element() {}
+UI_Element::~UI_Element()
+{
+}
 
 // Muestra el elemento dentro del overlay
 void UI_Element::showElement()
@@ -45,19 +48,19 @@ bool UI_Element::isElementVisible()
 }
 
 // Devuelve el nombre del elemento
-string UI_Element::getElementName()
+std::string UI_Element::getElementName()
 {
 	return name;
 }
 
 // Devuelve la posicion del panel
-pair<float, float> UI_Element::getPosition()
+std::pair<float, float> UI_Element::getPosition()
 {
 	return position;
 }
 
 // Devuelve el tamaño del panel
-pair<float, float> UI_Element::getSize()
+std::pair<float, float> UI_Element::getSize()
 {
 	return size;
 }

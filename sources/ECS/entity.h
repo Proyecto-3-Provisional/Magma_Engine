@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim (modified to some extent or another)
+// Samir Genaim (modified to some extent or another)
 
 #pragma once
 
@@ -144,7 +144,3 @@ private:
 	//desde el juego habria que indicar maxComponentId(cuandtos comps lleva). Por ahora ponemos un maximo de 10. Generalmente indicaria el tipo 1 siempre Transform... no tenemos eso
 	//std::array<Component*, 10/*ecs::maxComponentId*/> cmps_;
 };
-
-
-
-

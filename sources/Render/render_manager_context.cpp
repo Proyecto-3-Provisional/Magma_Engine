@@ -1,4 +1,4 @@
-#include "AppContext.h"
+#include "render_manager_context.h"
 
 #include <OgreRoot.h>
 #include <OgreFileSystemLayer.h>
@@ -11,7 +11,8 @@
 ///#include <SDL_video.h>
 #include <SDL_syswm.h>
 
-AppContext::AppContext(const Ogre::String& appName)
+render_manager_context::render_manager_context(const Ogre::String& appName)
+	: exitRequest(false)
 {
 	mAppName = appName;
 	mFSLayer = new Ogre::FileSystemLayer(appName);
@@ -19,12 +20,12 @@ AppContext::AppContext(const Ogre::String& appName)
 	mOverlaySystem = nullptr;
 }
 
-AppContext::~AppContext()
+render_manager_context::~render_manager_context()
 {
 	delete mFSLayer;
 }
 
-bool AppContext::initApp()
+bool render_manager_context::initApp()
 {
 	try {
 		createRoot();
@@ -40,7 +41,7 @@ bool AppContext::initApp()
 	return true;
 }
 
-void AppContext::closeApp()
+void render_manager_context::closeApp()
 {
 	if (mRoot != nullptr)
 	{
@@ -51,7 +52,7 @@ void AppContext::closeApp()
 	mRoot = nullptr;
 }
 
-void AppContext::createRoot()
+void render_manager_context::createRoot()
 {
 	Ogre::String pluginsPath;
 	Ogre::String configPath;
@@ -73,12 +74,11 @@ void AppContext::createRoot()
 	appPath = pluginsPath; // directorio de la app
 	appPath.erase(appPath.find_last_of("\\") + 1, appPath.size() - 1);
 	mFSLayer->setHomePath(appPath); // para los archivos de configuración de OGRE
-	//////appPath.erase(appPath.find_last_of("\\") + 1, appPath.size() - 1); // quito /bin ¿?¿?
 
 	mOverlaySystem = new Ogre::OverlaySystem();
 }
 
-void AppContext::shutdown()
+void render_manager_context::shutdown()
 {
 	if (mWindow.render != nullptr)
 	{
@@ -97,7 +97,7 @@ void AppContext::shutdown()
 	}
 }
 
-void AppContext::setup()
+void render_manager_context::setup()
 {
 	mRoot->initialise(false);
 	createWindow(mAppName);
@@ -110,7 +110,7 @@ void AppContext::setup()
 	mRoot->addFrameListener(this);
 }
 
-bool AppContext::oneTimeConfig()
+bool render_manager_context::oneTimeConfig()
 {
 	if (!mRoot->restoreConfig())
 	{
@@ -119,7 +119,7 @@ bool AppContext::oneTimeConfig()
 	else return true;
 }
 
-NativeWindowPair AppContext::createWindow(const Ogre::String& name)
+NativeWindowPair render_manager_context::createWindow(const Ogre::String& name)
 {
 	uint32_t w, h;
 	Ogre::NameValuePairList miscParams;
@@ -155,7 +155,12 @@ NativeWindowPair AppContext::createWindow(const Ogre::String& name)
 	return mWindow;
 }
 
-void AppContext::setWindowGrab(bool _grab)
+bool render_manager_context::exitRequested()
+{
+	return exitRequest;
+}
+
+void render_manager_context::setWindowGrab(bool _grab)
 {
 	SDL_bool grab = SDL_bool(_grab);
 	SDL_SetWindowGrab(mWindow.native, grab);
@@ -163,51 +168,17 @@ void AppContext::setWindowGrab(bool _grab)
 	SDL_ShowCursor(grab);
 }
 
-void AppContext::pollEvents() // from frameStarted
+bool render_manager_context::renderFrame()
 {
-	if (mWindow.native == nullptr)
-		return;  // SDL events not initialized
-
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		// SE PULSA LA TECLA 'ESCAPE'
-		if (event.key.keysym.sym == SDLK_ESCAPE) {
-			//mRoot->queueEndRendering();
-
-			// Esto hace que el bucle de main() se detenga
-			// vvv //
-			salir = true;
-		}
-
-		switch (event.type)
-		{
-		case SDL_QUIT: // CRUZ DE CERRAR VENTANA
-			mRoot->queueEndRendering();
-			break;
-		case SDL_WINDOWEVENT:
-			if (event.window.windowID == SDL_GetWindowID(mWindow.native)) {
-				if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-				{
-					Ogre::RenderWindow* win = mWindow.render;
-					//win->resize(event.window.data1, event.window.data2);  // IG2: ERROR 
-					win->windowMovedOrResized();
-					windowResized(win);
-				}
-			}
-			break;
-		default:
-			break;
-		}
-	}
+	return mRoot->renderOneFrame();
 }
 
-void AppContext::loadResources()
+void render_manager_context::loadResources()
 {
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void AppContext::locateResources()
+void render_manager_context::locateResources()
 {
 	// Recursos en carpeta assets
 	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
@@ -215,7 +186,8 @@ void AppContext::locateResources()
 		"FileSystem");
 
 	Ogre::String sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-	const Ogre::ResourceGroupManager::LocationList genLocs = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
+	const Ogre::ResourceGroupManager::LocationList genLocs =
+		Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
 
 	assert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
 
@@ -225,28 +197,34 @@ void AppContext::locateResources()
 	// Add locations for supported shader languages
 	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSLES", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
+			"/materials/programs/GLSLES", type, sec);
 	}
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL120", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
+			"/materials/programs/GLSL120", type, sec);
 
 		if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl150"))
 		{
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL150", type, sec);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
+				"/materials/programs/GLSL150", type, sec);
 		}
 		else
 		{
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL", type, sec);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
+				"/materials/programs/GLSL", type, sec);
 		}
 
 		if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl400"))
 		{
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSL400", type, sec);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
+				"/materials/programs/GLSL400", type, sec);
 		}
 	}
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
 	{
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
+			"/materials/programs/HLSL", type, sec);
 	}
 }

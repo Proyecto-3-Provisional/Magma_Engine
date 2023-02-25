@@ -12,9 +12,9 @@ del *.dll
 del *.cfg
 cd ..
 
-:: Borrar compliación de Ogre (~4 GB)
+:: Borrar compliaciones de las dependencias (~4 GB)
 echo =-==-= Borrando compilaciones de dependencias... =-==-=
-echo =-==-= Por favor ESPERA unos instantes mientras la operación se completa... =-==-=
+echo =-==-= Por favor ESPERA unos segundos mientras la operación se completa... =-==-=
 rmdir /Q /S dependencies\ogre\builds\x64
 rmdir /Q /S dependencies\bullet\builds
 echo =-==-= Compilaciones de dependencias borradas =-==-=

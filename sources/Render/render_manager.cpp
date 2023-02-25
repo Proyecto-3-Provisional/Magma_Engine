@@ -1,4 +1,4 @@
-#include "App.h"
+#include "render_manager.h"
 
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
@@ -6,44 +6,39 @@
 #include <OgreEntity.h>
 #include <OgreMeshManager.h>
 
+#include <SDL_events.h>
 
-///#include <SDL_keycode.h>
-
-const Ogre::String crew_colors[] {
-	"amongus_red",
-	"amongus_brown",
-	"amongus_orange",
-	"amongus_yellow",
-	"amongus_lime",
-	"amongus_green",
-	"amongus_aqua",
-	"amongus_cyan",
-	"amongus_blue",
-	"amongus_purple",
-	"amongus_magenta",
-	"amongus_pink",
-	"amongus_white",
-	"amongus_grey_light",
-	"amongus_grey_dark",
-	"amongus_black"
-};
-
-void App::setup(void)
+render_manager::render_manager() : render_manager_context("MagmaTest"),
+	keydown(false), rotationVelocity(0.05)
 {
-	AppContext::setup(); // NO OLVIDAR; LO PRIMERO
+}
+
+render_manager::~render_manager()
+{
+}
+
+void render_manager::rotate(float deltaTime)
+{
+	mCubeNode->yaw(Ogre::Degree(rotationVelocity * deltaTime));
+	mCrewNode->roll(Ogre::Degree(rotationVelocity * deltaTime) * -1);
+}
+
+void render_manager::setup(void)
+{
+	render_manager_context::setup(); // NO OLVIDAR; LO PRIMERO
 	mSM = mRoot->createSceneManager();
 	mSM->addRenderQueueListener(mOverlaySystem);
 	setupScene();
 }
 
-void App::shutdown()
+void render_manager::shutdown()
 {
   mSM->removeRenderQueueListener(mOverlaySystem);
   mRoot->destroySceneManager(mSM);
-  AppContext::shutdown(); // NO OLVIDAR
+  render_manager_context::shutdown(); // NO OLVIDAR
 }
 
-void App::setupScene(void)
+void render_manager::setupScene(void)
 {
   // create the camera
   Ogre::Camera* cam = mSM->createCamera("Cam");
@@ -134,8 +129,67 @@ void App::setupScene(void)
   mPlaneNode->setPosition(0, 0, -400);
 }
 
-void App::rotate(float deltaTime)
+void render_manager::pollEvents() // from frameStarted
 {
-	mCubeNode->yaw(Ogre::Degree(rotationVelocity * deltaTime));
-	mCrewNode->roll(Ogre::Degree(rotationVelocity * deltaTime) * -1);
+	if (mWindow.native == nullptr)
+		return;  // SDL events not initialized
+
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_QUIT: // CRUZ DE CERRAR VENTANA
+			// Esto hace que el bucle de main() se detenga
+			exitRequest = true;
+			break;
+		case SDL_WINDOWEVENT:
+			if (event.window.windowID == SDL_GetWindowID(mWindow.native))
+			{
+				if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+				{
+					Ogre::RenderWindow* win = mWindow.render;
+					win->windowMovedOrResized();
+					windowResized(win);
+				}
+			}
+			break;
+		case SDL_KEYDOWN:
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+			{
+				// SE PULSA LA TECLA 'ESCAPE'
+				exitRequest = true;
+			}
+			else
+			{
+				if (!keydown)
+				{
+					keydown = true;
+					rotationVelocity += 0.1;
+				}
+			}
+			break;
+		case SDL_KEYUP:
+			if (keydown)
+			{
+				keydown = false;
+				rotationVelocity = 0.05;
+			}
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (event.button.button == SDL_BUTTON_LEFT)
+			{
+				rotationVelocity += 0.1;
+			}
+			else if (event.button.button == SDL_BUTTON_RIGHT) {
+				rotationVelocity -= 0.1;
+			}
+			break;
+		case SDL_MOUSEBUTTONUP:
+			rotationVelocity = 0.05;
+			break;
+		default:
+			break;
+		}
+	}
 }

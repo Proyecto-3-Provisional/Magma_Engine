@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+// Samir Genaim
 
 #pragma once
 
@@ -17,5 +17,3 @@ struct Transform;
 		 RectangleViewer,\
 		 PaddleCtrl,\
 		 GameState*/
-
-

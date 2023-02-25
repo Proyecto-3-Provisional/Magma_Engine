@@ -163,15 +163,15 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\Render\App.cpp" />
-    <ClCompile Include="..\..\sources\Render\AppContext.cpp" />
+    <ClCompile Include="..\..\sources\Render\render_manager.cpp" />
+    <ClCompile Include="..\..\sources\Render\render_manager_context.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Element.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Manager.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Text.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\Render\App.h" />
-    <ClInclude Include="..\..\sources\Render\AppContext.h" />
+    <ClInclude Include="..\..\sources\Render\render_manager.h" />
+    <ClInclude Include="..\..\sources\Render\render_manager_context.h" />
     <ClInclude Include="..\..\sources\Render\UI_Element.h" />
     <ClInclude Include="..\..\sources\Render\UI_Manager.h" />
     <ClInclude Include="..\..\sources\Render\UI_Text.h" />
