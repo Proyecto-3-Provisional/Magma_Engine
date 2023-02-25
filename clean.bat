@@ -16,6 +16,7 @@ cd ..
 echo =-==-= Borrando compilaciones de dependencias... =-==-=
 echo =-==-= Por favor ESPERA unos instantes mientras la operación se completa... =-==-=
 rmdir /Q /S dependencies\ogre\builds\x64
+rmdir /Q /S dependencies\bullet\builds
 echo =-==-= Compilaciones de dependencias borradas =-==-=
 
 :: NOTAS :: :: :: :: :: :: :: ::
