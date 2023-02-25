@@ -1,8 +1,11 @@
 :: utilidad -> https://stackoverflow.com/questions/3827567/how-to-get-the-path-of-the-batch-script-in-windows
 set dir_raiz=%~dp0
 
-set dir_fuentes=%dir_raiz%dependencies\ogre\sources\ogre-13.6.1
-set dir_sol_config=%dir_raiz%dependencies\ogre\builds\x64
+set dir_fuentes_ogre=%dir_raiz%dependencies\ogre\sources\ogre-13.6.1
+set dir_sol_config_ogre=%dir_raiz%dependencies\ogre\builds\x64
+
+set dir_fuentes_bullet=%dir_raiz%\dependencies\bullet\sources
+set dir_sol_config_bullet=%dir_raiz%\dependencies\bullet\builds
 
 
 :: PREPARAR LAS DEPENDENCIAS ::
@@ -14,22 +17,29 @@ cd .\dependencies\cmake\bin
 :: OGRE DEBUG
 :: Configurar fuentes para la plataforma
 :: valor por defecto CMAKE_CONFIGURATION_TYPES="Debug;Release;MinSizeRel;RelWithDebInfo"
-.\cmake.exe -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_PLUGIN_DIR=%dir_raiz%executables -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=on -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_PLUGIN_STBI=on -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes% -B %dir_sol_config%
+.\cmake.exe -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_PLUGIN_DIR=%dir_raiz%executables -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=off -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_PLUGIN_STBI=on -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes_ogre% -B %dir_sol_config_ogre%
 :: Compilar solución fuente generada
-.\cmake.exe --build %dir_sol_config% --config Debug
+.\cmake.exe --build %dir_sol_config_ogre% --config Debug
 :: "Instalar" OGRE -> dir. "sdk"
-.\cmake.exe --build %dir_sol_config% --config Debug --target install
+.\cmake.exe --build %dir_sol_config_ogre% --config Debug --target install
 
 :: OGRE RELEASE
 :: Configurar fuentes para la plataforma
-.\cmake.exe -DCMAKE_BUILD_TYPE="Release" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_PLUGIN_DIR=%dir_raiz%executables -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=on -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_PLUGIN_STBI=on -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes% -B %dir_sol_config%
+.\cmake.exe -DCMAKE_BUILD_TYPE="Release" -DCMAKE_CONFIGURATION_TYPES="Debug;Release" -DOGRE_PLUGIN_DIR=%dir_raiz%executables -DOGRE_BUILD_COMPONENT_BITES=off -DOGRE_BUILD_COMPONENT_BULLET=off -DOGRE_BUILD_COMPONENT_TERRAIN=off -DOGRE_BUILD_COMPONENT_VOLUME=off -DOGRE_BUILD_MSVC_MP=on -DOGRE_BUILD_MSVC_ZM=off -DOGRE_BUILD_RENDERSYSTEM_D3D9=off -DOGRE_BUILD_RENDERSYSTEM_D3D11=off -DOGRE_BUILD_RENDERSYSTEM_GL=on -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=off -DOGRE_BUILD_RENDERSYSTEM_GLES2=off -DOGRE_BUILD_RENDERSYSTEM_TINY=off -DOGRE_BUILD_RENDERSYSTEM_VULKAN=off -DOGRE_INSTALL_DOCS=off -DOGRE_INSTALL_PDB=off -DOGRE_INSTALL_CMAKE=off -DOGRE_INSTALL_VSPROPS=off -DOGRE_BUILD_SAMPLES=off -DOGRE_INSTALL_SAMPLES=off -DOGRE_BUILD_TOOLS=off -DOGRE_STATIC=off -DOGRE_PROFILING=off -DOGRE_BUILD_PLUGIN_ASSIMP=off -DOGRE_BUILD_PLUGIN_BSP=off -DOGRE_BUILD_PLUGIN_OCTREE=off -DOGRE_BUILD_PLUGIN_DOT_SCENE=off -DOGRE_BUILD_PLUGIN_PCZ=off -DOGRE_BUILD_PLUGIN_STBI=on -DOGRE_BUILD_COMPONENT_PYTHON=off -DOGRE_BUILD_COMPONENT_JAVA=off -DOGRE_BUILD_COMPONENT_CSHARP=off -S %dir_fuentes_ogre% -B %dir_sol_config_ogre%
 :: Compilar solución fuente generada
-.\cmake.exe --build %dir_sol_config% --config Release
+.\cmake.exe --build %dir_sol_config_ogre% --config Release
 :: "Instalar" OGRE -> dir. "sdk"
-.\cmake.exe --build %dir_sol_config% --config Release --target install
+.\cmake.exe --build %dir_sol_config_ogre% --config Release --target install
+
+:: BULLET DEBUG Y RELEASE
+.\cmake.exe -DBUILD_BULLET3=on -DBUILD_BULLET2_DEMOS=off -DBUILD_BULLET_ROBOTICS_EXTRA=off -DBUILD_BULLET_ROBOTICS_GUI_EXTRA=off -DBUILD_CLSOCKET=off -DBUILD_CONVEX_DECOMPOSITION_EXTRA=off -DBUILD_CPU_DEMOS=off -DBUILD_ENET=off -DBUILD_EXTRAS=off -DBUILD_GIMPACTUTILS_EXTRA=off -DBUILD_HACD_EXTRA=off -DBUILD_INVERSE_DYNAMIC_EXTRA=off -DBUILD_OBJ2SDF_EXTRA=off -DBUILD_OPENGL3_DEMOS=off -DBUILD_SERIALIZE_EXTRA=off -DBUILD_UNIT_TESTS=off -DENABLE_VHACD=off -S %dir_fuentes_bullet% -B %dir_sol_config_bullet% 
+
+.\cmake.exe --build %dir_sol_config_bullet% --config Debug
+
+.\cmake.exe --build %dir_sol_config_bullet% --config Release
 
 :: Volver a la raíz
-cd ..\..\..
+cd %dir_raiz%
 
 :: Alguna de las dependencias de OGRE también la usaremos nosotros directamente en Magma, y además la queremos tanto en Debug como en Release...
 :: Por algún motivo después de llegar a este punto, no se regenera la build interna de SDL para Ogre con la nueva configuración, y solo queda la antigua.
@@ -43,10 +53,6 @@ cd .\dependencies\ogre\builds\x64\zlib-1.2.13
 msbuild zlib.sln -p:Configuration=Release -noLogo -verbosity:minimal -maxCpuCount
 cd %dir_raiz%
 copy .\dependencies\ogre\builds\x64\zlib-1.2.13\Release\zlib.dll .\dependencies\ogre\builds\x64\sdk\bin
-:: ... y Bullet
-cd .\dependencies\ogre\builds\x64\bullet3-3.24
-msbuild BULLET_PHYSICS.sln -p:Configuration=Release -noLogo -verbosity:minimal -maxCpuCount
-cd %dir_raiz%
 
 :: Copia de ficheros necesarios al dir. de salida
 mkdir executables
