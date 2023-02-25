@@ -55,8 +55,8 @@ void UI_Manager::createText(string textPanelName, int posX, int posY, int sizeX,
 	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY, fontName, textContent, Ogre::ColourValue(colorX,colorY,colorZ));
 	elements.push_back(text);
 }
-
+/*
 UI_Element* UI_Manager::getElement(string name)
 {
-
-}
+		
+}*/
