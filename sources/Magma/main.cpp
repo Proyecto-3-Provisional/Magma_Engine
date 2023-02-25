@@ -40,7 +40,7 @@ int mainCode() {
 	//				UI Manager (Para que funcione, es necesario que App / RenderManager se haya ejecutado antes)
 
 	UI_Manager* ui = new UI_Manager();
-	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Yeet");
+	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5,0.3,0.1);
 
 	//******************************************************
 

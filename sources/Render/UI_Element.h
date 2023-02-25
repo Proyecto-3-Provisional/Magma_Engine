@@ -1,27 +1,23 @@
+#include <Overlay/OgreOverlay.h>
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlayContainer.h>
+
 #include <string>
 using namespace std;
 
-namespace Ogre {
-	class Overlay;
-	class OverlayContainer;
-	class OverlayManager;
-}
 
 class UI_Element
 {
 public:
-	UI_Element(Ogre::Overlay* overReference, string name);
+	UI_Element(Ogre::Overlay* overReference, string name, int posX, int posY, int sizeX, int sizeY);
 	~UI_Element();
 
 	void showElement(); 
 	void hideElement(); 
 	bool isElementVisible();
 
-	//virtual void setPosition(float x, float y) {};
-	//virtual void setSize(float w, float h) {};
-
-	//virtual void setWidth(float widthValue) {};
-	//virtual void setHeight(float heightValue) {};
+	void setPanelPosition(float x, float y) {};
+	void setPanelSize(float w, float h) {};
 
 	pair<float, float> getPosition();
 	pair<float, float> getSize();
@@ -37,6 +33,8 @@ protected:
 	
 	Ogre::OverlayManager* overlayMan_;
 	Ogre::Overlay* overlay_;
+	Ogre::OverlayContainer* panel;
+
 
 	string name;
 	bool isInteractive_;

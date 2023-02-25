@@ -1,7 +1,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-
 using namespace std;
 
 namespace Ogre {
@@ -24,12 +23,15 @@ public:
 
 	void cleanPanel();
 	
-	void createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent);
+	void createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent, float colorX, float colorY, float colorZ);
+
+	UI_Element* getElement(string name);
 
 private:
 
 	Ogre::OverlayManager* overlayMngr_;
 	Ogre::Overlay* overlay;
 	vector<UI_Element*> elements;
+
 
 };

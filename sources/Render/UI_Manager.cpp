@@ -1,5 +1,4 @@
 #include "UI_Manager.h"
-
 #include <Overlay/OgreOverlay.h>
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
@@ -51,9 +50,13 @@ void UI_Manager::cleanPanel()
 	Crea un texto personalizado y lo mete a la lista de elementos del overlay
 *****************************************************************************/
 
-void UI_Manager::createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent)
+void UI_Manager::createText(string textPanelName, int posX, int posY, int sizeX, int sizeY, string fontName, string textContent,float colorX, float colorY, float colorZ)
 {
-	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY, fontName, textContent);
+	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY, fontName, textContent, Ogre::ColourValue(colorX,colorY,colorZ));
 	elements.push_back(text);
 }
 
+UI_Element* UI_Manager::getElement(string name)
+{
+
+}
