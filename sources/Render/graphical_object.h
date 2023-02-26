@@ -2,7 +2,8 @@
 #include <string>
 #include <OgreAutoParamDataSource.h>
 
-// Wrapper del uso básico de SceneNodes de Ogre
+// Wrapper del uso básico de SceneNode (y Entity) de la escena de Ogre
+// Permite crear y manipular fácilmente desde fuera objetos del mundo gráfico
 
 namespace Ogre
 {
@@ -41,11 +42,13 @@ public:
 	// Acerca del nodo
 	Ogre::String getKeyName();
 	Ogre::SceneNode* getNode();
-	void aknowledgeChild();
-	void childRemoved();
 	int getChildrenUsing();
 
 protected:
+	// Notificar existencia de objetos hijos
+	void aknowledgeChild();
+	void childRemoved();
+
 	// Nodo y entidad asociados a este constructo
 	Ogre::SceneNode* objectNode = nullptr;
 	Ogre::Entity* entity = nullptr; // nullptr -> nodo vacío
