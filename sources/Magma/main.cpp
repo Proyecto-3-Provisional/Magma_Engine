@@ -5,7 +5,7 @@
 // GUILLERMO: "...proyectos como espacios de nombres"
 #include "Render/render_manager.h"
 #include "Render/UI_Manager.h"
-//#include "Input/input_manager.h"
+#include "Input/input_manager.h"
 
 #include "entity_manager.h"
 #include "entity.h"
@@ -59,12 +59,18 @@ int mainCode() {
 	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5,0.3,0.1);
 	//******************************************************
 
+	//******************************************************
+	InputManager* input = new InputManager; 
+
 	bool error = false;
 	while (!renderMngr.exitRequested() && !error)
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
 		lastFrameTime = SDL_GetTicks();
+
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
+		input->inputEvent(); 
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 		entityManager->update();
