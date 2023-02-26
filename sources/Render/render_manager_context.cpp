@@ -11,7 +11,7 @@
 ///#include <SDL_video.h>
 #include <SDL_syswm.h>
 
-render_manager_context::render_manager_context(const Ogre::String& appName)
+RenderManagerContext::RenderManagerContext(const Ogre::String& appName)
 	: exitRequest(false)
 {
 	mAppName = appName;
@@ -20,12 +20,12 @@ render_manager_context::render_manager_context(const Ogre::String& appName)
 	mOverlaySystem = nullptr;
 }
 
-render_manager_context::~render_manager_context()
+RenderManagerContext::~RenderManagerContext()
 {
 	delete mFSLayer;
 }
 
-bool render_manager_context::initApp()
+bool RenderManagerContext::initApp()
 {
 	try {
 		createRoot();
@@ -41,7 +41,7 @@ bool render_manager_context::initApp()
 	return true;
 }
 
-void render_manager_context::closeApp()
+void RenderManagerContext::closeApp()
 {
 	if (mRoot != nullptr)
 	{
@@ -52,7 +52,7 @@ void render_manager_context::closeApp()
 	mRoot = nullptr;
 }
 
-void render_manager_context::createRoot()
+void RenderManagerContext::createRoot()
 {
 	Ogre::String pluginsPath;
 	Ogre::String configPath;
@@ -78,7 +78,7 @@ void render_manager_context::createRoot()
 	mOverlaySystem = new Ogre::OverlaySystem();
 }
 
-void render_manager_context::shutdown()
+void RenderManagerContext::shutdown()
 {
 	if (mWindow.render != nullptr)
 	{
@@ -97,7 +97,7 @@ void render_manager_context::shutdown()
 	}
 }
 
-void render_manager_context::setup()
+void RenderManagerContext::setup()
 {
 	mRoot->initialise(false);
 	createWindow(mAppName);
@@ -110,7 +110,7 @@ void render_manager_context::setup()
 	mRoot->addFrameListener(this);
 }
 
-bool render_manager_context::oneTimeConfig()
+bool RenderManagerContext::oneTimeConfig()
 {
 	if (!mRoot->restoreConfig())
 	{
@@ -119,7 +119,7 @@ bool render_manager_context::oneTimeConfig()
 	else return true;
 }
 
-NativeWindowPair render_manager_context::createWindow(const Ogre::String& name)
+NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 {
 	uint32_t w, h;
 	Ogre::NameValuePairList miscParams;
@@ -155,12 +155,12 @@ NativeWindowPair render_manager_context::createWindow(const Ogre::String& name)
 	return mWindow;
 }
 
-bool render_manager_context::exitRequested()
+bool RenderManagerContext::exitRequested()
 {
 	return exitRequest;
 }
 
-void render_manager_context::setWindowGrab(bool _grab)
+void RenderManagerContext::setWindowGrab(bool _grab)
 {
 	SDL_bool grab = SDL_bool(_grab);
 	SDL_SetWindowGrab(mWindow.native, grab);
@@ -168,17 +168,17 @@ void render_manager_context::setWindowGrab(bool _grab)
 	SDL_ShowCursor(grab);
 }
 
-bool render_manager_context::renderFrame()
+bool RenderManagerContext::renderFrame()
 {
 	return mRoot->renderOneFrame();
 }
 
-void render_manager_context::loadResources()
+void RenderManagerContext::loadResources()
 {
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void render_manager_context::locateResources()
+void RenderManagerContext::locateResources()
 {
 	// Recursos en carpeta assets
 	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(

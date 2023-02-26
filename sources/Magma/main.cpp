@@ -21,8 +21,8 @@ int mainCode() {
 	float timeSinceLastFrame = 0;
 
 	// Inicio del renderizado
-	render_manager app;
-	bool correct = app.initApp();
+	RenderManager renderMngr;
+	bool correct = renderMngr.initApp();
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 	EntityManager* manager_ = new EntityManager();
@@ -33,7 +33,7 @@ int mainCode() {
 	if (!correct)
 	{
 		// Fin del renderizado
-		app.closeApp();
+		renderMngr.closeApp();
 		return 1;
 	}
 
@@ -44,7 +44,7 @@ int mainCode() {
 	//******************************************************
 
 	bool error = false;
-	while (!app.exitRequested() && !error)
+	while (!renderMngr.exitRequested() && !error)
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
@@ -59,10 +59,12 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
 		// Rotar objeto para ver cambios entre fotogramas
-		app.rotate(timeSinceLastFrame);
+		renderMngr.rotateObjects(timeSinceLastFrame);
+		// Control de cuándo se borran aquellos que deben ser borrados
+		renderMngr.refreshObjects();
 
 		// Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
-		if (!app.renderFrame())
+		if (!renderMngr.renderFrame())
 			error = true;
 	}
 	if (error)
@@ -72,7 +74,7 @@ int mainCode() {
 	delete manager_; manager_ = nullptr;
 
 	// Fin del renderizado
-	app.closeApp();
+	renderMngr.closeApp();
 
 	return 0;
 }

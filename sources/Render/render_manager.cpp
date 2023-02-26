@@ -8,37 +8,164 @@
 
 #include <SDL_events.h>
 
-render_manager::render_manager() : render_manager_context("MagmaTest"),
+RenderManager::RenderManager() : RenderManagerContext("MagmaTest"),
 	keydown(false), rotationVelocity(0.05)
 {
 }
 
-render_manager::~render_manager()
+RenderManager::~RenderManager()
 {
 }
 
-void render_manager::rotate(float deltaTime)
+void RenderManager::rotateObjects(float deltaTime)
 {
 	mCubeNode->yaw(Ogre::Degree(rotationVelocity * deltaTime));
 	mCrewNode->roll(Ogre::Degree(rotationVelocity * deltaTime) * -1);
+
+	if (rotatingGraphicalObjectBody != nullptr)
+		rotatingGraphicalObjectBody->pitch(rotationVelocity * deltaTime);
 }
 
-void render_manager::setup(void)
+// Devuelve si tuvo éxito
+bool RenderManager::addObject(std::string key, GraphicalObject* parent = nullptr,
+	std::string mesh = "", std::string material = "default")
 {
-	render_manager_context::setup(); // NO OLVIDAR; LO PRIMERO
+	// la estructura ya comprueba la existencia de la clave
+	// crear objeto
+	GraphicalObject* newGO = new GraphicalObject(key, *mSM, parent, mesh, material);
+	sceneObjects.insert(std::make_pair(key, newGO));
+
+	return true;
+}
+
+// Devuelve nullptr si no se halla
+GraphicalObject* RenderManager::getObject(std::string key)
+{
+	// Hay que comprobar que existe la clave
+	GraphicalObject* gO = nullptr;
+	try
+	{
+		gO = sceneObjects.at(key);
+	}
+	catch (std::out_of_range e)
+	{
+	}
+	return gO;
+}
+
+// No devuelve NADA
+void RenderManager::sunsetObject(GraphicalObject* gO)
+{
+	sceneObjectsToRemove.push_back(gO);
+}
+
+// Devuelve si tuvo éxito (el marcado)
+bool RenderManager::sunsetObject(std::string key)
+{
+	// comprobar que existe la clave
+	GraphicalObject* gO = getObject(key);
+	if (!gO)
+		return false;
+	
+	sceneObjectsToRemove.push_back(gO);
+	return true;
+}
+
+// Devuelve si tuvo éxito
+bool RenderManager::removeObject(GraphicalObject* gO)
+{
+	// si de este objeto penden otros, no hacer nada
+	if (gO->getChildrenUsing() > 0)
+		return false;
+
+	// borrar objeto
+	sceneObjects.erase(gO->getKeyName());
+	delete gO;
+	gO = nullptr;
+	return true;
+}
+
+// Devuelve si tuvo éxito
+bool RenderManager::removeObject(std::string key)
+{
+	// comprobar que existe la clave
+	GraphicalObject* gO = getObject(key);
+	if (!gO)
+		return false;
+
+	// si de este objeto penden otros, no hacer nada
+	if (gO->getChildrenUsing() > 0)
+		return false;
+
+	// borrar objeto
+	delete gO;
+	gO = nullptr;
+	sceneObjects.erase(key);
+	return true;
+}
+
+// No devuelve NADA
+void RenderManager::removeObjects() // Este algoritmo es algo inquietante
+{
+	while (!sceneObjects.empty())
+	{
+		auto it = sceneObjects.begin();
+		while (it != sceneObjects.end()) {
+			// avanzar índice, pero dejandome acceso también al que quiero borrar
+			auto it_aux = it;
+			it++;
+			
+			// 1st es la key; 2nd es el ptr al Objeto
+			// tratar de borrar
+			/*bool b = */removeObject((*it_aux).second);
+		}
+	}
+}
+
+// Devuelve verdadero solo si ningún objeto se resistió a ser borrado (tiene hijos)
+bool RenderManager::refreshObjects()
+{
+	bool ret = true;
+
+	auto it = sceneObjectsToRemove.begin();
+	while (it != sceneObjectsToRemove.end()) {
+		// avanzar índice, pero dejandome acceso también al que quiero borrar
+		auto it_aux = it;
+		it++;
+
+		// tratar de borrar
+		bool b = removeObject((*it_aux));
+		if (b)
+			sceneObjectsToRemove.erase(it_aux);
+		ret = ret && b;
+	}
+	return ret;
+}
+
+void RenderManager::setup(void)
+{
+	RenderManagerContext::setup(); // NO OLVIDAR; LO PRIMERO
 	mSM = mRoot->createSceneManager();
 	mSM->addRenderQueueListener(mOverlaySystem);
 	setupScene();
 }
 
-void render_manager::shutdown()
+void RenderManager::shutdown()
 {
-  mSM->removeRenderQueueListener(mOverlaySystem);
-  mRoot->destroySceneManager(mSM);
-  render_manager_context::shutdown(); // NO OLVIDAR
+	removeObjects(); // Quitar todos aquellos cuerpos añadidos a la escena
+	/*
+	bool test = removeObject("cubomagma");
+	assert(test);	// destrucción necesariamente en orden de hijo a padre
+	test = removeObject("cubomagma_aux");
+	assert(test);
+	*/
+
+	mSM->removeRenderQueueListener(mOverlaySystem);
+	mRoot->destroySceneManager(mSM);
+	RenderManagerContext::shutdown(); // NO OLVIDAR
 }
 
-void render_manager::setupScene(void)
+void RenderManager::setupScene(void)
 {
   // create the camera
   Ogre::Camera* cam = mSM->createCamera("Cam");
@@ -75,7 +202,18 @@ void render_manager::setupScene(void)
  
   //------------------------------------------------------------------------
 
-  // CUBO
+  // TEST DE 'GraphicalObject'
+  addObject("cubomagma_aux", nullptr);
+  rotatingGraphicalObjectBody = sceneObjects.at("cubomagma_aux");
+  rotatingGraphicalObjectBody->setPosition(Ogre::Vector3(0, 0, 50));
+  rotatingGraphicalObjectBody->setScale(Ogre::Vector3(0.8, 0.8, 0.8));
+  rotatingGraphicalObjectBody->makeVisible(true);
+  //
+  addObject("cubomagma", rotatingGraphicalObjectBody, "cube.mesh", "logo");
+  GraphicalObject* objCubo = sceneObjects.at("cubomagma");
+  objCubo->translate(Ogre::Vector3(0, 0, 200), Ogre::Node::TransformSpace::TS_WORLD);
+
+  // AJOLOTE
   Ogre::Entity* cube = mSM->createEntity("axolotl.mesh"); // crear entidad
   cube->setMaterialName("axolotl"); // definir material de la entidad
 
@@ -89,7 +227,7 @@ void render_manager::setupScene(void)
   mCubeNode->showBoundingBox(false);
   mCubeNode->setVisible(true);
 
-  // Tripulantes
+  // TRIPULANTES
   mCrewNode = mSM->getRootSceneNode()->createChildSceneNode("CrewNode");
   mCrewNode->setPosition(0, 0, 50);
   mCrewNode->setScale(100, 100, 100);
@@ -129,7 +267,7 @@ void render_manager::setupScene(void)
   mPlaneNode->setPosition(0, 0, -400);
 }
 
-void render_manager::pollEvents() // from frameStarted
+void RenderManager::pollEvents() // from frameStarted
 {
 	if (mWindow.native == nullptr)
 		return;  // SDL events not initialized
@@ -159,6 +297,17 @@ void render_manager::pollEvents() // from frameStarted
 			{
 				// SE PULSA LA TECLA 'ESCAPE'
 				exitRequest = true;
+			}
+			else if (event.key.keysym.sym == SDLK_PERIOD)
+			{
+				// TEST DE 'GraphicalObject'
+
+				//removeObject("cubomagma");
+				sunsetObject("cubomagma");
+				//removeObject("cubomagma_aux");
+				sunsetObject("cubomagma_aux");
+
+				rotatingGraphicalObjectBody = nullptr; // necesario dado lo anterior...
 			}
 			else
 			{

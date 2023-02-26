@@ -20,11 +20,11 @@ struct NativeWindowPair
 
 // Clase base responsable de establecer un contexto común para aplicaciones
 // La subclase debe especificar los callbacks a eventos
-class render_manager_context : public Ogre::FrameListener
+class RenderManagerContext : public Ogre::FrameListener
 {
 public:
-	explicit render_manager_context(const Ogre::String& appName = OGRE_VERSION_NAME);
-	virtual ~render_manager_context();
+	explicit RenderManagerContext(const Ogre::String& appName = OGRE_VERSION_NAME);
+	virtual ~RenderManagerContext();
 
 	// Obtener la RenderWindow; posee el contexto en OpenGL
 	Ogre::RenderWindow* getRenderWindow() const { return mWindow.render; }

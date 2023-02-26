@@ -1,18 +1,39 @@
 #pragma once
 
 #include "render_manager_context.h"
+#include "graphical_object.h"
 
-class render_manager : public render_manager_context
+class RenderManager : public RenderManagerContext
 {
 #define NUM_CREWMATES 16 // Colores de tripulantes
 public:
-	explicit render_manager(); // new -> setup()
-	virtual ~render_manager(); // delete -> shutdown()
+	explicit RenderManager(); // new -> setup()
+	virtual ~RenderManager(); // delete -> shutdown()
 
 	// Ejemplo de movimiento
-	void rotate(float deltaTime);
+	void rotateObjects(float deltaTime);
+
+	// Crear objeto
+	bool addObject(std::string key, GraphicalObject* parent,
+		std::string mesh, std::string material);
+	// Obtener objeto
+	GraphicalObject* getObject(std::string key);
+	// Marcar objeto para destrucción segura (control de cuándo)
+	void sunsetObject(GraphicalObject* gO);
+	bool sunsetObject(std::string key);
+	// Destruir objeto
+	bool removeObject(GraphicalObject* gO);
+	bool removeObject(std::string key);
+	// Destruir todos los objetos (asegurarse al final)
+	void removeObjects();
+	// Destruir aquellos objetos que fueron marcados previamente
+	bool refreshObjects();
 
 protected:
+	// Objetos nuestros del mundo gráfico
+	std::unordered_map<std::string, GraphicalObject*> sceneObjects;
+	std::list<GraphicalObject*> sceneObjectsToRemove;
+
 	// Preparar
 	virtual void setup();
 
@@ -34,6 +55,9 @@ protected:
 
 	Ogre::SceneNode* mCrewNode = nullptr;
 	Ogre::Entity* mCrew[NUM_CREWMATES];
+
+	// Objeto Gráfico (nueva clase) a rotar
+	GraphicalObject* rotatingGraphicalObjectBody;
 
 private:
 	// Interruptor
