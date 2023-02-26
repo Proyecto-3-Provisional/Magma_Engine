@@ -48,7 +48,7 @@
     <ClInclude Include="..\..\sources\ECS\messages_defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\ECS\vector_mag.h">
+    <ClInclude Include="..\..\sources\ECS\vector3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\ECS\vector_mag.cpp">
+    <ClCompile Include="..\..\sources\ECS\vector3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

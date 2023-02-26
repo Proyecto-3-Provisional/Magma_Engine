@@ -2,12 +2,12 @@
 
 #include <cmath>
 
-class VectorMag {
+class Vector3D {
 public:
-	VectorMag() : x(), y(), z() {};
-	VectorMag(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {};
-	VectorMag(const VectorMag& vmag) : x(vmag.getX()), y(vmag.getY()), z(vmag.getZ()) {};
-	~VectorMag() {};
+	Vector3D() : x(), y(), z() {};
+	Vector3D(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {};
+	Vector3D(const Vector3D& vmag) : x(vmag.getX()), y(vmag.getY()), z(vmag.getZ()) {};
+	~Vector3D() {};
 
 
 	inline float getX() const { return x; }
@@ -19,11 +19,11 @@ public:
 	void setZ(float z_);
 
 	void set(float x_, float y_, float z_);
-	void set(const VectorMag& vmag_);
-	void set(const VectorMag* vmag_);
+	void set(const Vector3D& vmag_);
+	void set(const Vector3D* vmag_);
 
 	// copy assignment
-	VectorMag& operator=(const VectorMag& v);
+	Vector3D& operator=(const Vector3D& v);
 
 	//// length of the vector
 	//inline float magnitude() const {
@@ -55,7 +55,7 @@ public:
 	//}
 
 	// vector addition
-	VectorMag operator+(const VectorMag& v) const;
+	Vector3D operator+(const Vector3D& v) const;
 
 	//// multiplication by constant (scaling)
 	//inline Vector2D operator*(float d) const {

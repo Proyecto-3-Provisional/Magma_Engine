@@ -27,7 +27,7 @@ int mainCode() {
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 	ecs::EntityManager* entityManager = new ecs::EntityManager();
 	auto e_ = entityManager->addEntity();
-	entityManager->addComponent<Transform>(e_);
+	Transform* tr_ = e_->addComponent<Transform>();
 	//e_->addComponent();
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
 
@@ -58,7 +58,7 @@ int mainCode() {
 		//manager_->render();
 		////sdlutils().presentRenderer();
 		entityManager->refresh();
-		entityManager->removeComponent<Transform>(e_);
+		//entityManager->removeComponent<Transform>(e_);
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
 		// Rotar objeto para ver cambios entre fotogramas

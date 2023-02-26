@@ -45,7 +45,7 @@ namespace ecs {
 			groupEntities.erase(
 				std::remove_if(groupEntities.begin(), groupEntities.end(),
 					[](Entity* e) {
-						if (e->alive_) {
+						if (e->isAlive()) {
 							return false;
 						}
 						else {
@@ -64,9 +64,14 @@ namespace ecs {
 	}
 
 	void EntityManager::render() {
-		auto n = ents_.size();
-		for (auto i = 0u; i < n; i++){}
-			//ents_[i]->render();
+		//auto n = ents_.size();
+		//for (auto i = 0u; i < n; i++){}
+		//	//ents_[i]->render();
+		for (auto& ents : entsByGroup_) {
+			auto n = ents.size();
+			for (auto i = 0u; i < n; i++)
+				ents[i]->render();
+		}
 	}
 
 	std::array<std::vector<Entity*>, maxGroupId> EntityManager::returnEntsByGroup()
