@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SDL.h"
+#include "SDL_events.h"
 
 #include <string.h>
 #include <iostream>
