@@ -20,8 +20,9 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
-	EntityManager* manager_ = new EntityManager();
-	auto e_ = manager_->addEntity();
+	ecs::EntityManager* entityManager = new ecs::EntityManager();
+	auto e_ = entityManager->addEntity();
+	entityManager->addComponent<Transform>(e_);
 	//e_->addComponent();
 	
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
@@ -59,11 +60,13 @@ int mainCode() {
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 		
-		manager_->update();
+		entityManager->update();
+		//manager_->removeComponent<Transform>(e_);
 		////sdlutils().clearRenderer();
 		//manager_->render();
 		////sdlutils().presentRenderer();
-		//manager_->refresh();
+		entityManager->refresh();
+		entityManager->removeComponent<Transform>(e_);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
