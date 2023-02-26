@@ -52,11 +52,11 @@ void Transform::setH(float height)
 	scale_.setY(height);
 }
 
-//void Transform::update()
-//{
-//	//ent_->getOgreNode()->setPosition(x, y, z);
-//	pos = pos + vel;
-//	std::cout << getPos().getX() << '\n';
-//}
+void Transform::update()
+{
+	//ent_->getOgreNode()->setPosition(x, y, z);
+	pos = pos + vel;
+	std::cout << getPos().getX() << '\n';
+}
 
 

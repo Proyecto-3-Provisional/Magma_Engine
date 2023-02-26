@@ -28,7 +28,7 @@ public:
 	void setW(float width);
 	void setH(float height);
 
-	/*virtual void update() {
+	virtual void update();/* {
 		pos = pos + vel;
 		std::cout << getPos().getX() << '\n';
 	};*/
