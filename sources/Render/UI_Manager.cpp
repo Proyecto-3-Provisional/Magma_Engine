@@ -63,7 +63,8 @@ void UI_Manager::createText(std::string textPanelName, int posX, int posY,
 	elements.push_back(text);
 }
 
-UI_Element* UI_Manager::getElement(std::string name)
+/*
+UI_Element* UI_Manager::getElement(string name)
 {
-	return nullptr;
-}
+		
+}*/

@@ -25,8 +25,9 @@ int mainCode() {
 	bool correct = renderMngr.initApp();
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
-	EntityManager* manager_ = new EntityManager();
-	auto e_ = manager_->addEntity();
+	ecs::EntityManager* entityManager = new ecs::EntityManager();
+	auto e_ = entityManager->addEntity();
+	entityManager->addComponent<Transform>(e_);
 	//e_->addComponent();
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
 
@@ -51,11 +52,13 @@ int mainCode() {
 		lastFrameTime = SDL_GetTicks();
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
-		manager_->update();
+		entityManager->update();
+		//manager_->removeComponent<Transform>(e_);
 		////sdlutils().clearRenderer();
 		//manager_->render();
 		////sdlutils().presentRenderer();
-		//manager_->refresh();
+		entityManager->refresh();
+		entityManager->removeComponent<Transform>(e_);
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
 		// Rotar objeto para ver cambios entre fotogramas
@@ -71,7 +74,7 @@ int mainCode() {
 		std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 
 	delete ui; ui = nullptr;
-	delete manager_; manager_ = nullptr;
+	delete entityManager; entityManager = nullptr;
 
 	// Fin del renderizado
 	renderMngr.closeApp();

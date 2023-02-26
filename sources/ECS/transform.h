@@ -1,24 +1,24 @@
 #pragma once
 
 #include <iostream>
-
+#include <vector>
 #include "component.h"
+#include "vector_mag.h"
 
-class Transform : public Component {
+class Transform : public ecs::Component {
 public:
-	Transform(){};
-	//Transform(/*Vector*/){};
-	virtual ~Transform(){};
-	//inline Vector& getPos(){};
-	//inline Vector& getVel(){}; //queremos que nuestro transform tenga esto? seguramente para fisicas o algo
+	Transform() : pos(), vel(){};
+	Transform(VectorMag pos_, VectorMag vel, float) : pos(), vel() {};
 
-	virtual void update() {
-		std::cout << "seguimos con EC\n";
-	}
+	virtual ~Transform(){};
+	inline VectorMag& getPos() { return pos; };
+	inline VectorMag& getVel() { return vel; };
+
+	virtual void update();
 private:
+	VectorMag pos;
+	VectorMag vel;
 	/*Vector position_;
 	Vector velocity_;*/
-	float width_;
-	float height_;
-	float rotation_; //en 3d me parece que esto no va a valer, cuaterniones?
+	//float rotation_; //en 3d me parece que esto no va a valer, cuaterniones?
 };

@@ -24,14 +24,18 @@
     <ClInclude Include="..\..\sources\ECS\ecs_defs.h" />
     <ClInclude Include="..\..\sources\ECS\entity.h" />
     <ClInclude Include="..\..\sources\ECS\entity_manager.h" />
+    <ClInclude Include="..\..\sources\ECS\messages.h" />
+    <ClInclude Include="..\..\sources\ECS\messages_defs.h" />
     <ClInclude Include="..\..\sources\ECS\mpl.h" />
     <ClInclude Include="..\..\sources\ECS\transform.h" />
+    <ClInclude Include="..\..\sources\ECS\vector_mag.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\ECS\component.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
     <ClCompile Include="..\..\sources\ECS\transform.cpp" />
+    <ClCompile Include="..\..\sources\ECS\vector_mag.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
