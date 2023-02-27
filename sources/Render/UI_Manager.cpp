@@ -4,6 +4,7 @@
 #include <Overlay/OgreOverlayContainer.h>
 
 #include "UI_Text.h"
+#include "UI_Image.h"
 
 UI_Manager::UI_Manager()
 {
@@ -61,6 +62,18 @@ void UI_Manager::createText(std::string textPanelName, int posX, int posY,
 	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY,
 		fontName, textContent, Ogre::ColourValue(colorX,colorY,colorZ));
 	elements.push_back(text);
+}
+
+
+/****************************************************************************
+	Crea una imagen personalizada y la mete a la lista de elementos del overlay
+*****************************************************************************/
+
+void UI_Manager::createImage(std::string imagePanelName, std::string imageName, int posX, int posY,
+	int sizeX, int sizeY)
+{
+	UI_Image* image = new UI_Image(overlay, imagePanelName, imageName, posX, posY, sizeX, sizeY);
+	elements.push_back(image);
 }
 
 /*
