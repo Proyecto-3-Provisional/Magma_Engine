@@ -56,7 +56,7 @@ void Transform::update()
 {
 	//ent_->getOgreNode()->setPosition(x, y, z);
 	pos = pos + vel;
-	std::cout << getPos().getX() << '\n';
+	//std::cout << getPos().getX() << '\n';
 }
 
 
