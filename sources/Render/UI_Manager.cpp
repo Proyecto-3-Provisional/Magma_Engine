@@ -76,8 +76,13 @@ void UI_Manager::createImage(std::string imagePanelName, std::string imageName, 
 	elements.push_back(image);
 }
 
-/*
-UI_Element* UI_Manager::getElement(string name)
+
+UI_Element* UI_Manager::getElement(std::string name)
 {
-		
-}*/
+	for (int i = 0; i < elements.size(); i++) {
+		if (elements[i]->getElementName() == name) {
+			
+			return elements[i];
+		}
+	}
+}

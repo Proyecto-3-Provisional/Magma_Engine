@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+//#include "UI_Image.h" //borrar si esta mal (esta puesto para que main pueda acceder a metodos de UI_image pero esta mal
+
 namespace Ogre
 {
 	class Overlay;

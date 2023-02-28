@@ -58,6 +58,10 @@ int mainCode() {
 	UI_Manager* ui = new UI_Manager();
 	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5,0.3,0.1);
 	ui->createImage("ImgPrueba", "golf", 0, 80, 100, 100);
+
+	//UI_Image* dit; //da error al ejecutar
+	//dit = static_cast<UI_Image*>(ui->getElement("ImgPrueba"));// ->changeImage("rat");
+	//dit->changeImage("rat");
 	//******************************************************
 
 	//******************************************************
