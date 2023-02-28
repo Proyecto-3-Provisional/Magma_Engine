@@ -1,4 +1,4 @@
-// Samir Genaim
+// Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
 
 #pragma once
 
@@ -8,15 +8,11 @@
 
 #include "mpl.h"
 
-// A struct for the general group, should not be used in the user
-// defined groups
-//
+//Struct para el grupo "general", no se debe usar en los grupos definidos por el usuario
 struct _grp_GENERAL;
 
-// You should define a file ../game/ecs_defs.h with the list of your
-// components, groups, and handlers. See ecs_defs_example.h for an
-// example file
-//
+
+//ver ecs_defs para las listas de componentes, grupos...
 #if __has_include("ecs_defs.h")
 #include "ecs_defs.h"
 #endif
@@ -38,15 +34,12 @@ namespace ecs {
 	class Entity;
 	class EntityManager;
 
-	// TypeLists for components, systems, groups and handlers
-	//
+	//listas para grupos y componentes
 	using CmpsList = mpl::TypeList<_ext_CMPS_LIST_>;
 	using GrpsList = mpl::TypeList<_grp_GENERAL, _ext_GRPS_LIST_>;
 
 
-	// Automatically choose an unsigned integer type large enough to hold
-	// corresponding IDs
-	//
+	//escoge un uInt con tamaño apropiado para guardar las distintas IDs
 	using cmpId_type = mpl::numeric_type<CmpsList::size>::type;
 	using grpId_type = mpl::numeric_type<GrpsList::size>::type;
 
@@ -59,4 +52,4 @@ namespace ecs {
 
 	constexpr cmpId_type maxComponentId = CmpsList::size;
 	constexpr grpId_type maxGroupId = GrpsList::size;
-} // end of namespace
+}

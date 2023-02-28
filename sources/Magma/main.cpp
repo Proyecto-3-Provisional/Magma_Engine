@@ -40,8 +40,13 @@ int mainCode() {
 	bool correct = renderMngr.initApp();
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
+	GraphicalObject* jo = renderMngr.addObject("uxalote", nullptr, "axolotl.mesh", "axolotl");
+	jo->showDebugBox(true);
+	jo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
+	jo->setScale({ 40, 40, 40 });
+
 	ecs::EntityManager* entityManager = new ecs::EntityManager();
-	auto e_ = entityManager->addEntity();
+	auto e_ = entityManager->addEntity(jo);
 	Transform* tr_ = e_->addComponent<Transform>();
 	//e_->addComponent();
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
@@ -79,10 +84,7 @@ int mainCode() {
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 		entityManager->update();
-		//manager_->removeComponent<Transform>(e_);
-		////sdlutils().clearRenderer();
-		//manager_->render();
-		////sdlutils().presentRenderer();
+
 		entityManager->refresh();
 		//entityManager->removeComponent<Transform>(e_);
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS

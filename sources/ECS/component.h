@@ -1,4 +1,4 @@
-// Samir Genaim (modified to some extent or another)
+// Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
 
 #pragma once
 
@@ -8,29 +8,20 @@
 namespace ecs {
 	struct Component {
 	public:
-		Component() : ent_(), mngr_() {}
+		Component() : ent(), mngr() {}
 		virtual ~Component() { }
-		inline void setContext(Entity* ent, EntityManager* mngr) {
-			ent_ = ent;
-			mngr_ = mngr;
-		}
-		inline bool isEnable() { return enable_; }
-		inline void setEnable(bool set)
-		{
-			enable_ = set;
-			if (set)
-				onEnable();
-			else
-				onDisable();
-		}
+		void setContext(Entity* ent_, EntityManager* mngr_);
+		inline bool isEnable() { return enable; }
+		void setEnable(bool set_);
+		
 		virtual void initComponent() { }
 		virtual void update() { }
 		virtual void render() { }
 		virtual void onEnable() { }
 		virtual void onDisable() { }
 	protected:
-		Entity* ent_;
-		EntityManager* mngr_;
-		bool enable_ = true;
+		Entity* ent;
+		EntityManager* mngr;
+		bool enable = true;
 	};
 }

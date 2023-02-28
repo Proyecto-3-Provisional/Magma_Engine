@@ -1,4 +1,4 @@
-// Samir Genaim (modified to some extent or another)
+// Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
 
 #pragma once
 
@@ -7,119 +7,104 @@
 #include <string>
 
 #include "OgreEntity.h"
+#include "../Render/graphical_object.h"
 #include "component.h"
 #include "ecs.h"
 
 namespace ecs{
 
-	//entity va a actuar como una coleccion de componentes
 	class Entity {
 	public:
-		Entity(ecs::grpId_type gId);
+		Entity(ecs::grpId_type gId_, GraphicalObject* graphObj_);
 		
 		virtual ~Entity();
 
-
-		// we delete the copy constructor/assignment because it is
-		// not clear how to copy the components
+		//Borramos los constructores de copia y asignacion porque no queda claro como copiar componentes
 		Entity(const Entity&) = delete;
 		Entity& operator=(const Entity&) = delete;
 
-		inline Ogre::Entity* getOgreEnt() { return entOgre; };
-		inline Ogre::SceneNode* getOgreNode() { return ogreNode; };
+		inline GraphicalObject* getGraphObj() { return graphObj; };
 
-		// Each entity knows to which manager it belongs, we use
-		// this method to set the context
-		//
-		inline void setContext(EntityManager* mngr) {
-			mngr_ = mngr;
-		}
+		//Le pasamos el manager de la entidad, para que pueda referirse a el
+		void setContext(EntityManager* mngr_);
 
-		// Setting the state of entity 'e' (alive or dead)   ****
-		inline void setAlive(bool alive) {
-			alive_ = alive;
-		}
+		void setAlive(bool alive_);
 
-		// Returns the state of the entity 'e' (alive o dead)  ****
 		inline bool isAlive() {
-			return alive_;
+			return alive;
 		}
 
-		// Adds a component to the entity 'e'. It receives the type     ****
-		// T (to be created), and the list of arguments (if any) to
-		// be passed to the constructor. The component identifier
-		// 'cId' is cmpId<T>.
+
+		//Añade un componente a la entidad 'e'. Recibe, ademas del tipo T, los argumentos(si necesita) 
+		//para pasarle a la constructora. El identificador 'cId' es cmpId<T>
 		template<typename T, typename ...Ts>
 		T* addComponent(Ts &&... args) {
 
 			constexpr cmpId_type cId = cmpId<T>;
 			assert(cId < maxComponentId);
 
-			// delete the current component, if any
+
 			removeComponent<T>();
 
-			// create, initialize and install the new component
-			Component* c = new T(std::forward<Ts>(args)...);
-			c->setContext(this, mngr_);
-			c->initComponent();
-			cmps_[cId] = c;
-			currCmps_.push_back(c);
 
-			// return it to the user so i can be initialized if needed
+			Component* c = new T(std::forward<Ts>(args)...);
+			c->setContext(this, mngr);
+			c->initComponent();
+			cmps[cId] = c;
+			currCmps.push_back(c);
+
+			
 			return static_cast<T*>(c);
 		}
 
-		// Removes the component of Entity 'e' at position T::id.      ****
+		//Elimina el componente de la entidad 'e' que este en la posicion T::id
 		template<typename T>
 		void removeComponent() {
 
 			constexpr cmpId_type cId = cmpId<T>; //T::id;
 			assert(cId < maxComponentId);
 
-			if (cmps_[cId] != nullptr) {
+			if (cmps[cId] != nullptr) {
 
-				// find the element that is equal to e->cmps_[cId] (returns an iterator)
-				auto iter = std::find(currCmps_.begin(), currCmps_.end(),
-					cmps_[cId]);
+				// Encuentra el elemento igual a e->cmps_[cId]
+				auto iter = std::find(currCmps.begin(), currCmps.end(),
+					cmps[cId]);
 
-				// must have such a component
-				assert(iter != currCmps_.end());
+				//Comprobar que tiene el componente
+				assert(iter != currCmps.end());
 
-				// and then remove it
-				currCmps_.erase(iter);
+				//Eliminarlo
+				currCmps.erase(iter);
 
-				// destroy it
-				delete cmps_[cId];
-
-				// remove the pointer
-				cmps_[cId] = nullptr;
+				delete cmps[cId];
+				
+				cmps[cId] = nullptr;
 			}
 		}
 
-		// Returns a pointer to the component T of entity 'e'.      ****
+		//Devuelve un puntero al componente T de la entidad 'e'
 		template<typename T>
 		inline T* getComponent() {
 
 			constexpr cmpId_type cId = T::id;
 			assert(cId < ecs::maxComponentId);
 
-			return static_cast<T*>(cmps_[cId]);
+			return static_cast<T*>(cmps[cId]);
 		}
 
-		// Returns true if entity 'e' has a component T        ****
+		//Devuelve true si la entidad 'e' tiene el componente T
 		template<typename T>
 		inline bool hasComponent() {
 
 			constexpr cmpId_type cId = T::id;
 			assert(cId < ecs::maxComponentId);
 
-			return cmps_[cId] != nullptr;
+			return cmps[cId] != nullptr;
 		}
 
-		// returns the entity's group 'gId'
-		//
+		//Devuelve el grupo de la entidad 'gId'
 		inline ecs::grpId_type groupId() {
-			return gId_;
+			return gId;
 		}
 
 		void update();
@@ -127,15 +112,14 @@ namespace ecs{
 		void render();
 
 	private:
-		//friend EntityManager;
 
-		EntityManager* mngr_;
-		std::vector<Component*> currCmps_;
-		std::array<Component*, maxComponentId> cmps_;
-		bool alive_;
-		ecs::grpId_type gId_;
+		EntityManager* mngr;
+		std::vector<Component*> currCmps;
+		std::array<Component*, maxComponentId> cmps;
+		bool alive;
+		ecs::grpId_type gId;
 
-		Ogre::Entity* entOgre;
-		Ogre::SceneNode* ogreNode;
+		GraphicalObject* graphObj;
+
 	};
 }

@@ -14,49 +14,51 @@ Vector3D& Transform::getVel()
 
 Vector3D Transform::getScale()
 {
-	return scale_;
+	return scale;
 }
 
-void Transform::setPosition(Vector3D position)
+void Transform::setPosition(Vector3D pos_)
 {
-	pos = position;
+	pos = pos_;
 }
 
-void Transform::setVelocity(Vector3D velocity)
+void Transform::setVelocity(Vector3D vel_)
 {
-	vel = velocity;
+	vel = vel_;
 }
 
-void Transform::setScale(Vector3D scale)
+void Transform::setScale(Vector3D scale_)
 {
-	scale_ = scale;
+	scale = scale_;
 }
 
 float Transform::getW() const
 {
-	return scale_.getX();
+	return scale.getX();
 }
 
 float Transform::getH() const
 {
-	return scale_.getY();
+	return scale.getY();
 }
 
-void Transform::setW(float width)
+void Transform::setW(float width_)
 {
-	scale_.setX(width);
+	scale.setX(width_);
 }
 
-void Transform::setH(float height)
+void Transform::setH(float height_)
 {
-	scale_.setY(height);
+	scale.setY(height_);
 }
 
 void Transform::update()
 {
-	//ent_->getOgreNode()->setPosition(x, y, z);
+	ent->getGraphObj()->setPosition({ pos.getX(), pos.getY(), pos.getZ() });
+
+	if (abs(pos.getX()) > 500)
+		vel = vel *  -1;
 	pos = pos + vel;
-	//std::cout << getPos().getX() << '\n';
 }
 
 

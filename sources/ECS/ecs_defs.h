@@ -1,19 +1,12 @@
-// Samir Genaim
+// Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
 
 #pragma once
 
-// Components list - the struct names should coincide with those of
-// the components
-//
+//lista de componentes. El nombre del struct debe coincidir con el nombre del componente al que hace referencia
+//abajo ejemplo de uso
 struct Transform;
 //struct Image;
-//struct RectangleViewer;
-//struct PaddleCtrl;
-//struct GameState;
 
 #define _CMPS_LIST_ \
 		 Transform/*,\
-		 Image,\
-		 RectangleViewer,\
-		 PaddleCtrl,\
-		 GameState*/
+		 Image*/
