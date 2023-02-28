@@ -6,22 +6,15 @@
 #include "UI_Text.h"
 #include "UI_Image.h"
 
+/*************************************************
+	Creamos un overlay y lo mostramos en pantalla
+**/
 UI_Manager::UI_Manager()
 {
 	overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
 	overlay = overlayMngr_->create("GeneralOverlay");
-	
-	//generalPanel = static_cast<Ogre::OverlayContainer*>(overlayMngr_->createOverlayElement("Panel", "GeneralPanel"));
-
-	// Creamos un panel general para toda la pantalla
-	/*generalPanel->setMetricsMode(Ogre::GMM_PIXELS);
-	generalPanel->setPosition(0, 0);
-	generalPanel->setDimensions(dimensionX, dimensionY);
-	
-	// Show the overlay
-	overlay->add2D(generalPanel);*/
-	overlay->show();
 	overlay->setVisible(true);
+	overlay->show();
 }
 
 UI_Manager::~UI_Manager()
@@ -29,16 +22,10 @@ UI_Manager::~UI_Manager()
 }
 
 void UI_Manager::init()
-{
-	//generalPanel->setMaterialName("BaseWhite");
-	//generalPanel->setMaterialName("golf");
-	/*generalPanel->setMaterialName("rat");
-	*/
-}
+{}
 
 void UI_Manager::update()
-{
-}
+{}
 
 /****************************************
 	Borra todos los elementos del overlay
