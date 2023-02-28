@@ -2,8 +2,17 @@
 #include <string>
 #include <OgreAutoParamDataSource.h>
 
-// Wrapper del uso básico de SceneNode (y Entity) de la escena de Ogre
+// Envoltorio para el uso básico de SceneNode, Entity y Light de Ogre
 // Permite crear y manipular fácilmente desde fuera objetos del mundo gráfico
+
+// Para cada objeto se crea un nodo que puede contener o una entidad o uno
+// de los 3 tipos de luz, o nada...
+
+// Algunos campos como "material" pueden ser ignorados
+
+// Problemas conocidos:
+// - No es tan práctico cachear objetos
+// - Si un objeto tiene hijos, se negrará a ser borrado
 
 namespace Ogre
 {
@@ -22,6 +31,8 @@ public:
 	void translate(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
 	void setPosition(Ogre::Vector3 vec);
 
+	void setDirection(Ogre::Vector3 vec);
+
 	void yaw(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void pitch(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void roll(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
@@ -34,10 +45,12 @@ public:
 	void setScale(Ogre::Vector3 factor);
 
 	// Visibilidad
-
 	void setMaterial(std::string matName);
 	void makeVisible(bool show);
 	void showDebugBox(bool show);
+
+	// Luces
+	void setLightColor(float r, float g, float b);
 
 	// Acerca del nodo
 	Ogre::String getKeyName();
@@ -51,7 +64,9 @@ protected:
 
 	// Nodo y entidad asociados a este constructo
 	Ogre::SceneNode* objectNode = nullptr;
-	Ogre::Entity* entity = nullptr; // nullptr -> nodo vacío
+	// Cosas que pueden ser (si toas = nullptr -> nodo vacío)
+	Ogre::Entity* entity = nullptr;
+	Ogre::Light* light = nullptr;
 
 	// Padres e hijos
 	GraphicalObject* parentObject = nullptr;

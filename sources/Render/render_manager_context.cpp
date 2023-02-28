@@ -8,7 +8,6 @@
 #include <OgreLogManager.h>
 
 #include <SDL.h>
-///#include <SDL_video.h>
 #include <SDL_syswm.h>
 
 RenderManagerContext::RenderManagerContext(const Ogre::String& appName)

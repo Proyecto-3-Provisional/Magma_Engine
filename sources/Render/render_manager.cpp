@@ -16,7 +16,7 @@ RenderManager::~RenderManager()
 {
 }
 
-// Devuelve un puntero al objeto creado, o nullptr si falla
+// Devuelve un puntero al Objeto creado, o nullptr si falla
 GraphicalObject* RenderManager::addObject(std::string key, GraphicalObject* parent = nullptr,
 	std::string mesh = "", std::string material = "default")
 {
@@ -51,7 +51,7 @@ GraphicalObject* RenderManager::addObject(std::string key, GraphicalObject* pare
 	return newGO;
 }
 
-// Devuelve nullptr si no se halla
+// Devuelve un puntero al Objeto, o nullptr si no se halla
 GraphicalObject* RenderManager::getObject(std::string key)
 {
 	// Hay que comprobar que existe la clave
@@ -66,13 +66,13 @@ GraphicalObject* RenderManager::getObject(std::string key)
 	return gO;
 }
 
-// No devuelve NADA
+// No devuelve nada
 void RenderManager::sunsetObject(GraphicalObject* gO)
 {
 	sceneObjectsToRemove.push_back(gO);
 }
 
-// Devuelve si tuvo éxito (el marcado)
+// Devuelve si tuvo éxito el marcado (encolado)
 bool RenderManager::sunsetObject(std::string key)
 {
 	// comprobar que existe la clave
@@ -84,7 +84,7 @@ bool RenderManager::sunsetObject(std::string key)
 	return true;
 }
 
-// Devuelve si tuvo éxito
+// Devuelve si tuvo éxito (el Objeto no se resistió a ser borrado)
 bool RenderManager::removeObject(GraphicalObject* gO)
 {
 	// si de este objeto penden otros, no hacer nada
@@ -98,7 +98,7 @@ bool RenderManager::removeObject(GraphicalObject* gO)
 	return true;
 }
 
-// Devuelve si tuvo éxito
+// Devuelve si tuvo éxito (el Objeto se encontró Y no se resistió a ser borrado)
 bool RenderManager::removeObject(std::string key)
 {
 	// comprobar que existe la clave
@@ -117,15 +117,14 @@ bool RenderManager::removeObject(std::string key)
 	return true;
 }
 
-// No devuelve NADA
-// Si se programa algo mal, puede haber un bloqueo -> while(1)
-void RenderManager::removeObjects() // Este algoritmo es algo inquietante
+// POSIBLEMENTE BLOQUEANTE; No devuelve nada
+void RenderManager::removeObjects()
 {
 	while (!sceneObjects.empty())
 	{
 		auto it = sceneObjects.begin();
 		while (it != sceneObjects.end()) {
-			// avanzar índice, pero dejandome acceso también al que quiero borrar
+			// avanzar índice, pero dejando acceso también al Objeto a borrar
 			auto it_aux = it;
 			it++;
 			
@@ -136,22 +135,15 @@ void RenderManager::removeObjects() // Este algoritmo es algo inquietante
 	}
 }
 
-// Devuelve verdadero solo si ningún objeto se resistió a ser borrado (tiene hijos)
+// Devuelve la cantidad de Objetos que se resistieron a ser borrados
+// Tales objetos quedan de todos modos desencolados...
 bool RenderManager::refreshObjects()
 {
-	bool ret = true;
-
-	auto it = sceneObjectsToRemove.begin();
-	while (it != sceneObjectsToRemove.end()) {
-		// avanzar índice, pero dejandome acceso también al que quiero borrar
-		auto it_aux = it;
-		it++;
-
-		// tratar de borrar
-		bool b = removeObject((*it_aux));
-		if (b)
-			sceneObjectsToRemove.erase(it_aux);
-		ret = ret && b;
+	int ret = 0;
+	while (!sceneObjectsToRemove.empty())
+	{
+		if (!removeObject(sceneObjectsToRemove.front())) ret++;
+		sceneObjectsToRemove.pop_front();
 	}
 	return ret;
 }
@@ -166,6 +158,14 @@ int RenderManager::getNumObjectsToRemove()
 	return sceneObjectsToRemove.size();
 }
 
+void RenderManager::setBgColor(float r, float g, float b)
+{
+	if (cam && vp)
+	{
+		vp->setBackgroundColour(Ogre::ColourValue(r, g, b));
+	}
+}
+
 void RenderManager::setup(void)
 {
 	RenderManagerContext::setup(); // NO OLVIDAR; LO PRIMERO
@@ -177,6 +177,7 @@ void RenderManager::setup(void)
 	setupScene(); // disponer la escena
 }
 
+// POSIBLEMENTE BLOQUEANTE debido a removeObjects()
 void RenderManager::shutdown()
 {
 	removeObjects(); // Quitar todos aquellos cuerpos añadidos a la escena
@@ -189,7 +190,7 @@ void RenderManager::shutdown()
 void RenderManager::setupScene(void)
 {
 	// create the camera
-	Ogre::Camera* cam = mSM->createCamera("Cam");
+	cam = mSM->createCamera("Cam");
 	cam->setNearClipDistance(1);
 	cam->setFarClipDistance(10000);
 	cam->setAutoAspectRatio(true);
@@ -203,25 +204,24 @@ void RenderManager::setupScene(void)
 	//mCamNode->setDirection(Ogre::Vector3(0, 0, -1));  
 
 	// and tell it to render into the main window
-	Ogre::Viewport* vp = getRenderWindow()->addViewport(cam);
+	vp = getRenderWindow()->addViewport(cam);
 	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 
 	//------------------------------------------------------------------------
 
-	// without light we would just get a black screen 
-
-	Ogre::Light* luz = mSM->createLight("Luz");
-	luz->setType(Ogre::Light::LT_DIRECTIONAL);
-	luz->setDiffuseColour(0.90, 0.90, 0.90);
-
-	mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
-	//mLightNode = mCamNode->createChildSceneNode("nLuz");
-	mLightNode->attachObject(luz);
-
-	mLightNode->setDirection(Ogre::Vector3(0, 0, -1));  //vec3.normalise();
-	//lightNode->setPosition(0, 0, 1000);
-
-	//------------------------------------------------------------------------
+	// LUCES
+	GraphicalObject* sol = addObject("sol", nullptr, "SUN");
+	sol->setLightColor(0.5, 0.5, 0.3);
+	sol->setDirection({ 0, -0.8, -1 });
+	//
+	GraphicalObject* lbulb = addObject("bombilla", nullptr, "LIGHTBULB");
+	lbulb->setLightColor(0.5, 0.5, 0.85);
+	lbulb->setPosition({ 0, 500, 200 });
+	//	
+	GraphicalObject* spotl = addObject("foco", nullptr, "SPOTLIGHT");
+	spotl->setLightColor(1.0, 0.2, 0.2);
+	spotl->setPosition({ 0, 0, 500 });
+	spotl->setPosition({ 0, 0.5, -1 });
 
 	// CUBO
 	GraphicalObject* aux = addObject("cube_empty");
@@ -234,7 +234,7 @@ void RenderManager::setupScene(void)
 
 	// AJOLOTE
 	GraphicalObject* ajo = addObject("suxalote", nullptr, "axolotl.mesh", "axolotl");
-	ajo->showDebugBox(true);
+	ajo->showDebugBox(false);
 	ajo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
 	ajo->setScale({ 40, 40, 40 });
 

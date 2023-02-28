@@ -23,6 +23,8 @@ int miliecsSinceLastReport = 0;
 const int miliecsToDisappear = 8000;
 int milisecsAcc = 0;
 bool cubeDisappearance = false;
+// Cacheo cubo
+GraphicalObject* ficticioCubo = nullptr;
 /////
 //===
 /////
@@ -72,6 +74,13 @@ int mainCode() {
 	//******************************************************
 	InputManager* input = new InputManager; 
 
+	renderMngr.setBgColor(0.8, 0.8, 0.7);
+	// Cacheo de objetos gráficos
+	GraphicalObject* ajolote = renderMngr.getObject("suxalote");
+	GraphicalObject* ficticioTripulacion = renderMngr.getObject("crew");
+	ficticioCubo = renderMngr.getObject("cube_empty");
+	// Cacheo de objetos gráficos
+		
 	bool error = false;
 	while (!input->exitRequested() && !error)
 	{
@@ -95,30 +104,32 @@ int mainCode() {
 			bool r1, r2;
 			r1 = renderMngr.sunsetObject("cube");
 			r2 = renderMngr.sunsetObject("cube_empty");
-			if (r1 && r2) cubeDisappearance = true;
+			if (r1 && r2)
+			{
+				cubeDisappearance = true;
+				ficticioCubo = nullptr;
+			}
 		}
 		
 		// Ejemplo de movimiento: rotar objetos para ver cambios entre fotogramas
-		GraphicalObject* ajolote = renderMngr.getObject("suxalote");
-		if (ajolote)
-			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
-		GraphicalObject* ficticioTripulacion = renderMngr.getObject("crew");
-		if (ficticioTripulacion)
-			ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
-		GraphicalObject* ficticioCubo = renderMngr.getObject("cube_empty");
+		ajolote->yaw(rotationVelocity * timeSinceLastFrame);
+		ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
 		// Imprimir número de objetos gráficos cada cierto tiempo
 		miliecsSinceLastReport += timeSinceLastFrame;
 		if (miliecsSinceLastReport > miliecsToReport) {
-			std::cout << "GObjects: " << renderMngr.getNumObjects() << std::endl;
-			std::cout << "GObjects sunset: " << renderMngr.getNumObjectsToRemove() << std::endl;
+			std::cout << "Objetos gráficos: " << renderMngr.getNumObjects() << std::endl;
 			miliecsSinceLastReport = 0;
 		}
 
 		// Control de cuándo se borran aquellos que deben ser borrados
-		/*bool b = */renderMngr.refreshObjects();
+		int f = renderMngr.refreshObjects();
+		if (f != 0)
+		{
+			std::cout << f << "destrucciones diferidas fallidas\t/!\\" << std::endl;
+		}
 
 		// Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
 		if (!renderMngr.renderFrame())

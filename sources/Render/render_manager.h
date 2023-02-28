@@ -35,6 +35,9 @@ public:
 	// Obtener número de objetos marcados para borrar
 	int getNumObjectsToRemove();
 
+	// Cambiar fondo
+	void setBgColor(float r, float g, float b);
+
 protected:
 	// Objetos nuestros del mundo gráfico
 	std::unordered_map<std::string, GraphicalObject*> sceneObjects;
@@ -47,14 +50,16 @@ protected:
 	virtual void setupScene();
 
 	// Cerrar
-	virtual void shutdown();
+	virtual void shutdown ();
 
 	// Crear malla por código: plano
 	void createPlaneMesh(Ogre::String name = "mPlane1080x800");
 
 	// Punteros
 	Ogre::SceneManager* mSM = nullptr;
-	Ogre::SceneNode* mLightNode = nullptr;
+	Ogre::Camera* cam = nullptr;
+	/* cámara y puerto de vista */
+	Ogre::Viewport* vp = nullptr;
 	Ogre::SceneNode* mCamNode = nullptr;
 
 private:
