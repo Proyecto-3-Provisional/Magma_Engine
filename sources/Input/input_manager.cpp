@@ -1,35 +1,42 @@
 #include "input_manager.h"
 
+InputManager::InputManager() 
+{
+	exitRequest = false; 
+}
+
+bool InputManager::exitRequested()
+{
+	return exitRequest; 
+}
+
 void InputManager::inputEvent()
 {
-    if (SDL_PollEvent(&event))
-    {
-        if (event.type == SDL_KEYDOWN)
-        {
-            SDL_Keycode keyPressed = event.key.keysym.sym;
-            std::cout << "Tecla " << char(keyPressed) << " pulsada\n";
-        }
-
-        //Liberacion de teclado
-        //else if (event.type == SDL_KEYUP)
-        //{
-        //    std::cout << "Tecla liberada\n";
-        //}
-
-        if (event.type == SDL_MOUSEBUTTONDOWN)
-        {
-            std::cout << "Raton apretado\n";
-        }
-
-        //Liberacion de raton
-        //else if (event.type == SDL_MOUSEBUTTONUP)
-        //{
-        //    std::cout << "Raton liberado\n";
-        //}
-
-        else if (event.type == SDL_QUIT)
-        {
-            std::cout << "QUIT\n";
-        }
-    }
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		// Los siguientes comandos cierran el main
+		// CRUZ DE CIERRE
+		case SDL_QUIT: 
+			exitRequest = true;
+			break;
+		// TECLA 'ESCAPE'
+		case SDL_KEYDOWN:
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+			{
+				exitRequest = true;
+			}
+			break;
+		case SDL_KEYUP:
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			break;
+		case SDL_MOUSEBUTTONUP:
+			break;
+		default:
+			break;
+		}
+	}
 }

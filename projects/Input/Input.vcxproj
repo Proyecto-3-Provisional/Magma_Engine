@@ -172,6 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Input\input_manager.h" />
+    <ClInclude Include="input_commands.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\Input\input_manager.cpp" />
