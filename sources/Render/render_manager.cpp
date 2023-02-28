@@ -158,6 +158,25 @@ int RenderManager::getNumObjectsToRemove()
 	return sceneObjectsToRemove.size();
 }
 
+void RenderManager::objectShowMode(int val)
+{
+	if (cam)
+	{
+		if (val == 1)
+		{
+			cam->setPolygonMode(Ogre::PM_WIREFRAME); 
+		}
+		else if (val == 2)
+		{
+			cam->setPolygonMode(Ogre::PM_POINTS);
+		}
+		else
+		{
+			cam->setPolygonMode(Ogre::PM_SOLID);
+		}
+	}
+}
+
 void RenderManager::setBgColor(float r, float g, float b)
 {
 	if (cam && vp)
@@ -194,9 +213,8 @@ void RenderManager::setupScene(void)
 	cam->setNearClipDistance(1);
 	cam->setFarClipDistance(10000);
 	cam->setAutoAspectRatio(true);
-	//cam->setPolygonMode(Ogre::PM_WIREFRAME); 
 
-	mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
+	mCamNode = mSM->getRootSceneNode()->createChildSceneNode();
 	mCamNode->attachObject(cam);
 
 	mCamNode->setPosition(0, 0, 1000);
@@ -232,11 +250,13 @@ void RenderManager::setupScene(void)
 	GraphicalObject* cubo = addObject("cube", aux, "cube.mesh", "logo");
 	cubo->translate({ 0, 0, 200 }, Ogre::Node::TransformSpace::TS_WORLD);
 
-	// AJOLOTE
+	// AJOLOTE con emisor de partículas
 	GraphicalObject* ajo = addObject("suxalote", nullptr, "axolotl.mesh", "axolotl");
 	ajo->showDebugBox(false);
 	ajo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
 	ajo->setScale({ 40, 40, 40 });
+	GraphicalObject* burst = addObject("bubbles", ajo, "EMITTER", "bubble_burst");
+	burst->translate({ 5, 0, 0 });
 
 	// TRIPULANTES
 	GraphicalObject* rosco = addObject("crew", nullptr, "", "thiswontbeused");

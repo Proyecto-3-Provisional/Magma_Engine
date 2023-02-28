@@ -11,7 +11,6 @@
 #include <SDL_syswm.h>
 
 RenderManagerContext::RenderManagerContext(const Ogre::String& appName)
-	: exitRequest(false)
 {
 	mAppName = appName;
 	mFSLayer = new Ogre::FileSystemLayer(appName);
@@ -49,6 +48,41 @@ void RenderManagerContext::closeApp()
 	shutdown();
 	delete mRoot;
 	mRoot = nullptr;
+}
+
+bool RenderManagerContext::frameStarted(const Ogre::FrameEvent& evt)
+{
+	// Esto no habría que hacerlo en cada frame,
+	// solo si se detectase que se cambia la ventana con SDL_POLLEVENTS
+	notifyWindowResized();
+
+	return true;
+}
+
+bool RenderManagerContext::frameEnded(const Ogre::FrameEvent& evt)
+{
+	return true;
+}
+
+void RenderManagerContext::windowMoved(Ogre::RenderWindow* rw)
+{
+}
+
+void RenderManagerContext::windowResized(Ogre::RenderWindow* rw)
+{
+}
+
+bool RenderManagerContext::windowClosing(Ogre::RenderWindow* rw)
+{
+	return true;
+}
+
+void RenderManagerContext::windowClosed(Ogre::RenderWindow* rw)
+{
+}
+
+void RenderManagerContext::windowFocusChange(Ogre::RenderWindow* rw)
+{
 }
 
 void RenderManagerContext::createRoot()
@@ -160,6 +194,13 @@ void RenderManagerContext::setWindowGrab(bool _grab)
 	SDL_SetWindowGrab(mWindow.native, grab);
 	//SDL_SetRelativeMouseMode(grab);
 	SDL_ShowCursor(grab);
+}
+
+void RenderManagerContext::notifyWindowResized()
+{
+	Ogre::RenderWindow* win = mWindow.render;
+	win->windowMovedOrResized();
+	windowResized(win);
 }
 
 bool RenderManagerContext::renderFrame()

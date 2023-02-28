@@ -5,20 +5,12 @@
 // Envoltorio para el uso básico de SceneNode, Entity y Light de Ogre
 // Permite crear y manipular fácilmente desde fuera objetos del mundo gráfico
 
-// Para cada objeto se crea un nodo que puede contener o una entidad o uno
-// de los 3 tipos de luz, o nada...
-
-// Algunos campos como "material" pueden ser ignorados
+// Para cada objeto se crea un nodo que puede contener una entidad, uno
+// de los 3 tipos de luz, un emisor de partículas o nada...
 
 // Problemas conocidos:
 // - No es tan práctico cachear objetos
 // - Si un objeto tiene hijos, se negrará a ser borrado
-
-namespace Ogre
-{
-	class SceneNode;
-	class Entity;
-};
 
 class GraphicalObject {
 public:
@@ -31,7 +23,7 @@ public:
 	void translate(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
 	void setPosition(Ogre::Vector3 vec);
 
-	void setDirection(Ogre::Vector3 vec);
+	void setDirection(Ogre::Vector3 vec); // útil en luces direccionales
 
 	void yaw(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void pitch(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
@@ -52,6 +44,9 @@ public:
 	// Luces
 	void setLightColor(float r, float g, float b);
 
+	// Emisores de part.
+	void setEmitting(bool b);
+
 	// Acerca del nodo
 	Ogre::String getKeyName();
 	Ogre::SceneNode* getNode();
@@ -62,11 +57,12 @@ protected:
 	void aknowledgeChild();
 	void childRemoved();
 
-	// Nodo y entidad asociados a este constructo
+	// Nodo (y entidad/luz/part.) asociado a este constructo
 	Ogre::SceneNode* objectNode = nullptr;
-	// Cosas que pueden ser (si toas = nullptr -> nodo vacío)
+	// Cosas que pueden ser (si todas = nullptr -> nodo vacío)
 	Ogre::Entity* entity = nullptr;
 	Ogre::Light* light = nullptr;
+	Ogre::ParticleSystem* particleSystem = nullptr;
 
 	// Padres e hijos
 	GraphicalObject* parentObject = nullptr;

@@ -75,6 +75,8 @@ int mainCode() {
 	InputManager* input = new InputManager; 
 
 	renderMngr.setBgColor(0.8, 0.8, 0.7);
+	renderMngr.objectShowMode(0);
+
 	// Cacheo de objetos gráficos
 	GraphicalObject* ajolote = renderMngr.getObject("suxalote");
 	GraphicalObject* ficticioTripulacion = renderMngr.getObject("crew");

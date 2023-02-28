@@ -35,6 +35,9 @@ public:
 	// Obtener número de objetos marcados para borrar
 	int getNumObjectsToRemove();
 
+	// ¿Visualizar alambres de mallas?
+	void objectShowMode(int val);
+
 	// Cambiar fondo
 	void setBgColor(float r, float g, float b);
 
@@ -50,7 +53,7 @@ protected:
 	virtual void setupScene();
 
 	// Cerrar
-	virtual void shutdown ();
+	virtual void shutdown();
 
 	// Crear malla por código: plano
 	void createPlaneMesh(Ogre::String name = "mPlane1080x800");

@@ -2,6 +2,7 @@
 
 #include "OgreRoot.h"
 #include "OgreEntity.h"
+#include "OgreParticleSystem.h"
 
 GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 	GraphicalObject* parent = nullptr, std::string mesh = "",
@@ -29,8 +30,9 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			light->setType(Ogre::Light::LT_DIRECTIONAL);
 			light->setDiffuseColour(0.90, 0.90, 0.90);
 			objectNode->attachObject(light);
-			assert(light);
 			assert(!entity);
+			assert(light);
+			assert(!particleSystem);
 		}
 		else if (meshFile == "LIGHTBULB")
 		{
@@ -38,8 +40,9 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			light->setType(Ogre::Light::LT_POINT);
 			light->setDiffuseColour(0.90, 0.90, 0.90);
 			objectNode->attachObject(light);
-			assert(light);
 			assert(!entity);
+			assert(light);
+			assert(!particleSystem);
 		}
 		else if (meshFile == "SPOTLIGHT")
 		{
@@ -50,8 +53,19 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			light->setSpotlightOuterAngle(Ogre::Degree(90.0f));	//
 			light->setSpotlightFalloff(2.0f);					//
 			objectNode->attachObject(light);
-			assert(light);
 			assert(!entity);
+			assert(light);
+			assert(!particleSystem);
+		}
+		else if (meshFile == "EMITTER") {
+			Ogre::String partSysName = "ps_" + keyName;
+			// 'materialName' empleado para especificar el sistema de partículas en este caso
+			particleSystem = mySceneManager.createParticleSystem(partSysName, materialName);
+			particleSystem->setEmitting(true);
+			objectNode->attachObject(particleSystem);
+			assert(!entity);
+			assert(!light);
+			assert(particleSystem);
 		}
 		else // crear entidad con su material y anclarla
 		{
@@ -60,25 +74,30 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			objectNode->attachObject(entity);
 			assert(entity);
 			assert(!light);
+			assert(!particleSystem);
 		}
 	}
 }
 
 GraphicalObject::~GraphicalObject()
 {
-	// si no es un objeto vacío, borrar su entidad (o luz)
+	// si no es un objeto vacío, borrar su entidad (o luz o emisor)
 	if (entity)
 	{
 		objectNode->detachObject(entity);
 		mySceneManager.destroyEntity(entity);
 		entity = nullptr;
 	}
-
 	if (light)
 	{
 		objectNode->detachObject(light);
-		mySceneManager.destroyEntity(light);
+		mySceneManager.destroyLight(light);
 		light = nullptr;
+	}
+	if (particleSystem) {
+		objectNode->detachObject(particleSystem);
+		mySceneManager.destroyParticleSystem(particleSystem);
+		particleSystem = nullptr;
 	}
 
 	// notificar destrucción al padre
@@ -171,6 +190,12 @@ void GraphicalObject::setLightColor(float r, float g, float b)
 {
 	if (light)
 		light->setDiffuseColour(r, g, b);
+}
+
+void GraphicalObject::setEmitting(bool b)
+{
+	if (particleSystem)
+		particleSystem->setEmitting(b);
 }
 
 Ogre::String GraphicalObject::getKeyName()

@@ -40,13 +40,13 @@ public:
 	void closeApp();
 
 	// Interfaz de callbacks copiada de varios listeners para usarse aquí
-	virtual bool frameStarted(const Ogre::FrameEvent& evt) { return true; }
-	virtual bool frameEnded(const Ogre::FrameEvent& evt) { return true; }
-	virtual void windowMoved(Ogre::RenderWindow* rw) {}
-	virtual void windowResized(Ogre::RenderWindow* rw) {}
-	virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
-	virtual void windowClosed(Ogre::RenderWindow* rw) {}
-	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
+	virtual bool frameStarted(const Ogre::FrameEvent& evt);
+	virtual bool frameEnded(const Ogre::FrameEvent& evt);
+	virtual void windowMoved(Ogre::RenderWindow* rw);
+	virtual void windowResized(Ogre::RenderWindow* rw);
+	virtual bool windowClosing(Ogre::RenderWindow* rw);
+	virtual void windowClosed(Ogre::RenderWindow* rw);
+	virtual void windowFocusChange(Ogre::RenderWindow* rw);
 
 	// Crear la raíz de Ogre
 	virtual void createRoot();
@@ -80,6 +80,9 @@ public:
 	// Limpiar y cerrar el contexto
 	virtual void shutdown();
 
+	// Reaccionar al reescaladio de ventana
+	void notifyWindowResized();
+
 	// Renderizar un fotograma
 	bool renderFrame();
 
@@ -91,6 +94,4 @@ protected:
 	Ogre::Root* mRoot;					// Raíz de Ogre
 	Ogre::FileSystemLayer* mFSLayer;	// Abstracción del s. de ficheros
 	Ogre::OverlaySystem* mOverlaySystem;// Sistema de Overlay: requerido por OverlayManager (encargado de UI)
-
-	bool exitRequest;					// Petición de salida
 };
