@@ -40,7 +40,7 @@ public:
 	void closeApp();
 
 	// Interfaz de callbacks copiada de varios listeners para usarse aquí
-	virtual bool frameStarted(const Ogre::FrameEvent& evt) { pollEvents(); return true; }
+	virtual bool frameStarted(const Ogre::FrameEvent& evt) { return true; }
 	virtual bool frameEnded(const Ogre::FrameEvent& evt) { return true; }
 	virtual void windowMoved(Ogre::RenderWindow* rw) {}
 	virtual void windowResized(Ogre::RenderWindow* rw) {}
@@ -80,12 +80,8 @@ public:
 	// Limpiar y cerrar el contexto
 	virtual void shutdown();
 
-	// Procesar todos los eventos de ventana desde la última llamada
-	virtual void pollEvents() = 0;
 	// Renderizar un fotograma
 	bool renderFrame();
-	// ¿Se debe salir del bucle ppal.?
-	bool exitRequested();
 
 protected:
 	Ogre::String mAppName;				// Nombre de la aplicación

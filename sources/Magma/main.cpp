@@ -64,7 +64,7 @@ int mainCode() {
 	InputManager* input = new InputManager; 
 
 	bool error = false;
-	while (!renderMngr.exitRequested() && !error)
+	while (!input->exitRequested() && !error)
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;

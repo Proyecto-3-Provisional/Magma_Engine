@@ -155,11 +155,6 @@ NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 	return mWindow;
 }
 
-bool RenderManagerContext::exitRequested()
-{
-	return exitRequest;
-}
-
 void RenderManagerContext::setWindowGrab(bool _grab)
 {
 	SDL_bool grab = SDL_bool(_grab);

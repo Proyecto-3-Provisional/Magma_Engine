@@ -49,9 +49,6 @@ protected:
 	// Cerrar
 	virtual void shutdown();
 
-	// Reaccionar a eventos de entrada
-	virtual void pollEvents();
-
 	// Crear malla por código: plano
 	void createPlaneMesh(Ogre::String name = "mPlane1080x800");
 
