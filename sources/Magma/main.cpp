@@ -5,6 +5,8 @@
 // GUILLERMO: "...proyectos como espacios de nombres"
 #include "Render/render_manager.h"
 #include "Render/UI_Manager.h"
+#include "Render/UI_Text.h"
+#include "Render/UI_Image.h"
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 
@@ -74,18 +76,19 @@ int mainCode() {
 	e4->applyCentralForce(btVector3(0, 1000, 0));
 
 
+	//						UI MANAGER
 	//******************************************************
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
 	UI_Manager* ui = new UI_Manager();
-	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5, 0.3, 0.1);
-	ui->createImage("ImgPrueba", "golf", 0, 80, 100, 100);
+	
+	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5, 0.3, 0.1);
+	testText->setText("Ahhh yessss");
 
-	//UI_Image* dit; //da error al ejecutar
-	//dit = static_cast<UI_Image*>(ui->getElement("ImgPrueba"));// ->changeImage("rat");
-	//dit->changeImage("rat");
+	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
+	//testImage->changeImage("golf");
+
 	//******************************************************
 
-	//******************************************************
 	InputManager* input = new InputManager;
 
 	renderMngr.setBgColor(0.8, 0.8, 0.7);

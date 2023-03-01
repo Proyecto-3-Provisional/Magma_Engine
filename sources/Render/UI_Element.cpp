@@ -9,7 +9,6 @@ UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
 {
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 	overlay_ = overReference;
-	name = title;
 	isInteractive_ = false;
 
 	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", title));
@@ -45,12 +44,6 @@ void UI_Element::hideElement()
 bool UI_Element::isElementVisible()
 {
 	return panel->isVisible();
-}
-
-// Devuelve el nombre del elemento
-std::string UI_Element::getElementName()
-{
-	return name;
 }
 
 // Devuelve la posicion del panel

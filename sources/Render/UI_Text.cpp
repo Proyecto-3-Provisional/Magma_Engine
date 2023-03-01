@@ -11,10 +11,10 @@
 
 UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 	int posX, int posY, int sizeX, int sizeY, std::string fontTitle,
-	std::string textContent, Ogre::ColourValue textColor)
+	std::string textContent, float r, float g, float b)
 	: UI_Element(overReference,title, posX, posY, sizeX, sizeY)
 {	
-	Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*>
+	textArea = static_cast<Ogre::TextAreaOverlayElement*>
 		(overlayMan_->createOverlayElement("TextArea", title+"Text"));
 
 	textArea->setMetricsMode(Ogre::GMM_PIXELS);
@@ -25,8 +25,8 @@ UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 	textArea->setCaption(textContent);
 
 	textArea->setCharHeight(sizeY);
-	textArea->setColourBottom(textColor);
-	textArea->setColourTop(textColor);
+	textArea->setColourBottom(Ogre::ColourValue(r, g, b));
+	textArea->setColourTop(Ogre::ColourValue(r, g, b));
 
 	panel->addChild(textArea);
 	overReference->add2D(panel);
@@ -34,6 +34,11 @@ UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 
 UI_Text::~UI_Text()
 {
+}
+
+void UI_Text::setText(std::string newText)
+{
+	textArea->setCaption(newText);
 }
 
 void UI_Text::setTextPosition(float x, float y)
@@ -51,8 +56,8 @@ void UI_Text::changeFontSize(int fontSize)
 	textArea->setCharHeight(fontSize);
 }
 
-void UI_Text::changeTextColor(Ogre::ColourValue newColor)
+void UI_Text::changeTextColor(float r, float g, float b)
 {
-	textArea->setColourBottom(newColor);
-	textArea->setColourTop(newColor);
+	textArea->setColourBottom(Ogre::ColourValue(r, g, b));
+	textArea->setColourTop(Ogre::ColourValue(r, g, b));
 }

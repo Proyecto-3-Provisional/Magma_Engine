@@ -39,20 +39,6 @@ void UI_Manager::cleanPanel()
 }
 
 /****************************************************************************
-	Crea un texto personalizado y lo mete a la lista de elementos del overlay
-*****************************************************************************/
-
-void UI_Manager::createText(std::string textPanelName, int posX, int posY,
-	int sizeX, int sizeY, std::string fontName, std::string textContent,
-	float colorX, float colorY, float colorZ)
-{
-	UI_Text* text = new UI_Text(overlay, textPanelName, posX, posY, sizeX, sizeY,
-		fontName, textContent, Ogre::ColourValue(colorX,colorY,colorZ));
-	elements.push_back(text);
-}
-
-
-/****************************************************************************
 	Crea una imagen personalizada y la mete a la lista de elementos del overlay
 *****************************************************************************/
 
@@ -61,15 +47,4 @@ void UI_Manager::createImage(std::string imagePanelName, std::string imageName, 
 {
 	UI_Image* image = new UI_Image(overlay, imagePanelName, imageName, posX, posY, sizeX, sizeY);
 	elements.push_back(image);
-}
-
-
-UI_Element* UI_Manager::getElement(std::string name)
-{
-	for (int i = 0; i < elements.size(); i++) {
-		if (elements[i]->getElementName() == name) {
-			
-			return elements[i];
-		}
-	}
 }

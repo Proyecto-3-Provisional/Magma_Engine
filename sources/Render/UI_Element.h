@@ -22,8 +22,6 @@ public:
 
 	std::pair<float, float> getPosition();
 	std::pair<float, float> getSize();
-
-	std::string getElementName();
 	
 	void setInteractive(bool isInteractive) {};
 
@@ -36,6 +34,5 @@ protected:
 	Ogre::Overlay* overlay_;
 	Ogre::OverlayContainer* panel;
 
-	std::string name;
 	bool isInteractive_;
 };

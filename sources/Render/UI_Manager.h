@@ -25,14 +25,17 @@ public:
 	void update();
 	void cleanPanel();
 	
-	void createText(std::string textPanelName, int posX, int posY,
-		int sizeX, int sizeY, std::string fontName, std::string textContent,
-		float colorX, float colorY, float colorZ);
-
 	void createImage(std::string imagePanelName, std::string imageName, int posX, int posY,
 		int sizeX, int sizeY);
 
-	UI_Element* getElement(std::string name);
+	// Crea un UI_Element de X tipo(Texto, image...) con su nombre de panel, una referencia al overlay y los argumentos que necesite su tipo
+	template<typename T, typename ...Ts>
+	T* createElement(std::string panelName, Ts&&... args)
+	{
+		T* elem = new T(overlay, panelName, args...);
+		elements.push_back(elem);
+		return elem;
+	}
 
 private:
 	Ogre::OverlayManager* overlayMngr_;
