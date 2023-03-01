@@ -19,46 +19,31 @@ public:
 	void setZ(float z_);
 		void set(float x_, float y_, float z_);
 	void set(const Vector3D& v_);
-	//inline void set(const Vector3D&& v_);
 	void set(const Vector3D* v_);
 
-	// copy assignment
+	// tarea de copia
 	Vector3D& operator=(const Vector3D& v);
 	Vector3D& operator+=(const Vector3D& v);
 
-	// length of the vector
+	// longitud del vector
 	float magnitude() const;
 
-	// vector in the same direction of length 1
+	// vector en la misma dirección que length 1.
 	Vector3D normalize() const;
 
-	// counter clockwise rotation in a normal coordinate system, and
-	// it is clockwise rotation if we work with a coordinate system
-	// in which the vertical axe is flipped (it is like a mirror over
-	// the horizontal axe)-- which the case when working with the SDL.
-	//
-	//Vector2D rotate(float degrees) const;
-
-	// Computes the angle between 'this' and 'v'. The result is
-	// between -180 and 180, and is such that the following holds:
-	//
-	//   this->rotate(angle) == v
-	//
-	//float angle(const Vector2D& v) const;
-
-	// vector subtraction
+	// resta del vector
 	Vector3D operator-(const Vector3D& v) const;
 
-	// vector addition
+	// suma del vector
 	Vector3D operator+(const Vector3D& v) const;
 
-	// multiplication by constant (scaling)
+	// multiplicación por constante
 	Vector3D operator*(float d) const;
 
-	// division by constant (scaling)
+	// división por constante
 	Vector3D operator/(float d) const;
 
-	// scalar multiplication
+	// multiplicación escalar
 	float operator *(const Vector3D& d) const;
 private:
 	float x;
