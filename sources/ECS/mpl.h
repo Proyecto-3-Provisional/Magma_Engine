@@ -9,68 +9,68 @@
 
 namespace mpl {
 
-	// Compile-time list of types.
+	// Lista de tipos en tiempo de compilación.
 	template<typename ... Ts>
 	struct TypeList {
-		// Size of the list.
+		// Tamaño de la lista.
 		static constexpr std::size_t size{ sizeof...(Ts) };
 	};
 
-	// IndexOf<T,TypeList<T1,T2,...>>() is the position of T in T1,T2,...
-	// could also use <T,TypeList<T1,T2,...>>::value
+	// IndexOf<T,TypeList<T1,T2,...>>() es la posición de T en T1, T2,...
+	// podría usarse también <T,TypeList<T1,T2,...>>::value
 	//
 	template<typename, typename >
 	struct IndexOf;
 
-	// IndexOf base case: found the type we're looking for.
+	// IndexOf caso base: encontrado el tipo que se busca.
 	template<typename T, typename ... Ts>
 	struct IndexOf<T, TypeList<T, Ts...>> : std::integral_constant<std::size_t, 0> {
 	};
 
-	// IndexOf recursive case: 1 + IndexOf the rest of the types.
+	// IndexOf caso recursivo: 1 + IndexOf el resto de los tipos.
 	template<typename T, typename TOther, typename ... Ts>
 	struct IndexOf<T, TypeList<TOther, Ts...>> : std::integral_constant < std::size_t,
 		1 + IndexOf<T, TypeList<Ts...>> { } > {
 	};
 
-	// Ith<i,TypeList<T1,T2,...>>::type is the type Ti
+	// Ith<i,TypeList<T1,T2,...>>::type es el tipo Ti
 	//
 	template<std::size_t i, typename >
 	struct Ith;
 
-	// Ith base case: the type is the first in the list
+	// Ith caso base: el tipo es primero en la lista.
 	template<typename T, typename ... Ts>
 	struct Ith<0, TypeList<T, Ts...>> {
 		using type = T;
 	};
 
-	// Ith recursive case: the type is the (i-1)th in the rest of the list
+	// Ith caso recursivo: el tipo es el (i-1)avo en el resto de la lista.
 	template<std::size_t i, typename T, typename ... Ts>
 	struct Ith<i, TypeList<T, Ts...>> {
 		using type = typename Ith<i - 1, TypeList<Ts...>>::type;
 	};
 
-	// RemovePrefix<i,TypeList<T1,T2,...>>::type is TypeList<T_{i+1},T_{i+2},...>
+	// RemovePrefix<i,TypeList<T1,T2,...>>::type es TypeList<T_{i+1},T_{i+2},...>
 	//
-	// Ith<i,TypeList<T1,T2,...>>::type is the type Ti
+	// Ith<i,TypeList<T1,T2,...>>::type es el tipo Ti
 	//
 	template<std::size_t i, typename >
 	struct RemovePrefix;
 
-	// Ith base case: nothing to reemove
+	// Ith caso base: nada para eliminar.
 	template<typename T, typename ... Ts>
 	struct RemovePrefix<0, TypeList<T, Ts...>> {
 		using type = TypeList<T, Ts...>;
 	};
 
-	// Ith recursive case: remove the (i-1)th prefix from in the rest of the list
+	// Ith caso recursivo: elimina el (i-1)avo prefijo del resto de la lista.
 	template<std::size_t i, typename T, typename ... Ts>
 	struct RemovePrefix<i, TypeList<T, Ts...>> {
 		using type = typename RemovePrefix<i - 1, TypeList<Ts...>>::type;
 	};
 
-	// if T1 a complete type, i.e., not a forward declaration, then
-	// the field 'type' will be T1, otherwise T2
+	// si T1 es un tipo completo, es decir, no una declaración hacia delante, entonces
+	// el 'tipo' terreno será T1, si no T2
 	//
 	template<class T1, class T2, class = void>
 	struct is_complete_type {
@@ -85,8 +85,8 @@ namespace mpl {
 		using type = T1;
 	};
 
-	// numeric_type<max>::type is an unsigned integer type large enough to
-	// hold the number max
+	// numeric_type<max>::type es un tipo entero sin signo lo suficientemente grande para
+	// poder contener el número máximo.
 	//
 	template<std::size_t max, class = void>
 	struct numeric_type;

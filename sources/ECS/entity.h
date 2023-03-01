@@ -86,7 +86,7 @@ namespace ecs{
 		template<typename T>
 		inline T* getComponent() {
 
-			constexpr cmpId_type cId = T::id;
+			constexpr cmpId_type cId = cmpId<T>;
 			assert(cId < ecs::maxComponentId);
 
 			return static_cast<T*>(cmps[cId]);
@@ -96,7 +96,7 @@ namespace ecs{
 		template<typename T>
 		inline bool hasComponent() {
 
-			constexpr cmpId_type cId = T::id;
+			constexpr cmpId_type cId = cmpId<T>;
 			assert(cId < ecs::maxComponentId);
 
 			return cmps[cId] != nullptr;

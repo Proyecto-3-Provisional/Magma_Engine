@@ -1,14 +1,6 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+// Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
 
 #pragma once
-
-/*
- *
- * DO NOT USE/MODIFY THIS FILE, IT IS JUST AN EXAMPLE OF HOW YOUR
- * game/messages_defs.h SHOULD LOOK LIKE
- *
- */
-
 
 #include <cstdint>
 #include "ecs.h"
@@ -23,9 +15,9 @@ enum msgId : msgId_type {
 struct Message {
 	msgId_type id;
 
-	// if we use union we save memory, but then use only primitive
-	// types, otherwise you will need to define constructors almost
-	// every where.
+	// si usamos union ahorraremos memoria, pero solo usaremos tipos
+	// primitivos, de otra manera se necesitarán definir constructores
+	// casi en todas partes
 
 	union {
 
