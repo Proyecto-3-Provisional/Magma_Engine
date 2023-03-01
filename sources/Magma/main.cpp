@@ -6,6 +6,7 @@
 #include "Render/render_manager.h"
 #include "Render/UI_Manager.h"
 #include "Input/input_manager.h"
+#include "Physics/physics_manager.h"
 
 #include "entity_manager.h"
 #include "entity.h"
@@ -59,11 +60,24 @@ int mainCode() {
 		renderMngr.closeApp();
 		return 1;
 	}
+	//******************************************************
+	// PhysicsManager
+	PhysicsManager* physMngr = new PhysicsManager();
+	physMngr->initPhysics();
+	btRigidBody* e = physMngr->addRigidBody(1, 1, 1, 10, 0, 0);
+	btRigidBody* e2 = physMngr->addRigidBody(1, 1, 1, -10, 0, 0);
+	btRigidBody* e3 = physMngr->addRigidBody(1, 1, 1, 0, 10, 0);
+	btRigidBody* e4 = physMngr->addRigidBody(1, 1, 1, 0, -10, 0);
+	e->applyCentralForce(btVector3(-1000, 0, 0));
+	e2->applyCentralForce(btVector3(1000, 0, 0));
+	e3->applyCentralForce(btVector3(0, -1000, 0));
+	e4->applyCentralForce(btVector3(0, 1000, 0));
+
 
 	//******************************************************
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
 	UI_Manager* ui = new UI_Manager();
-	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5,0.3,0.1);
+	ui->createText("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5, 0.3, 0.1);
 	ui->createImage("ImgPrueba", "golf", 0, 80, 100, 100);
 
 	//UI_Image* dit; //da error al ejecutar
@@ -72,7 +86,7 @@ int mainCode() {
 	//******************************************************
 
 	//******************************************************
-	InputManager* input = new InputManager; 
+	InputManager* input = new InputManager;
 
 	renderMngr.setBgColor(0.8, 0.8, 0.7);
 	renderMngr.objectShowMode(0);
@@ -82,16 +96,22 @@ int mainCode() {
 	GraphicalObject* ficticioTripulacion = renderMngr.getObject("crew");
 	ficticioCubo = renderMngr.getObject("cube_empty");
 	// Cacheo de objetos gráficos
-		
+
 	bool error = false;
-	while (!input->exitRequested() && !error)
+	int s = 50;
+	while (!input->exitRequested() && !error && s > 0)
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
 		lastFrameTime = SDL_GetTicks();
 
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
+		physMngr->update();
+		// Para ver los couts de colisiones descomentar la s
+		// s--;
+
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
-		input->inputEvent(); 
+		input->inputEvent();
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 		entityManager->update();
@@ -112,7 +132,7 @@ int mainCode() {
 				ficticioCubo = nullptr;
 			}
 		}
-		
+
 		// Ejemplo de movimiento: rotar objetos para ver cambios entre fotogramas
 		ajolote->yaw(rotationVelocity * timeSinceLastFrame);
 		ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);

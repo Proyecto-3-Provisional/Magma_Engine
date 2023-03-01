@@ -28,6 +28,9 @@
     <ProjectReference Include="..\Input\Input.vcxproj">
       <Project>{860a6525-0260-4e54-b770-99469e896c5f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Physics\Physics.vcxproj">
+      <Project>{7d29ac9a-59c6-427c-898c-c9841695e698}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Render\Render.vcxproj">
       <Project>{922b7516-f118-42be-9aeb-749c8d010118}</Project>
     </ProjectReference>
@@ -158,7 +161,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -177,7 +180,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\ECS;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
