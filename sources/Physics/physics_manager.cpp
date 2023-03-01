@@ -56,9 +56,9 @@ btRigidBody* PhysicsManager::addRigidBody(const double& xShape, const double& yS
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 
-	//body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
-	body->setUserIndex(lastUserIndex);
-	lastUserIndex++;
+	body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
+	//body->setUserIndex(lastUserIndex);
+	//lastUserIndex++;
 
 	// Añadir el cuerpo al mundo de la dinámica
 	dynamicsWorld->addRigidBody(body);
@@ -78,9 +78,9 @@ void PhysicsManager::deleteRigidBody(int userIndex)
 	delete obj;
 
 	// Al borrar la entidad se rellena el hueco del array con el último elemento. Actualizamos su índice:  
-	//btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[userIndex];
-	//btRigidBody* body = btRigidBody::upcast(obj);
-	//body->setUserIndex(userIndex);
+	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
+	btRigidBody* body1 = btRigidBody::upcast(obj1);
+	body1->setUserIndex(userIndex);
 }
 
 // Actualiza el estado de los rigidbody
@@ -147,8 +147,8 @@ void PhysicsManager::updateCollisions()
 // Comprueba si dos rigidbody en concreto colisionan
 bool PhysicsManager::isCollide(int index1, int index2)
 {
-	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index1];
-	btRigidBody* body1 = btRigidBody::upcast(obj);
+	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[index1];
+	btRigidBody* body1 = btRigidBody::upcast(obj1);
 	btCollisionObject* obj2 = dynamicsWorld->getCollisionObjectArray()[index2];
 	btRigidBody* body2 = btRigidBody::upcast(obj2);
 

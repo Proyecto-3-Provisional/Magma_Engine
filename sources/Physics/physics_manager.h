@@ -26,5 +26,5 @@ private:
 
 
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
-	int lastUserIndex = 0;
+	//int lastUserIndex = 0;
 };
