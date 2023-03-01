@@ -9,7 +9,7 @@ public:
 
 	void setImagePosition(float x, float y);
 	void setImageSize(float x, float y);
-	void changeImage(std::string imageName);
+	void changeImage(std::string title, std::string imageName);
 
 private:
 	Ogre::OverlayElement* imageUI;
