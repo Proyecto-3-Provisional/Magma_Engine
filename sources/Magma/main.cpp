@@ -86,7 +86,7 @@ int mainCode() {
 	testText->setText("Ahhh yessss");
 
 	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
-	testImage->changeImage("ImgPruebaImage", "rat");
+	//testImage->changeImage("ImgPruebaImage", "rat");
 
 	//******************************************************
 
