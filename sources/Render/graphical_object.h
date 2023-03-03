@@ -46,6 +46,10 @@ public:
 	Ogre::SceneNode* getNode();
 	int getChildrenUsing();
 
+	// ¿La cámara le sigue?
+	void setCamAttached(bool val);
+	bool isCamAttached();
+
 protected:
 	// Notificar existencia de objetos hijos
 	void aknowledgeChild();
@@ -61,6 +65,7 @@ protected:
 	// Padres e hijos
 	GraphicalObject* parentObject = nullptr;
 	int childrenUsing;
+	bool camAttached;
 
 private:
 	// Gestor de la escena

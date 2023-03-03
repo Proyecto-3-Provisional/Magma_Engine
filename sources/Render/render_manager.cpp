@@ -23,6 +23,112 @@ RenderManager::~RenderManager()
 	// delete -> shutdown()
 }
 
+void RenderManager::setCamPos(Ogre::Vector3 vec)
+{
+	if (cameraNode)
+		cameraNode->setPosition(vec);
+}
+
+void RenderManager::translateCam(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo)
+{
+	if (cameraNode)
+		cameraNode->translate(vec, relTo);
+}
+
+void RenderManager::setCamOrientation(float ang, Ogre::Vector3 axis)
+{
+	if (cameraNode)
+	{
+		Ogre::Quaternion q = Ogre::Quaternion(Ogre::Degree(ang), Ogre::Vector3(axis));
+		cameraNode->setOrientation(q);
+	}
+}
+
+void RenderManager::yawCam(float deg, Ogre::Node::TransformSpace relTo)
+{
+	if (cameraNode)
+		cameraNode->yaw(Ogre::Degree(deg), relTo);
+}
+
+void RenderManager::pitchCam(float deg, Ogre::Node::TransformSpace relTo)
+{
+	if (cameraNode)
+		cameraNode->pitch(Ogre::Degree(deg), relTo);
+}
+
+void RenderManager::rollCam(float deg, Ogre::Node::TransformSpace relTo)
+{
+	if (cameraNode)
+		cameraNode->roll(Ogre::Degree(deg), relTo);
+}
+
+void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo)
+{
+	if (cameraNode)
+		cameraNode->lookAt(vec, relTo);
+}
+
+// 0. Comprobar que no hay cámara
+// 1. Crear nodo para la cámara
+// 2. Crear la cámara y asignarle su nodo
+// 3. Configurar cámara
+// 4. Crear puerto de vista
+void RenderManager::createCam(GraphicalObject* follow, Ogre::Vector3 startPos)
+{
+	if (camera && cameraNode && cameraViewport)
+		return;
+
+	cameraFollows = follow;
+	if (cameraFollows)
+	{
+		cameraNode = cameraFollows->getNode()->createChildSceneNode();
+		cameraFollows->setCamAttached(true);
+	}
+	else
+	{
+		cameraNode = mSM->getRootSceneNode()->createChildSceneNode();
+	}
+
+	camera = mSM->createCamera("MagmaCamera");
+	cameraNode->attachObject(camera);
+
+	camera->setNearClipDistance(1);		//
+	camera->setFarClipDistance(10000);	//
+	camera->setAutoAspectRatio(true);	//
+	setCamPos(startPos);
+	if (cameraFollows)
+		setCamLookAt({ 0, 0, 1000 }, Ogre::Node::TS_LOCAL);
+	else
+		setCamLookAt({ 0, 0, 0 }, Ogre::Node::TS_WORLD);
+
+	cameraViewport = getRenderWindow()->addViewport(camera);
+}
+
+// 0. Comprobar que hay cámara
+// 1. Destruir puerto de vista
+// 2. Desasignar y destruir cámara
+// 3. Destruir nodo y notificarlo
+// 4. La cámara no sigue a nadie porque se ha borrado
+void RenderManager::destroyCam()
+{// que pasa si la cámara va en un objeto que muere?
+	if (!camera && !cameraNode && !cameraViewport)
+		return;
+
+	getRenderWindow()->removeAllViewports();
+	cameraViewport = nullptr;
+
+	cameraNode->detachObject(camera);
+	mSM->destroyCamera(camera);
+	camera = nullptr;
+	
+	mSM->destroySceneNode(cameraNode);
+	cameraNode = nullptr;
+	if (cameraFollows)
+		cameraFollows->setCamAttached(false);
+
+	cameraFollows = nullptr; // No hacer delete de cameraFollows
+}
+
 // Devuelve un puntero al Objeto creado, o nullptr si falla
 // Se crea el objeto solo si la clave no está en uso
 /* La estructura de diccionario "sceneObjects" ya comprobaba la existencia
@@ -71,10 +177,11 @@ bool RenderManager::sunsetObject(std::string key)
 }
 
 // Devuelve si tuvo éxito (el Objeto no se resistió a ser borrado)
-// Un objeto se resiste cuando de él pende algún objeto hijo
+// Un objeto se resiste cuando de él pende algún objeto hijo:
+//		(algún childrenUsing o camAttached)
 bool RenderManager::removeObject(GraphicalObject* gO)
 {
-	if (gO->getChildrenUsing() > 0)
+	if (gO->isCamAttached() || gO->getChildrenUsing() > 0)
 		return false;
 	sceneObjects.erase(gO->getKeyName());
 	delete gO;
@@ -84,13 +191,14 @@ bool RenderManager::removeObject(GraphicalObject* gO)
 
 // Devuelve si tuvo éxito (el Objeto se encontró Y no se resistió a ser borrado)
 // La clave debe existir en el diccionario
-// Un objeto se resiste cuando de él pende algún objeto hijo
+// Un objeto se resiste cuando de él pende algún objeto hijo:
+//		(algún childrenUsing o camAttached)
 bool RenderManager::removeObject(std::string key)
 {
 	GraphicalObject* gO = getObject(key);
 	if (!gO)
 		return false;
-	if (gO->getChildrenUsing() > 0)
+	else if (gO->isCamAttached() || gO->getChildrenUsing() > 0)
 		return false;
 	delete gO;
 	gO = nullptr;
@@ -119,12 +227,13 @@ void RenderManager::removeObjects()
 
 // Devuelve la cantidad de Objetos que se resistieron a ser borrados
 // Tales objetos quedan de todos modos desencolados...
-bool RenderManager::refreshObjects()
+int RenderManager::refreshObjects()
 {
 	int ret = 0;
 	while (!sceneObjectsToRemove.empty())
 	{
-		if (!removeObject(sceneObjectsToRemove.front())) ret++;
+		if (!removeObject(sceneObjectsToRemove.front()))
+			ret++;
 		sceneObjectsToRemove.pop_front();
 	}
 	return ret;
@@ -140,31 +249,21 @@ int RenderManager::getNumObjectsToRemove()
 	return sceneObjectsToRemove.size();
 }
 
-void RenderManager::objectShowMode(int val)
+/*
+ PM_POINTS		1
+ PM_WIREFRAME	2
+ PM_SOLID		3
+*/
+void RenderManager::objectShowMode(unsigned int val)
 {
-	if (cam)
-	{
-		if (val == 1)
-		{
-			cam->setPolygonMode(Ogre::PM_WIREFRAME); 
-		}
-		else if (val == 2)
-		{
-			cam->setPolygonMode(Ogre::PM_POINTS);
-		}
-		else
-		{
-			cam->setPolygonMode(Ogre::PM_SOLID);
-		}
-	}
+	if (camera)
+		camera->setPolygonMode((Ogre::PolygonMode)val);
 }
 
 void RenderManager::setBgColor(float r, float g, float b)
 {
-	if (cam && vp)
-	{
-		vp->setBackgroundColour(Ogre::ColourValue(r, g, b));
-	}
+	if (cameraViewport)
+		cameraViewport->setBackgroundColour(Ogre::ColourValue(r, g, b));
 }
 
 // Al final crea la malla de un plano po código y dispone la escena
@@ -180,11 +279,12 @@ void RenderManager::setup()
 	setupScene();
 }
 
-// POSIBLEMENTE BLOQUEANTE debido a removeObjects()
+// POSIBLEMENTE BLOQUEANTE debido a removeObjects() -> Destruir cámara antes
 // removeObjects quita todos aquellos objetos añadidos a la escena
 // NO CAMBIAR LA ÚLTIMA LÍNEA
 void RenderManager::shutdown()
 {
+	destroyCam();
 	removeObjects();
 
 	mSM->removeRenderQueueListener(mOverlaySystem);
@@ -196,18 +296,6 @@ void RenderManager::shutdown()
 // Se crean la cámara y los objetos de prueba
 void RenderManager::setupScene(void)
 {
-	// CÁMARA
-	cam = mSM->createCamera("Cam");
-	cam->setNearClipDistance(1);
-	cam->setFarClipDistance(10000);
-	cam->setAutoAspectRatio(true);
-	mCamNode = mSM->getRootSceneNode()->createChildSceneNode();
-	mCamNode->attachObject(cam);
-	vp = getRenderWindow()->addViewport(cam);
-
-	mCamNode->setPosition(0, 0, 1000);
-	mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
-
 	// LUCES
 	GraphicalObject* sol = addObject("sol", nullptr, "SUN");
 	sol->setLightColor(0.5, 0.5, 0.3);

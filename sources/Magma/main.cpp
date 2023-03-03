@@ -17,6 +17,8 @@
 #include "ECS/test_axl_mov.h"
 #include "ECS/vector3D.h"
 
+#define FIRST_PERSON 1
+
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
 void ecTestUpdate(ec::EntityManager* em);
@@ -90,14 +92,23 @@ int mainCode() {
 	SoundManager* soundManager = new SoundManager();
 	soundManager->playSound();
 
-	renderMngr->setBgColor(0.8, 0.8, 0.7);
-	renderMngr->objectShowMode(0);
-
 	//_RENDER_ Cacheo de objetos gráficos
 	GraphicalObject* ajolote = renderMngr->getObject("suxalote");
 	GraphicalObject* ficticioTripulacion = renderMngr->getObject("crew");
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
+	//_RENDER_ Cámara para la escena
+	if (FIRST_PERSON)
+	{
+		renderMngr->createCam(ajolote, { -25, 2, -4 });
+		renderMngr->yawCam(90);
+	}
+	else
+	{
+		renderMngr->createCam(nullptr);
+	}
+	renderMngr->setBgColor(0.8, 0.8, 0.7);
+	renderMngr->objectShowMode(0);
 
 	// Bucle Principal del Motor //
 	bool error = false;
@@ -109,7 +120,7 @@ int mainCode() {
 		lastFrameTime = SDL_GetTicks();
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
-		physMngr->update();
+		physMngr->update(); // > porfa haced que esto no haga spam por terminal
 		// Para ver los couts de colisiones descomentar la s
 		// s--;
 
@@ -152,7 +163,7 @@ int mainCode() {
 		if (f != 0)
 		{
 			std::cout << f <<
-				"destrucciones gráficas diferidas fallidas\t/!\\" << std::endl;
+				" destrucciones gráficas diferidas fallidas\t/!\\" << std::endl;
 		}
 
 		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren más...

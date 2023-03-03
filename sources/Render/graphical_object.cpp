@@ -17,7 +17,7 @@
 GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 	GraphicalObject* parent = nullptr, std::string mesh = "",
 	std::string material = "default") : keyName(name), mySceneManager(mSM),
-	parentObject(parent), childrenUsing(0), meshFile(mesh),
+	parentObject(parent), childrenUsing(0), camAttached(false), meshFile(mesh),
 	materialName(material), visible(true), showsBox(false)
 {
 	if (parentObject)
@@ -211,4 +211,14 @@ void GraphicalObject::childRemoved()
 int GraphicalObject::getChildrenUsing()
 {
 	return childrenUsing;
+}
+
+void GraphicalObject::setCamAttached(bool val)
+{
+	camAttached = val;
+}
+
+bool GraphicalObject::isCamAttached()
+{
+	return camAttached;
 }

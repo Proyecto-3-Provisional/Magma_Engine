@@ -9,6 +9,25 @@ public:
 	explicit RenderManager(bool grabCursor);
 	virtual ~RenderManager();
 
+	// Crear y destruir cámara
+	void createCam(GraphicalObject* follow, Ogre::Vector3 startPos = {0, 0, 1000});
+	void destroyCam();
+
+	// Establecer transformación de cámara
+	void setCamPos(Ogre::Vector3 vec);
+	void translateCam(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
+	void setCamOrientation(float ang, Ogre::Vector3 axis);
+	void yawCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
+	void pitchCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
+	void rollCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
+	
+	// Establecer mirada de la cámara
+	void setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo =
+		Ogre::Node::TransformSpace::TS_WORLD);
+
+	// ¿Visualizar alambres de mallas?
+	void objectShowMode(unsigned int val);
+
 	// Crear objeto
 	GraphicalObject* addObject(std::string key, GraphicalObject* parent,
 		std::string mesh, std::string material);
@@ -28,15 +47,12 @@ public:
 	void removeObjects();
 
 	// Destruir aquellos objetos que fueron marcados previamente
-	bool refreshObjects();
+	int refreshObjects();
 
 	// Obtener número de objetos
 	int getNumObjects();
 	// Obtener número de objetos marcados para borrar
 	int getNumObjectsToRemove();
-
-	// ¿Visualizar alambres de mallas?
-	void objectShowMode(int val);
 
 	// Cambiar fondo
 	void setBgColor(float r, float g, float b);
@@ -60,9 +76,10 @@ protected:
 
 	// Punteros
 	Ogre::SceneManager* mSM = nullptr;
-	Ogre::Camera* cam = nullptr;
-	Ogre::Viewport* vp = nullptr;
-	Ogre::SceneNode* mCamNode = nullptr;
+	Ogre::Camera* camera = nullptr;
+	Ogre::SceneNode* cameraNode = nullptr;
+	Ogre::Viewport* cameraViewport = nullptr;
+	GraphicalObject* cameraFollows = nullptr;
 
 private:
 	// Colores de tripulantes
