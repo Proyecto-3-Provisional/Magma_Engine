@@ -9,6 +9,7 @@
 #include "Render/UI_Image.h"
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
+#include "Sounds/sound_manager.h"
 
 #include "entity_manager.h"
 #include "entity.h"
@@ -90,6 +91,10 @@ int mainCode() {
 	//******************************************************
 
 	InputManager* input = new InputManager;
+
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST SOUND MANAGER
+	SoundManager* soundManager = new SoundManager();
+	soundManager->playSound();
 
 	renderMngr.setBgColor(0.8, 0.8, 0.7);
 	renderMngr.objectShowMode(0);
