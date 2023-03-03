@@ -11,11 +11,11 @@
 #include "component.h"
 #include "ecs.h"
 
-namespace ecs{
+namespace ec{
 
 	class Entity {
 	public:
-		Entity(ecs::grpId_type gId_, GraphicalObject* graphObj_);
+		Entity(ec::grpId_type gId_, GraphicalObject* graphObj_);
 		
 		virtual ~Entity();
 
@@ -23,7 +23,9 @@ namespace ecs{
 		Entity(const Entity&) = delete;
 		Entity& operator=(const Entity&) = delete;
 
-		inline GraphicalObject* getGraphObj() { return graphObj; };
+		inline GraphicalObject* getGraphObj() { 
+			return graphObj; 
+		};
 
 		//Le pasamos el manager de la entidad, para que pueda referirse a el
 		void setContext(EntityManager* mngr_);
@@ -84,26 +86,26 @@ namespace ecs{
 
 		//Devuelve un puntero al componente T de la entidad 'e'
 		template<typename T>
-		inline T* getComponent() {
+		T* getComponent() {
 
 			constexpr cmpId_type cId = cmpId<T>;
-			assert(cId < ecs::maxComponentId);
+			assert(cId < ec::maxComponentId);
 
 			return static_cast<T*>(cmps[cId]);
 		}
 
 		//Devuelve true si la entidad 'e' tiene el componente T
 		template<typename T>
-		inline bool hasComponent() {
+		bool hasComponent() {
 
 			constexpr cmpId_type cId = cmpId<T>;
-			assert(cId < ecs::maxComponentId);
+			assert(cId < ec::maxComponentId);
 
 			return cmps[cId] != nullptr;
 		}
 
 		//Devuelve el grupo de la entidad 'gId'
-		inline ecs::grpId_type groupId() {
+		inline ec::grpId_type groupId() {
 			return gId;
 		}
 
@@ -116,8 +118,9 @@ namespace ecs{
 		EntityManager* mngr;
 		std::vector<Component*> currCmps;
 		std::array<Component*, maxComponentId> cmps;
+
 		bool alive;
-		ecs::grpId_type gId;
+		ec::grpId_type gId;
 
 		GraphicalObject* graphObj;
 

@@ -3,7 +3,7 @@
 #include "entity.h"
 #include "transform.h"
 
-namespace ecs {
+namespace ec {
 	//EntityManager::EntityManager() :
 	//	ents_() {
 	//	ents_.reserve(100);
@@ -16,7 +16,7 @@ namespace ecs {
 
 	void EntityManager::refresh()
 	{
-		for (ecs::grpId_type gId = 0; gId < ecs::maxGroupId; gId++) {
+		for (ec::grpId_type gId = 0; gId < ec::maxGroupId; gId++) {
 			auto& groupEntities = entsByGroup[gId];
 			groupEntities.erase(
 				std::remove_if(groupEntities.begin(), groupEntities.end(),
@@ -33,9 +33,11 @@ namespace ecs {
 	}
 
 	void EntityManager::update() {
-		auto n = entsByGroup[0].size();
-		for (auto i = 0u; i < n; i++)
-			entsByGroup[0][i]->update();
+		for (auto& ents : entsByGroup) {
+			auto n = ents.size();
+			for (auto i = 0u; i < n; i++)
+				entsByGroup[0][i]->update();
+		}
 	}
 
 	void EntityManager::render() {

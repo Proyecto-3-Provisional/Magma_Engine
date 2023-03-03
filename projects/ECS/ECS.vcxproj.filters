@@ -51,6 +51,9 @@
     <ClInclude Include="..\..\sources\ECS\vector3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\test_axl_mov.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\ECS\entity.cpp">
@@ -67,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="..\..\sources\ECS\component.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\ECS\test_axl_mov.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

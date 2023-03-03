@@ -5,7 +5,7 @@
 #include <string>
 #include "ecs.h"
 
-namespace ecs {
+namespace ec {
 	struct Component {
 	public:
 		Component() : ent(), mngr() {}

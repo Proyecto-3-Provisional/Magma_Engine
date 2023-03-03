@@ -29,7 +29,7 @@ struct _grp_GENERAL;
 #define _ext_GRPS_LIST_ _grp_GENERAL,_GRPS_LIST_
 #endif
 
-namespace ecs {
+namespace ec {
 	struct Component;
 	class Entity;
 	class EntityManager;

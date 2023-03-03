@@ -9,7 +9,7 @@
 #include "ecs.h"
 #include "messages.h"
 
-namespace ecs {
+namespace ec {
 	class EntityManager {
 	public:
 		EntityManager(){};

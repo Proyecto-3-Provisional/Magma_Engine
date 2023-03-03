@@ -14,7 +14,12 @@
 
 #include "ECS/entity_manager.h"
 #include "ECS/entity.h"
-#include "ECS/transform.h"
+#include "ECS/test_axl_mov.h"
+#include "ECS/vector3D.h"
+
+//DECLARACIONES DE FUNCIONES
+void ecTestInit(ec::EntityManager* em, RenderManager* rm);
+void ecTestUpdate(ec::EntityManager* em);
 
 int mainCode() {
 	// Control de la velocidad de rotación
@@ -41,17 +46,10 @@ int mainCode() {
 	RenderManager* renderMngr = new RenderManager(false);
 	bool correct = renderMngr->initApp();
 
-	//>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
-	GraphicalObject* jo = renderMngr->addObject("uxalote", nullptr, "axolotl.mesh", "axolotl");
-	jo->showDebugBox(true);
-	jo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
-	jo->setScale({ 40, 40, 40 });
-
-	ecs::EntityManager* entityManager = new ecs::EntityManager();
-	auto e_ = entityManager->addEntity(jo);
-	Transform* tr_ = e_->addComponent<Transform>();
-	//e_->addComponent();
-	//>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
+	//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
+	ec::EntityManager* entityManager = new ec::EntityManager();
+	ecTestInit(entityManager, renderMngr);
+	//>>>>>>>>>>>>>>>>>>>>>>> TEST EC CONTINUA EN EL WHILE
 
 	//_RENDER_
 	if (!correct)
@@ -73,7 +71,6 @@ int mainCode() {
 	e2->applyCentralForce(btVector3(1000, 0, 0));
 	e3->applyCentralForce(btVector3(0, -1000, 0));
 	e4->applyCentralForce(btVector3(0, 1000, 0));
-
 
 	//>>>>>>>>>>>>>>>>>>>>>>> TEST UI MANAGER
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
@@ -119,10 +116,8 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
 		input->inputEvent();
 
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
-		entityManager->update();
-		entityManager->refresh();
-		//entityManager->removeComponent<Transform>(e_);
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
+		ecTestUpdate(entityManager);
 
 		//_RENDER_ Ejemplo de borrado de objeto -> se efectuará en 'refresh'
 		milisecsAcc += timeSinceLastFrame;
@@ -179,6 +174,19 @@ int mainCode() {
 	delete renderMngr; renderMngr = nullptr;
 
 	return 0;
+}
+
+void ecTestInit(ec::EntityManager* entityManager, RenderManager* renderMngr) {
+	GraphicalObject* jo = renderMngr->addObject("uxalote", nullptr, "axolotl.mesh", "axolotl");
+	jo->setPosition({ 0, 0, 50 });
+	jo->setScale({ 40, 40, 40 });
+
+	auto e_ = entityManager->addEntity(jo);
+	TestAxlMov* tr_ = e_->addComponent<TestAxlMov >(Vector3D(), Vector3D(10, 10, 10));
+}
+void ecTestUpdate(ec::EntityManager* entityManager) {
+	entityManager->update();
+	entityManager->refresh();
 }
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola

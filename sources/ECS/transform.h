@@ -7,16 +7,16 @@
 
 class Component;
 
-class Transform : public ecs::Component {
+class Transform : public ec::Component {
 public:
-	Transform() : pos(), vel(10,0,0){};
-	Transform(Vector3D pos_, Vector3D vel_, float) : pos(pos_), vel(vel_) {};
+	Transform() : pos(), vel(){};
+	Transform(Vector3D pos_, Vector3D vel_) : pos(pos_), vel(vel_) {};
 
 	virtual ~Transform(){};
 
-	inline Vector3D& getPos();
-	inline Vector3D& getVel();
-	inline Vector3D getScale();
+	Vector3D& getPos();
+	Vector3D& getVel();
+	Vector3D getScale();
 	void setPosition(Vector3D pos_);
 	void setVelocity(Vector3D vel_);
 	void setScale(Vector3D scale_);
