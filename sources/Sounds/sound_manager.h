@@ -4,12 +4,12 @@
 
 #include <iostream>
 
-typedef struct // Almacena y permite la reproducción de un sonido
+struct AudioData // Almacena y permite la reproducción de un sonido
 {
-	Uint8* buffer; // Buffer que contiene los datos del sonido
+	Uint8* buffer = nullptr; // Buffer que contiene los datos del sonido
 	Uint32 bufferSize; // Tamaño del buffer de sonido
 	SDL_AudioSpec spec; // Especificaciones del audio
-} AudioData;
+};
 
 class SoundManager
 {

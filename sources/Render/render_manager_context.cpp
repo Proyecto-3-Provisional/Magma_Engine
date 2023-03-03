@@ -16,11 +16,27 @@ RenderManagerContext::RenderManagerContext(const Ogre::String& appName)
 	mFSLayer = new Ogre::FileSystemLayer(appName);
 	mRoot = nullptr;
 	mOverlaySystem = nullptr;
+	cursorGrab = false;
 }
 
 RenderManagerContext::~RenderManagerContext()
 {
 	delete mFSLayer;
+}
+
+Ogre::RenderWindow* RenderManagerContext::getRenderWindow() const
+{
+	return mWindow.render;
+}
+
+Ogre::Root* RenderManagerContext::getRoot() const
+{
+	return mRoot;
+}
+
+Ogre::OverlaySystem* RenderManagerContext::getOverlaySystem() const
+{
+	return mOverlaySystem;
 }
 
 bool RenderManagerContext::initApp()
@@ -32,7 +48,8 @@ bool RenderManagerContext::initApp()
 			setup();
 	}
 	catch (Ogre::Exception& e) {
-		Ogre::String errMsg = "An exception has occured: " + e.getFullDescription() + "\n";
+		Ogre::String errMsg = "An exception has occured: " +
+			e.getFullDescription() + "\n";
 		Ogre::LogManager::getSingleton().logMessage(errMsg);
 		return false;
 	}
@@ -53,7 +70,8 @@ void RenderManagerContext::closeApp()
 bool RenderManagerContext::frameStarted(const Ogre::FrameEvent& evt)
 {
 	// Esto no habría que hacerlo en cada frame,
-	// solo si se detectase que se cambia la ventana con SDL_POLLEVENTS
+	// solo si se detectase que se cambia la ventana
+	// con POLLEVENTS de SDL
 	notifyWindowResized();
 
 	return true;
@@ -94,19 +112,16 @@ void RenderManagerContext::createRoot()
 	pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
 
 	if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
-	{	// OGRE_CONFIG_DIR tiene un valor absoluto no portable
-		//pluginsPath = Ogre::FileSystemLayer::resolveBundlePath(OGRE_CONFIG_DIR "/plugins" OGRE_BUILD_SUFFIX ".cfg");
-		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "IG2ApplicationContext::createRoot");
-	}
+		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "RenderManagerContext::createRoot");
 
 	configPath = mFSLayer->getWritablePath("ogre.cfg");
 	logPath = mFSLayer->getWritablePath("ogre.log");
 
 	mRoot = new Ogre::Root(pluginsPath, configPath, logPath);
 
-	appPath = pluginsPath; // directorio de la app
+	appPath = pluginsPath;
 	appPath.erase(appPath.find_last_of("\\") + 1, appPath.size() - 1);
-	mFSLayer->setHomePath(appPath); // para los archivos de configuración de OGRE
+	mFSLayer->setHomePath(appPath);
 
 	mOverlaySystem = new Ogre::OverlaySystem();
 }
@@ -134,7 +149,7 @@ void RenderManagerContext::setup()
 {
 	mRoot->initialise(false);
 	createWindow(mAppName);
-	setWindowGrab(false); // ratón libre
+	setWindowGrab(cursorGrab);
 
 	locateResources();
 	loadResources();
@@ -143,6 +158,7 @@ void RenderManagerContext::setup()
 	mRoot->addFrameListener(this);
 }
 
+// Esto solo pasa cuando se inicia el contexto y no al restablecerlo
 bool RenderManagerContext::oneTimeConfig()
 {
 	if (!mRoot->restoreConfig())
@@ -152,6 +168,8 @@ bool RenderManagerContext::oneTimeConfig()
 	else return true;
 }
 
+// La ventana ha de ser de SDL para poder registrar eventos
+// Por defecto se lee el alto y el ancho de ogre.cfg
 NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 {
 	uint32_t w, h;
@@ -161,9 +179,9 @@ NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 
 	std::istringstream mode(ropts["Video Mode"].currentValue);
 	Ogre::String token;
-	mode >> w; // width
-	mode >> token; // 'x' as seperator between width and height
-	mode >> h; // height
+	mode >> w;		// width
+	mode >> token;	// 'x' as seperator between width and height
+	mode >> h;		// height
 
 	miscParams["FSAA"] = ropts["FSAA"].currentValue;
 	miscParams["vsync"] = ropts["VSync"].currentValue;
@@ -174,7 +192,7 @@ NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 	Uint32 flags = SDL_WINDOW_RESIZABLE;
 
 	if (ropts["Full Screen"].currentValue == "Yes") flags = SDL_WINDOW_FULLSCREEN;
-	//else flags = SDL_WINDOW_RESIZABLE;
+	/////////////////aaa else flags = SDL_WINDOW_RESIZABLE;
 
 	mWindow.native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
 
@@ -188,6 +206,14 @@ NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 	return mWindow;
 }
 
+/*
+TRUE
+	- el ratón es visible en la ventana
+	- el ratón no va más allá de los límites si la ventana está en foco
+FALSE
+	- el ratón no es visible si se pasa por la ventana
+	- el ratón sobrevuela la ventana, y se puede seleccionar otras con el cursor
+*/
 void RenderManagerContext::setWindowGrab(bool _grab)
 {
 	SDL_bool grab = SDL_bool(_grab);
@@ -208,14 +234,16 @@ bool RenderManagerContext::renderFrame()
 	return mRoot->renderOneFrame();
 }
 
+// Simplemente se inicializan todos los grupos
 void RenderManagerContext::loadResources()
 {
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
+// Los resursos gráficos se buscan en el directorio '/executables/assets'
+// Se añaden ubicaciones para lenguajes de sharders con soporte
 void RenderManagerContext::locateResources()
 {
-	// Recursos en carpeta assets
 	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
 		Ogre::FileSystemLayer::resolveBundlePath(appPath + "assets"),
 		"FileSystem");
@@ -229,7 +257,6 @@ void RenderManagerContext::locateResources()
 	Ogre::String arch = genLocs.front().archive->getName();
 	Ogre::String type = genLocs.front().archive->getType();
 
-	// Add locations for supported shader languages
 	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
 	{
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +

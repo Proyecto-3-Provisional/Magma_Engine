@@ -6,8 +6,8 @@
 class RenderManager : public RenderManagerContext
 {
 public:
-	explicit RenderManager(); // new -> setup()
-	virtual ~RenderManager(); // delete -> shutdown()
+	explicit RenderManager(bool grabCursor);
+	virtual ~RenderManager();
 
 	// Crear objeto
 	GraphicalObject* addObject(std::string key, GraphicalObject* parent,
@@ -61,7 +61,6 @@ protected:
 	// Punteros
 	Ogre::SceneManager* mSM = nullptr;
 	Ogre::Camera* cam = nullptr;
-	/* cámara y puerto de vista */
 	Ogre::Viewport* vp = nullptr;
 	Ogre::SceneNode* mCamNode = nullptr;
 

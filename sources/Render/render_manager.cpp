@@ -8,61 +8,48 @@
 
 #include <SDL_events.h>
 
-RenderManager::RenderManager() : RenderManagerContext("MagmaTest")
+// Recibe un booleano que indica si el cursor puede salir de la ventana o no
+RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest")
 {
+	RenderManagerContext::cursorGrab = grabCursor;
+
+	// CONTEXT:
+	// new -> setup()
 }
 
 RenderManager::~RenderManager()
 {
+	// CONTEXT:
+	// delete -> shutdown()
 }
 
 // Devuelve un puntero al Objeto creado, o nullptr si falla
+// Se crea el objeto solo si la clave no está en uso
+/* La estructura de diccionario "sceneObjects" ya comprobaba la existencia
+de la clave, no añadiendo el objeto en caso de que ya existiera.
+Pese a esto, para saber si el objeto no debería ser construido, lo
+comprobamos manualmente de todos modos. Tampoco disponemos de 'contains()' */
 GraphicalObject* RenderManager::addObject(std::string key, GraphicalObject* parent = nullptr,
 	std::string mesh = "", std::string material = "default")
 {
-	// La estructura de diccionario "sceneObjects" ya comprobaba la existencia
-	// de la clave, no añadiendo el objeto en caso de que ya existiera.
-	// 
-	// Por desgracia, al construir un GraphicalObject indicando a otro como
-	// padre, se anota un punto al contador de hijos de este padre, impidiendo
-	// su posterior borrado (regla escrita en 'removeObject()').
-	// 
-	// Esto ocurría aun cuando el objeto hijo no acababa insertado en el diccionario
-	// (me ha pasado al programar mal la tripulación, no cambiando la clave para
-	// cada tripulante, y hasta causando un bloqueo en la app a la salida), por
-	// lo que he decidido comprobar con 'getObject()' (operación 'at()') si la
-	// clave ya está en uso.
-	// 
-	// No empleo 'contains()' del diccionario, puesto que en el estándar en el
-	// que se encuentra este proyecto no existe tal operación.
-	// 
-	// Además, la situación de no añadir al diccionario pese a llamar a 'new'
-	// implicaba fugas de memoria...
-
-	// comprobar clave...
 	GraphicalObject* gO = getObject(key);
 	if (gO)
 		return nullptr;
-
-	// crear objeto solo si la clave es nueva
 	GraphicalObject* newGO = new GraphicalObject(key, *mSM, parent, mesh, material);
 	sceneObjects.insert(std::make_pair(key, newGO));
-
 	return newGO;
 }
 
 // Devuelve un puntero al Objeto, o nullptr si no se halla
+// Se comprueba básicamente que la clave exista en el diccionario
 GraphicalObject* RenderManager::getObject(std::string key)
 {
-	// Hay que comprobar que existe la clave
 	GraphicalObject* gO = nullptr;
 	try
 	{
 		gO = sceneObjects.at(key);
 	}
-	catch (std::out_of_range e)
-	{
-	}
+	catch (std::out_of_range e) { }
 	return gO;
 }
 
@@ -73,25 +60,22 @@ void RenderManager::sunsetObject(GraphicalObject* gO)
 }
 
 // Devuelve si tuvo éxito el marcado (encolado)
+// La clave debe existir en el diccionario
 bool RenderManager::sunsetObject(std::string key)
 {
-	// comprobar que existe la clave
 	GraphicalObject* gO = getObject(key);
 	if (!gO)
 		return false;
-	
 	sceneObjectsToRemove.push_back(gO);
 	return true;
 }
 
 // Devuelve si tuvo éxito (el Objeto no se resistió a ser borrado)
+// Un objeto se resiste cuando de él pende algún objeto hijo
 bool RenderManager::removeObject(GraphicalObject* gO)
 {
-	// si de este objeto penden otros, no hacer nada
 	if (gO->getChildrenUsing() > 0)
 		return false;
-
-	// borrar objeto
 	sceneObjects.erase(gO->getKeyName());
 	delete gO;
 	gO = nullptr;
@@ -99,25 +83,26 @@ bool RenderManager::removeObject(GraphicalObject* gO)
 }
 
 // Devuelve si tuvo éxito (el Objeto se encontró Y no se resistió a ser borrado)
+// La clave debe existir en el diccionario
+// Un objeto se resiste cuando de él pende algún objeto hijo
 bool RenderManager::removeObject(std::string key)
 {
-	// comprobar que existe la clave
 	GraphicalObject* gO = getObject(key);
 	if (!gO)
 		return false;
-
-	// si de este objeto penden otros, no hacer nada
 	if (gO->getChildrenUsing() > 0)
 		return false;
-
-	// borrar objeto
 	delete gO;
 	gO = nullptr;
 	sceneObjects.erase(key);
 	return true;
 }
 
-// POSIBLEMENTE BLOQUEANTE; No devuelve nada
+// No devuelve nada
+// POSIBLEMENTE BLOQUEANTE
+// Pares del diccionario:
+//	- 1st es la key
+//	- 2nd es el puntero al Objeto
 void RenderManager::removeObjects()
 {
 	while (!sceneObjects.empty())
@@ -127,9 +112,6 @@ void RenderManager::removeObjects()
 			// avanzar índice, pero dejando acceso también al Objeto a borrar
 			auto it_aux = it;
 			it++;
-			
-			// 1st es la key; 2nd es el ptr al Objeto
-			// tratar de borrar
 			/*bool b = */removeObject((*it_aux).second);
 		}
 	}
@@ -185,57 +167,54 @@ void RenderManager::setBgColor(float r, float g, float b)
 	}
 }
 
-void RenderManager::setup(void)
+// Al final crea la malla de un plano po código y dispone la escena
+// NO CAMBIAR LA PRIMERA LÍNEA
+void RenderManager::setup()
 {
-	RenderManagerContext::setup(); // NO OLVIDAR; LO PRIMERO
+	RenderManagerContext::setup();
+
 	mSM = mRoot->createSceneManager();
 	mSM->addRenderQueueListener(mOverlaySystem);
 
-	createPlaneMesh(); // <-> nos interesa disponer de esta malla
-
-	setupScene(); // disponer la escena
+	createPlaneMesh();
+	setupScene();
 }
 
 // POSIBLEMENTE BLOQUEANTE debido a removeObjects()
+// removeObjects quita todos aquellos objetos añadidos a la escena
+// NO CAMBIAR LA ÚLTIMA LÍNEA
 void RenderManager::shutdown()
 {
-	removeObjects(); // Quitar todos aquellos cuerpos añadidos a la escena
+	removeObjects();
 
 	mSM->removeRenderQueueListener(mOverlaySystem);
 	mRoot->destroySceneManager(mSM);
-	RenderManagerContext::shutdown(); // NO OLVIDAR
+
+	RenderManagerContext::shutdown();
 }
 
+// Se crean la cámara y los objetos de prueba
 void RenderManager::setupScene(void)
 {
-	// create the camera
+	// CÁMARA
 	cam = mSM->createCamera("Cam");
 	cam->setNearClipDistance(1);
 	cam->setFarClipDistance(10000);
 	cam->setAutoAspectRatio(true);
-
 	mCamNode = mSM->getRootSceneNode()->createChildSceneNode();
 	mCamNode->attachObject(cam);
+	vp = getRenderWindow()->addViewport(cam);
 
 	mCamNode->setPosition(0, 0, 1000);
 	mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
-	//mCamNode->setDirection(Ogre::Vector3(0, 0, -1));  
-
-	// and tell it to render into the main window
-	vp = getRenderWindow()->addViewport(cam);
-	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
-
-	//------------------------------------------------------------------------
 
 	// LUCES
 	GraphicalObject* sol = addObject("sol", nullptr, "SUN");
 	sol->setLightColor(0.5, 0.5, 0.3);
 	sol->setDirection({ 0, -0.8, -1 });
-	//
 	GraphicalObject* lbulb = addObject("bombilla", nullptr, "LIGHTBULB");
 	lbulb->setLightColor(0.5, 0.5, 0.85);
 	lbulb->setPosition({ 0, 500, 200 });
-	//	
 	GraphicalObject* spotl = addObject("foco", nullptr, "SPOTLIGHT");
 	spotl->setLightColor(1.0, 0.2, 0.2);
 	spotl->setPosition({ 0, 0, 500 });
@@ -246,7 +225,6 @@ void RenderManager::setupScene(void)
 	aux->setPosition({ 0, 0, 50 });
 	aux->setScale({ 0.8, 0.8, 0.8 });
 	aux->makeVisible(true);
-	//
 	GraphicalObject* cubo = addObject("cube", aux, "cube.mesh", "logo");
 	cubo->translate({ 0, 0, 200 }, Ogre::Node::TransformSpace::TS_WORLD);
 
@@ -262,7 +240,6 @@ void RenderManager::setupScene(void)
 	GraphicalObject* rosco = addObject("crew", nullptr, "", "thiswontbeused");
 	rosco->setPosition({ 0, 0, 50 });
 	rosco->setScale({ 100, 100, 100 });
-	//
 	float delta_degrees = 360 / NUM_CREWMATES;
 	float init_degrees = 90;
 	float degrees = init_degrees;
@@ -286,9 +263,9 @@ void RenderManager::setupScene(void)
 	plano->setPosition({ 0, 0, -400 });
 }
 
+// Definir malla mPlane1080x800
 void RenderManager::createPlaneMesh(Ogre::String name)
 {
-	// definir malla mPlane1080x800
 	Ogre::MeshManager::getSingleton().createPlane("mPlane1080x800",
 		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		Ogre::Plane(Ogre::Vector3::UNIT_Z, 0), // vector normal, vector up

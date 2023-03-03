@@ -24,8 +24,8 @@ SoundManager::SoundManager()
 
 SoundManager::~SoundManager() 
 {
-	SDL_CloseAudio();
 	SDL_FreeWAV(data.buffer);
+	SDL_CloseAudio(); // Cerrar audio al final
 }
 
 // Reproduccion de audio

@@ -4,13 +4,22 @@
 #include "OgreEntity.h"
 #include "OgreParticleSystem.h"
 
+// Primero se crea el nodo de este Objeto Gráfico como hijo de otro, o
+// como hijo del nodo raíz de la escena (en función de 'parent').
+// Después se determina el tipo de Objeto (según la cadena 'mesh'):
+//  * ""			-> nodo vacío (ignora 'mesh' y 'material')
+//	* "SUN"			-> luz direccional (ignora 'mesh' y 'material')
+//	* "LIGHTBULB"	-> luz puntual (ignora 'mesh' y 'material')
+//	* "SPOTLIGHT"	-> foco de luz (ignora 'mesh' y 'material')
+//	* "EMITTER"		-> emisor de partículas (ignora 'mesh'; 'material' indica sistema)
+//	* (otra cosa)	-> entidad gráfica normal con malla determinada 'mesh'
+
 GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 	GraphicalObject* parent = nullptr, std::string mesh = "",
 	std::string material = "default") : keyName(name), mySceneManager(mSM),
 	parentObject(parent), childrenUsing(0), meshFile(mesh),
 	materialName(material), visible(true), showsBox(false)
 {
-	// crear nodo como hijo de otro, o del nodo raíz
 	if (parentObject)
 	{
 		objectNode = parentObject->getNode()->createChildSceneNode();
@@ -20,9 +29,7 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 	{
 		objectNode = mySceneManager.getRootSceneNode()->createChildSceneNode();
 	}
-	assert(objectNode);
-
-	// determinar tipo de Objeto
+	
 	if (meshFile != "") {
 		if (meshFile == "SUN")
 		{
@@ -30,9 +37,6 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			light->setType(Ogre::Light::LT_DIRECTIONAL);
 			light->setDiffuseColour(0.90, 0.90, 0.90);
 			objectNode->attachObject(light);
-			assert(!entity);
-			assert(light);
-			assert(!particleSystem);
 		}
 		else if (meshFile == "LIGHTBULB")
 		{
@@ -40,9 +44,6 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			light->setType(Ogre::Light::LT_POINT);
 			light->setDiffuseColour(0.90, 0.90, 0.90);
 			objectNode->attachObject(light);
-			assert(!entity);
-			assert(light);
-			assert(!particleSystem);
 		}
 		else if (meshFile == "SPOTLIGHT")
 		{
@@ -53,35 +54,27 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 			light->setSpotlightOuterAngle(Ogre::Degree(90.0f));	//
 			light->setSpotlightFalloff(2.0f);					//
 			objectNode->attachObject(light);
-			assert(!entity);
-			assert(light);
-			assert(!particleSystem);
 		}
 		else if (meshFile == "EMITTER") {
 			Ogre::String partSysName = "ps_" + keyName;
-			// 'materialName' empleado para especificar el sistema de partículas en este caso
 			particleSystem = mySceneManager.createParticleSystem(partSysName, materialName);
 			particleSystem->setEmitting(true);
 			objectNode->attachObject(particleSystem);
-			assert(!entity);
-			assert(!light);
-			assert(particleSystem);
 		}
-		else // crear entidad con su material y anclarla
+		else
 		{
 			entity = mySceneManager.createEntity(meshFile);
 			entity->setMaterialName(materialName);
 			objectNode->attachObject(entity);
-			assert(entity);
-			assert(!light);
-			assert(!particleSystem);
 		}
 	}
 }
 
+// 1. Si no es un objeto vacío, borrar su entidad/luz/emisor
+// 2. Notificar destrucción al padre
+// 3. Destruir el nodo
 GraphicalObject::~GraphicalObject()
 {
-	// si no es un objeto vacío, borrar su entidad (o luz o emisor)
 	if (entity)
 	{
 		objectNode->detachObject(entity);
@@ -100,13 +93,9 @@ GraphicalObject::~GraphicalObject()
 		particleSystem = nullptr;
 	}
 
-	// notificar destrucción al padre
 	if (parentObject)
-	{
 		parentObject->childRemoved();
-	}
 
-	// destruir el nodo
 	mySceneManager.destroySceneNode(objectNode);
 	objectNode = nullptr;
 }
@@ -121,6 +110,7 @@ void GraphicalObject::setPosition(Ogre::Vector3 vec)
 	objectNode->setPosition(vec);
 }
 
+// Útil en luces direccionales
 void GraphicalObject::setDirection(Ogre::Vector3 vec)
 {
 	objectNode->setDirection(vec.normalisedCopy());

@@ -141,7 +141,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>

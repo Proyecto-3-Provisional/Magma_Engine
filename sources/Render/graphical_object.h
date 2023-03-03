@@ -1,16 +1,15 @@
 #pragma once
+
 #include <string>
-#include <OgreAutoParamDataSource.h>
 
-// Envoltorio para el uso básico de SceneNode, Entity y Light de Ogre
-// Permite crear y manipular fácilmente desde fuera objetos del mundo gráfico
+#include "OgreNode.h"
 
+// Envoltorio para el uso básico de SceneNode, Entity y Light de Ogre.
+// Permite crear y manipular fácilmente desde fuera objetos del mundo gráfico.
+// Se pueden enparentar estos objetos, pero cuidado: si un objeto tiene hijos,
+// se negrará a ser borrado.
 // Para cada objeto se crea un nodo que puede contener una entidad, uno
 // de los 3 tipos de luz, un emisor de partículas o nada...
-
-// Problemas conocidos:
-// - No es tan práctico cachear objetos
-// - Si un objeto tiene hijos, se negrará a ser borrado
 
 class GraphicalObject {
 public:
@@ -19,20 +18,15 @@ public:
 	~GraphicalObject();
 
 	// Transformaciones
-
 	void translate(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
 	void setPosition(Ogre::Vector3 vec);
-
-	void setDirection(Ogre::Vector3 vec); // útil en luces direccionales
-
+	void setDirection(Ogre::Vector3 vec);
 	void yaw(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void pitch(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void roll(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void setOrientation(float ang, Ogre::Vector3 axis);
-
 	void scale(float factor);
 	void setScale(float factor);
-
 	void scale(Ogre::Vector3 factor);
 	void setScale(Ogre::Vector3 factor);
 
