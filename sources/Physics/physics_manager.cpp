@@ -1,6 +1,7 @@
 #include "physics_manager.h"
 #include <iostream>
 #include <stdio.h>
+#include <algorithm>
 
 PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr)
 {
@@ -66,7 +67,7 @@ btRigidBody* PhysicsManager::addRigidBody(const double& xShape, const double& yS
 }
 
 // Borra un rigidbody dado su índice
-void PhysicsManager::deleteRigidBody(int userIndex)
+void PhysicsManager::deleteRigidBody(const int& userIndex)
 {
 	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[userIndex];
 	btRigidBody* body = btRigidBody::upcast(obj);
@@ -81,6 +82,13 @@ void PhysicsManager::deleteRigidBody(int userIndex)
 	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
 	btRigidBody* body1 = btRigidBody::upcast(obj1);
 	body1->setUserIndex(userIndex);
+}
+
+void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
+{
+	std::sort(vIndex.begin(), vIndex.end(), std::greater<int>());
+	for (int i : vIndex)
+		deleteRigidBody(i);
 }
 
 // Actualiza el estado de los rigidbody
@@ -145,7 +153,7 @@ void PhysicsManager::updateCollisions()
 }
 
 // Comprueba si dos rigidbody en concreto colisionan
-bool PhysicsManager::isCollide(int index1, int index2)
+bool PhysicsManager::isCollide(const int& index1, const int& index2)
 {
 	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[index1];
 	btRigidBody* body1 = btRigidBody::upcast(obj1);

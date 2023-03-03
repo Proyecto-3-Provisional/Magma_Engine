@@ -9,10 +9,11 @@ public:
 
 	int initPhysics();
 	btRigidBody* addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
-	void deleteRigidBody(int userIndex);
+	void deleteRigidBody(const int& userIndex);
+	void deleteRigidBodies(std::vector<int>& vIndex);
 	void update();
 	void updateCollisions();
-	bool isCollide(int index1, int index2);
+	bool isCollide(const int& index1, const int& index2);
 	std::vector<int> getArrayOfIndexColliders(int index);
 	void detachPhysics();
 
