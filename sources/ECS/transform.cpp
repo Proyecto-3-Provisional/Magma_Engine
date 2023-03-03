@@ -56,8 +56,6 @@ void Transform::update()
 {
 	ent->getGraphObj()->setPosition({ pos.getX(), pos.getY(), pos.getZ() });
 
-	if (abs(pos.getX()) > 500)
-		vel = vel *  -1;
 	pos = pos + vel;
 }
 

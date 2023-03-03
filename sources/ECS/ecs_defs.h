@@ -5,8 +5,8 @@
 //lista de componentes. El nombre del struct debe coincidir con el nombre del componente al que hace referencia
 //abajo ejemplo de uso
 struct Transform;
-//struct Image;
+struct TestAxlMov;
 
 #define _CMPS_LIST_ \
-		 Transform/*,\
-		 Image*/
+		 Transform,\
+		 TestAxlMov

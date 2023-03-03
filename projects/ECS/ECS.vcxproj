@@ -27,6 +27,7 @@
     <ClInclude Include="..\..\sources\ECS\messages.h" />
     <ClInclude Include="..\..\sources\ECS\messages_defs.h" />
     <ClInclude Include="..\..\sources\ECS\mpl.h" />
+    <ClInclude Include="..\..\sources\ECS\test_axl_mov.h" />
     <ClInclude Include="..\..\sources\ECS\transform.h" />
     <ClInclude Include="..\..\sources\ECS\vector3D.h" />
   </ItemGroup>
@@ -34,6 +35,7 @@
     <ClCompile Include="..\..\sources\ECS\component.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
+    <ClCompile Include="..\..\sources\ECS\test_axl_mov.cpp" />
     <ClCompile Include="..\..\sources\ECS\transform.cpp" />
     <ClCompile Include="..\..\sources\ECS\vector3D.cpp" />
   </ItemGroup>

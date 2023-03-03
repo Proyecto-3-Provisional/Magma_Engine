@@ -13,7 +13,9 @@
 
 #include "entity_manager.h"
 #include "entity.h"
-#include "transform.h"
+//#include "transform.h"
+#include "test_axl_mov.h"
+#include "vector3D.h"
 
 /////
 //===
@@ -33,6 +35,10 @@ GraphicalObject* ficticioCubo = nullptr;
 //===
 /////
 
+//DECLARACIONES DE FUNCIONES
+void ecTestInit(ec::EntityManager* em, RenderManager rm);
+void ecTestUpdate(ec::EntityManager* em);
+
 int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
@@ -42,20 +48,10 @@ int mainCode() {
 	float timeSinceLastFrame = 0;
 
 	// Inicio del renderizado
-	RenderManager renderMngr;
+	RenderManager renderMngr; 
 	bool correct = renderMngr.initApp();
 
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
-	GraphicalObject* jo = renderMngr.addObject("uxalote", nullptr, "axolotl.mesh", "axolotl");
-	jo->showDebugBox(true);
-	jo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
-	jo->setScale({ 40, 40, 40 });
 
-	ecs::EntityManager* entityManager = new ecs::EntityManager();
-	auto e_ = entityManager->addEntity(jo);
-	Transform* tr_ = e_->addComponent<Transform>();
-	//e_->addComponent();
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS CONTINUA EN EL WHILE
 
 	if (!correct)
 	{
@@ -75,7 +71,10 @@ int mainCode() {
 	e2->applyCentralForce(btVector3(1000, 0, 0));
 	e3->applyCentralForce(btVector3(0, -1000, 0));
 	e4->applyCentralForce(btVector3(0, 1000, 0));
-
+	
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST EC
+	ec::EntityManager* entityManager = new ec::EntityManager();
+	ecTestInit(entityManager, renderMngr);
 
 	//						UI MANAGER
 	//******************************************************
@@ -121,12 +120,9 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
 		input->inputEvent();
 
-		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
-		entityManager->update();
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST EC
+		ecTestUpdate(entityManager);
 
-		entityManager->refresh();
-		//entityManager->removeComponent<Transform>(e_);
-		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TEST ECS
 
 		// Ejemplo de borrado de objeto -> se efectuará en 'refresh'
 		milisecsAcc += timeSinceLastFrame;
@@ -177,6 +173,19 @@ int mainCode() {
 	renderMngr.closeApp();
 
 	return 0;
+}
+
+void ecTestInit(ec::EntityManager* entityManager, RenderManager renderMngr) {
+	GraphicalObject* jo = renderMngr.addObject("uxalote", nullptr, "axolotl.mesh", "axolotl");
+	jo->setPosition({ 0, 0, 50 });
+	jo->setScale({ 40, 40, 40 });
+
+	auto e_ = entityManager->addEntity(jo);
+	TestAxlMov* tr_ = e_->addComponent<TestAxlMov >(Vector3D(), Vector3D(10, 10, 10));
+}
+void ecTestUpdate(ec::EntityManager* entityManager) {
+	entityManager->update();
+	entityManager->refresh();
 }
 
 // Diferentes funciones como punto de entrada por defecto al seleccionar

@@ -3,15 +3,15 @@
 #include "component.h"
 #include "OgreMesh.h"
 
-namespace ecs {
+namespace ec {
 
-	Entity::Entity(ecs::grpId_type gId_, GraphicalObject* graphObj_) :
+	Entity::Entity(ec::grpId_type gId_, GraphicalObject* graphObj_) :
 		currCmps(),
 		cmps(),
 		alive(),
 		gId(gId_),
 		graphObj(graphObj_) {
-		currCmps.reserve(ecs::maxComponentId);
+		currCmps.reserve(ec::maxComponentId);
 	}
 
 	Entity::~Entity() {
