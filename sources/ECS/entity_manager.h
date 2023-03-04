@@ -6,7 +6,7 @@
 
 #include "component.h"
 #include "entity.h"
-#include "ecs.h"
+#include "ec.h"
 #include "messages.h"
 
 namespace ec {

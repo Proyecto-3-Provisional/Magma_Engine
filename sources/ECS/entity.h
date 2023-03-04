@@ -9,7 +9,7 @@
 #include "OgreEntity.h"
 #include "../Render/graphical_object.h"
 #include "component.h"
-#include "ecs.h"
+#include "ec.h"
 
 namespace ec{
 

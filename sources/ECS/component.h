@@ -3,7 +3,7 @@
 #pragma once
 
 #include <string>
-#include "ecs.h"
+#include "ec.h"
 
 namespace ec {
 	struct Component {

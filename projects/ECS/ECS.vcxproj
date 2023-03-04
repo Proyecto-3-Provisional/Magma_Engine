@@ -20,10 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\ECS\component.h" />
-    <ClInclude Include="..\..\sources\ECS\ecs.h" />
-    <ClInclude Include="..\..\sources\ECS\ecs_defs.h" />
+    <ClInclude Include="..\..\sources\ECS\ec.h" />
+    <ClInclude Include="..\..\sources\ECS\ec_defs.h" />
     <ClInclude Include="..\..\sources\ECS\entity.h" />
     <ClInclude Include="..\..\sources\ECS\entity_manager.h" />
+    <ClInclude Include="..\..\sources\ECS\fps_counter.h" />
     <ClInclude Include="..\..\sources\ECS\messages.h" />
     <ClInclude Include="..\..\sources\ECS\messages_defs.h" />
     <ClInclude Include="..\..\sources\ECS\mpl.h" />

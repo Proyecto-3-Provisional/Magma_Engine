@@ -16,6 +16,8 @@
 #include "ECS/entity.h"
 #include "ECS/test_axl_mov.h"
 #include "ECS/vector3D.h"
+#include "ECS/fps_counter.h"
+
 
 #define FIRST_PERSON 1
 
@@ -27,7 +29,7 @@ int mainCode() {
 	// Control de la velocidad de rotación
 	const float rotationVelocity = 0.05;
 	// Temporizador debug
-	const int miliecsToReport = 2000;
+	const int miliecsToReport = 1000;
 	int miliecsSinceLastReport = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
@@ -44,16 +46,10 @@ int mainCode() {
 	// Cálculo del tiempo, en milisegundos, entre fotogramas
 	float timeSinceLastFrame = 0;
 
-	//_RENDER_ Inicio del renderizado
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	RenderManager* renderMngr = new RenderManager(false);
 	bool correct = renderMngr->initApp();
 
-	//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
-	ec::EntityManager* entityManager = new ec::EntityManager();
-	ecTestInit(entityManager, renderMngr);
-	//>>>>>>>>>>>>>>>>>>>>>>> TEST EC CONTINUA EN EL WHILE
-
-	//_RENDER_
 	if (!correct)
 	{
 		// Fin del renderizado
@@ -61,43 +57,11 @@ int mainCode() {
 		return 1;
 	}
 
-	//*************************************
-	// PhysicsManager
-	PhysicsManager* physMngr = new PhysicsManager();
-	physMngr->initPhysics();
-	btRigidBody* e = physMngr->addRigidBody(1, 1, 1, 10, 0, 0);
-	btRigidBody* e2 = physMngr->addRigidBody(1, 1, 1, -10, 0, 0);
-	btRigidBody* e3 = physMngr->addRigidBody(1, 1, 1, 0, 10, 0);
-	btRigidBody* e4 = physMngr->addRigidBody(1, 1, 1, 0, -10, 0);
-	e->applyCentralForce(btVector3(-1000, 0, 0));
-	e2->applyCentralForce(btVector3(1000, 0, 0));
-	e3->applyCentralForce(btVector3(0, -1000, 0));
-	e4->applyCentralForce(btVector3(0, 1000, 0));
-
-	//>>>>>>>>>>>>>>>>>>>>>>> TEST UI MANAGER
-	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
-	UI_Manager* ui = new UI_Manager();
-	
-	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5, 0.3, 0.1);
-	testText->setText("Ahhh yessss");
-
-	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
-	//testImage->changeImage("ImgPruebaImage", "rat");
-	//>>>>>>>>>>>>>>>>>>>>>>>
-
-	// _INPUT_
-	InputManager* input = new InputManager;
-
-	//>>>>>>>>>>>>>>>>>>>>>>> TEST SOUND MANAGER
-	SoundManager* soundManager = new SoundManager();
-	soundManager->playSound();
-
-	//_RENDER_ Cacheo de objetos gráficos
 	GraphicalObject* ajolote = renderMngr->getObject("suxalote");
 	GraphicalObject* ficticioTripulacion = renderMngr->getObject("crew");
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
-	//_RENDER_ Cámara para la escena
+
 	if (FIRST_PERSON)
 	{
 		renderMngr->createCam(ajolote, { -25, 2, -4 });
@@ -109,6 +73,53 @@ int mainCode() {
 	}
 	renderMngr->setBgColor(0.8, 0.8, 0.7);
 	renderMngr->objectShowMode(0);
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
+
+
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
+	ec::EntityManager* entityManager = new ec::EntityManager();
+	ecTestInit(entityManager, renderMngr);
+	Fps fps;
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
+
+
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
+	PhysicsManager* physMngr = new PhysicsManager();
+	physMngr->initPhysics();
+	btRigidBody* e = physMngr->addRigidBody(1, 1, 1, 10, 0, 0);
+	btRigidBody* e2 = physMngr->addRigidBody(1, 1, 1, -10, 0, 0);
+	btRigidBody* e3 = physMngr->addRigidBody(1, 1, 1, 0, 10, 0);
+	btRigidBody* e4 = physMngr->addRigidBody(1, 1, 1, 0, -10, 0);
+	e->applyCentralForce(btVector3(-1000, 0, 0));
+	e2->applyCentralForce(btVector3(1000, 0, 0));
+	e3->applyCentralForce(btVector3(0, -1000, 0));
+	e4->applyCentralForce(btVector3(0, 1000, 0));
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
+
+
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
+	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
+	UI_Manager* ui = new UI_Manager();
+	
+	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5, 0.3, 0.1);
+	testText->setText("Ahhh yessss");
+
+	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
+
+
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT INPUT
+	InputManager* input = new InputManager;
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT INPUT
+
+
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
+	SoundManager* soundManager = new SoundManager();
+	soundManager->playSound();
+	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
+
+
+	
 
 	// Bucle Principal del Motor //
 	bool error = false;
@@ -119,18 +130,27 @@ int mainCode() {
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
 		lastFrameTime = SDL_GetTicks();
 
+
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
-		physMngr->update(); // > porfa haced que esto no haga spam por terminal
+		miliecsSinceLastReport += timeSinceLastFrame;
+		if (miliecsSinceLastReport > miliecsToReport) {
+			physMngr->update(); // > porfa haced que esto no haga spam por terminal
+		}
 		// Para ver los couts de colisiones descomentar la s
 		// s--;
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
+
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
 		input->inputEvent();
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
+
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 		ecTestUpdate(entityManager);
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 
-		//_RENDER_ Ejemplo de borrado de objeto -> se efectuará en 'refresh'
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
 		milisecsAcc += timeSinceLastFrame;
 		if (!cubeDisappearance && milisecsAcc > miliecsToDisappear) {
 			bool r1, r2;
@@ -151,11 +171,10 @@ int mainCode() {
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
 		//_RENDER_ Imprimir número de objetos gráficos cada cierto tiempo
-		miliecsSinceLastReport += timeSinceLastFrame;
+		//miliecsSinceLastReport += timeSinceLastFrame;
 		if (miliecsSinceLastReport > miliecsToReport) {
 			std::cout << "Objetos gráficos: "
 				<< renderMngr->getNumObjects() << std::endl;
-			miliecsSinceLastReport = 0;
 		}
 
 		//_RENDER_ Control de cuándo se borran aquellos que deben ser borrados
@@ -169,6 +188,13 @@ int mainCode() {
 		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
 		if (!renderMngr->renderFrame())
 			error = true;
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
+
+		fps.update();
+		if (miliecsSinceLastReport > miliecsToReport) {
+			testText->setText(std::to_string(fps.get()) + " fps");
+			miliecsSinceLastReport = 0;
+		}
 	}
 	if (error)
 	{

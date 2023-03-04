@@ -3,7 +3,7 @@
 #pragma once
 
 #include <cstdint>
-#include "ecs.h"
+#include "ec.h"
 
 using msgId_type = uint8_t;
 enum msgId : msgId_type {

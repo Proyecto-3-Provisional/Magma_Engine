@@ -13,8 +13,8 @@ struct _grp_GENERAL;
 
 
 //ver ecs_defs para las listas de componentes, grupos...
-#if __has_include("ecs_defs.h")
-#include "ecs_defs.h"
+#if __has_include("ec_defs.h")
+#include "ec_defs.h"
 #endif
 
 #ifndef _CMPS_LIST_

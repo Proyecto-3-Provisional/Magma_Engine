@@ -33,12 +33,6 @@
     <ClInclude Include="..\..\sources\ECS\entity_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\ECS\ecs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\ECS\ecs_defs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\sources\ECS\mpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -53,6 +47,15 @@
     </ClInclude>
     <ClInclude Include="..\..\sources\ECS\test_axl_mov.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\fps_counter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\ec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\ec_defs.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
