@@ -115,7 +115,7 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 	SoundManager* soundManager = new SoundManager();
-	soundManager->playSound();
+	//soundManager->playSound();
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 
 
@@ -141,11 +141,6 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
 
 
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
-		input->inputEvent();
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
-
-
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 		ecTestUpdate(entityManager);
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
@@ -164,16 +159,33 @@ int mainCode() {
 		}
 
 		//_RENDER_ Ejemplo de movimiento: rotar objetos para ver cambios entre fotogramas
-		ajolote->yaw(rotationVelocity * timeSinceLastFrame);
-		ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
-		tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
+
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
+		input->inputEvent();
+
+		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
+		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
+
+		if (input->isKeyDown(ScancodeKey::SCANCODE_F))
+		{
+			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
+			ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
+			tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
+		}
+
+		if (input->isKeyDown(ScancodeKey::SCANCODE_SPACE))
+			input->showOrHideMouse(); 
+
+		if (input->isKeyDown(ScancodeKey::SCANCODE_K))
+			std::cout << "Pos Raton = " << input->getMousePos().first << " " << input->getMousePos().second << "\n";
+
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
 		//_RENDER_ Imprimir n�mero de objetos gr�ficos cada cierto tiempo
 		//miliecsSinceLastReport += timeSinceLastFrame;
 		if (miliecsSinceLastReport > miliecsToReport) {
-			std::cout << "Objetos gr�ficos: "
+			std::cout << "Objetos graficos: "
 				<< renderMngr->getNumObjects() << std::endl;
 		}
 
@@ -182,7 +194,7 @@ int mainCode() {
 		if (f != 0)
 		{
 			std::cout << f <<
-				" destrucciones gr�ficas diferidas fallidas\t/!\\" << std::endl;
+				" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
 		}
 
 		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren m�s...
@@ -195,6 +207,8 @@ int mainCode() {
 			testText->setText(std::to_string(fps.get()) + " fps");
 			miliecsSinceLastReport = 0;
 		}
+
+		input->flush(); 
 	}
 	if (error)
 	{

@@ -14,23 +14,49 @@ public:
 
     void inputEvent();
 
-    // Comandos de input de teclado
-    bool keyDown(int key);
-    bool keyReleased(int key);
-    bool keyPressed(KeyboardKey key);
-
-    // Comandos de input de raton
-    bool mouseDown(MouseButton button);
-    bool mouseReleased(MouseButton button);
-    bool mousePressed(MouseButton button);
+    void flush();
 
     // ¿Se debe salir del bucle ppal.?
     bool exitRequested();
 
+    // COMANDOS TECLADO
+
+    //Scancode es la posicion fisica de las teclas
+    bool isKeyDown(ScancodeKey key);
+    bool isKeyReleased(ScancodeKey key);
+
+    // COMANDOS RATÓN
+
+    bool isMouseDown();
+    bool isMouseReleased();
+
+    bool isMousePressed(MouseButton button);
+
+    std::pair<int, int> getMousePos(); 
+
+    void mouseMovement(const SDL_Event& event);
+
+    void showOrHideMouse(); 
+
 private:
 
-    bool exitRequest; 
+    bool exitRequest;
+
+    bool cursorState;
+
+    // TECLADO 
+
+    bool isKeyDownEvent; 
+    bool isKeyReleasedEvent;
 
     bool keysDown[SIZE];
-    bool keysUp[SIZE];
+
+    // RATON
+
+    bool isMouseButtonDown;
+    bool isMouseButtonUp;
+
+    bool mouseButtonsDown[MOUSE_MAX]; 
+
+    std::pair<int, int> mousePos; 
 };
