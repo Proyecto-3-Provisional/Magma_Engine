@@ -19,14 +19,14 @@
 #include "ECS/fps_counter.h"
 
 
-#define FIRST_PERSON 1
+#define AXO_POV 1
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
 void ecTestUpdate(ec::EntityManager* em);
 
 int mainCode() {
-	// Control de la velocidad de rotación
+	// Control de la velocidad de rotaciï¿½n
 	const float rotationVelocity = 0.05;
 	// Temporizador debug
 	const int miliecsToReport = 1000;
@@ -41,13 +41,13 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
+	// Marca de tiempo del ï¿½ltimo fotograma, en milisegundos transcurridos desde el inicio
 	float lastFrameTime = SDL_GetTicks();
-	// Cálculo del tiempo, en milisegundos, entre fotogramas
+	// Cï¿½lculo del tiempo, en milisegundos, entre fotogramas
 	float timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
-	RenderManager* renderMngr = new RenderManager(false);
+	RenderManager* renderMngr = new RenderManager(false, 1920, 1080, false, true, 4, false);
 	bool correct = renderMngr->initApp();
 
 	if (!correct)
@@ -61,8 +61,8 @@ int mainCode() {
 	GraphicalObject* ficticioTripulacion = renderMngr->getObject("crew");
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
-
-	if (FIRST_PERSON)
+	//_RENDER_ Cï¿½mara para la escena
+	if (AXO_POV)
 	{
 		renderMngr->createCam(ajolote, { -25, 2, -4 });
 		renderMngr->yawCam(90);
@@ -126,7 +126,7 @@ int mainCode() {
 	int s = 50;
 	while (!input->exitRequested() && !error && s > 0)
 	{
-		// Marcas de tiempo y cálculo del "delta"
+		// Marcas de tiempo y cï¿½lculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
 		lastFrameTime = SDL_GetTicks();
 
@@ -170,22 +170,22 @@ int mainCode() {
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
-		//_RENDER_ Imprimir número de objetos gráficos cada cierto tiempo
+		//_RENDER_ Imprimir nï¿½mero de objetos grï¿½ficos cada cierto tiempo
 		//miliecsSinceLastReport += timeSinceLastFrame;
 		if (miliecsSinceLastReport > miliecsToReport) {
-			std::cout << "Objetos gráficos: "
+			std::cout << "Objetos grï¿½ficos: "
 				<< renderMngr->getNumObjects() << std::endl;
 		}
 
-		//_RENDER_ Control de cuándo se borran aquellos que deben ser borrados
+		//_RENDER_ Control de cuï¿½ndo se borran aquellos que deben ser borrados
 		int f = renderMngr->refreshObjects();
 		if (f != 0)
 		{
 			std::cout << f <<
-				" destrucciones gráficas diferidas fallidas\t/!\\" << std::endl;
+				" destrucciones grï¿½ficas diferidas fallidas\t/!\\" << std::endl;
 		}
 
-		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
+		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren mï¿½s...
 		if (!renderMngr->renderFrame())
 			error = true;
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
@@ -228,7 +228,7 @@ void ecTestUpdate(ec::EntityManager* entityManager) {
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola
 // Hay diferentes funciones como punto de entrada por defecto al seleccionar
-// valores distintos en 'Vinculador > Sistema > Subsistema' según la Configuración
+// valores distintos en 'Vinculador > Sistema > Subsistema' segï¿½n la Configuraciï¿½n
 #if _DEBUG
 int main(int argc, char const** argv) {
 	return mainCode();

@@ -11,12 +11,30 @@
 #include <SDL_syswm.h>
 
 RenderManagerContext::RenderManagerContext(const Ogre::String& appName)
+	: winWidth(1280), winHeight(720), fullScreenEnabled(false), vSyncEnabled(true),
+	fsaaLevel(0), gammaEnabled(false)
 {
 	mAppName = appName;
 	mFSLayer = new Ogre::FileSystemLayer(appName);
 	mRoot = nullptr;
 	mOverlaySystem = nullptr;
 	cursorGrab = false;
+}
+
+RenderManagerContext::RenderManagerContext(const Ogre::String& appName,
+	uint32_t w, uint32_t h, bool fScr, bool vSyn, int fsaa, bool gamm)
+{
+	mAppName = appName;
+	mFSLayer = new Ogre::FileSystemLayer(appName);
+	mRoot = nullptr;
+	mOverlaySystem = nullptr;
+	cursorGrab = false;
+	winWidth = w;
+	winHeight = h;
+	fullScreenEnabled = fScr;
+	vSyncEnabled = vSyn;
+	fsaaLevel = fsaa;
+	gammaEnabled = gamm;
 }
 
 RenderManagerContext::~RenderManagerContext()
@@ -112,7 +130,8 @@ void RenderManagerContext::createRoot()
 	pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
 
 	if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
-		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "RenderManagerContext::createRoot");
+		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg",
+			"RenderManagerContext::createRoot");
 
 	configPath = mFSLayer->getWritablePath("ogre.cfg");
 	logPath = mFSLayer->getWritablePath("ogre.log");
@@ -177,30 +196,47 @@ NativeWindowPair RenderManagerContext::createWindow(const Ogre::String& name)
 
 	Ogre::ConfigOptionMap ropts = mRoot->getRenderSystem()->getConfigOptions();
 
+
 	std::istringstream mode(ropts["Video Mode"].currentValue);
 	Ogre::String token;
 	mode >> w;		// width
 	mode >> token;	// 'x' as seperator between width and height
 	mode >> h;		// height
 
-	miscParams["FSAA"] = ropts["FSAA"].currentValue;
-	miscParams["vsync"] = ropts["VSync"].currentValue;
-	miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue;
+	miscParams["vsync"] = ropts["VSync"].currentValue; // Yes / No
+	miscParams["FSAA"] = ropts["FSAA"].currentValue; // 0 / 2 / 4 / 8 / 16
+	miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue; // Yes / No
 
 	if (!SDL_WasInit(SDL_INIT_VIDEO)) SDL_InitSubSystem(SDL_INIT_VIDEO);
 
-	Uint32 flags = SDL_WINDOW_RESIZABLE;
-
+	Uint32 flags;
+	// Yes / NO
 	if (ropts["Full Screen"].currentValue == "Yes") flags = SDL_WINDOW_FULLSCREEN;
-	/////////////////aaa else flags = SDL_WINDOW_RESIZABLE;
+	else flags = SDL_WINDOW_RESIZABLE;
 
-	mWindow.native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
+	// modificaciones a la configuración por defecto
+	w = winWidth;
+	h = winHeight;
+	if (fullScreenEnabled) flags = SDL_WINDOW_FULLSCREEN;
+	else flags = SDL_WINDOW_RESIZABLE;
+	if (vSyncEnabled) miscParams["vsync"] = "Yes";
+	else miscParams["vsync"] = "No";
+	if (gammaEnabled) miscParams["gamma"] = "Yes";
+	else miscParams["gamma"] = "No";
+	if (fsaaLevel != 0 && fsaaLevel != 2 && fsaaLevel != 4
+		&& fsaaLevel != 8 && fsaaLevel != 16) fsaaLevel = 0;
+	miscParams["FSAA"] = Ogre::StringConverter::toString(fsaaLevel);
+	// modificaciones
+
+	mWindow.native = SDL_CreateWindow(name.c_str(),
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
 
 	SDL_SysWMinfo wmInfo;
 	SDL_VERSION(&wmInfo.version);
 	SDL_GetWindowWMInfo(mWindow.native, &wmInfo);
 
-	miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
+	miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(
+		size_t(wmInfo.info.win.window));
 
 	mWindow.render = mRoot->createRenderWindow(name, w, h, false, &miscParams);
 	return mWindow;

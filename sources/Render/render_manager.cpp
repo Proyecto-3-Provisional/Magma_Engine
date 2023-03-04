@@ -12,15 +12,22 @@
 RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest")
 {
 	RenderManagerContext::cursorGrab = grabCursor;
+	// CONTEXT: new -> setup()
+}
 
-	// CONTEXT:
-	// new -> setup()
+// Recibe un booleano que indica si el cursor puede salir de la ventana o no
+// y par�metros que modifican la ventana y las condiciones del renderizado
+RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,
+	bool vSyn, int fsaa, bool gamm) : RenderManagerContext("MagmaTest", w, h,
+	fScr, vSyn, fsaa, gamm)
+{
+	RenderManagerContext::cursorGrab = grabCursor;
+	// CONTEXT: new -> setup()
 }
 
 RenderManager::~RenderManager()
 {
-	// CONTEXT:
-	// delete -> shutdown()
+	// CONTEXT: delete -> shutdown()
 }
 
 void RenderManager::setCamPos(Ogre::Vector3 vec)
@@ -320,9 +327,7 @@ void RenderManager::setupScene(void)
 	GraphicalObject* ajo = addObject("suxalote", nullptr, "axolotl.mesh", "axolotl");
 	ajo->showDebugBox(false);
 	ajo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
-	ajo->setScale({ 40, 40, 40 });
 	GraphicalObject* burst = addObject("bubbles", ajo, "EMITTER", "bubble_burst");
-	burst->translate({ 5, 0, 0 });
 
 	// TRIPULANTES
 	GraphicalObject* rosco = addObject("crew", nullptr, "", "thiswontbeused");
