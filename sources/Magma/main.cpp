@@ -17,7 +17,7 @@
 #include "ECS/test_axl_mov.h"
 #include "ECS/vector3D.h"
 
-#define FIRST_PERSON 1
+#define AXO_POV 1
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
@@ -45,7 +45,7 @@ int mainCode() {
 	float timeSinceLastFrame = 0;
 
 	//_RENDER_ Inicio del renderizado
-	RenderManager* renderMngr = new RenderManager(false);
+	RenderManager* renderMngr = new RenderManager(false, 1920, 1080, false, true, 4, false);
 	bool correct = renderMngr->initApp();
 
 	//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
@@ -98,7 +98,7 @@ int mainCode() {
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
 	//_RENDER_ Cámara para la escena
-	if (FIRST_PERSON)
+	if (AXO_POV)
 	{
 		renderMngr->createCam(ajolote, { -25, 2, -4 });
 		renderMngr->yawCam(90);

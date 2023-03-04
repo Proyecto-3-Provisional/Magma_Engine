@@ -23,6 +23,8 @@ class RenderManagerContext : public Ogre::FrameListener
 {
 public:
 	explicit RenderManagerContext(const Ogre::String& appName = OGRE_VERSION_NAME);
+	explicit RenderManagerContext(const Ogre::String& appName,
+		uint32_t w, uint32_t h, bool fScr, bool vSyn, int fsaa, bool gamm);
 	virtual ~RenderManagerContext();
 
 	// Obtener la RenderWindow; posee el contexto en OpenGL
@@ -87,4 +89,12 @@ protected:
 	Ogre::Root* mRoot;					// Raíz de Ogre
 	Ogre::FileSystemLayer* mFSLayer;	// Abstracción del sist. de ficheros
 	Ogre::OverlaySystem* mOverlaySystem;// Requerido por OverlayManager (UI)
+
+	// Config. de ventana
+	uint32_t winWidth;
+	uint32_t winHeight;
+	bool fullScreenEnabled;
+	bool vSyncEnabled;
+	int fsaaLevel;
+	bool gammaEnabled;
 };

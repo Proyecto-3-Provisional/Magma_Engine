@@ -7,6 +7,8 @@ class RenderManager : public RenderManagerContext
 {
 public:
 	explicit RenderManager(bool grabCursor);
+	explicit RenderManager(bool grabCursor, uint32_t w, uint32_t h,
+		bool fScr, bool vSyn, int fsaa, bool gamm);
 	virtual ~RenderManager();
 
 	// Crear y destruir cámara
