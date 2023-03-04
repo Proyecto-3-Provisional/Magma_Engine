@@ -27,9 +27,10 @@ void ecTestUpdate(ec::EntityManager* em);
 int mainCode() {
 	// Control de la velocidad de rotación
 	const float rotationVelocity = 0.05;
-	// Temporizador debug
+	// Temporizador debug (tb para físicas)
 	const int miliecsToReport = 5000;
 	int miliecsSinceLastReport = 0;
+	int miliecsSinceLastReport2 = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
 	int milisecsAcc = 0;
@@ -136,8 +137,9 @@ int mainCode() {
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
-		miliecsSinceLastReport += timeSinceLastFrame;
-		if (miliecsSinceLastReport > miliecsToReport) {
+		miliecsSinceLastReport2 += timeSinceLastFrame;
+		if (miliecsSinceLastReport2 > miliecsToReport) {
+			miliecsSinceLastReport2 = 0;
 			physMngr->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
