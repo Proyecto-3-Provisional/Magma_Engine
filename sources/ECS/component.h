@@ -15,7 +15,7 @@ namespace ec {
 		void setEnable(bool set_);
 		
 		virtual void initComponent() { }
-		virtual void update() { }
+		virtual void update(float deltaTime) { }
 		virtual void render() { }
 		virtual void onEnable() { }
 		virtual void onDisable() { }

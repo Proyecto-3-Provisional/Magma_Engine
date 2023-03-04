@@ -18,19 +18,19 @@
 #include "ECS/vector3D.h"
 #include "ECS/fps_counter.h"
 
-
-#define AXO_POV 1
+#define AXO_POV 0
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
-void ecTestUpdate(ec::EntityManager* em);
+void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 
 int mainCode() {
 	// Control de la velocidad de rotaci�n
 	const float rotationVelocity = 0.05;
-	// Temporizador debug
-	const int miliecsToReport = 1000;
+	// Temporizador debug (tb para f�sicas)
+	const int miliecsToReport = 5000;
 	int miliecsSinceLastReport = 0;
+	int miliecsSinceLastReport2 = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
 	int milisecsAcc = 0;
@@ -57,10 +57,17 @@ int mainCode() {
 		return 1;
 	}
 
+	// _RENDER_ Cacheo de objetos
 	GraphicalObject* ajolote = renderMngr->getObject("suxalote");
 	GraphicalObject* ficticioTripulacion = renderMngr->getObject("crew");
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
+
+	// _RENDER_ � Animaci�n para ajolote ?
+	ajolote->setAnimation("axolotl_swim");
+	ajolote->animationSetEnabled(false);
+	ajolote->animationSetLooping(true);
+
 	//_RENDER_ C�mara para la escena
 	if (AXO_POV)
 	{
@@ -119,8 +126,6 @@ int mainCode() {
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 
 
-	
-
 	// Bucle Principal del Motor //
 	bool error = false;
 	int s = 50;
@@ -132,9 +137,10 @@ int mainCode() {
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
-		miliecsSinceLastReport += timeSinceLastFrame;
-		if (miliecsSinceLastReport > miliecsToReport) {
-			physMngr->update(); // > porfa haced que esto no haga spam por terminal
+		miliecsSinceLastReport2 += timeSinceLastFrame;
+		if (miliecsSinceLastReport2 > miliecsToReport) {
+			miliecsSinceLastReport2 = 0;
+			physMngr->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
 		// s--;
@@ -142,7 +148,7 @@ int mainCode() {
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
-		ecTestUpdate(entityManager);
+		ecTestUpdate(entityManager, timeSinceLastFrame);
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
@@ -182,10 +188,14 @@ int mainCode() {
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
+		//_RENDER_ Prueba de animaciones
+		renderMngr->stepAnimations(timeSinceLastFrame);
+
 		//_RENDER_ Imprimir n�mero de objetos gr�ficos cada cierto tiempo
-		//miliecsSinceLastReport += timeSinceLastFrame;
-		if (miliecsSinceLastReport > miliecsToReport) {
-			std::cout << "Objetos graficos: "
+		miliecsSinceLastReport += timeSinceLastFrame;
+		if (miliecsSinceLastReport > miliecsToReport)
+		{
+			std::cout << "Objetos gr�ficos: "
 				<< renderMngr->getNumObjects() << std::endl;
 		}
 
@@ -233,10 +243,10 @@ void ecTestInit(ec::EntityManager* entityManager, RenderManager* renderMngr) {
 	jo->setScale({ 40, 40, 40 });
 
 	auto e_ = entityManager->addEntity(jo);
-	TestAxlMov* tr_ = e_->addComponent<TestAxlMov >(Vector3D(), Vector3D(10, 10, 10));
+	TestAxlMov* tr_ = e_->addComponent<TestAxlMov>(Vector3D(), Vector3D(400, 400, 400));
 }
-void ecTestUpdate(ec::EntityManager* entityManager) {
-	entityManager->update();
+void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
+	entityManager->update(deltaTime * 0.001);
 	entityManager->refresh();
 }
 

@@ -7,5 +7,5 @@ class TestAxlMov : public Transform {
 public:
 	TestAxlMov(Vector3D pos_, Vector3D vel_) : Transform(pos_, vel_) {};
 
-	virtual void update();
+	virtual void update(float deltaTime);
 };

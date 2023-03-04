@@ -32,11 +32,11 @@ namespace ec {
 		}
 	}
 
-	void EntityManager::update() {
+	void EntityManager::update(float deltaTime) {
 		for (auto& ents : entsByGroup) {
 			auto n = ents.size();
 			for (auto i = 0u; i < n; i++)
-				entsByGroup[0][i]->update();
+				entsByGroup[0][i]->update(deltaTime);
 		}
 	}
 

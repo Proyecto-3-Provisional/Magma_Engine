@@ -19,6 +19,7 @@ public:
 
 	void playSound();
 	void stopSound();
+	void changeVolume();
 
 private:
 	SDL_AudioDeviceID device; // Identificador del dispositivo de audio que se abre al reproducir un sonido

@@ -45,7 +45,7 @@ namespace ec {
 		//Elimina las entidades muertas de las listas de grupos y las que ya no pertenecen a ningun grupo
 		void refresh();
 
-		void update();
+		void update(float deltaTime);
 		void render();
 
 		std::array<std::vector<Entity*>, maxGroupId> returnEntsByGroup();

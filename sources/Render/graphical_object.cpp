@@ -222,3 +222,49 @@ bool GraphicalObject::isCamAttached()
 {
 	return camAttached;
 }
+
+bool GraphicalObject::isTrueEntity()
+{
+	return entity != nullptr;
+}
+
+bool GraphicalObject::isEntityAnimated()
+{
+	return (isTrueEntity() && (entityAnimation != nullptr));
+}
+
+void GraphicalObject::setAnimation(Ogre::String animName, bool startRightAway)
+{
+	if (entity)
+	{
+		animationSetEnabled(false);
+		if (animName == "")
+		{
+			entityAnimation = nullptr;
+		}
+		else
+		{
+			entityAnimation = entity->getAnimationState(animName);
+			if (startRightAway)
+				animationSetEnabled(true);
+		}
+	}
+}
+
+void GraphicalObject::stepAnimation(float deltaTime)
+{
+	if (entityAnimation)
+		entityAnimation->addTime(deltaTime);
+}
+
+void GraphicalObject::animationSetEnabled(bool val)
+{
+	if (entityAnimation)
+		entityAnimation->setEnabled(val);
+}
+
+void GraphicalObject::animationSetLooping(bool val)
+{
+	if (entityAnimation)
+		entityAnimation->setLoop(val);
+}
