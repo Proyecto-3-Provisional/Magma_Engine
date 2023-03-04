@@ -109,7 +109,7 @@ namespace ec{
 			return gId;
 		}
 
-		void update();
+		void update(float deltaTime);
 
 		void render();
 

@@ -29,10 +29,10 @@ namespace ec {
 		alive = alive_;
 	}
 
-	void Entity::update() {
+	void Entity::update(float deltaTime) {
 		auto n = currCmps.size();
 		for (auto i = 0u; i < n; i++)
-			currCmps[i]->update();
+			currCmps[i]->update(deltaTime);
 	}
 
 	void Entity::render() {

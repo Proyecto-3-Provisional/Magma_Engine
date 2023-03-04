@@ -22,7 +22,7 @@
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
-void ecTestUpdate(ec::EntityManager* em);
+void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 
 int mainCode() {
 	// Control de la velocidad de rotación
@@ -153,7 +153,7 @@ int mainCode() {
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
-		ecTestUpdate(entityManager);
+		ecTestUpdate(entityManager, timeSinceLastFrame);
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
@@ -229,10 +229,10 @@ void ecTestInit(ec::EntityManager* entityManager, RenderManager* renderMngr) {
 	jo->setScale({ 40, 40, 40 });
 
 	auto e_ = entityManager->addEntity(jo);
-	TestAxlMov* tr_ = e_->addComponent<TestAxlMov >(Vector3D(), Vector3D(10, 10, 10));
+	TestAxlMov* tr_ = e_->addComponent<TestAxlMov>(Vector3D(), Vector3D(400, 400, 400));
 }
-void ecTestUpdate(ec::EntityManager* entityManager) {
-	entityManager->update();
+void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
+	entityManager->update(deltaTime * 0.001);
 	entityManager->refresh();
 }
 

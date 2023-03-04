@@ -52,11 +52,11 @@ void Transform::setH(float height_)
 	scale.setY(height_);
 }
 
-void Transform::update()
+void Transform::update(float deltaTime)
 {
 	ent->getGraphObj()->setPosition({ pos.getX(), pos.getY(), pos.getZ() });
 
-	pos = pos + vel;
+	pos = pos + vel * deltaTime;
 }
 
 

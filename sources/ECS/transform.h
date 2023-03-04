@@ -26,7 +26,7 @@ public:
 	void setW(float width_);
 	void setH(float height_);
 
-	virtual void update();
+	virtual void update(float deltaTime);
 private:
 	Vector3D pos;
 	Vector3D vel;
