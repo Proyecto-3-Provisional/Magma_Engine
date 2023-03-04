@@ -47,7 +47,7 @@ int mainCode() {
 	float timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
-	RenderManager* renderMngr = new RenderManager(false, 1920, 1080, false, true, 4, false);
+	RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
 	bool correct = renderMngr->initApp();
 
 	if (!correct)
