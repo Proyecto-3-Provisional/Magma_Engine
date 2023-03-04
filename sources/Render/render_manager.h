@@ -59,6 +59,9 @@ public:
 	// Cambiar fondo
 	void setBgColor(float r, float g, float b);
 
+	// Hacer avanzar las animaciones de los Objetos
+	void stepAnimations(float deltaTime);
+
 protected:
 	// Objetos nuestros del mundo gráfico
 	std::unordered_map<std::string, GraphicalObject*> sceneObjects;

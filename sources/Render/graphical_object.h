@@ -50,6 +50,16 @@ public:
 	void setCamAttached(bool val);
 	bool isCamAttached();
 
+	// Acerca de la entidad
+	bool isTrueEntity();
+
+	// Posible animación
+	bool isEntityAnimated();
+	void setAnimation(Ogre::String animName, bool startRightAway = false);
+	void stepAnimation(float deltaTime);
+	void animationSetEnabled(bool val);
+	void animationSetLooping(bool val);
+
 protected:
 	// Notificar existencia de objetos hijos
 	void aknowledgeChild();
@@ -61,6 +71,9 @@ protected:
 	Ogre::Entity* entity = nullptr;
 	Ogre::Light* light = nullptr;
 	Ogre::ParticleSystem* particleSystem = nullptr;
+
+	// Animación para la entidad
+	Ogre::AnimationState* entityAnimation = nullptr;
 
 	// Padres e hijos
 	GraphicalObject* parentObject = nullptr;

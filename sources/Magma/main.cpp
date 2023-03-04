@@ -18,18 +18,17 @@
 #include "ECS/vector3D.h"
 #include "ECS/fps_counter.h"
 
-
-#define AXO_POV 1
+#define AXO_POV 0
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
 void ecTestUpdate(ec::EntityManager* em);
 
 int mainCode() {
-	// Control de la velocidad de rotaciï¿½n
+	// Control de la velocidad de rotación
 	const float rotationVelocity = 0.05;
 	// Temporizador debug
-	const int miliecsToReport = 1000;
+	const int miliecsToReport = 5000;
 	int miliecsSinceLastReport = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
@@ -41,9 +40,9 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	// Marca de tiempo del ï¿½ltimo fotograma, en milisegundos transcurridos desde el inicio
+	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	float lastFrameTime = SDL_GetTicks();
-	// Cï¿½lculo del tiempo, en milisegundos, entre fotogramas
+	// Cálculo del tiempo, en milisegundos, entre fotogramas
 	float timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
@@ -57,11 +56,18 @@ int mainCode() {
 		return 1;
 	}
 
+	// _RENDER_ Cacheo de objetos
 	GraphicalObject* ajolote = renderMngr->getObject("suxalote");
 	GraphicalObject* ficticioTripulacion = renderMngr->getObject("crew");
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
-	//_RENDER_ Cï¿½mara para la escena
+
+	// _RENDER_ ¿ Animación para ajolote ?
+	ajolote->setAnimation("axolotl_swim");
+	ajolote->animationSetEnabled(false);
+	ajolote->animationSetLooping(true);
+
+	//_RENDER_ Cámara para la escena
 	if (AXO_POV)
 	{
 		renderMngr->createCam(ajolote, { -25, 2, -4 });
@@ -119,14 +125,12 @@ int mainCode() {
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 
 
-	
-
 	// Bucle Principal del Motor //
 	bool error = false;
 	int s = 50;
 	while (!input->exitRequested() && !error && s > 0)
 	{
-		// Marcas de tiempo y cï¿½lculo del "delta"
+		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
 		lastFrameTime = SDL_GetTicks();
 
@@ -134,7 +138,7 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
 		miliecsSinceLastReport += timeSinceLastFrame;
 		if (miliecsSinceLastReport > miliecsToReport) {
-			physMngr->update(); // > porfa haced que esto no haga spam por terminal
+			physMngr->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
 		// s--;
@@ -170,22 +174,26 @@ int mainCode() {
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
-		//_RENDER_ Imprimir nï¿½mero de objetos grï¿½ficos cada cierto tiempo
-		//miliecsSinceLastReport += timeSinceLastFrame;
-		if (miliecsSinceLastReport > miliecsToReport) {
-			std::cout << "Objetos grï¿½ficos: "
+		//_RENDER_ Prueba de animaciones
+		renderMngr->stepAnimations(timeSinceLastFrame);
+
+		//_RENDER_ Imprimir número de objetos gráficos cada cierto tiempo
+		miliecsSinceLastReport += timeSinceLastFrame;
+		if (miliecsSinceLastReport > miliecsToReport)
+		{
+			std::cout << "Objetos gráficos: "
 				<< renderMngr->getNumObjects() << std::endl;
 		}
 
-		//_RENDER_ Control de cuï¿½ndo se borran aquellos que deben ser borrados
+		//_RENDER_ Control de cuándo se borran aquellos que deben ser borrados
 		int f = renderMngr->refreshObjects();
 		if (f != 0)
 		{
 			std::cout << f <<
-				" destrucciones grï¿½ficas diferidas fallidas\t/!\\" << std::endl;
+				" destrucciones gráficas diferidas fallidas\t/!\\" << std::endl;
 		}
 
-		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren mï¿½s...
+		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren más...
 		if (!renderMngr->renderFrame())
 			error = true;
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
@@ -228,7 +236,7 @@ void ecTestUpdate(ec::EntityManager* entityManager) {
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola
 // Hay diferentes funciones como punto de entrada por defecto al seleccionar
-// valores distintos en 'Vinculador > Sistema > Subsistema' segï¿½n la Configuraciï¿½n
+// valores distintos en 'Vinculador > Sistema > Subsistema' según la Configuración
 #if _DEBUG
 int main(int argc, char const** argv) {
 	return mainCode();

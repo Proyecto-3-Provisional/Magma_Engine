@@ -16,7 +16,7 @@ RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest"
 }
 
 // Recibe un booleano que indica si el cursor puede salir de la ventana o no
-// y parï¿½metros que modifican la ventana y las condiciones del renderizado
+// y parámetros que modifican la ventana y las condiciones del renderizado
 RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,
 	bool vSyn, int fsaa, bool gamm) : RenderManagerContext("MagmaTest", w, h,
 	fScr, vSyn, fsaa, gamm)
@@ -273,6 +273,19 @@ void RenderManager::setBgColor(float r, float g, float b)
 		cameraViewport->setBackgroundColour(Ogre::ColourValue(r, g, b));
 }
 
+// De todos los objetos gráficos, ver cuáles son entidades de Ogre y
+// hacer avanzar su animación si es que existe
+void RenderManager::stepAnimations(float deltaTime)
+{
+	for (std::pair<std::string, GraphicalObject*> key_obj : sceneObjects)
+	{
+		if (key_obj.second->isEntityAnimated())
+		{
+			key_obj.second->stepAnimation(deltaTime * 0.001);
+		}
+	}
+}
+
 // Al final crea la malla de un plano po código y dispone la escena
 // NO CAMBIAR LA PRIMERA LÍNEA
 void RenderManager::setup()
@@ -327,7 +340,9 @@ void RenderManager::setupScene(void)
 	GraphicalObject* ajo = addObject("suxalote", nullptr, "axolotl.mesh", "axolotl");
 	ajo->showDebugBox(false);
 	ajo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
+	ajo->setScale({ 60, 60, 60 });
 	GraphicalObject* burst = addObject("bubbles", ajo, "EMITTER", "bubble_burst");
+	burst->translate({ 2.5, 0, 0 });
 
 	// TRIPULANTES
 	GraphicalObject* rosco = addObject("crew", nullptr, "", "thiswontbeused");
