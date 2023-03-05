@@ -115,7 +115,7 @@ int mainCode() {
 
 	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
 
-	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble", "bubble", 0, 50, 100, 100);
+	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0, 50, 100, 100);
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 
