@@ -8,6 +8,7 @@
 #include "Render/UI_Manager.h"
 #include "Render/UI_Text.h"
 #include "Render/UI_Image.h"
+#include "Render/ui_button.h"
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 #include "Sounds/sound_manager.h"
@@ -112,6 +113,11 @@ int mainCode() {
 	testText->setText("Ahhh yessss");
 
 	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
+
+	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble", "bubble", 0, 50, 100, 100);
+
+	/*std::string title, std::string imageName, 
+		std::string hoverImageName, std::string pressedImageName,*/
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 
 
@@ -174,16 +180,38 @@ int mainCode() {
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_F))
 		{
-			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
 			ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
 			tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
 		}
 
+		if (testButton->isButtonPressed())
+			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
+
 		if (input->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 			input->showOrHideMouse(); 
 
+		auto posMouse = input->getMousePos(); 
+
+		if (testButton->isCursorInsideBounds(posMouse.first, posMouse.second))
+		{
+			testButton->cursorOnButton(); 
+
+			if (input->isMouseDown())
+			{
+				testButton->mousePressedButton();
+				std::cout << "Boton pulsado\n"; 
+			}
+			
+		}
+
+		else
+		{
+			if (testButton->isOnButton())
+				testButton->mouseLeavingButton(); 
+		}
+
 		if (input->isKeyDown(ScancodeKey::SCANCODE_K))
-			std::cout << "Pos Raton = " << input->getMousePos().first << " " << input->getMousePos().second << "\n";
+			std::cout << "Pos Raton = " << posMouse.first << " " << posMouse.second << "\n";
 
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);

@@ -166,6 +166,7 @@
     <ClCompile Include="..\..\sources\Render\graphical_object.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager_context.cpp" />
+    <ClCompile Include="..\..\sources\Render\ui_button.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Element.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Image.cpp" />
     <ClCompile Include="..\..\sources\Render\UI_Manager.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="..\..\sources\Render\graphical_object.h" />
     <ClInclude Include="..\..\sources\Render\render_manager.h" />
     <ClInclude Include="..\..\sources\Render\render_manager_context.h" />
+    <ClInclude Include="..\..\sources\Render\ui_button.h" />
     <ClInclude Include="..\..\sources\Render\UI_Element.h" />
     <ClInclude Include="..\..\sources\Render\UI_Image.h" />
     <ClInclude Include="..\..\sources\Render\UI_Manager.h" />
