@@ -36,6 +36,5 @@ void UI_Image::setImageSize(float x, float y)
 
 void UI_Image::changeImage(std::string title ,std::string imageName)
 {
-	//imageUI->setMaterialName(imageName);
 	panel->getChild(title)->setMaterialName(imageName);
 }

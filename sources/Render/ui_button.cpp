@@ -6,7 +6,7 @@ UIButton::UIButton(Ogre::Overlay* overReference, std::string title, std::string 
 	buttonImage = static_cast<Ogre::OverlayElement*>
 		(overlayMan_->createOverlayElement("Panel", title + "Image"));
 	buttonImage->setMetricsMode(Ogre::GMM_PIXELS);
-	buttonImage->setPosition(posX, posY);
+	//buttonImage->setPosition(posX, posY);
 	buttonImage->setDimensions(sizeX, sizeY);
 
 	buttonImage->setMaterialName(imageName);

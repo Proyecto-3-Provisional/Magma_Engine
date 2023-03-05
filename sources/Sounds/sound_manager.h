@@ -26,28 +26,3 @@ private:
 
 	AudioData data; // Almacena los datos necesarios para reproducir un sonido
 };
-
-//class AudioBuffer {
-//public:
-//    AudioBuffer() {}
-//
-//    void updateBuffer(Uint8* stream, int len) 
-//    {
-//        if (audioLen == 0)
-//            return;
-//
-//        len = (len > audioLen ? audioLen : len);
-//        SDL_memcpy(stream, audioPos, len);
-//        SDL_MixAudio(stream, audioPos, len, SDL_MIX_MAXVOLUME);
-//
-//        audioPos += len;
-//        audioLen -= len;
-//    }
-//
-//    void setPos(Uint8* pos) { audioPos = pos; }
-//    void setLen(Uint32 len) { audioLen = len; }
-//
-//private:
-//    Uint8* audioPos;
-//    Uint32 audioLen;
-//};

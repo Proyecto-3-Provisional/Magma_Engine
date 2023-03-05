@@ -64,6 +64,7 @@ int mainCode() {
 	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
 	ficticioCubo = renderMngr->getObject("cube_empty");
 
+
 	// _RENDER_ � Animaci�n para ajolote ?
 	ajolote->setAnimation("axolotl_swim");
 	ajolote->animationSetEnabled(false);
@@ -116,8 +117,6 @@ int mainCode() {
 
 	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble", "bubble", 0, 50, 100, 100);
 
-	/*std::string title, std::string imageName, 
-		std::string hoverImageName, std::string pressedImageName,*/
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 
 
@@ -128,7 +127,7 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 	SoundManager* soundManager = new SoundManager();
-	//soundManager->playSound();
+	soundManager->playSound();
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 
 
@@ -201,7 +200,6 @@ int mainCode() {
 				testButton->mousePressedButton();
 				std::cout << "Boton pulsado\n"; 
 			}
-			
 		}
 
 		else
