@@ -10,25 +10,25 @@ class UI_Element
 {
 public:
 	UI_Element(Ogre::Overlay* overReference, std::string name,
-		int posX, int posY, int sizeX, int sizeY);
+		Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY);
 	~UI_Element();
 
 	void showElement(); 
 	void hideElement(); 
 	bool isElementVisible();
 
-	void setPanelPosition(float x, float y) {};
-	void setPanelSize(float w, float h) {};
+	void setPanelPosition(double x, double y) {};
+	void setPanelSize(double w, double h) {};
 
-	std::pair<float, float> getPosition();
-	std::pair<float, float> getSize();
+	std::pair<double, double> getPosition();
+	std::pair<double, double> getSize();
 	
 	void setInteractive(bool isInteractive) {};
 
 protected:
 	
-	std::pair<float, float> position;
-	std::pair<float, float> size;
+	std::pair<double, double> position;
+	std::pair<double, double> size;
 	
 	Ogre::OverlayManager* overlayMan_;
 	Ogre::Overlay* overlay_;

@@ -5,7 +5,7 @@
 ***************************************************************************************************************************************/
 
 UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
-	int posX, int posY, int sizeX, int sizeY)
+	Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY)
 {
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 	overlay_ = overReference;
@@ -47,13 +47,13 @@ bool UI_Element::isElementVisible()
 }
 
 // Devuelve la posicion del panel
-std::pair<float, float> UI_Element::getPosition()
+std::pair<double, double> UI_Element::getPosition()
 {
 	return position;
 }
 
 // Devuelve el tamaño del panel
-std::pair<float, float> UI_Element::getSize()
+std::pair<double, double> UI_Element::getSize()
 {
 	return size;
 }

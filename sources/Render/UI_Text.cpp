@@ -10,7 +10,7 @@
 ***************************************************************************/
 
 UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
-	int posX, int posY, int sizeX, int sizeY, std::string fontTitle,
+	Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY, std::string fontTitle,
 	std::string textContent, float r, float g, float b)
 	: UI_Element(overReference,title, posX, posY, sizeX, sizeY)
 {	
@@ -41,12 +41,12 @@ void UI_Text::setText(std::string newText)
 	textArea->setCaption(newText);
 }
 
-void UI_Text::setTextPosition(float x, float y)
+void UI_Text::setTextPosition(double x, double y)
 {
 	textArea->setPosition(x, y);
 }
 
-void UI_Text::setTextSize(float x, float y)
+void UI_Text::setTextSize(double x, double y)
 {
 	textArea->setDimensions(x, y);
 }

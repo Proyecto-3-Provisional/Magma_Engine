@@ -23,14 +23,14 @@
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
-void ecTestUpdate(ec::EntityManager* em, float deltaTime);
+void ecTestUpdate(ec::EntityManager* em, double deltaTime);
 
 int mainCode() {
 	// Control de la velocidad de rotaci�n
-	const float rotationVelocity = 0.05;
+	const double rotationVelocity = 0.05;
 	// Temporizador debug (tb para f�sicas)
 	const int miliecsToReport = 5000;
-	int miliecsSinceLastReport = 0;
+	double miliecsSinceLastReport = 0;
 	int miliecsSinceLastReport2 = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
@@ -43,9 +43,9 @@ int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
 	// Marca de tiempo del �ltimo fotograma, en milisegundos transcurridos desde el inicio
-	float lastFrameTime = SDL_GetTicks();
+	double lastFrameTime = SDL_GetTicks();
 	// C�lculo del tiempo, en milisegundos, entre fotogramas
-	float timeSinceLastFrame = 0;
+	double timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
@@ -138,7 +138,7 @@ int mainCode() {
 	{
 		// Marcas de tiempo y c�lculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
-		lastFrameTime = SDL_GetTicks();
+		lastFrameTime = SDL_GetTicks(); 
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
@@ -157,7 +157,7 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
-		milisecsAcc += timeSinceLastFrame;
+		milisecsAcc += timeSinceLastFrame; 
 		if (!cubeDisappearance && milisecsAcc > miliecsToDisappear) {
 			bool r1, r2;
 			r1 = renderMngr->sunsetObject("cube");
@@ -218,7 +218,7 @@ int mainCode() {
 		renderMngr->stepAnimations(timeSinceLastFrame);
 
 		//_RENDER_ Imprimir n�mero de objetos gr�ficos cada cierto tiempo
-		miliecsSinceLastReport += timeSinceLastFrame;
+		miliecsSinceLastReport += timeSinceLastFrame; /// Perdida de float a int
 		if (miliecsSinceLastReport > miliecsToReport)
 		{
 			std::cout << "Objetos gr�ficos: "
@@ -271,8 +271,8 @@ void ecTestInit(ec::EntityManager* entityManager, RenderManager* renderMngr) {
 	auto e_ = entityManager->addEntity(jo);
 	TestAxlMov* tr_ = e_->addComponent<TestAxlMov>(Vector3D(), Vector3D(400, 400, 400));
 }
-void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
-	entityManager->update(deltaTime * 0.001);
+void ecTestUpdate(ec::EntityManager* entityManager, double deltaTime) {
+	entityManager->update(deltaTime * 0.001); ///perdida de datos
 	entityManager->refresh();
 }
 

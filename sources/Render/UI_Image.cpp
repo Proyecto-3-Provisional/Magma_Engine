@@ -7,9 +7,9 @@
 ***************************************************************************/
 
 UI_Image::UI_Image(Ogre::Overlay* overReference, std::string title, std::string imageName,
-	int posX, int posY, int sizeX, int sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
+	Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
 {
-	Ogre::OverlayElement* imageUI = static_cast<Ogre::OverlayElement*>
+	imageUI = static_cast<Ogre::OverlayElement*>
 		(overlayMan_->createOverlayElement("Panel", title + "Image"));
 	imageUI->setMetricsMode(Ogre::GMM_PIXELS);
 	imageUI->setPosition(posX, posY);
@@ -24,12 +24,12 @@ UI_Image::UI_Image(Ogre::Overlay* overReference, std::string title, std::string 
 UI_Image::~UI_Image()
 {}
 
-void UI_Image::setImagePosition(float x, float y)
+void UI_Image::setImagePosition(double x, double y)
 {
 	imageUI->setPosition(x, y);
 }
 
-void UI_Image::setImageSize(float x, float y)
+void UI_Image::setImageSize(double x, double y)
 {
 	imageUI->setDimensions(x, y);
 }
