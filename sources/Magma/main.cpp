@@ -1,3 +1,10 @@
+// Fugas Memoria
+#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
 #include <iostream>
 
 // para calcular el tiempo transcurrido entre fotogramas
@@ -12,7 +19,6 @@
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 #include "Sounds/sound_manager.h"
-
 #include "ECS/entity_manager.h"
 #include "ECS/entity.h"
 #include "ECS/test_axl_mov.h"
@@ -26,12 +32,22 @@ void ecTestInit(ec::EntityManager* em, RenderManager* rm);
 void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 
 int mainCode() {
-	// Control de la velocidad de rotaci�n
-	const float rotationVelocity = 0.05f;
-	// Temporizador debug (tb para f�sicas)
-	const float miliecsToReport = 5000;
-	float miliecsSinceLastReport = 0;
-	float miliecsSinceLastReport2 = 0;
+	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
+#ifdef _DEBUG
+#if 1 // por comodidad (0 -> false; No 0 -> true)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#else	
+	_CrtSetBreakAlloc(39291); // id del new que queremos borrar
+#endif
+#endif
+	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
+
+	// Control de la velocidad de rotación
+	const float rotationVelocity = 0.05;
+	// Temporizador debug (tb para físicas)
+	const int miliecsToReport = 5000;
+	int miliecsSinceLastReport = 0;
+	int miliecsSinceLastReport2 = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
 	float milisecsAcc = 0;
@@ -42,9 +58,9 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	// Marca de tiempo del �ltimo fotograma, en milisegundos transcurridos desde el inicio
+	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	float lastFrameTime = (float)SDL_GetTicks(); // uint32 a float
-	// C�lculo del tiempo, en milisegundos, entre fotogramas
+	// Cálculo del tiempo, en milisegundos, entre fotogramas
 	float timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
@@ -65,12 +81,12 @@ int mainCode() {
 	ficticioCubo = renderMngr->getObject("cube_empty");
 
 
-	// _RENDER_ � Animaci�n para ajolote ?
+	// _RENDER_ ¿ Animación para ajolote ?
 	ajolote->setAnimation("axolotl_swim");
 	ajolote->animationSetEnabled(false);
 	ajolote->animationSetLooping(true);
 
-	//_RENDER_ C�mara para la escena
+	//_RENDER_ Cámara para la escena
 	if (AXO_POV)
 	{
 		renderMngr->createCam(ajolote, { -25, 2, -4 });
@@ -136,7 +152,7 @@ int mainCode() {
 	int s = 50;
 	while (!input->exitRequested() && !error && s > 0)
 	{
-		// Marcas de tiempo y c�lculo del "delta"
+		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
 		lastFrameTime = (float)SDL_GetTicks(); 
 
@@ -217,15 +233,15 @@ int mainCode() {
 		//_RENDER_ Prueba de animaciones
 		renderMngr->stepAnimations(timeSinceLastFrame); 
 
-		//_RENDER_ Imprimir n�mero de objetos gr�ficos cada cierto tiempo
+		//_RENDER_ Imprimir número de objetos gráficos cada cierto tiempo
 		miliecsSinceLastReport += timeSinceLastFrame; /// Perdida de float a int
 		if (miliecsSinceLastReport > miliecsToReport)
 		{
-			std::cout << "Objetos gr�ficos: "
+			std::cout << "Objetos gráficos: "
 				<< renderMngr->getNumObjects() << std::endl;
 		}
 
-		//_RENDER_ Control de cu�ndo se borran aquellos que deben ser borrados
+		//_RENDER_ Control de cuándo se borran aquellos que deben ser borrados
 		int f = renderMngr->refreshObjects();
 		if (f != 0)
 		{
@@ -233,7 +249,7 @@ int mainCode() {
 				" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
 		}
 
-		//_RENDER_ Renderizar fotogramas de uno en uno, ya veremos si se quieren m�s...
+		//_RENDER_ Renderizar fotogramas de uno en uno
 		if (!renderMngr->renderFrame())
 			error = true;
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
@@ -278,7 +294,7 @@ void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola
 // Hay diferentes funciones como punto de entrada por defecto al seleccionar
-// valores distintos en 'Vinculador > Sistema > Subsistema' seg�n la Configuraci�n
+// valores distintos en 'Vinculador > Sistema > Subsistema' según la Configuración
 #if _DEBUG
 int main(int argc, char const** argv) {
 	return mainCode();
