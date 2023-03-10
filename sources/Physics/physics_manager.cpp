@@ -39,7 +39,7 @@ btRigidBody* PhysicsManager::addRigidBody(const double& xShape, const double& yS
 
 	btTransform newRigidBody;
 	newRigidBody.setIdentity();
-	newRigidBody.setOrigin(btVector3(xTransform, yTransform, zTransform));
+	newRigidBody.setOrigin(btVector3(btScalar(xTransform), btScalar(yTransform), btScalar(zTransform)));
 
 	btScalar mass(1.);
 

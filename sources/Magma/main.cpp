@@ -43,14 +43,14 @@ int mainCode() {
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
 
 	// Control de la velocidad de rotación
-	const float rotationVelocity = 0.05;
+	const float rotationVelocity = 0.05f;
 	// Temporizador debug (tb para físicas)
 	const int miliecsToReport = 5000;
 	int miliecsSinceLastReport = 0;
 	int miliecsSinceLastReport2 = 0;
 	// Temporizador ejemplo cubo
-	const int miliecsToDisappear = 8000;
-	float milisecsAcc = 0;
+	const int miliecsToDisappear = 15000;
+	int milisecsAcc = 0;
 	bool cubeDisappearance = false;
 	// Cacheo cubo
 	GraphicalObject* ficticioCubo = nullptr;
@@ -59,9 +59,9 @@ int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
 	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
-	float lastFrameTime = (float)SDL_GetTicks(); // uint32 a float
+	int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int
 	// Cálculo del tiempo, en milisegundos, entre fotogramas
-	float timeSinceLastFrame = 0;
+	int timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
@@ -96,7 +96,7 @@ int mainCode() {
 	{
 		renderMngr->createCam(nullptr);
 	}
-	renderMngr->setBgColor(0.8, 0.8, 0.7); 
+	renderMngr->setBgColor(0.8f, 0.8f, 0.7f); 
 	renderMngr->objectShowMode(0);
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 
@@ -154,7 +154,7 @@ int mainCode() {
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
-		lastFrameTime = (float)SDL_GetTicks(); 
+		lastFrameTime = (int)SDL_GetTicks(); 
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
@@ -169,7 +169,7 @@ int mainCode() {
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
-		ecTestUpdate(entityManager, timeSinceLastFrame);
+		ecTestUpdate(entityManager, (float)timeSinceLastFrame);
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER

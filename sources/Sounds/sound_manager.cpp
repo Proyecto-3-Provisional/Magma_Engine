@@ -8,7 +8,7 @@ static Uint32 audioLen; // Longitud restante del bufer de audio por reproducir.
 // Copia los datos del bufer de audio al bufer de audio del dispositivo.
 void audio_callback(void* userdata, Uint8* stream, int len);
 
-SoundManager::SoundManager()
+SoundManager::SoundManager() : device(0)
 {
 	if (SDL_Init(SDL_INIT_AUDIO) != 0)
 		std::cerr << "Error al iniciar el sistema de audio: " << SDL_GetError() << std::endl;
@@ -58,7 +58,7 @@ void audio_callback(void* userdata, Uint8* stream, int len)
 		audioLen = data->bufferSize; // Reinicia la longitud restante del audio por reproducir
 	}
 
-	len = (len > audioLen ? audioLen : len); // Cantidad de datos que se van a copiar (valor mínimo entre len y audioLen)
+	len = ((unsigned int)len > audioLen ? audioLen : len); // Cantidad de datos que se van a copiar (valor mínimo entre len y audioLen)
 	SDL_memcpy(stream, audioPos, len); // Copia los datos del bufer audioPos al bufer stream
 	SDL_MixAudio(stream, audioPos, len, SDL_MIX_MAXVOLUME); // Mezclan de los datos copiados con los datos almacenados en stream
 

@@ -11,6 +11,7 @@
 // Recibe un booleano que indica si el cursor puede salir de la ventana o no
 RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest")
 {
+	bgColR = bgColG = bgColB = 0.0f;
 	RenderManagerContext::cursorGrab = grabCursor;
 	// CONTEXT: new -> setup()
 }
@@ -21,6 +22,7 @@ RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,
 	bool vSyn, int fsaa, bool gamm) : RenderManagerContext("MagmaTest", w, h,
 	fScr, vSyn, fsaa, gamm)
 {
+	bgColR = bgColG = bgColB = 0.0f;
 	RenderManagerContext::cursorGrab = grabCursor;
 	// CONTEXT: new -> setup()
 }
@@ -184,12 +186,13 @@ bool RenderManager::sunsetObject(std::string key)
 }
 
 // Devuelve si tuvo éxito (el Objeto no se resistió a ser borrado)
-// Un objeto se resiste cuando de él pende algún objeto hijo:
-//		(algún childrenUsing o camAttached)
+// Un objeto se resiste cuando de él pende algún objeto hijo
 bool RenderManager::removeObject(GraphicalObject* gO)
 {
-	if (gO->isCamAttached() || gO->getChildrenUsing() > 0)
+	if (gO->getChildrenUsing() > 0)
 		return false;
+	if (gO->isCamAttached())
+		replaceCam();
 	sceneObjects.erase(gO->getKeyName());
 	delete gO;
 	gO = nullptr;
@@ -198,15 +201,16 @@ bool RenderManager::removeObject(GraphicalObject* gO)
 
 // Devuelve si tuvo éxito (el Objeto se encontró Y no se resistió a ser borrado)
 // La clave debe existir en el diccionario
-// Un objeto se resiste cuando de él pende algún objeto hijo:
-//		(algún childrenUsing o camAttached)
+// Un objeto se resiste cuando de él pende algún objeto hijo
 bool RenderManager::removeObject(std::string key)
 {
 	GraphicalObject* gO = getObject(key);
 	if (!gO)
 		return false;
-	else if (gO->isCamAttached() || gO->getChildrenUsing() > 0)
+	else if (gO->getChildrenUsing() > 0)
 		return false;
+	if (gO->isCamAttached())
+		replaceCam();
 	delete gO;
 	gO = nullptr;
 	sceneObjects.erase(key);
@@ -248,12 +252,12 @@ int RenderManager::refreshObjects()
 
 int RenderManager::getNumObjects()
 {
-	return sceneObjects.size();
+	return (int)sceneObjects.size();
 }
 
 int RenderManager::getNumObjectsToRemove()
 {
-	return sceneObjectsToRemove.size();
+	return (int)sceneObjectsToRemove.size();
 }
 
 /*
@@ -267,21 +271,24 @@ void RenderManager::objectShowMode(unsigned int val)
 		camera->setPolygonMode((Ogre::PolygonMode)val);
 }
 
-void RenderManager::setBgColor(double r, double g, double b)
+void RenderManager::setBgColor(float r, float g, float b)
 {
 	if (cameraViewport)
+	{
 		cameraViewport->setBackgroundColour(Ogre::ColourValue(r, g, b));
+		bgColR = r; bgColG = g; bgColB = b;
+	}
 }
 
 // De todos los objetos gráficos, ver cuáles son entidades de Ogre y
 // hacer avanzar su animación si es que existe
-void RenderManager::stepAnimations(float deltaTime)
+void RenderManager::stepAnimations(int deltaTime)
 {
 	for (std::pair<std::string, GraphicalObject*> key_obj : sceneObjects)
 	{
 		if (key_obj.second->isEntityAnimated())
 		{
-			key_obj.second->stepAnimation(deltaTime * 0.001);
+			key_obj.second->stepAnimation(deltaTime * 0.001f);
 		}
 	}
 }
@@ -300,12 +307,13 @@ void RenderManager::setup()
 }
 
 // POSIBLEMENTE BLOQUEANTE debido a removeObjects() -> Destruir cámara antes
-// removeObjects quita todos aquellos objetos añadidos a la escena
+// 'removeObjects' quita todos aquellos objetos añadidos a la escena
+// 'removeObjects' puede ejecutarse tanto antes como después de 'destroyCam'
 // NO CAMBIAR LA ÚLTIMA LÍNEA
 void RenderManager::shutdown()
 {
-	destroyCam();
 	removeObjects();
+	destroyCam();
 
 	mSM->removeRenderQueueListener(mOverlaySystem);
 	mRoot->destroySceneManager(mSM);
@@ -318,20 +326,20 @@ void RenderManager::setupScene(void)
 {
 	// LUCES
 	GraphicalObject* sol = addObject("sol", nullptr, "SUN");
-	sol->setLightColor(0.5, 0.5, 0.3);
-	sol->setDirection({ 0, -0.8, -1 });
+	sol->setLightColor(0.5f, 0.5f, 0.3f);
+	sol->setDirection({ 0.0f, -0.8f, -1.0f });
 	GraphicalObject* lbulb = addObject("bombilla", nullptr, "LIGHTBULB");
-	lbulb->setLightColor(0.5, 0.5, 0.85);
+	lbulb->setLightColor(0.5f, 0.5f, 0.85f);
 	lbulb->setPosition({ 0, 500, 200 });
 	GraphicalObject* spotl = addObject("foco", nullptr, "SPOTLIGHT");
-	spotl->setLightColor(1.0, 0.2, 0.2);
+	spotl->setLightColor(1.0f, 0.2f, 0.2f);
 	spotl->setPosition({ 0, 0, 500 });
 	spotl->setPosition({ 0, 0.5, -1 });
 
 	// CUBO
 	GraphicalObject* aux = addObject("cube_empty");
 	aux->setPosition({ 0, 0, 50 });
-	aux->setScale({ 0.8, 0.8, 0.8 });
+	aux->setScale({ 0.8f, 0.8f, 0.8f });
 	aux->makeVisible(true);
 	GraphicalObject* cubo = addObject("cube", aux, "cube.mesh", "logo");
 	cubo->translate({ 0, 0, 200 }, Ogre::Node::TransformSpace::TS_WORLD);
@@ -378,4 +386,12 @@ void RenderManager::createPlaneMesh(Ogre::String name)
 		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		Ogre::Plane(Ogre::Vector3::UNIT_Z, 0), // vector normal, vector up
 		1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_Y);
+}
+
+// Usado en la práctica para desanclar la cámara de la jerarquía de objetos
+void RenderManager::replaceCam()
+{
+	destroyCam();
+	createCam(nullptr);
+	setBgColor(bgColR, bgColG, bgColB);
 }

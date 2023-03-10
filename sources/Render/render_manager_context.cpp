@@ -288,7 +288,8 @@ void RenderManagerContext::locateResources()
 	const Ogre::ResourceGroupManager::LocationList genLocs =
 		Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(sec);
 
-	assert(!genLocs.empty(), ("Resource Group '" + sec + "' must contain at least one entry").c_str());
+	// "Resource Group 'sec' must contain at least one entry"
+	assert(!genLocs.empty());
 
 	Ogre::String arch = genLocs.front().archive->getName();
 	Ogre::String type = genLocs.front().archive->getType();

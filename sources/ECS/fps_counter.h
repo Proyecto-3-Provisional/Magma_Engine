@@ -8,7 +8,7 @@ private:
 
 public:
     // Ctor
-    inline Interval() : initial_(SDL_GetTicks64())
+    inline Interval() : initial_((unsigned int)SDL_GetTicks64())
     {
     }
 
@@ -19,7 +19,7 @@ public:
 
     inline unsigned int value() const
     {
-        return SDL_GetTicks64() - initial_;
+        return (unsigned int)SDL_GetTicks64() - initial_;
     }
 };
 

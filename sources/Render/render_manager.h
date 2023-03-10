@@ -57,10 +57,10 @@ public:
 	int getNumObjectsToRemove();
 
 	// Cambiar fondo
-	void setBgColor(double r, double g, double b);
+	void setBgColor(float r, float g, float b);
 
 	// Hacer avanzar las animaciones de los Objetos
-	void stepAnimations(float deltaTime);
+	void stepAnimations(int deltaTime);
 
 protected:
 	// Objetos nuestros del mundo gráfico
@@ -78,6 +78,14 @@ protected:
 
 	// Crear malla por código: plano
 	void createPlaneMesh(Ogre::String name = "mPlane1080x800");
+
+	// Destruir cámara y volverla a crear con configuración básica
+	void replaceCam();
+
+	// Color de fondo del puerto de vista
+	float bgColR;
+	float bgColG;
+	float bgColB;
 
 	// Punteros
 	Ogre::SceneManager* mSM = nullptr;

@@ -7,8 +7,8 @@
 struct AudioData // Almacena y permite la reproducción de un sonido
 {
 	Uint8* buffer = nullptr; // Buffer que contiene los datos del sonido
-	Uint32 bufferSize; // Tamaño del buffer de sonido
-	SDL_AudioSpec spec; // Especificaciones del audio
+	Uint32 bufferSize = 0; // Tamaño del buffer de sonido
+	SDL_AudioSpec spec = {}; // Especificaciones del audio
 };
 
 class SoundManager

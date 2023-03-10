@@ -35,21 +35,21 @@ GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 		{
 			light = mySceneManager.createLight();
 			light->setType(Ogre::Light::LT_DIRECTIONAL);
-			light->setDiffuseColour(0.90, 0.90, 0.90);
+			light->setDiffuseColour(0.90f, 0.90f, 0.90f);
 			objectNode->attachObject(light);
 		}
 		else if (meshFile == "LIGHTBULB")
 		{
 			light = mySceneManager.createLight();
 			light->setType(Ogre::Light::LT_POINT);
-			light->setDiffuseColour(0.90, 0.90, 0.90);
+			light->setDiffuseColour(0.90f, 0.90f, 0.90f);
 			objectNode->attachObject(light);
 		}
 		else if (meshFile == "SPOTLIGHT")
 		{
 			light = mySceneManager.createLight();
 			light->setType(Ogre::Light::LT_SPOTLIGHT);
-			light->setDiffuseColour(0.90, 0.90, 0.90);
+			light->setDiffuseColour(0.90f, 0.90f, 0.90f);
 			light->setSpotlightInnerAngle(Ogre::Degree(5.0f));	//
 			light->setSpotlightOuterAngle(Ogre::Degree(90.0f));	//
 			light->setSpotlightFalloff(2.0f);					//

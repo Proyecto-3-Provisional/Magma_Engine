@@ -45,10 +45,10 @@ namespace ec {
 
 
 	template<typename T>
-	constexpr cmpId_type cmpId = mpl::IndexOf<T, CmpsList>();
+	constexpr cmpId_type cmpId = (grpId_type)mpl::IndexOf<T, CmpsList>();
 
 	template<typename T>
-	constexpr grpId_type grpId = mpl::IndexOf<T, GrpsList>();
+	constexpr grpId_type grpId = (grpId_type)mpl::IndexOf<T, GrpsList>();
 
 	constexpr cmpId_type maxComponentId = CmpsList::size;
 	constexpr grpId_type maxGroupId = GrpsList::size;

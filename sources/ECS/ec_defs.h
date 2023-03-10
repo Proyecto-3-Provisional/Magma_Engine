@@ -2,10 +2,10 @@
 
 #pragma once
 
-//lista de componentes. El nombre del struct debe coincidir con el nombre del componente al que hace referencia
+//lista de componentes. El nombre de la class debe coincidir con el nombre del componente al que hace referencia
 //abajo ejemplo de uso
-struct Transform;
-struct TestAxlMov;
+class Transform;
+class TestAxlMov;
 
 #define _CMPS_LIST_ \
 		 Transform,\
