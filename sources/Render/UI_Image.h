@@ -4,11 +4,11 @@ class UI_Image : public UI_Element
 {
 public:
 	UI_Image(Ogre::Overlay* overReference ,std::string title, std::string imageName,
-		Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY);
+		float posX, float posY, float sizeX, float sizeY);
 	virtual ~UI_Image();
 
-	void setImagePosition(double x, double y);
-	void setImageSize(double x, double y);
+	void setImagePosition(float x, float y);
+	void setImageSize(float x, float y);
 	void changeImage(std::string title, std::string imageName);
 
 private:

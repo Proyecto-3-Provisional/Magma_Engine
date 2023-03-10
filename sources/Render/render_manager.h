@@ -57,7 +57,7 @@ public:
 	int getNumObjectsToRemove();
 
 	// Cambiar fondo
-	void setBgColor(float r, float g, float b);
+	void setBgColor(double r, double g, double b);
 
 	// Hacer avanzar las animaciones de los Objetos
 	void stepAnimations(float deltaTime);

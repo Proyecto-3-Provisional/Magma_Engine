@@ -6,7 +6,7 @@ public:
 
 	UIButton(Ogre::Overlay* overReference, std::string title, std::string imageName, 
 		std::string hoverImageName, std::string pressedImageName,
-		int posX, int posY, int sizeX, int sizeY);
+		float posX, float posY, float sizeX, float sizeY);
 	virtual ~UIButton();
 
 	void setButtonPosition(float x, float y);
@@ -28,10 +28,10 @@ private:
 	bool pressed;
 	bool onButton; 
 
-	int x; 
-	int y; 
-	int tamX; 
-	int tamY; 
+	float x; 
+	float y;
+	float tamX;
+	float tamY;
 
 	std::string normalButtonName;
 	std::string hoverButtonName;

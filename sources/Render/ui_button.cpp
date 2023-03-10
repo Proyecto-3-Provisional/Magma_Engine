@@ -1,7 +1,7 @@
 #include "ui_button.h"
 
 UIButton::UIButton(Ogre::Overlay* overReference, std::string title, std::string imageName, std::string hoverImageName, std::string pressedImageName,
-	int posX, int posY, int sizeX, int sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
+	float posX, float posY, float sizeX, float sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
 {
 	buttonImage = static_cast<Ogre::OverlayElement*>
 		(overlayMan_->createOverlayElement("Panel", title + "Image"));

@@ -267,7 +267,7 @@ void RenderManager::objectShowMode(unsigned int val)
 		camera->setPolygonMode((Ogre::PolygonMode)val);
 }
 
-void RenderManager::setBgColor(float r, float g, float b)
+void RenderManager::setBgColor(double r, double g, double b)
 {
 	if (cameraViewport)
 		cameraViewport->setBackgroundColour(Ogre::ColourValue(r, g, b));

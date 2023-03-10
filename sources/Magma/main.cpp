@@ -23,18 +23,18 @@
 
 //DECLARACIONES DE FUNCIONES
 void ecTestInit(ec::EntityManager* em, RenderManager* rm);
-void ecTestUpdate(ec::EntityManager* em, double deltaTime);
+void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 
 int mainCode() {
 	// Control de la velocidad de rotaci�n
-	const double rotationVelocity = 0.05;
+	const float rotationVelocity = 0.05f;
 	// Temporizador debug (tb para f�sicas)
-	const int miliecsToReport = 5000;
-	double miliecsSinceLastReport = 0;
-	int miliecsSinceLastReport2 = 0;
+	const float miliecsToReport = 5000;
+	float miliecsSinceLastReport = 0;
+	float miliecsSinceLastReport2 = 0;
 	// Temporizador ejemplo cubo
 	const int miliecsToDisappear = 8000;
-	int milisecsAcc = 0;
+	float milisecsAcc = 0;
 	bool cubeDisappearance = false;
 	// Cacheo cubo
 	GraphicalObject* ficticioCubo = nullptr;
@@ -43,9 +43,9 @@ int mainCode() {
 	std::cout << "======== MAGMA iniciado ========\n";
 
 	// Marca de tiempo del �ltimo fotograma, en milisegundos transcurridos desde el inicio
-	double lastFrameTime = SDL_GetTicks();
+	float lastFrameTime = (float)SDL_GetTicks(); // uint32 a float
 	// C�lculo del tiempo, en milisegundos, entre fotogramas
-	double timeSinceLastFrame = 0;
+	float timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
@@ -80,7 +80,7 @@ int mainCode() {
 	{
 		renderMngr->createCam(nullptr);
 	}
-	renderMngr->setBgColor(0.8, 0.8, 0.7);
+	renderMngr->setBgColor(0.8, 0.8, 0.7); 
 	renderMngr->objectShowMode(0);
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 
@@ -105,17 +105,17 @@ int mainCode() {
 	e4->applyCentralForce(btVector3(0, 1000, 0));
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
 
-
+	
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
 	UI_Manager* ui = new UI_Manager();
 	
-	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0, 0, 200, 34, "Arial", "Who's the impostor?", 0.5, 0.3, 0.1);
+	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "Arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
 	testText->setText("Ahhh yessss");
 
-	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0, 80, 100, 100);
-
-	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0, 50, 100, 100);
+	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0.0f, 80.0f, 100.0f, 100.0f);
+	
+	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 50.0f, 100.0f, 100.0f);
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 
@@ -138,7 +138,7 @@ int mainCode() {
 	{
 		// Marcas de tiempo y c�lculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
-		lastFrameTime = SDL_GetTicks(); 
+		lastFrameTime = (float)SDL_GetTicks(); 
 
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
@@ -184,7 +184,7 @@ int mainCode() {
 		}
 
 		if (testButton->isButtonPressed())
-			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
+			ajolote->yaw(rotationVelocity * timeSinceLastFrame); 
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 			input->showOrHideMouse(); 
@@ -212,10 +212,10 @@ int mainCode() {
 			std::cout << "Pos Raton = " << posMouse.first << " " << posMouse.second << "\n";
 
 		if (ficticioCubo)
-			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
+			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame); 
 
 		//_RENDER_ Prueba de animaciones
-		renderMngr->stepAnimations(timeSinceLastFrame);
+		renderMngr->stepAnimations(timeSinceLastFrame); 
 
 		//_RENDER_ Imprimir n�mero de objetos gr�ficos cada cierto tiempo
 		miliecsSinceLastReport += timeSinceLastFrame; /// Perdida de float a int
@@ -271,8 +271,8 @@ void ecTestInit(ec::EntityManager* entityManager, RenderManager* renderMngr) {
 	auto e_ = entityManager->addEntity(jo);
 	TestAxlMov* tr_ = e_->addComponent<TestAxlMov>(Vector3D(), Vector3D(400, 400, 400));
 }
-void ecTestUpdate(ec::EntityManager* entityManager, double deltaTime) {
-	entityManager->update(deltaTime * 0.001); ///perdida de datos
+void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
+	entityManager->update(deltaTime * 0.001f); 
 	entityManager->refresh();
 }
 

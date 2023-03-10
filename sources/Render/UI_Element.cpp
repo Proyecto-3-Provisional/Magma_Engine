@@ -47,13 +47,13 @@ bool UI_Element::isElementVisible()
 }
 
 // Devuelve la posicion del panel
-std::pair<double, double> UI_Element::getPosition()
+std::pair<float, float> UI_Element::getPosition()
 {
 	return position;
 }
 
 // Devuelve el tamaño del panel
-std::pair<double, double> UI_Element::getSize()
+std::pair<float, float> UI_Element::getSize()
 {
 	return size;
 }

@@ -7,7 +7,7 @@
 ***************************************************************************/
 
 UI_Image::UI_Image(Ogre::Overlay* overReference, std::string title, std::string imageName,
-	Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
+	float posX, float posY, float sizeX, float sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
 {
 	imageUI = static_cast<Ogre::OverlayElement*>
 		(overlayMan_->createOverlayElement("Panel", title + "Image"));
@@ -24,12 +24,12 @@ UI_Image::UI_Image(Ogre::Overlay* overReference, std::string title, std::string 
 UI_Image::~UI_Image()
 {}
 
-void UI_Image::setImagePosition(double x, double y)
+void UI_Image::setImagePosition(float x, float y)
 {
 	imageUI->setPosition(x, y);
 }
 
-void UI_Image::setImageSize(double x, double y)
+void UI_Image::setImageSize(float x, float y)
 {
 	imageUI->setDimensions(x, y);
 }

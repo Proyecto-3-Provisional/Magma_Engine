@@ -17,22 +17,26 @@ public:
 	void hideElement(); 
 	bool isElementVisible();
 
-	void setPanelPosition(double x, double y) {};
-	void setPanelSize(double w, double h) {};
+	void setPanelPosition(float x, float y) {};
+	void setPanelSize(float w, float h) {};
 
-	std::pair<double, double> getPosition();
-	std::pair<double, double> getSize();
+	std::pair<float, float> getPosition();
+	std::pair<float, float> getSize();
 	
 	void setInteractive(bool isInteractive) {};
 
 protected:
 	
-	std::pair<double, double> position;
-	std::pair<double, double> size;
+	std::pair<float, float> position;
+	std::pair<float, float> size;
 	
 	Ogre::OverlayManager* overlayMan_;
 	Ogre::Overlay* overlay_;
 	Ogre::OverlayContainer* panel;
 
 	bool isInteractive_;
+
+	/// Todos los elementos numericos (como la posicion o el tamaño), deben ser float
+	/// OGRE_DOUBLE_PRECISION que se define en OgreConfig.h y ogrebuildsettings.h, si es 1 entonces puede convertir double pero no float, y si es 0 al reves
+	/// Como usamos cmake, el valor de OgreConfig.h se ignora y se usa el de ogrebuildsettings.h
 };
