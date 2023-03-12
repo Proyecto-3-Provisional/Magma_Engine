@@ -15,10 +15,11 @@ namespace ec{
 
 	class Entity {
 	public:
-		Entity(ec::grpId_type gId_, GraphicalObject* graphObj_);
+		Entity() : mngr(), cmps(), alive(), gId(), graphObj() {};
 		
 		virtual ~Entity();
 
+		bool init(ec::grpId_type gId_, GraphicalObject* graphObj_);
 		//Borramos los constructores de copia y asignacion porque no queda claro como copiar componentes
 		Entity(const Entity&) = delete;
 		Entity& operator=(const Entity&) = delete;

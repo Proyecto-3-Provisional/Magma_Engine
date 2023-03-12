@@ -13,7 +13,7 @@ namespace ec {
 	class EntityManager {
 	public:
 		EntityManager(){};
-		virtual ~EntityManager(){};
+		virtual ~EntityManager();
 
 		//Creamos una instancia de la entidad y la añadimos a la lista del grupo concreto(entsByGroup)
 		// 
@@ -33,7 +33,8 @@ namespace ec {
 
 			constexpr auto gId = grpId<T>;
 
-			auto e = new Entity(gId, gobj_);
+			auto e = new Entity();
+			e->init(gId, gobj_);
 			e->setAlive(true);
 			e->setContext(this);
 

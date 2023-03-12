@@ -9,10 +9,13 @@ namespace ec {
 	//	ents_.reserve(100);
 	//}
 
-	//EntityManager::~EntityManager() {
-	//	for (auto e : ents_)
-	//		delete e;
-	//}
+	// for exterior es para cada grupo, el interior es para la entidad en si
+	EntityManager::~EntityManager() {
+		for (auto& ents : entsByGroup) {
+			for (auto e : ents)
+				delete e;
+		}
+	}
 
 	void EntityManager::refresh()
 	{

@@ -4,10 +4,10 @@
 
 /*
  * Se coloca la definición de "Message" en un archivo separado para
- * evitar dependencias circulares con ecs.h
+ * evitar dependencias circulares con ec.h
  * 
- * No los incluimos en el namespace ecs para evitar escribir el
- * prefijo ecs:: en las clases de usuario
+ * No los incluimos en el namespace ec para evitar escribir el
+ * prefijo ec:: en las clases de usuario
  *
  * Por defecto el struct Message es
  *

@@ -34,10 +34,11 @@ void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 int mainCode() {
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
 #ifdef _DEBUG
+
 #if 1 // por comodidad (0 -> false; No 0 -> true)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #else	
-	_CrtSetBreakAlloc(39291); // id del new que queremos borrar
+	_CrtSetBreakAlloc(42959); // id del new que queremos borrar
 #endif
 #endif
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
@@ -260,7 +261,7 @@ int mainCode() {
 			miliecsSinceLastReport = 0;
 		}
 
-		input->flush(); 
+		input->flush();
 	}
 	if (error)
 	{

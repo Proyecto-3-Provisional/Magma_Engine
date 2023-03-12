@@ -5,20 +5,21 @@
 
 namespace ec {
 
-	Entity::Entity(ec::grpId_type gId_, GraphicalObject* graphObj_) :
-		currCmps(),
-		cmps(),
-		alive(),
-		gId(gId_),
-		graphObj(graphObj_) {
-		currCmps.reserve(ec::maxComponentId);
-	}
-
 	Entity::~Entity() {
 		for (auto c : cmps)
 			if (c != nullptr)
 				delete c;
 	}
+
+	bool Entity::init(ec::grpId_type gId_, GraphicalObject* graphObj_)
+	{
+		gId = gId_;
+		graphObj = graphObj_;
+		currCmps.reserve(ec::maxComponentId);
+
+		return true;
+	}
+
 	void Entity::setContext(EntityManager* mngr_)
 	{
 		mngr = mngr_;

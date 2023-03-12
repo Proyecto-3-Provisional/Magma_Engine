@@ -18,7 +18,6 @@ namespace mpl {
 
 	// IndexOf<T,TypeList<T1,T2,...>>() es la posición de T en T1, T2,...
 	// podría usarse también <T,TypeList<T1,T2,...>>::value
-	//
 	template<typename, typename >
 	struct IndexOf;
 
@@ -34,7 +33,6 @@ namespace mpl {
 	};
 
 	// Ith<i,TypeList<T1,T2,...>>::type es el tipo Ti
-	//
 	template<std::size_t i, typename >
 	struct Ith;
 
@@ -71,7 +69,6 @@ namespace mpl {
 
 	// si T1 es un tipo completo, es decir, no una declaración hacia delante, entonces
 	// el 'tipo' terreno será T1, si no T2
-	//
 	template<class T1, class T2, class = void>
 	struct is_complete_type {
 		using type = T2;
@@ -86,8 +83,7 @@ namespace mpl {
 	};
 
 	// numeric_type<max>::type es un tipo entero sin signo lo suficientemente grande para
-	// poder contener el número máximo.
-	//
+	// poder contener el número máximo
 	template<std::size_t max, class = void>
 	struct numeric_type;
 
