@@ -271,6 +271,7 @@ int mainCode() {
 	delete soundManager; soundManager = nullptr;
 	delete input; input = nullptr;
 	delete ui; ui = nullptr;
+	physMngr->detachPhysics();
 	delete physMngr; physMngr = nullptr;
 	delete entityManager; entityManager = nullptr;
 	// Fin del renderizado
