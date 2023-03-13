@@ -11,7 +11,7 @@ class UI_Element
 public:
 	UI_Element(Ogre::Overlay* overReference, std::string name,
 		Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY);
-	~UI_Element();
+	virtual ~UI_Element();
 
 	void showElement(); 
 	void hideElement(); 

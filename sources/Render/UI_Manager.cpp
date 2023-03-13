@@ -19,6 +19,7 @@ UI_Manager::UI_Manager()
 
 UI_Manager::~UI_Manager()
 {
+	cleanPanel();
 }
 
 void UI_Manager::init()

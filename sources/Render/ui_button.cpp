@@ -28,7 +28,10 @@ UIButton::UIButton(Ogre::Overlay* overReference, std::string title, std::string 
 	overReference->add2D(panel);
 }
 
-UIButton::~UIButton() {}
+UIButton::~UIButton() 
+{
+	delete buttonImage;
+}
 
 void UIButton::setButtonPosition(float x, float y)
 {

@@ -22,7 +22,9 @@ UI_Image::UI_Image(Ogre::Overlay* overReference, std::string title, std::string 
 }
 
 UI_Image::~UI_Image()
-{}
+{
+	delete imageUI;
+}
 
 void UI_Image::setImagePosition(float x, float y)
 {

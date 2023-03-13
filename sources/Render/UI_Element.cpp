@@ -26,6 +26,7 @@ UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
 
 UI_Element::~UI_Element()
 {
+	//overlayMan_->destroy(overlay_);
 }
 
 // Muestra el elemento dentro del overlay

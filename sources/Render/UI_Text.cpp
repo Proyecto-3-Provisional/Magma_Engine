@@ -34,6 +34,7 @@ UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 
 UI_Text::~UI_Text()
 {
+	delete textArea;
 }
 
 void UI_Text::setText(std::string newText)

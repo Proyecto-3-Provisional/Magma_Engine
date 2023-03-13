@@ -5,7 +5,7 @@ class UI_Image : public UI_Element
 public:
 	UI_Image(Ogre::Overlay* overReference ,std::string title, std::string imageName,
 		float posX, float posY, float sizeX, float sizeY);
-	virtual ~UI_Image();
+	~UI_Image();
 
 	void setImagePosition(float x, float y);
 	void setImageSize(float x, float y);
