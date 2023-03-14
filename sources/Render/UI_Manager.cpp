@@ -20,6 +20,9 @@ UI_Manager::UI_Manager()
 UI_Manager::~UI_Manager()
 {
 	cleanPanel();
+
+	overlayMngr_->destroy("GeneralOverlay");
+	overlay = nullptr;
 }
 
 void UI_Manager::init()

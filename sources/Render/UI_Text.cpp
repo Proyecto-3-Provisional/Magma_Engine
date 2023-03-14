@@ -15,7 +15,7 @@ UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 	: UI_Element(overReference,title, posX, posY, sizeX, sizeY)
 {	
 	textArea = static_cast<Ogre::TextAreaOverlayElement*>
-		(overlayMan_->createOverlayElement("TextArea", title+"Text"));
+		(overlayMan_->createOverlayElement("TextArea", title_ + "Text"));
 
 	textArea->setMetricsMode(Ogre::GMM_PIXELS);
 	textArea->setPosition(posX, posY);
@@ -29,12 +29,12 @@ UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 	textArea->setColourTop(Ogre::ColourValue(r, g, b));
 
 	panel->addChild(textArea);
-	overReference->add2D(panel);
 }
 
 UI_Text::~UI_Text()
 {
-	delete textArea;
+	panel->removeChild(title_ + "Text");
+	overlayMan_->destroyOverlayElement(textArea);
 }
 
 void UI_Text::setText(std::string newText)

@@ -36,6 +36,8 @@ protected:
 
 	bool isInteractive_;
 
+	Ogre::String title_;
+
 	/// Todos los elementos numericos (como la posicion o el tamaño), deben ser float
 	/// OGRE_DOUBLE_PRECISION que se define en OgreConfig.h y ogrebuildsettings.h, si es 1 entonces puede convertir double pero no float, y si es 0 al reves
 	/// Como usamos cmake, el valor de OgreConfig.h se ignora y se usa el de ogrebuildsettings.h

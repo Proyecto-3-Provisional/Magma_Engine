@@ -7,11 +7,12 @@
 UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
 	Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY)
 {
+	title_ = title;
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 	overlay_ = overReference;
 	isInteractive_ = false;
 
-	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", title));
+	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", title_));
 
 	position.first = posX;
 	position.second = posY;
@@ -22,11 +23,14 @@ UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
 	panel->setMetricsMode(Ogre::GMM_PIXELS);
 	panel->setPosition(posX, posY);
 	panel->setDimensions(sizeX, sizeY);
+
+	overlay_->add2D(panel);
 }
 
 UI_Element::~UI_Element()
 {
-	//overlayMan_->destroy(overlay_);
+	overlay_->remove2D(panel);
+	overlayMan_->destroyOverlayElement(title_);
 }
 
 // Muestra el elemento dentro del overlay

@@ -3,8 +3,7 @@
 UIButton::UIButton(Ogre::Overlay* overReference, std::string title, std::string imageName, std::string hoverImageName, std::string pressedImageName,
 	float posX, float posY, float sizeX, float sizeY) : UI_Element(overReference, title, posX, posY, sizeX, sizeY)
 {
-	buttonImage = static_cast<Ogre::OverlayElement*>
-		(overlayMan_->createOverlayElement("Panel", title + "Image"));
+	buttonImage = overlayMan_->createOverlayElement("Panel", title_ + "Image");
 	buttonImage->setMetricsMode(Ogre::GMM_PIXELS);
 	//buttonImage->setPosition(posX, posY);
 	buttonImage->setDimensions(sizeX, sizeY);
@@ -25,12 +24,12 @@ UIButton::UIButton(Ogre::Overlay* overReference, std::string title, std::string 
 	onButton = false; 
 
 	panel->addChild(buttonImage);
-	overReference->add2D(panel);
 }
 
 UIButton::~UIButton() 
 {
-	delete buttonImage;
+	panel->removeChild(title_ + "Image");
+	overlayMan_->destroyOverlayElement(buttonImage);
 }
 
 void UIButton::setButtonPosition(float x, float y)
