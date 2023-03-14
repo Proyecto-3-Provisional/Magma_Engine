@@ -28,6 +28,7 @@
     <ClInclude Include="..\..\sources\ECS\messages.h" />
     <ClInclude Include="..\..\sources\ECS\messages_defs.h" />
     <ClInclude Include="..\..\sources\ECS\mpl.h" />
+    <ClInclude Include="..\..\sources\ECS\rigidbody.h" />
     <ClInclude Include="..\..\sources\ECS\test_axl_mov.h" />
     <ClInclude Include="..\..\sources\ECS\transform.h" />
     <ClInclude Include="..\..\sources\ECS\vector3D.h" />
@@ -36,9 +37,15 @@
     <ClCompile Include="..\..\sources\ECS\component.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
+    <ClCompile Include="..\..\sources\ECS\rigidbody.cpp" />
     <ClCompile Include="..\..\sources\ECS\test_axl_mov.cpp" />
     <ClCompile Include="..\..\sources\ECS\transform.cpp" />
     <ClCompile Include="..\..\sources\ECS\vector3D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Physics\Physics.vcxproj">
+      <Project>{7d29ac9a-59c6-427c-898c-c9841695e698}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -144,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,7 +166,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

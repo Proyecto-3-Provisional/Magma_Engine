@@ -5,8 +5,6 @@
 #include "component.h"
 #include "vector3D.h"
 
-class Component;
-
 class Transform : public ec::Component {
 public:
 	Transform() : pos(), vel(){};

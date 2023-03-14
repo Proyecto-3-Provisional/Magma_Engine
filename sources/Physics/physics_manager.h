@@ -2,23 +2,31 @@
 #include "btBulletDynamicsCommon.h"
 #include <vector>
 
+
 class PhysicsManager {
 public:
 	PhysicsManager();
 	~PhysicsManager();
 
-	int initPhysics();
-	btRigidBody* addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
+	static PhysicsManager* getInstance();
+	static bool initManager();
+	static void detachManager();
+
+	int addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
 	void deleteRigidBody(const int& userIndex);
 	void deleteRigidBodies(std::vector<int>& vIndex);
 	void update();
 	void updateCollisions();
 	bool isCollide(const int& index1, const int& index2);
 	std::vector<int> getArrayOfIndexColliders(int index);
-	void detachPhysics();
-
 
 private:
+	int initPhysics();
+	void detachPhysics();
+
+private:
+	static PhysicsManager* instance_;
+
 	btDefaultCollisionConfiguration* collisionConfiguration;
 	btCollisionDispatcher* dispatcher;
 	btBroadphaseInterface* overlappingPairCache;

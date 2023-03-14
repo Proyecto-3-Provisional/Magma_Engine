@@ -11,9 +11,41 @@ PhysicsManager::~PhysicsManager()
 {
 }
 
+PhysicsManager* PhysicsManager::instance_ = nullptr;
+
+
+PhysicsManager* PhysicsManager::getInstance()
+{
+	return instance_;
+}
+
+bool PhysicsManager::initManager()
+{
+	if (instance_ == nullptr) {
+		try {
+			instance_ = new PhysicsManager();
+			instance_->initPhysics();
+		}
+		catch (...) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void PhysicsManager::detachManager()
+{
+	if (instance_ != nullptr) {
+		instance_->detachPhysics();
+		delete instance_; instance_ = nullptr;
+	}
+}
+
 // Inicia la clase y el mundo físico de PhysicsManager
 int PhysicsManager::initPhysics()
 {
+
 	// Configuración de colisión: contiene la configuración predeterminada para la memoria
 	collisionConfiguration = new btDefaultCollisionConfiguration();
 
@@ -31,7 +63,7 @@ int PhysicsManager::initPhysics()
 }
 
 // Añadir un rigidbody a la escena con forma cúbica
-btRigidBody* PhysicsManager::addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform)
+int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform)
 {
 	btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
 
@@ -63,7 +95,8 @@ btRigidBody* PhysicsManager::addRigidBody(const double& xShape, const double& yS
 
 	// Añadir el cuerpo al mundo de la dinámica
 	dynamicsWorld->addRigidBody(body);
-	return body;
+
+	return body->getUserIndex();
 }
 
 // Borra un rigidbody dado su índice
@@ -206,7 +239,7 @@ std::vector<int> PhysicsManager::getArrayOfIndexColliders(int index)
 
 			// Si alguno del par de colision es el indice principal guardamos la informacion del indice que hemos colisionado
 			if (body == body1Pair) colliders.push_back(body2Pair->getUserIndex());
-			else if(body == body2Pair) colliders.push_back(body1Pair->getUserIndex());
+			else if (body == body2Pair) colliders.push_back(body1Pair->getUserIndex());
 		}
 	}
 

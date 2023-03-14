@@ -110,16 +110,7 @@ int mainCode() {
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
-	PhysicsManager* physMngr = new PhysicsManager();
-	physMngr->initPhysics();
-	btRigidBody* e = physMngr->addRigidBody(1, 1, 1, 10, 0, 0);
-	btRigidBody* e2 = physMngr->addRigidBody(1, 1, 1, -10, 0, 0);
-	btRigidBody* e3 = physMngr->addRigidBody(1, 1, 1, 0, 10, 0);
-	btRigidBody* e4 = physMngr->addRigidBody(1, 1, 1, 0, -10, 0);
-	e->applyCentralForce(btVector3(-1000, 0, 0));
-	e2->applyCentralForce(btVector3(1000, 0, 0));
-	e3->applyCentralForce(btVector3(0, -1000, 0));
-	e4->applyCentralForce(btVector3(0, 1000, 0));
+	PhysicsManager::initManager();
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
 
 	
@@ -162,7 +153,7 @@ int mainCode() {
 		miliecsSinceLastReport2 += timeSinceLastFrame;
 		if (miliecsSinceLastReport2 > miliecsToReport) {
 			miliecsSinceLastReport2 = 0;
-			physMngr->update();
+			PhysicsManager::getInstance()->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
 		// s--;
@@ -271,8 +262,7 @@ int mainCode() {
 	delete soundManager; soundManager = nullptr;
 	delete input; input = nullptr;
 	delete ui; ui = nullptr;
-	physMngr->detachPhysics();
-	delete physMngr; physMngr = nullptr;
+	PhysicsManager::detachManager();
 	delete entityManager; entityManager = nullptr;
 	// Fin del renderizado
 	renderMngr->closeApp();
