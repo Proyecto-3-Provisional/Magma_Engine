@@ -328,6 +328,7 @@ void RenderManager::setupScene(void)
 	GraphicalObject* sol = addObject("sol", nullptr, "SUN");
 	sol->setLightColor(0.5f, 0.5f, 0.3f);
 	sol->setDirection({ 0.0f, -0.8f, -1.0f });
+	return;
 	GraphicalObject* lbulb = addObject("bombilla", nullptr, "LIGHTBULB");
 	lbulb->setLightColor(0.5f, 0.5f, 0.85f);
 	lbulb->setPosition({ 0, 500, 200 });

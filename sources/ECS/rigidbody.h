@@ -10,7 +10,7 @@ public:
 	Rigidbody(Vector3D scale_, Vector3D pos_);
 	~Rigidbody() {};
 
-	void initComponent() override;
+	bool initComponent() override;
 
 private:
 	Vector3D scale;

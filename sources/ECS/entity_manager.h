@@ -29,12 +29,12 @@ namespace ec {
 		// aparecen hasta el siguiente frame. Si quisieramos tambien se podria incorporar
 		// en nuestro "refresh"
 		template<typename T = _grp_GENERAL>
-		Entity* addEntity(GraphicalObject* gobj_) {
+		Entity* addEntity() {
 
 			constexpr auto gId = grpId<T>;
 
 			auto e = new Entity();
-			e->init(gId, gobj_);
+			e->init(gId);
 			e->setAlive(true);
 			e->setContext(this);
 
@@ -43,7 +43,7 @@ namespace ec {
 			return e;
 		}
 
-		//Elimina las entidades muertas de las listas de grupos y las que ya no pertenecen a ningun grupo
+		// Elimina las entidades muertas de las listas de grupos y las que ya no pertenecen a ningun grupo
 		void refresh();
 
 		void update(float deltaTime);
@@ -59,7 +59,6 @@ namespace ec {
 			return entsByGroup[gId];
 		}
 
-
 	private:
 		//std::vector<Entity*> ents_;
 		std::array<std::vector<Entity*>, maxGroupId> entsByGroup;
@@ -67,5 +66,4 @@ namespace ec {
 		std::vector<Message> msgs;
 		std::vector<Message> msgs_aux;
 	};
-
 }

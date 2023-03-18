@@ -11,22 +11,20 @@
 #include "component.h"
 #include "ec.h"
 
+#include "../Render/mesh.h" // esto es un poco raro
+
 namespace ec{
 
 	class Entity {
 	public:
-		Entity() : mngr(), cmps(), alive(), gId(), graphObj() {};
+		Entity() : mngr(), cmps(), alive(), gId() {};
 		
 		virtual ~Entity();
 
-		bool init(ec::grpId_type gId_, GraphicalObject* graphObj_);
+		bool init(ec::grpId_type gId_);
 		//Borramos los constructores de copia y asignacion porque no queda claro como copiar componentes
 		Entity(const Entity&) = delete;
 		Entity& operator=(const Entity&) = delete;
-
-		inline GraphicalObject* getGraphObj() { 
-			return graphObj; 
-		};
 
 		//Le pasamos el manager de la entidad, para que pueda referirse a el
 		void setContext(EntityManager* mngr_);
@@ -122,8 +120,5 @@ namespace ec{
 
 		bool alive;
 		ec::grpId_type gId;
-
-		GraphicalObject* graphObj;
-
 	};
 }

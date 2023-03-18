@@ -16,6 +16,7 @@
 #include "Render/UI_Text.h"
 #include "Render/UI_Image.h"
 #include "Render/ui_button.h"
+#include "Render/mesh.h"		//
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 #include "Sounds/sound_manager.h"
@@ -28,7 +29,7 @@
 #define AXO_POV 0
 
 //DECLARACIONES DE FUNCIONES
-void ecTestInit(ec::EntityManager* em, RenderManager* rm);
+void ecTestInit(ec::EntityManager* em, ec::Entity*);
 void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 
 int mainCode() {
@@ -55,6 +56,8 @@ int mainCode() {
 	bool cubeDisappearance = false;
 	// Cacheo cubo
 	GraphicalObject* ficticioCubo = nullptr;
+	//////
+	ec::Entity* sampleEntity = nullptr;
 	//=====================
 
 	std::cout << "======== MAGMA iniciado ========\n";
@@ -65,46 +68,55 @@ int mainCode() {
 	int timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
-	RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
-	bool correct = renderMngr->initApp();
+	bool correct = false;
+	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
+		correct = Singleton<RenderManager>::instance()->initApp();
+	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
 
 	if (!correct)
 	{
 		// Fin del renderizado
-		renderMngr->closeApp();
+		Singleton<RenderManager>::instance()->closeApp();
 		return 1;
 	}
 
 	// _RENDER_ Cacheo de objetos
-	GraphicalObject* ajolote = renderMngr->getObject("suxalote");
-	GraphicalObject* ficticioTripulacion = renderMngr->getObject("crew");
-	GraphicalObject* tripulante_amarillo = renderMngr->getObject("crewmate_amongus_yellow");
-	ficticioCubo = renderMngr->getObject("cube_empty");
-
+	GraphicalObject* ajolote = Singleton<RenderManager>::instance()->getObject("suxalote");
+	GraphicalObject* ficticioTripulacion = Singleton<RenderManager>::instance()->getObject("crew");
+	GraphicalObject* tripulante_amarillo = Singleton<RenderManager>::instance()->getObject("crewmate_amongus_yellow");
+	ficticioCubo = Singleton<RenderManager>::instance()->getObject("cube_empty");
 
 	// _RENDER_ ¿ Animación para ajolote ?
-	ajolote->setAnimation("axolotl_swim");
-	ajolote->animationSetEnabled(false);
-	ajolote->animationSetLooping(true);
+	if (ajolote != nullptr)
+	{
+		ajolote->setAnimation("axolotl_swim");
+		ajolote->animationSetEnabled(false);
+		ajolote->animationSetLooping(true);
+	}
 
 	//_RENDER_ Cámara para la escena
 	if (AXO_POV)
 	{
-		renderMngr->createCam(ajolote, { -25, 2, -4 });
-		renderMngr->yawCam(90);
+		Singleton<RenderManager>::instance()->createCam(ajolote, { -25, 2, -4 });
+		Singleton<RenderManager>::instance()->yawCam(90);
 	}
 	else
 	{
-		renderMngr->createCam(nullptr);
+		Singleton<RenderManager>::instance()->createCam(nullptr);
 	}
-	renderMngr->setBgColor(0.8f, 0.8f, 0.7f); 
-	renderMngr->objectShowMode(0);
+	Singleton<RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
+	Singleton<RenderManager>::instance()->objectShowMode(0);
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
 	ec::EntityManager* entityManager = new ec::EntityManager();
-	ecTestInit(entityManager, renderMngr);
+	///////ecTestInit(entityManager, sampleEntity);
+	sampleEntity = entityManager->addEntity();
+	Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
+	sampleEntityMeshCmp->initComponent("ejemploComponent", "cube.mesh", "logo");
+	sampleEntityMeshCmp->getObj()->showDebugBox(true);
+	sampleEntity->removeComponent<Mesh>();
 	Fps fps;
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
 
@@ -117,14 +129,10 @@ int mainCode() {
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
 	UI_Manager* ui = new UI_Manager();
-	
 	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "Arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
 	testText->setText("Ahhh yessss");
-
 	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0.0f, 80.0f, 100.0f, 100.0f);
-	
 	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 50.0f, 100.0f, 100.0f);
-
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 
 
@@ -156,7 +164,7 @@ int mainCode() {
 			PhysicsManager::getInstance()->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
-		// s--;
+		// s--; ඞ
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
 
 
@@ -168,8 +176,8 @@ int mainCode() {
 		milisecsAcc += timeSinceLastFrame; 
 		if (!cubeDisappearance && milisecsAcc > miliecsToDisappear) {
 			bool r1, r2;
-			r1 = renderMngr->sunsetObject("cube");
-			r2 = renderMngr->sunsetObject("cube_empty");
+			r1 = Singleton<RenderManager>::instance()->sunsetObject("cube");
+			r2 = Singleton<RenderManager>::instance()->sunsetObject("cube_empty");
 			if (r1 && r2)
 			{
 				cubeDisappearance = true;
@@ -187,12 +195,14 @@ int mainCode() {
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_F))
 		{
-			ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
-			tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
+			if (ficticioTripulacion != nullptr)
+				ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
+			if (tripulante_amarillo != nullptr)
+				tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
 		}
 
-		if (testButton->isButtonPressed())
-			ajolote->yaw(rotationVelocity * timeSinceLastFrame); 
+		if (testButton->isButtonPressed() && ajolote != nullptr)
+			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 			input->showOrHideMouse(); 
@@ -223,18 +233,18 @@ int mainCode() {
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame); 
 
 		//_RENDER_ Prueba de animaciones
-		renderMngr->stepAnimations(timeSinceLastFrame); 
+		Singleton<RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
 
 		//_RENDER_ Imprimir número de objetos gráficos cada cierto tiempo
 		miliecsSinceLastReport += timeSinceLastFrame; /// Perdida de float a int
 		if (miliecsSinceLastReport > miliecsToReport)
 		{
-			std::cout << "Objetos gráficos: "
-				<< renderMngr->getNumObjects() << std::endl;
+			std::cout << "Objetos gráficos: " <<
+				Singleton<RenderManager>::instance()->getNumObjects() << std::endl;
 		}
 
 		//_RENDER_ Control de cuándo se borran aquellos que deben ser borrados
-		int f = renderMngr->refreshObjects();
+		int f = Singleton<RenderManager>::instance()->refreshObjects();
 		if (f != 0)
 		{
 			std::cout << f <<
@@ -242,7 +252,7 @@ int mainCode() {
 		}
 
 		//_RENDER_ Renderizar fotogramas de uno en uno
-		if (!renderMngr->renderFrame())
+		if (!Singleton<RenderManager>::instance()->renderFrame())
 			error = true;
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
 
@@ -265,19 +275,13 @@ int mainCode() {
 	PhysicsManager::detachManager();
 	delete entityManager; entityManager = nullptr;
 	// Fin del renderizado
-	renderMngr->closeApp();
-	delete renderMngr; renderMngr = nullptr;
+	Singleton<RenderManager>::instance()->closeApp();
+	Singleton<RenderManager>::release();
 
 	return 0;
 }
 
-void ecTestInit(ec::EntityManager* entityManager, RenderManager* renderMngr) {
-	GraphicalObject* jo = renderMngr->addObject("uxalote", nullptr, "axolotl.mesh", "axolotl");
-	jo->setPosition({ 0, 0, 50 });
-	jo->setScale({ 40, 40, 40 });
-
-	auto e_ = entityManager->addEntity(jo);
-	TestAxlMov* tr_ = e_->addComponent<TestAxlMov>(Vector3D(), Vector3D(400, 400, 400));
+void ecTestInit(ec::EntityManager* entityManager, ec::Entity* ent) {
 }
 void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
 	entityManager->update(deltaTime * 0.001f); 

@@ -14,11 +14,11 @@ namespace ec {
 		inline bool isEnable() { return enable; }
 		void setEnable(bool set_);
 		
-		virtual void initComponent() { }
-		virtual void update(float deltaTime) { }
-		virtual void render() { }
-		virtual void onEnable() { }
-		virtual void onDisable() { }
+		virtual bool initComponent() { return false; };
+		virtual void update(float deltaTime) {};
+		virtual void render() {};
+		virtual void onEnable() {};
+		virtual void onDisable() {};
 	protected:
 		Entity* ent;
 		EntityManager* mngr;

@@ -54,9 +54,9 @@ void Transform::setH(float height_)
 
 void Transform::update(float deltaTime)
 {
-	ent->getGraphObj()->setPosition({ pos.getX(), pos.getY(), pos.getZ() });
-
+	// movimiento entidad
 	pos = pos + vel * deltaTime;
+	
+	// movimiento parte gráfica entidad
+	///quitar///////////////ent->getGraphObj()->setPosition({ pos.getX(), pos.getY(), pos.getZ() });
 }
-
-

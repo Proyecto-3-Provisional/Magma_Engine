@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\Render\graphical_object.cpp" />
+    <ClCompile Include="..\..\sources\Render\mesh.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager_context.cpp" />
     <ClCompile Include="..\..\sources\Render\ui_button.cpp" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Render\graphical_object.h" />
+    <ClInclude Include="..\..\sources\Render\mesh.h" />
     <ClInclude Include="..\..\sources\Render\render_manager.h" />
     <ClInclude Include="..\..\sources\Render\render_manager_context.h" />
     <ClInclude Include="..\..\sources\Render\ui_button.h" />

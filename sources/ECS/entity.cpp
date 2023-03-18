@@ -11,10 +11,9 @@ namespace ec {
 				delete c;
 	}
 
-	bool Entity::init(ec::grpId_type gId_, GraphicalObject* graphObj_)
+	bool Entity::init(ec::grpId_type gId_)
 	{
 		gId = gId_;
-		graphObj = graphObj_;
 		currCmps.reserve(ec::maxComponentId);
 
 		return true;
