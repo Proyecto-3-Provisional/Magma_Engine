@@ -4,11 +4,11 @@
 
 //lista de componentes. El nombre de la class debe coincidir con el nombre del componente al que hace referencia
 //abajo ejemplo de uso
-class Mesh;
+class Transform;
 class TestAxlMov;
 class Mesh;
 
-#define _CMPS_LIST_ Mesh,\
+#define _CMPS_LIST_ Transform,\
 					TestAxlMov,\
 					Mesh
 		

@@ -187,8 +187,11 @@ bool RenderManager::sunsetObject(std::string key)
 
 // Devuelve si tuvo éxito (el Objeto no se resistió a ser borrado)
 // Un objeto se resiste cuando de él pende algún objeto hijo
+// ¡Comprobar que el puntero sea válido!
 bool RenderManager::removeObject(GraphicalObject* gO)
 {
+	if (!gO)
+		return false;
 	if (gO->getChildrenUsing() > 0)
 		return false;
 	if (gO->isCamAttached())

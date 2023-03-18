@@ -28,8 +28,7 @@
 
 #define AXO_POV 0
 
-//DECLARACIONES DE FUNCIONES
-void ecTestInit(ec::EntityManager* em, ec::Entity*);
+// DECLARACIONES DE FUNCIONES
 void ecTestUpdate(ec::EntityManager* em, float deltaTime);
 
 int mainCode() {
@@ -111,12 +110,16 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
 	ec::EntityManager* entityManager = new ec::EntityManager();
-	///////ecTestInit(entityManager, sampleEntity);
 	sampleEntity = entityManager->addEntity();
+	/////Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>(....);
+	Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>();
+	bool trInit = sampleEntityTransformCmp->initComponent();
+	sampleEntityTransformCmp->setPosition({ 0, 0, 600 });
 	Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
-	sampleEntityMeshCmp->initComponent("ejemploComponent", "cube.mesh", "logo");
-	sampleEntityMeshCmp->getObj()->showDebugBox(true);
-	sampleEntity->removeComponent<Mesh>();
+	bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "cube.mesh", "logo");
+	if (meshInit) // hacer cosas con el cmp solo si se inicializó correctamente
+		sampleEntityMeshCmp->getObj()->showDebugBox(true);
+	//sampleEntity->removeComponent<Mesh>();
 	Fps fps;
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
 
@@ -192,6 +195,14 @@ int mainCode() {
 
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
+	
+		if (sampleEntityMeshCmp && trInit && meshInit)
+		{
+			// esta rotación DEBERÍA HACERSE según Transform
+			//sampleEntityTransformCmp->setRotation(/*LIADA_MASIVA*/)
+			sampleEntityMeshCmp->getObj()->yaw(rotationVelocity * timeSinceLastFrame);
+			sampleEntityTransformCmp->setVelocity({ 0, 0, 25 });
+		}
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_F))
 		{
@@ -281,8 +292,6 @@ int mainCode() {
 	return 0;
 }
 
-void ecTestInit(ec::EntityManager* entityManager, ec::Entity* ent) {
-}
 void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
 	entityManager->update(deltaTime * 0.001f); 
 	entityManager->refresh();

@@ -24,6 +24,7 @@ public:
 	void setW(float width_);
 	void setH(float height_);
 
+	virtual bool initComponent();
 	virtual void update(float deltaTime);
 private:
 	Vector3D pos;

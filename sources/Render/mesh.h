@@ -4,6 +4,8 @@
 #include "../ECS/vector3D.h"
 #include "graphical_object.h"
 
+class Transform;
+
 class Mesh : public ec::Component {
 public:
 	Mesh();
@@ -17,4 +19,5 @@ public:
 
 private:
 	GraphicalObject* gObjPtr = nullptr;
+	Transform* trPtr = nullptr;
 };

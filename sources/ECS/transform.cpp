@@ -52,6 +52,15 @@ void Transform::setH(float height_)
 	scale.setY(height_);
 }
 
+bool Transform::initComponent()
+{
+	pos = Vector3D(0, 0, 0);
+	vel = Vector3D(0, 0, 0);
+	scale = Vector3D(1, 1, 1);
+	
+	return true;
+}
+
 void Transform::update(float deltaTime)
 {
 	// movimiento entidad
