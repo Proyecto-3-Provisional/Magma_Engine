@@ -68,7 +68,7 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	bool correct = false;
-	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
+	if (Singleton<RenderManager>::init(false, 120, 72, false, true, 4, false))
 		correct = Singleton<RenderManager>::instance()->initApp();
 	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
 
@@ -145,8 +145,9 @@ int mainCode() {
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
-	SoundManager* soundManager = new SoundManager();
-	soundManager->playSound();
+	//SoundManager* soundManager = new SoundManager();
+	//soundManager->addSong(".\executables\assets\loop.wav", 35, 1, true); 
+
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 
 
@@ -241,7 +242,10 @@ int mainCode() {
 			std::cout << "Pos Raton = " << posMouse.first << " " << posMouse.second << "\n";
 
 		if (ficticioCubo)
-			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame); 
+			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
+
+		if (input->hasWindowChange())
+			Singleton<RenderManager>::instance()->changeWindowSize(); 
 
 		//_RENDER_ Prueba de animaciones
 		Singleton<RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
@@ -280,7 +284,7 @@ int mainCode() {
 		std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 	}
 
-	delete soundManager; soundManager = nullptr;
+	//delete soundManager; soundManager = nullptr;
 	delete input; input = nullptr;
 	delete ui; ui = nullptr;
 	PhysicsManager::detachManager();

@@ -16,6 +16,13 @@ RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest"
 	// CONTEXT: new -> setup()
 }
 
+void RenderManager::changeWindowSize()
+{
+	Ogre::RenderWindow* win = mWindow.render;
+	win->windowMovedOrResized();
+	windowResized(win);
+}
+
 // Recibe un booleano que indica si el cursor puede salir de la ventana o no
 // y parámetros que modifican la ventana y las condiciones del renderizado
 RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,

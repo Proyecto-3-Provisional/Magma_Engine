@@ -38,11 +38,15 @@ public:
 
     void showOrHideMouse(); 
 
+    bool hasWindowChange(); 
+
 private:
 
     bool exitRequest;
 
     bool cursorState;
+
+    bool windowChange; 
 
     // TECLADO 
 

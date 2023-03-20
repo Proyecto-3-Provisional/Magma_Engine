@@ -24,6 +24,8 @@ public:
 	void yawCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void pitchCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void rollCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
+
+	void changeWindowSize(); 
 	
 	// Establecer mirada de la cámara
 	void setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo =

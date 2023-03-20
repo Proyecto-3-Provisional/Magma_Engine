@@ -38,6 +38,8 @@ void InputManager::flush()
 
 	for (int i = 0; i < MOUSE_MAX; i++)
 		mouseButtonsDown[i] = false;
+
+	windowChange = false; 
 }
 
 bool InputManager::exitRequested()
@@ -49,6 +51,11 @@ void InputManager::showOrHideMouse()
 {
 	cursorState = !cursorState; 
 	SDL_ShowCursor(cursorState);
+}
+
+bool InputManager::hasWindowChange()
+{
+	return windowChange; 
 }
 
 void InputManager::inputEvent()
@@ -64,6 +71,13 @@ void InputManager::inputEvent()
 
 			exitRequest = true;
 			break;
+
+		case SDL_WINDOWEVENT:
+			if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+			{
+				windowChange = true;
+			}
+			break; 
 
 		// TECLA 'ESCAPE'
 		case SDL_KEYDOWN:
