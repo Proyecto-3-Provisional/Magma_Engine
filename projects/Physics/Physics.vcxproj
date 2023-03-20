@@ -163,9 +163,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\Physics\physics_manager.cpp" />
+    <ClCompile Include="..\..\sources\Physics\rigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Physics\physics_manager.h" />
+    <ClInclude Include="..\..\sources\Physics\rigidbody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

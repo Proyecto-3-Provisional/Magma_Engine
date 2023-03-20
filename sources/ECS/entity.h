@@ -6,12 +6,12 @@
 #include <vector>
 #include <string>
 
-#include "OgreEntity.h"
-#include "../Render/graphical_object.h"
+//#include "OgreEntity.h"
+//#include "../Render/graphical_object.h"
 #include "component.h"
 #include "ec.h"
 
-#include "../Render/mesh.h" // esto es un poco raro
+//#include "../Render/mesh.h" // esto es un poco raro
 
 namespace ec{
 

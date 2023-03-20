@@ -1,7 +1,7 @@
 #include "entity.h"
 
 #include "component.h"
-#include "OgreMesh.h"
+//#include "OgreMesh.h"
 
 namespace ec {
 

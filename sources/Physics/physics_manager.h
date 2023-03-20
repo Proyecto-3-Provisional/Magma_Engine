@@ -2,6 +2,8 @@
 #include "btBulletDynamicsCommon.h"
 #include <vector>
 
+class Vector3D;
+
 
 class PhysicsManager {
 public:
@@ -19,6 +21,7 @@ public:
 	void updateCollisions();
 	bool isCollide(const int& index1, const int& index2);
 	std::vector<int> getArrayOfIndexColliders(int index);
+	Vector3D getTransform(int index);
 
 private:
 	int initPhysics();

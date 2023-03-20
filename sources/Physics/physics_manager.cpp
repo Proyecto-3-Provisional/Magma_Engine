@@ -1,4 +1,5 @@
 #include "physics_manager.h"
+#include "../ECS/vector3D.h"
 #include <iostream>
 #include <stdio.h>
 #include <algorithm>
@@ -244,6 +245,23 @@ std::vector<int> PhysicsManager::getArrayOfIndexColliders(int index)
 	}
 
 	return colliders;
+}
+
+Vector3D PhysicsManager::getTransform(int index)
+{
+	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+	btRigidBody* body = btRigidBody::upcast(obj);
+	btTransform trans;
+	if (body && body->getMotionState())
+	{
+		body->getMotionState()->getWorldTransform(trans);
+	}
+	// Por si no añadireamos MotionState
+	//else
+	//{
+	//	trans = obj->getWorldTransform();
+	//}
+	return Vector3D(float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 }
 
 // Eliminacion de objetos de la clase PhysicsManager
