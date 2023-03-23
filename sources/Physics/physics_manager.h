@@ -22,6 +22,8 @@ public:
 	bool isCollide(const int& index1, const int& index2);
 	std::vector<int> getArrayOfIndexColliders(int index);
 	Vector3D getTransform(int index);
+	btRigidBody* getRigidBody(int index);
+	void addForceTo(int index, btVector3 force);
 
 private:
 	int initPhysics();

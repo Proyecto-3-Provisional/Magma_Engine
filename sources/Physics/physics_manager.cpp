@@ -264,6 +264,22 @@ Vector3D PhysicsManager::getTransform(int index)
 	return Vector3D(float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 }
 
+btRigidBody* PhysicsManager::getRigidBody(int index)
+{
+	if (dynamicsWorld->getCollisionObjectArray().size() > index) {
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+		return btRigidBody::upcast(obj);
+	}
+	else
+		return nullptr;
+}
+
+void PhysicsManager::addForceTo(int index, btVector3 force)
+{
+	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+	btRigidBody::upcast(obj)->applyCentralForce(force);
+}
+
 // Eliminacion de objetos de la clase PhysicsManager
 void PhysicsManager::detachPhysics()
 {
