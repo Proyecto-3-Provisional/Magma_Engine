@@ -6,20 +6,24 @@
 #include "../ECS/vector3D.h"
 
 class Transform;
+class btRigidBody;
 
 class Rigidbody : public ec::Component {
 public:
-	Rigidbody(Vector3D scale_);
+	Rigidbody(const Vector3D& scale_);
 	~Rigidbody() {};
 
 	bool initComponent() override;
-	void update(float deltaTime);
+	void update(float deltaTime) override;
 
+	bool isOnCollision(std::vector<int>& indexCollides);
+	bool isCollideWith(int indexCollide);
+
+	void addForce(const Vector3D& force);
 	int getIndex();
-	void setIndex(int index_);
 
 private:
 	Transform* trPtr = nullptr;
+	btRigidBody* rigidPtr = nullptr;
 	Vector3D scale;
-	int index;
 };
