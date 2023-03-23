@@ -41,7 +41,7 @@ namespace ec {
 	}
 
 	// por ahora no tenemos flush de mensajes implementado, dejar elay a false
-	void Entity::send(const Message& m, bool delay = false) { 
+	void Entity::send(const Message& m, bool delay) { 
 		if (!delay) {
 			for (Component* c : cmps) {
 				if (c != nullptr)
