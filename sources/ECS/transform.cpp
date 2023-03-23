@@ -1,6 +1,6 @@
 #include "transform.h"
 #include "entity.h"
-#include "OgreSceneNode.h"
+
 
 Vector3D& Transform::getPos()
 {
@@ -42,6 +42,11 @@ float Transform::getH() const
 	return scale.getY();
 }
 
+float Transform::getD() const
+{
+	return scale.getZ();
+}
+
 void Transform::setW(float width_)
 {
 	scale.setX(width_);
@@ -50,6 +55,11 @@ void Transform::setW(float width_)
 void Transform::setH(float height_)
 {
 	scale.setY(height_);
+}
+
+void Transform::setD(float depth_)
+{
+	scale.setZ(depth_);
 }
 
 bool Transform::initComponent()
@@ -61,11 +71,33 @@ bool Transform::initComponent()
 	return true;
 }
 
+// movimiento entidad
 void Transform::update(float deltaTime)
 {
-	// movimiento entidad
 	pos = pos + vel * deltaTime;
-	
-	// movimiento parte gráfica entidad
-	///quitar///////////////ent->getGraphObj()->setPosition({ pos.getX(), pos.getY(), pos.getZ() });
+}
+
+void Transform::pitch(float deg)
+{
+	Message m;
+	m.id = _m_OBJECT_ROTATED;
+	m.object_rotated_data = {deg, 'x'};
+	ent->send(m);
+}
+
+void Transform::yaw(float deg)
+{
+	Message m;
+	m.id = _m_OBJECT_ROTATED;
+	m.object_rotated_data = { deg, 'y' };
+	ent->send(m);
+	//ent->getComponent<Mesh>()->recieve(m);
+}
+
+void Transform::roll(float deg)
+{
+	Message m;
+	m.id = _m_OBJECT_ROTATED;
+	m.object_rotated_data = { deg, 'z' };
+	ent->send(m);
 }

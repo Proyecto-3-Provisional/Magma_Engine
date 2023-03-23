@@ -17,6 +17,11 @@ public:
 	void update(float deltaTime);
 	void render();
 
+	void recieve(const Message&) override;
+
+	//axis char: 'x', 'y' or 'z'
+	void rotate(float deg, char axis);
+
 private:
 	GraphicalObject* gObjPtr = nullptr;
 	Transform* trPtr = nullptr;

@@ -113,13 +113,15 @@ int mainCode() {
 	sampleEntity = entityManager->addEntity();
 	/////Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>(....);
 	Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>();
-	bool trInit = sampleEntityTransformCmp->initComponent();
+	//bool trInit = sampleEntityTransformCmp->initComponent();
 	sampleEntityTransformCmp->setPosition({ 0, 0, 600 });
+	sampleEntityTransformCmp->setScale({ 40,40,40 });
 	Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
-	bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "cube.mesh", "logo");
+	bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "axolotl.mesh", "axolotl");
 	if (meshInit) // hacer cosas con el cmp solo si se inicializó correctamente
 		sampleEntityMeshCmp->getObj()->showDebugBox(true);
 	//sampleEntity->removeComponent<Mesh>();
+
 	Fps fps;
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
 
@@ -172,9 +174,11 @@ int mainCode() {
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
 
 
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
+		// vvvvvvvvvvvvvvvvvvvvvvv TEST EC
 		ecTestUpdate(entityManager, (float)timeSinceLastFrame);
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST EC
+		sampleEntityTransformCmp->yaw(1);					//rotado con referencia al componente transform
+		sampleEntity->getComponent<Transform>()->roll(1);	//rotado pidiendo la referencia al componente transform
+		// ʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌ TEST EC
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
 		milisecsAcc += timeSinceLastFrame; 
@@ -197,12 +201,13 @@ int mainCode() {
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
 	
-		if (sampleEntityMeshCmp && trInit && meshInit)
+		if (sampleEntityMeshCmp/* && trInit */&& meshInit)
 		{
 			// esta rotación DEBERÍA HACERSE según Transform
 			//sampleEntityTransformCmp->setRotation(/*LIADA_MASIVA*/)
-			sampleEntityMeshCmp->getObj()->yaw(rotationVelocity * timeSinceLastFrame);
+			//sampleEntityMeshCmp->getObj()->yaw(rotationVelocity * timeSinceLastFrame);
 			sampleEntityTransformCmp->setVelocity({ 0, 0, 25 });
+			//sampleEntityTransformCmp->yaw(10);
 		}
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_F))
@@ -298,6 +303,7 @@ int mainCode() {
 
 void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
 	entityManager->update(deltaTime * 0.001f); 
+
 	entityManager->refresh();
 }
 

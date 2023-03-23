@@ -62,8 +62,5 @@ namespace ec {
 	private:
 		//std::vector<Entity*> ents_;
 		std::array<std::vector<Entity*>, maxGroupId> entsByGroup;
-
-		std::vector<Message> msgs;
-		std::vector<Message> msgs_aux;
 	};
 }
