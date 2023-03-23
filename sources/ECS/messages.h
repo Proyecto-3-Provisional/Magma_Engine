@@ -15,7 +15,7 @@
 	Message m;
 	m.id = _m_OBJECT_ROTATED;			//nombre asignado en el paso 1
 	m.object_rotated_data = {deg, 'x'}; //la informacion que creamos en el struct del paso 2
-	ent->send(m);						//la entidad asociada manda el mensaje creado
+	ent->send(m);					//la entidad asociada manda el mensaje creado
 
 	4) Para recibir el mensaje: Los componentes tienen un metodo virtual recieve(). Para cambiarlo redefinimos en el componente con el metodo 
 	"void recieve(const Message&) override;". Para indicar que hacer con cada mensaje, seguir este ejemplo de mesh.cpp:

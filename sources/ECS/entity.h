@@ -1,10 +1,9 @@
 // Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
-
+//unfinished
 #pragma once
 
 #include <array>
 #include <vector>
-#include <string>
 
 #include "component.h"
 #include "ec.h"
@@ -18,7 +17,7 @@ namespace ec{
 		virtual ~Entity();
 
 		bool init(ec::grpId_type gId_);
-		//Borramos los constructores de copia y asignacion porque no queda claro como copiar componentes
+		// Borramos los constructores de copia y asignacion porque no queda claro como copiar componentes
 		Entity(const Entity&) = delete;
 		Entity& operator=(const Entity&) = delete;
 
@@ -110,44 +109,12 @@ namespace ec{
 
 		// Manda un mensaje 'm' a todos los componentes de la entidad. 'delay' indica si deberia
 		// mandarse inmediatamente o mas tarde cuando llamamos a flushMessages
-		inline void send(const Message& m, bool delay = false) {
-			if (!delay) {
-				for (Component* c : cmps) {
-					if (c != nullptr)
-						c->recieve(m);
-				}
-			}
-			else {
-				msgs_.emplace_back(m);
-			}
-		}
+		void send(const Message& m, bool delay = false); //por ahora no tenemos flush de mensajes implementado, dejar elay a false
 
-		// Metodo que se llama en main para mandar mensajes en una cola.
+		//unfinished, no lo usamos todavia
+		// Metodo que se llama en ¿main? para mandar mensajes en una cola.
 		// Esto es, cuando send tiene delay = true
-		inline void flushMessages() {
-
-			// we traverse until msgs_.size(), so if new message
-			// we added we don't send them now. If you wish to send
-			// them as will you should write this loop in a different way
-			// and maybe using std::list would be better.
-
-			auto size = msgs_.size();
-			for (auto i = 0u; i < size; i++) {
-				auto& m = msgs_[i];
-				for (Component* c : cmps) {
-					if (c != nullptr)
-						c->recieve(m);
-				}
-			}
-
-			// delete all message that we have sent. This might be expensive
-			// since it has to shift all remaining elements to the left. A better
-			// solution would be to keep two vectors 'v1' and 'v2', when sending a
-			// message we always add it to 'v1' and in flush we swap them and send
-			// all messages in v2. After flush we simply clear v2
-			
-			msgs_.erase(msgs_.begin(), msgs_.begin() + size);
-		}
+		//void flushMessages();
 
 	private:
 

@@ -39,8 +39,6 @@ void Mesh::update(float deltaTime)
 		gObjPtr->setPosition({ v.getX(), v.getY(), v.getZ() });
 		Vector3D s = trPtr->getScale();
 		gObjPtr->setScale({ s.getX(), s.getY(), s.getZ() });
-		/*Vector3D d = trPtr->getDir();
-		gObjPtr->setDirection({d.getX(), d.getY(), d.getZ()});*/
 	}
 }
 

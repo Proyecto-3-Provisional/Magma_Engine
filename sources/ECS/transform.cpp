@@ -91,7 +91,6 @@ void Transform::yaw(float deg)
 	m.id = _m_OBJECT_ROTATED;
 	m.object_rotated_data = { deg, 'y' };
 	ent->send(m);
-	//ent->getComponent<Mesh>()->recieve(m);
 }
 
 void Transform::roll(float deg)
