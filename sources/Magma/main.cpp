@@ -121,7 +121,7 @@ int mainCode() {
 	UI_Text* testText = ui->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "Arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
 	testText->setText("Ahhh yessss");
 	UI_Image* testImage = ui->createElement<UI_Image>("ImgPrueba", "golf", 0.0f, 80.0f, 100.0f, 100.0f);
-	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 50.0f, 100.0f, 100.0f);
+	UIButton* testButton = ui->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT UI MANAGER
 
 
@@ -208,6 +208,8 @@ int mainCode() {
 		if (input->hasWindowChange()) {
 			Singleton<RenderManager>::instance()->notifyWindowResized();
 			testImage->updateImage();
+			testButton->updateButton();
+			testText->updateText();
 		}
 
 		//_RENDER_ Prueba de animaciones

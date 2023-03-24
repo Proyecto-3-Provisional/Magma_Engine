@@ -22,6 +22,15 @@ public:
 	void changeFontSize(float fontSize);
 	void changeTextColor(float r, float g, float b);
 
+	void updateText();
+
 private:
 	Ogre::TextAreaOverlayElement* textArea;
+
+	float screenwidth;
+	float screenheight;
+	float originalwidth;
+	float originalheight;
+	float originalposx;
+	float originalposy;
 };

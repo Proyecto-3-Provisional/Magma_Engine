@@ -29,6 +29,13 @@ UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 	textArea->setColourTop(Ogre::ColourValue(r, g, b));
 
 	panel->addChild(textArea);
+
+	screenwidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	screenheight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+	originalwidth = sizeX;
+	originalheight = sizeY;
+	originalposx = posX;
+	originalposy = posY;
 }
 
 UI_Text::~UI_Text()
@@ -61,4 +68,14 @@ void UI_Text::changeTextColor(float r, float g, float b)
 {
 	textArea->setColourBottom(Ogre::ColourValue(r, g, b));
 	textArea->setColourTop(Ogre::ColourValue(r, g, b));
+}
+
+void UI_Text::updateText() {
+	float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+	if (newWidth != 0 && newHeight != 0 && screenwidth != 0 && screenheight != 0) {
+		textArea->setPosition(originalposx * (newWidth / screenwidth), originalposy * (newHeight / screenheight));
+		textArea->setDimensions(originalwidth * (newWidth / screenwidth), originalheight * (newHeight / screenheight));
+		textArea->setCharHeight(originalheight * (newHeight / screenheight));
+	}
 }
