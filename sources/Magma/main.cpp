@@ -68,7 +68,7 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	bool correct = false;
-	if (Singleton<RenderManager>::init(false, 120, 72, false, true, 4, false))
+	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
 		correct = Singleton<RenderManager>::instance()->initApp();
 	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
 
@@ -145,8 +145,8 @@ int mainCode() {
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
-	//SoundManager* soundManager = new SoundManager();
-	//soundManager->addSong(".\executables\assets\loop.wav", 35, 1, true); 
+	SoundManager* soundManager = new SoundManager();
+	soundManager->addSong(".\executables\assets\sound.wav", 100, 0, true); 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 

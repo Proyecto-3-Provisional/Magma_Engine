@@ -3,26 +3,50 @@
 #include "SDL_audio.h"
 
 #include <iostream>
+#include <vector>
 
-struct AudioData // Almacena y permite la reproducción de un sonido
+//class SDL_mixer; 
+
+struct AudioData
 {
-	Uint8* buffer = nullptr; // Buffer que contiene los datos del sonido
-	Uint32 bufferSize = 0; // Tamaño del buffer de sonido
-	SDL_AudioSpec spec = {}; // Especificaciones del audio
+	std::string audio_path;
+
+	int channel;
+
+	float volume;
+
+	bool canLoop; 
+	bool isPlaying; 
+	bool isPaused; 
 };
 
 class SoundManager
 {
 public:
-	SoundManager();
-	~SoundManager();
 
-	void playSound();
-	void stopSound();
+	SoundManager(); 
+	~SoundManager() {}
+
+	void addSong(std::string path, float vol, int channel, bool loop);
+
+	void playSound(AudioData* audio);
+	void stopSound(AudioData* audio);
+	void pauseSound(AudioData* audio);
+	void resumeSound(AudioData* audio);
+
 	void changeVolume();
+	void setVolume(float soundVolume); 
+	float getVolume(); 
+
+	void removeSong(AudioData* audio);
+	bool songEnded(AudioData* audio); 
 
 private:
+
 	SDL_AudioDeviceID device; // Identificador del dispositivo de audio que se abre al reproducir un sonido
 
-	AudioData data; // Almacena los datos necesarios para reproducir un sonido
+	float musicVolume; 
+
+	std::vector<AudioData*> songs;
 };
+
