@@ -40,7 +40,7 @@ bool CMagmaEngine::Init()
 
 bool CMagmaEngine::ShutDown()
 {
-
+    return true;
 }
 
 void CMagmaEngine::run()
