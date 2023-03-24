@@ -7,10 +7,13 @@
 
 class RenderManager : public RenderManagerContext, public Singleton<RenderManager>
 {
-public:
+	// Permiso para construir
+	friend Singleton<RenderManager>;
+protected:
 	explicit RenderManager(bool grabCursor);
 	explicit RenderManager(bool grabCursor, uint32_t w, uint32_t h,
 		bool fScr, bool vSyn, int fsaa, bool gamm);
+public:
 	virtual ~RenderManager();
 
 	// Crear y destruir cámara
@@ -35,8 +38,8 @@ public:
 	void objectShowMode(unsigned int val);
 
 	// Crear objeto
-	GraphicalObject* addObject(std::string key, GraphicalObject* parent,
-		std::string mesh, std::string material);
+	GraphicalObject* addObject(std::string key, GraphicalObject* parent = nullptr,
+		std::string mesh = "", std::string material = "default");
 
 	// Obtener objeto
 	GraphicalObject* getObject(std::string key);
@@ -73,9 +76,6 @@ protected:
 
 	// Preparar
 	virtual void setup();
-
-	// Conformar escena
-	virtual void setupScene();
 
 	// Cerrar
 	virtual void shutdown();

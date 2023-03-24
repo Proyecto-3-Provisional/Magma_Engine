@@ -14,7 +14,8 @@
 class GraphicalObject {
 public:
 	GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
-		GraphicalObject* parent, std::string mesh, std::string material);
+		GraphicalObject* parent = nullptr,
+		std::string mesh = "", std::string material = "default");
 	~GraphicalObject();
 
 	// Transformaciones

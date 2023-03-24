@@ -15,10 +15,10 @@
 //	* (otra cosa)	-> entidad gráfica normal con malla determinada 'mesh'
 
 GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
-	GraphicalObject* parent = nullptr, std::string mesh = "",
-	std::string material = "default") : keyName(name), mySceneManager(mSM),
-	parentObject(parent), childrenUsing(0), camAttached(false), meshFile(mesh),
-	materialName(material), visible(true), showsBox(false)
+	GraphicalObject* parent, std::string mesh, std::string material)
+	: keyName(name), mySceneManager(mSM), parentObject(parent), childrenUsing(0),
+	camAttached(false), meshFile(mesh), materialName(material),
+	visible(true), showsBox(false)
 {
 	if (parentObject)
 	{

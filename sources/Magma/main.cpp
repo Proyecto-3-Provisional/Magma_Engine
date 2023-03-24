@@ -79,6 +79,11 @@ int mainCode() {
 		return 1;
 	}
 
+	// _RENDER_ Sol temporal cableado
+	GraphicalObject* sol = Singleton<RenderManager>::instance()->addObject("sol", nullptr, "SUN");
+	sol->setLightColor(0.5f, 0.5f, 0.3f);
+	sol->setDirection({ 0.0f, -0.8f, -1.0f });
+
 	// _RENDER_ Cacheo de objetos
 	GraphicalObject* ajolote = Singleton<RenderManager>::instance()->getObject("suxalote");
 	GraphicalObject* ficticioTripulacion = Singleton<RenderManager>::instance()->getObject("crew");
