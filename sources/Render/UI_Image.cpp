@@ -18,8 +18,8 @@ UI_Image::UI_Image(Ogre::Overlay* overReference, std::string title, std::string 
 
 	panel->addChild(imageUI);
 	
-	screenwidth = Singleton<RenderManager>::instance()->getWinWidth();
-	screenheight = Singleton<RenderManager>::instance()->getWinHeight();
+	screenwidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	screenheight = (float)Singleton<RenderManager>::instance()->getWinHeight();
 	originalwidth = sizeX;
 	originalheight = sizeY;
 	originalposx = posX;
@@ -48,8 +48,8 @@ void UI_Image::changeImage(std::string title ,std::string imageName)
 }
 
 void UI_Image::updateImage() {
-	float newWidth = Singleton<RenderManager>::instance()->getWinWidth();
-	float newHeight = Singleton<RenderManager>::instance()->getWinHeight();
+	float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
 	if (newWidth != 0 && newHeight != 0 && screenwidth != 0 && screenheight != 0) {
 		imageUI->setPosition(originalposx * (newWidth / screenwidth), originalposy * (newHeight / screenheight));
 		imageUI->setDimensions(originalwidth * (newWidth / screenwidth), originalheight * (newHeight / screenheight));
