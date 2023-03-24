@@ -102,17 +102,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixerd.lib; SDL2d.lib; SDL2maind.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sdl_mixer\builds\Debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,17 +144,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2d.lib;SDL2maind.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixerd.lib; SDL2d.lib; SDL2maind.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\sdl_mixer\builds\Debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,7 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
