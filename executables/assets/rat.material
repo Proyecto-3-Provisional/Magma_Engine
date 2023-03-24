@@ -1,0 +1,10 @@
+material rat {
+	technique {
+		pass {
+			scene_blend alpha_blend
+			texture_unit {
+				texture rat.png
+			}
+		}
+	}
+}

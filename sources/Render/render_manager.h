@@ -27,12 +27,11 @@ public:
 	void yawCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void pitchCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void rollCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
-
-	void changeWindowSize(); 
 	
 	// Establecer mirada de la cámara
-	void setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo =
-		Ogre::Node::TransformSpace::TS_WORLD);
+	void setCamLookAt(Ogre::Vector3 vec,
+		Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_WORLD,
+		Ogre::Vector3 lDirVec = Ogre::Vector3::NEGATIVE_UNIT_Z);
 
 	// ¿Visualizar alambres de mallas?
 	void objectShowMode(unsigned int val);

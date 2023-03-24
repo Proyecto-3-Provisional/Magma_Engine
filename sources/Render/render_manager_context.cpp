@@ -87,11 +87,6 @@ void RenderManagerContext::closeApp()
 
 bool RenderManagerContext::frameStarted(const Ogre::FrameEvent& evt)
 {
-	// Esto no habría que hacerlo en cada frame,
-	// solo si se detectase que se cambia la ventana
-	// con POLLEVENTS de SDL
-	notifyWindowResized();
-
 	return true;
 }
 

@@ -137,6 +137,12 @@ void GraphicalObject::setOrientation(float ang, Ogre::Vector3 axis)
 	objectNode->setOrientation(q);
 }
 
+void GraphicalObject::setOriLookingAt(Ogre::Vector3 target,
+	Ogre::Node::TransformSpace relTo, Ogre::Vector3 lDirVec)
+{
+	objectNode->lookAt(target, relTo, lDirVec);
+}
+
 void GraphicalObject::scale(float factor)
 {
 	objectNode->scale(factor, factor, factor);

@@ -26,11 +26,6 @@
 #include "ECS/vector3D.h"
 #include "ECS/fps_counter.h"
 
-#define AXO_POV 0
-
-// DECLARACIONES DE FUNCIONES
-void ecTestUpdate(ec::EntityManager* em, float deltaTime);
-
 int mainCode() {
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
 #ifdef _DEBUG
@@ -43,20 +38,10 @@ int mainCode() {
 #endif
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
 
-	// Control de la velocidad de rotación
-	const float rotationVelocity = 0.05f;
 	// Temporizador debug (tb para físicas)
 	const int miliecsToReport = 5000;
 	int miliecsSinceLastReport = 0;
 	int miliecsSinceLastReport2 = 0;
-	// Temporizador ejemplo cubo
-	const int miliecsToDisappear = 15000;
-	int milisecsAcc = 0;
-	bool cubeDisappearance = false;
-	// Cacheo cubo
-	GraphicalObject* ficticioCubo = nullptr;
-	//////
-	ec::Entity* sampleEntity = nullptr;
 	//=====================
 
 	std::cout << "======== MAGMA iniciado ========\n";
@@ -67,64 +52,58 @@ int mainCode() {
 	int timeSinceLastFrame = 0;
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
-	bool correct = false;
 	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
-		correct = Singleton<RenderManager>::instance()->initApp();
-	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
-
-	if (!correct)
 	{
-		// Fin del renderizado
-		Singleton<RenderManager>::instance()->closeApp();
-		return 1;
-	}
-
-	// _RENDER_ Sol temporal cableado
-	GraphicalObject* sol = Singleton<RenderManager>::instance()->addObject("sol", nullptr, "SUN");
-	sol->setLightColor(0.5f, 0.5f, 0.3f);
-	sol->setDirection({ 0.0f, -0.8f, -1.0f });
-
-	// _RENDER_ Cacheo de objetos
-	GraphicalObject* ajolote = Singleton<RenderManager>::instance()->getObject("suxalote");
-	GraphicalObject* ficticioTripulacion = Singleton<RenderManager>::instance()->getObject("crew");
-	GraphicalObject* tripulante_amarillo = Singleton<RenderManager>::instance()->getObject("crewmate_amongus_yellow");
-	ficticioCubo = Singleton<RenderManager>::instance()->getObject("cube_empty");
-
-	// _RENDER_ ¿ Animación para ajolote ?
-	if (ajolote != nullptr)
-	{
-		ajolote->setAnimation("axolotl_swim");
-		ajolote->animationSetEnabled(false);
-		ajolote->animationSetLooping(true);
-	}
-
-	//_RENDER_ Cámara para la escena
-	if (AXO_POV)
-	{
-		Singleton<RenderManager>::instance()->createCam(ajolote, { -25, 2, -4 });
-		Singleton<RenderManager>::instance()->yawCam(90);
+		if (!Singleton<RenderManager>::instance()->initApp()) // if (!correct)
+		{
+			// Fin del renderizado
+			Singleton<RenderManager>::instance()->closeApp();
+			Singleton<RenderManager>::instance()->release();
+			return 1;
+		}
 	}
 	else
 	{
-		Singleton<RenderManager>::instance()->createCam(nullptr);
+		return 1;
 	}
+	//_RENDER_ Cámara y sol para la escena
+	Singleton<RenderManager>::instance()->createCam(nullptr, {500, 0, 1000});
+	Singleton<RenderManager>::instance()->setCamLookAt({0, 0, 0});
 	Singleton<RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<RenderManager>::instance()->objectShowMode(0);
+	//
+	GraphicalObject* sol = Singleton<RenderManager>::instance()->
+		addObject("sol", nullptr, "SUN");
+	sol->setLightColor(0.8f, 0.8f, 0.8f);
+	sol->setDirection({ 0.0f, -0.8f, -1.0f });
+	//
+	GraphicalObject* equis = Singleton<RenderManager>::instance()->
+		addObject("x", nullptr, "cube.mesh", "rat");
+	equis->setPosition({ 400, 0, 0 });
+	GraphicalObject* igriega = Singleton<RenderManager>::instance()->
+		addObject("y", nullptr, "cube.mesh", "golf");
+	igriega->setPosition({ 0, 400, 0 });
+	GraphicalObject* ceta = Singleton<RenderManager>::instance()->
+		addObject("z", nullptr, "cube.mesh", "logo");
+	ceta->setPosition({ 0, 0, 400 });
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT EC
 	ec::EntityManager* entityManager = new ec::EntityManager();
-	sampleEntity = entityManager->addEntity();
+	ec::Entity* sampleEntity = entityManager->addEntity();
 	/////Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>(....);
 	Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>();
 	//bool trInit = sampleEntityTransformCmp->initComponent();
-	sampleEntityTransformCmp->setPosition({ 0, 0, 600 });
+	sampleEntityTransformCmp->setPosition({ 0, 0, 0 });
 	sampleEntityTransformCmp->setScale({ 40,40,40 });
 	Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
 	bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "axolotl.mesh", "axolotl");
 	if (meshInit) // hacer cosas con el cmp solo si se inicializó correctamente
+	{
 		sampleEntityMeshCmp->getObj()->showDebugBox(true);
+		sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+	}
 	//sampleEntity->removeComponent<Mesh>();
 
 	Fps fps;
@@ -150,13 +129,10 @@ int mainCode() {
 	InputManager* input = new InputManager;
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT INPUT
 
-
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 	//SoundManager* soundManager = new SoundManager();
 	//soundManager->addSong(".\executables\assets\loop.wav", 35, 1, true); 
-
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
-
 
 	// Bucle Principal del Motor //
 	bool error = false;
@@ -180,29 +156,15 @@ int mainCode() {
 
 
 		// vvvvvvvvvvvvvvvvvvvvvvv TEST EC
-		ecTestUpdate(entityManager, (float)timeSinceLastFrame);
+		entityManager->update(timeSinceLastFrame * 0.001f);	//ecTestUpdate
+		entityManager->refresh();							//ecTestUpdate
 		sampleEntityTransformCmp->yaw(1);					//rotado con referencia al componente transform
 		sampleEntity->getComponent<Transform>()->roll(1);	//rotado pidiendo la referencia al componente transform
 		// ʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌʌ TEST EC
 
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
-		milisecsAcc += timeSinceLastFrame; 
-		if (!cubeDisappearance && milisecsAcc > miliecsToDisappear) {
-			bool r1, r2;
-			r1 = Singleton<RenderManager>::instance()->sunsetObject("cube");
-			r2 = Singleton<RenderManager>::instance()->sunsetObject("cube_empty");
-			if (r1 && r2)
-			{
-				cubeDisappearance = true;
-				ficticioCubo = nullptr;
-			}
-		}
-
-		//_RENDER_ Ejemplo de movimiento: rotar objetos para ver cambios entre fotogramas
 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
 		input->inputEvent();
-
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST INPUT
 	
@@ -215,16 +177,8 @@ int mainCode() {
 			//sampleEntityTransformCmp->yaw(10);
 		}
 
-		if (input->isKeyDown(ScancodeKey::SCANCODE_F))
-		{
-			if (ficticioTripulacion != nullptr)
-				ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
-			if (tripulante_amarillo != nullptr)
-				tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
-		}
-
-		if (testButton->isButtonPressed() && ajolote != nullptr)
-			ajolote->yaw(rotationVelocity * timeSinceLastFrame);
+		//if (testButton->isButtonPressed()) // para saber si "la palanca fue activada" (toggle)
+			//std::cout << "pasan cosas..." << std::endl; //		🦍
 
 		if (input->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 			input->showOrHideMouse(); 
@@ -251,17 +205,13 @@ int mainCode() {
 		if (input->isKeyDown(ScancodeKey::SCANCODE_K))
 			std::cout << "Pos Raton = " << posMouse.first << " " << posMouse.second << "\n";
 
-		if (ficticioCubo)
-			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
-
 		if (input->hasWindowChange()) {
-			Singleton<RenderManager>::instance()->changeWindowSize();
+			Singleton<RenderManager>::instance()->notifyWindowResized();
 			testImage->updateImage();
 		}
 
 		//_RENDER_ Prueba de animaciones
 		Singleton<RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
-
 		//_RENDER_ Imprimir número de objetos gráficos cada cierto tiempo
 		miliecsSinceLastReport += timeSinceLastFrame; /// Perdida de float a int
 		if (miliecsSinceLastReport > miliecsToReport)
@@ -269,7 +219,6 @@ int mainCode() {
 			std::cout << "Objetos gráficos: " <<
 				Singleton<RenderManager>::instance()->getNumObjects() << std::endl;
 		}
-
 		//_RENDER_ Control de cuándo se borran aquellos que deben ser borrados
 		int f = Singleton<RenderManager>::instance()->refreshObjects();
 		if (f != 0)
@@ -277,11 +226,9 @@ int mainCode() {
 			std::cout << f <<
 				" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
 		}
-
 		//_RENDER_ Renderizar fotogramas de uno en uno
 		if (!Singleton<RenderManager>::instance()->renderFrame())
 			error = true;
-		//>>>>>>>>>>>>>>>>>>>>>>> TEST RENDER
 
 		fps.update();
 		if (miliecsSinceLastReport > miliecsToReport) {
@@ -306,12 +253,6 @@ int mainCode() {
 	Singleton<RenderManager>::release();
 
 	return 0;
-}
-
-void ecTestUpdate(ec::EntityManager* entityManager, float deltaTime) {
-	entityManager->update(deltaTime * 0.001f); 
-
-	entityManager->refresh();
 }
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola

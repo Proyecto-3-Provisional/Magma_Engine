@@ -16,13 +16,6 @@ RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest"
 	// CONTEXT: new -> setup()
 }
 
-void RenderManager::changeWindowSize()
-{
-	Ogre::RenderWindow* win = mWindow.render;
-	win->windowMovedOrResized();
-	windowResized(win);
-}
-
 // Recibe un booleano que indica si el cursor puede salir de la ventana o no
 // y parámetros que modifican la ventana y las condiciones del renderizado
 RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,
@@ -78,10 +71,11 @@ void RenderManager::rollCam(float deg, Ogre::Node::TransformSpace relTo)
 		cameraNode->roll(Ogre::Degree(deg), relTo);
 }
 
-void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo)
+void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo,
+	Ogre::Vector3 lDirVec)
 {
 	if (cameraNode)
-		cameraNode->lookAt(vec, relTo);
+		cameraNode->lookAt(vec, relTo, lDirVec);
 }
 
 // 0. Comprobar que no hay cámara
