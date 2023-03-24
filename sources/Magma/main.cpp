@@ -68,7 +68,7 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT RENDER
 	bool correct = false;
-	if (Singleton<RenderManager>::init(false, 120, 72, false, true, 4, false))
+	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
 		correct = Singleton<RenderManager>::instance()->initApp();
 	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
 
@@ -249,8 +249,10 @@ int mainCode() {
 		if (ficticioCubo)
 			ficticioCubo->pitch(rotationVelocity * timeSinceLastFrame);
 
-		if (input->hasWindowChange())
-			Singleton<RenderManager>::instance()->changeWindowSize(); 
+		if (input->hasWindowChange()) {
+			Singleton<RenderManager>::instance()->changeWindowSize();
+			testImage->updateImage();
+		}
 
 		//_RENDER_ Prueba de animaciones
 		Singleton<RenderManager>::instance()->stepAnimations(timeSinceLastFrame);

@@ -32,6 +32,7 @@ public:
 		return elem;
 	}
 
+
 private:
 	Ogre::OverlayManager* overlayMngr_;
 	Ogre::Overlay* overlay;

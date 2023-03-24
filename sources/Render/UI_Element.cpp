@@ -10,6 +10,7 @@ UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
 	title_ = title;
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
 	overlay_ = overReference;
+	
 	isInteractive_ = false;
 
 	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", title_));

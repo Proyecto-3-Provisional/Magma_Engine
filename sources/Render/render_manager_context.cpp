@@ -106,6 +106,8 @@ void RenderManagerContext::windowMoved(Ogre::RenderWindow* rw)
 
 void RenderManagerContext::windowResized(Ogre::RenderWindow* rw)
 {
+	winWidth = rw->getWidth();
+	winHeight = rw->getHeight();
 }
 
 bool RenderManagerContext::windowClosing(Ogre::RenderWindow* rw)
@@ -326,4 +328,12 @@ void RenderManagerContext::locateResources()
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
 			"/materials/programs/HLSL", type, sec);
 	}
+}
+
+int RenderManagerContext::getWinWidth() {
+	return winWidth;
+}
+
+int RenderManagerContext::getWinHeight() {
+	return winHeight;
 }

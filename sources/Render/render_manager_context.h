@@ -79,6 +79,9 @@ public:
 	// Renderizar un fotograma
 	bool renderFrame();
 
+	int getWinWidth();
+	int getWinHeight();
+
 protected:
 	bool cursorGrab;
 
