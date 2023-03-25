@@ -1,18 +1,15 @@
 #pragma once
 #include "btBulletDynamicsCommon.h"
+#include "../singleton.h"
 #include <vector>
 
 class Vector3D;
 
 
-class PhysicsManager {
+class PhysicsManager : public Singleton<PhysicsManager> {
 public:
 	PhysicsManager();
 	~PhysicsManager();
-
-	static PhysicsManager* getInstance();
-	static bool initManager();
-	static void detachManager();
 
 	int addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
 	void deleteRigidBody(const int& userIndex);
@@ -25,7 +22,6 @@ public:
 	btRigidBody* getRigidBody(int index);
 	void addForceTo(int index, btVector3 force);
 
-private:
 	int initPhysics();
 	void detachPhysics();
 

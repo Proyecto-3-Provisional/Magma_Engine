@@ -16,11 +16,11 @@ bool Rigidbody::initComponent()
 
 	Vector3D pos = trPtr->getPos();
 
-	if (PhysicsManager::getInstance() != nullptr) {
-		int index = PhysicsManager::getInstance()->addRigidBody(
+	if (PhysicsManager::instance() != nullptr) {
+		int index = PhysicsManager::instance()->addRigidBody(
 			scale.getX(), scale.getY(), scale.getZ(), pos.getX(), pos.getY(), pos.getZ());
 
-		rigidPtr = PhysicsManager::getInstance()->getRigidBody(index);
+		rigidPtr = PhysicsManager::instance()->getRigidBody(index);
 
 		if (rigidPtr == nullptr)
 			return false;
@@ -31,24 +31,24 @@ bool Rigidbody::initComponent()
 
 void Rigidbody::update(float deltaTime)
 {
-	Vector3D pos = PhysicsManager::getInstance()->getTransform(rigidPtr->getUserIndex());
+	Vector3D pos = PhysicsManager::instance()->getTransform(rigidPtr->getUserIndex());
 	trPtr->setPosition(pos);
 }
 
 bool Rigidbody::isCollideWith(int indexCollide)
 {
-	return PhysicsManager::getInstance()->isCollide(rigidPtr->getUserIndex(), indexCollide);
+	return PhysicsManager::instance()->isCollide(rigidPtr->getUserIndex(), indexCollide);
 }
 
 bool Rigidbody::isOnCollision(std::vector<int>& indexCollides)
 {
-	indexCollides = PhysicsManager::getInstance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
+	indexCollides = PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
 	return (indexCollides.size() > 0);
 }
 
 void Rigidbody::addForce(const Vector3D& force)
 {
-	PhysicsManager::getInstance()->addForceTo(rigidPtr->getUserIndex(),
+	PhysicsManager::instance()->addForceTo(rigidPtr->getUserIndex(),
 		btVector3(force.getX(), force.getY(), force.getZ()));
 }
 

@@ -7,8 +7,10 @@
 class Transform;
 class TestAxlMov;
 class Mesh;
+class Rigidbody;
 
 #define _CMPS_LIST_ Transform,\
 					TestAxlMov,\
-					Mesh
+					Mesh,\
+					Rigidbody
 		

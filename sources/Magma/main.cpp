@@ -127,7 +127,17 @@ int mainCode() {
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
-	PhysicsManager::initManager();
+	correct = false;
+	if (Singleton<PhysicsManager>::init())
+		correct = Singleton<PhysicsManager>::instance()->initPhysics();
+	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
+
+	if (!correct)
+	{
+		// Fin del renderizado
+		Singleton<PhysicsManager>::instance()->detachPhysics();
+		return 1;
+	}
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
 
 	
@@ -167,7 +177,7 @@ int mainCode() {
 		miliecsSinceLastReport2 += timeSinceLastFrame;
 		if (miliecsSinceLastReport2 > miliecsToReport) {
 			miliecsSinceLastReport2 = 0;
-			PhysicsManager::getInstance()->update();
+			Singleton<PhysicsManager>::instance()->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
 		// s--; ඞ
@@ -292,7 +302,8 @@ int mainCode() {
 	//delete soundManager; soundManager = nullptr;
 	delete input; input = nullptr;
 	delete ui; ui = nullptr;
-	PhysicsManager::detachManager();
+	Singleton<PhysicsManager>::instance()->detachPhysics();
+	Singleton<PhysicsManager>::release();
 	delete entityManager; entityManager = nullptr;
 	// Fin del renderizado
 	Singleton<RenderManager>::instance()->closeApp();

@@ -12,37 +12,6 @@ PhysicsManager::~PhysicsManager()
 {
 }
 
-PhysicsManager* PhysicsManager::instance_ = nullptr;
-
-
-PhysicsManager* PhysicsManager::getInstance()
-{
-	return instance_;
-}
-
-bool PhysicsManager::initManager()
-{
-	if (instance_ == nullptr) {
-		try {
-			instance_ = new PhysicsManager();
-			instance_->initPhysics();
-		}
-		catch (...) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-void PhysicsManager::detachManager()
-{
-	if (instance_ != nullptr) {
-		instance_->detachPhysics();
-		delete instance_; instance_ = nullptr;
-	}
-}
-
 // Inicia la clase y el mundo físico de PhysicsManager
 int PhysicsManager::initPhysics()
 {
