@@ -45,6 +45,7 @@ public:
 
 	// multiplicación escalar
 	float operator *(const Vector3D& d) const;
+
 private:
 	float x;
 	float y;

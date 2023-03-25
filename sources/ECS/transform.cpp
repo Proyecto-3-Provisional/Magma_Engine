@@ -7,9 +7,9 @@ Vector3D& Transform::getPos()
 	return pos;
 }
 
-Vector3D& Transform::getVel()
+Vector3D& Transform::getForward()
 {
-	return vel;
+	return forward;
 }
 
 Vector3D Transform::getScale()
@@ -22,14 +22,19 @@ void Transform::setPosition(Vector3D pos_)
 	pos = pos_;
 }
 
-void Transform::setVelocity(Vector3D vel_)
-{
-	vel = vel_;
-}
+//void Transform::setVelocity(Vector3D vel_)
+//{
+//	vel = vel_;
+//}
 
 void Transform::setScale(Vector3D scale_)
 {
 	scale = scale_;
+}
+
+void Transform::setVel(float v)
+{
+	vel = v;
 }
 
 float Transform::getW() const
@@ -65,8 +70,9 @@ void Transform::setD(float depth_)
 bool Transform::initComponent()
 {
 	pos = Vector3D(0, 0, 0);
-	vel = Vector3D(0, 0, 0);
 	scale = Vector3D(1, 1, 1);
+	forward = Vector3D(0, 0, 1);
+	vel = 50;
 	
 	return true;
 }
@@ -74,7 +80,7 @@ bool Transform::initComponent()
 // movimiento entidad
 void Transform::update(float deltaTime)
 {
-	pos = pos + vel * deltaTime;
+	pos = pos + forward * vel * deltaTime;
 }
 
 void Transform::pitch(float deg)
@@ -99,4 +105,20 @@ void Transform::roll(float deg)
 	m.id = _m_OBJECT_ROTATED;
 	m.object_rotated_data = { deg, 'z' };
 	ent->send(m);
+}
+
+void Transform::setDirection(Vector3D v)
+{
+	forward = v.normalize();
+
+	Message m;
+	m.id = _m_OBJECT_LOOKAT;
+	m.object_lookedat_data = { v.getX(), v.getY(), v.getZ()};
+	ent->send(m);
+}
+
+void Transform::lookAtPoint(Vector3D target)
+{
+
+	setDirection(target - pos);
 }

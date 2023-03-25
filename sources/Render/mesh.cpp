@@ -39,6 +39,8 @@ void Mesh::update(float deltaTime)
 		gObjPtr->setPosition({ v.getX(), v.getY(), v.getZ() });
 		Vector3D s = trPtr->getScale();
 		gObjPtr->setScale({ s.getX(), s.getY(), s.getZ() });
+		Vector3D d = trPtr->getForward();
+		gObjPtr->setDirection({d.getX(), d.getY(), d.getZ()});
 	}
 }
 
@@ -51,7 +53,11 @@ void Mesh::recieve(const Message& m)
 	switch (m.id)
 	{
 	case _m_OBJECT_ROTATED:
-		rotate(m.object_rotated_data.deg, m.object_rotated_data.axis);
+			rotate(m.object_rotated_data.deg, m.object_rotated_data.axis);
+		break;
+		case _m_OBJECT_LOOKAT:
+			setDirection(m.object_lookedat_data.x, m.object_lookedat_data.y, m.object_lookedat_data.z);
+		break;
 	default:
 		break;
 	}
@@ -73,4 +79,12 @@ void Mesh::rotate(float deg, char axis)
 	default:
 		break;
 	}
+}
+
+void Mesh::setDirection(float x, float y, float z)
+{
+	////getObj()->setDirection({ x, y, z });
+	//getObj()->setOrientation(45, { 0,0,1 });
+	//getObj()->setOrientation(180, { 0,1,0 });
+	//getObj()->setOriLookingAt
 }

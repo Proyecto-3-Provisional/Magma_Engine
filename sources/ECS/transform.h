@@ -6,16 +6,18 @@
 class Transform : public ec::Component {
 public:
 	Transform() : pos(), vel() {};
-	Transform(Vector3D pos_, Vector3D vel_) : pos(pos_), vel(vel_) {};
+	Transform(Vector3D pos_, float vel_) : pos(pos_), vel(vel_) {};
 
 	virtual ~Transform() {};
 
 	Vector3D& getPos();
-	Vector3D& getVel();
+	Vector3D& getForward();
 	Vector3D getScale();
+
+
 	void setPosition(Vector3D pos_);
-	void setVelocity(Vector3D vel_);
 	void setScale(Vector3D scale_);
+	void setVel(float v);
 	
 	// w = width, eje X
 	float getW() const;
@@ -38,8 +40,16 @@ public:
 	void yaw(float deg);
 	void roll(float deg);
 
+	void setDirection(Vector3D v);
+
+	// Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
+	void lookAtPoint(Vector3D target);
+	
+
 private:
 	Vector3D pos;
-	Vector3D vel;
 	Vector3D scale;
+	Vector3D forward; //la direccion hacia delante en el eje z del objeto
+
+	float vel;
 };

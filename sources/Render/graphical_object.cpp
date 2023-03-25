@@ -113,7 +113,7 @@ void GraphicalObject::setPosition(Ogre::Vector3 vec)
 // Útil en luces direccionales
 void GraphicalObject::setDirection(Ogre::Vector3 vec)
 {
-	objectNode->setDirection(vec.normalisedCopy());
+	objectNode->setDirection(vec.normalisedCopy(), Ogre::Node::TS_PARENT, Ogre::VectorBase<3, Ogre::Real>::UNIT_X);
 }
 
 void GraphicalObject::yaw(float deg, Ogre::Node::TransformSpace relTo)

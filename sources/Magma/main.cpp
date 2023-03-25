@@ -22,7 +22,6 @@
 #include "Sounds/sound_manager.h"
 #include "ECS/entity_manager.h"
 #include "ECS/entity.h"
-#include "ECS/test_axl_mov.h"
 #include "ECS/vector3D.h"
 #include "ECS/fps_counter.h"
 
@@ -95,7 +94,7 @@ int mainCode() {
 	if (meshInit) 
 	{
 		sampleEntityMeshCmp->getObj()->showDebugBox(true);
-		sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+		//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
 
 	Fps fps;
@@ -146,24 +145,9 @@ int mainCode() {
 			error = true;
 
 		// ---------- TEST EC ----------
-		//ecTestUpdate
 		Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);	
 		Singleton<ec::EntityManager>::instance()->refresh();
-		//rota con referencia al componente transform
-		sampleEntityTransformCmp->yaw(1);
-		//rota pidiendo la referencia al componente transform
-		sampleEntity->getComponent<Transform>()->roll(1);
 
-		if (sampleEntityMeshCmp/* && trInit */ && meshInit)
-		{
-			// esta rotación DEBERÍA HACERSE según Transform
-			//sampleEntityTransformCmp->setRotation(/*LIADA_MASIVA*/)
-			//sampleEntityMeshCmp->getObj()->yaw(rotationVelocity * timeSinceLastFrame);
-			sampleEntityTransformCmp->setVelocity({ 0, 0, 25 });
-			//sampleEntityTransformCmp->yaw(10);
-		}
-
-		fps.update();
 
 		// ---------- TEST PHYSICS ----------
 		miliecsSinceLastReport2 += timeSinceLastFrame;
@@ -208,7 +192,11 @@ int mainCode() {
 			testText->updateText();
 		}
 
+
 		Singleton<InputManager>::instance()->flush();
+
+		// ---------- FPS CALCULATOR ----------
+		fps.update();
 
 		if (miliecsSinceLastReport > miliecsToReport) {
 			testText->setText(std::to_string(fps.get()) + " fps");

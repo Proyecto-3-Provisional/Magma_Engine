@@ -21,6 +21,8 @@ public:
 
 	//axis char: 'x', 'y' or 'z'
 	void rotate(float deg, char axis);
+	void setDirection(float x, float y, float z);
+
 
 private:
 	GraphicalObject* gObjPtr = nullptr;
