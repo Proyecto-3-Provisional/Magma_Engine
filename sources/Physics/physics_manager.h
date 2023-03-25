@@ -26,8 +26,6 @@ public:
 	void detachPhysics();
 
 private:
-	static PhysicsManager* instance_;
-
 	btDefaultCollisionConfiguration* collisionConfiguration;
 	btCollisionDispatcher* dispatcher;
 	btBroadphaseInterface* overlappingPairCache;

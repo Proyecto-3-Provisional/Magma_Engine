@@ -4,8 +4,9 @@
 #include <iostream>
 
 #include "input_commands.h"
+#include "../singleton.h"
 
-class InputManager
+class InputManager : public Singleton<InputManager>
 {
 public:
 

@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "../singleton.h"
 
 namespace Ogre
 {
@@ -13,7 +14,7 @@ namespace Ogre
 
 class UI_Element;
 
-class UI_Manager
+class UI_Manager : public Singleton<UI_Manager>
 {
 public:
 	UI_Manager();

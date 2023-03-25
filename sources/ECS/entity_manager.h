@@ -8,9 +8,10 @@
 #include "entity.h"
 #include "ec.h"
 #include "messages.h"
+#include "../singleton.h"
 
 namespace ec {
-	class EntityManager {
+	class EntityManager : public Singleton<EntityManager> {
 	public:
 		EntityManager(){};
 		virtual ~EntityManager();
