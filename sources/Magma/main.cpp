@@ -111,7 +111,7 @@ int mainCode() {
 
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT PHYSICS
-	correct = false;
+	bool correct = false;
 	if (Singleton<PhysicsManager>::init())
 		correct = Singleton<PhysicsManager>::instance()->initPhysics();
 	////////temporal////////////RenderManager* renderMngr = new RenderManager(false, 800, 600, false, true, 4, false);
