@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\sources\ECS\audio_source.h" />
     <ClInclude Include="..\..\sources\ECS\component.h" />
     <ClInclude Include="..\..\sources\ECS\ec.h" />
     <ClInclude Include="..\..\sources\ECS\ec_defs.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="..\..\sources\ECS\vector3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sources\ECS\audio_source.cpp" />
     <ClCompile Include="..\..\sources\ECS\component.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity.cpp" />
     <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
@@ -119,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,7 +166,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

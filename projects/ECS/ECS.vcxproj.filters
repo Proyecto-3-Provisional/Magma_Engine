@@ -57,6 +57,9 @@
     <ClInclude Include="..\..\sources\ECS\ec_defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\ECS\audio_source.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\ECS\entity.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="..\..\sources\ECS\test_axl_mov.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\ECS\audio_source.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

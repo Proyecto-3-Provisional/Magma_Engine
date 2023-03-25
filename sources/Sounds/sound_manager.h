@@ -1,51 +1,48 @@
 #pragma once
 
-#include "SDL_audio.h"
-
 #include <iostream>
-#include <vector>
+#include <vector> 
 
-//class SDL_mixer; 
+class Mix_Chunk;
 
 struct AudioData
 {
 	std::string audio_path;
 
+	Mix_Chunk* wavSound;
+
 	int channel;
 
 	float volume;
-
-	bool canLoop; 
-	bool isPlaying; 
-	bool isPaused; 
 };
 
 class SoundManager
 {
 public:
+	SoundManager();
+	~SoundManager();
 
-	SoundManager(); 
-	~SoundManager() {}
+	void loadWAV(const char* path);
 
-	void addSong(std::string path, float vol, int channel, bool loop);
-
-	void playSound(AudioData* audio);
+	void playSound(AudioData* audio, int loop = 0);
 	void stopSound(AudioData* audio);
 	void pauseSound(AudioData* audio);
 	void resumeSound(AudioData* audio);
 
-	void changeVolume();
-	void setVolume(float soundVolume); 
-	float getVolume(); 
+	bool hasEnded(AudioData* audio);
+
+	void setVolume(float soundVolume);
+	void setVolumeSongs(); 
+	float getVolume();
+
+	void initAudio();
+	void closeAudio();
 
 	void removeSong(AudioData* audio);
-	bool songEnded(AudioData* audio); 
 
 private:
 
-	SDL_AudioDeviceID device; // Identificador del dispositivo de audio que se abre al reproducir un sonido
-
-	float musicVolume; 
+	float volume;
 
 	std::vector<AudioData*> songs;
 };

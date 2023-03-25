@@ -25,6 +25,7 @@
 #include "ECS/test_axl_mov.h"
 #include "ECS/vector3D.h"
 #include "ECS/fps_counter.h"
+#include "ECS/audio_source.h"
 
 #define AXO_POV 0
 
@@ -146,7 +147,13 @@ int mainCode() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 	SoundManager* soundManager = new SoundManager();
-	soundManager->addSong(".\executables\assets\sound.wav", 100, 0, true); 
+	soundManager->initAudio(); 
+	soundManager->loadWAV(".\executables\assets\sound.wav"); 
+
+	AudioSource* a = sampleEntity->addComponent<AudioSource>();
+	//a->setSongsValues(".\executables\assets\sound.wav", 10, 1, true, true); 
+	a->playSong(); 
+	a->setVolume(35);
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 

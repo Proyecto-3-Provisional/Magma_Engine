@@ -6,9 +6,11 @@
 //abajo ejemplo de uso
 class Transform;
 class TestAxlMov;
+class AudioSource;
 class Mesh;
 
 #define _CMPS_LIST_ Transform,\
 					TestAxlMov,\
+					AudioSource,\
 					Mesh
 		
