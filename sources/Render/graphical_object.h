@@ -14,7 +14,8 @@
 class GraphicalObject {
 public:
 	GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
-		GraphicalObject* parent, std::string mesh, std::string material);
+		GraphicalObject* parent = nullptr,
+		std::string mesh = "", std::string material = "default");
 	~GraphicalObject();
 
 	// Transformaciones
@@ -25,6 +26,7 @@ public:
 	void pitch(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void roll(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void setOrientation(float ang, Ogre::Vector3 axis);
+	void setOriLookingAt(Ogre::Vector3 target, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_WORLD, Ogre::Vector3 lDirVec = Ogre::Vector3::NEGATIVE_UNIT_Z);
 	void scale(float factor);
 	void setScale(float factor);
 	void scale(Ogre::Vector3 factor);

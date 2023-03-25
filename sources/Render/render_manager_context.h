@@ -21,10 +21,11 @@ struct NativeWindowPair
 // con ventana. La subclase debe especificar los callbacks a eventos.
 class RenderManagerContext : public Ogre::FrameListener
 {
-public:
+protected:
 	explicit RenderManagerContext(const Ogre::String& appName = OGRE_VERSION_NAME);
 	explicit RenderManagerContext(const Ogre::String& appName,
 		uint32_t w, uint32_t h, bool fScr, bool vSyn, int fsaa, bool gamm);
+public:
 	virtual ~RenderManagerContext();
 
 	// Obtener la RenderWindow; posee el contexto en OpenGL
@@ -78,6 +79,9 @@ public:
 
 	// Renderizar un fotograma
 	bool renderFrame();
+
+	int getWinWidth();
+	int getWinHeight();
 
 protected:
 	bool cursorGrab;

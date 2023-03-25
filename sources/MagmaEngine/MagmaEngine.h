@@ -23,12 +23,12 @@ public:
 	static CMagmaEngine* _instance;
 	CMagmaEngine(void);
 private:
-	RenderManager* render;
+	/*RenderManager* render;
 	UIManager* ui;
 	PhysicsManager* physics;
 	AudioManager* audio;
 	InputManager* input;
-	EC* ec;
+	EC* ec;*/
 };
 
 extern MAGMAENGINE_API int nMagmaEngine;

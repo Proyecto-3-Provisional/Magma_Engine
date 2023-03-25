@@ -15,10 +15,10 @@
 //	* (otra cosa)	-> entidad gráfica normal con malla determinada 'mesh'
 
 GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
-	GraphicalObject* parent = nullptr, std::string mesh = "",
-	std::string material = "default") : keyName(name), mySceneManager(mSM),
-	parentObject(parent), childrenUsing(0), camAttached(false), meshFile(mesh),
-	materialName(material), visible(true), showsBox(false)
+	GraphicalObject* parent, std::string mesh, std::string material)
+	: keyName(name), mySceneManager(mSM), parentObject(parent), childrenUsing(0),
+	camAttached(false), meshFile(mesh), materialName(material),
+	visible(true), showsBox(false)
 {
 	if (parentObject)
 	{
@@ -135,6 +135,12 @@ void GraphicalObject::setOrientation(float ang, Ogre::Vector3 axis)
 {
 	Ogre::Quaternion q = Ogre::Quaternion(Ogre::Degree(ang), Ogre::Vector3(axis));
 	objectNode->setOrientation(q);
+}
+
+void GraphicalObject::setOriLookingAt(Ogre::Vector3 target,
+	Ogre::Node::TransformSpace relTo, Ogre::Vector3 lDirVec)
+{
+	objectNode->lookAt(target, relTo, lDirVec);
 }
 
 void GraphicalObject::scale(float factor)

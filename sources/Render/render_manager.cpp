@@ -16,13 +16,6 @@ RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest"
 	// CONTEXT: new -> setup()
 }
 
-void RenderManager::changeWindowSize()
-{
-	Ogre::RenderWindow* win = mWindow.render;
-	win->windowMovedOrResized();
-	windowResized(win);
-}
-
 // Recibe un booleano que indica si el cursor puede salir de la ventana o no
 // y parámetros que modifican la ventana y las condiciones del renderizado
 RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,
@@ -78,10 +71,11 @@ void RenderManager::rollCam(float deg, Ogre::Node::TransformSpace relTo)
 		cameraNode->roll(Ogre::Degree(deg), relTo);
 }
 
-void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo)
+void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo,
+	Ogre::Vector3 lDirVec)
 {
 	if (cameraNode)
-		cameraNode->lookAt(vec, relTo);
+		cameraNode->lookAt(vec, relTo, lDirVec);
 }
 
 // 0. Comprobar que no hay cámara
@@ -151,8 +145,8 @@ void RenderManager::destroyCam()
 de la clave, no añadiendo el objeto en caso de que ya existiera.
 Pese a esto, para saber si el objeto no debería ser construido, lo
 comprobamos manualmente de todos modos. Tampoco disponemos de 'contains()' */
-GraphicalObject* RenderManager::addObject(std::string key, GraphicalObject* parent = nullptr,
-	std::string mesh = "", std::string material = "default")
+GraphicalObject* RenderManager::addObject(std::string key, GraphicalObject* parent,
+	std::string mesh, std::string material)
 {
 	GraphicalObject* gO = getObject(key);
 	if (gO)
@@ -303,7 +297,7 @@ void RenderManager::stepAnimations(int deltaTime)
 	}
 }
 
-// Al final crea la malla de un plano po código y dispone la escena
+// Al final crea la malla de un plano por código
 // NO CAMBIAR LA PRIMERA LÍNEA
 void RenderManager::setup()
 {
@@ -313,7 +307,6 @@ void RenderManager::setup()
 	mSM->addRenderQueueListener(mOverlaySystem);
 
 	createPlaneMesh();
-	setupScene();
 }
 
 // POSIBLEMENTE BLOQUEANTE debido a removeObjects() -> Destruir cámara antes
@@ -329,65 +322,6 @@ void RenderManager::shutdown()
 	mRoot->destroySceneManager(mSM);
 
 	RenderManagerContext::shutdown();
-}
-
-// Se crean la cámara y los objetos de prueba
-void RenderManager::setupScene(void)
-{
-	// LUCES
-	GraphicalObject* sol = addObject("sol", nullptr, "SUN");
-	sol->setLightColor(0.5f, 0.5f, 0.3f);
-	sol->setDirection({ 0.0f, -0.8f, -1.0f });
-	return;
-	GraphicalObject* lbulb = addObject("bombilla", nullptr, "LIGHTBULB");
-	lbulb->setLightColor(0.5f, 0.5f, 0.85f);
-	lbulb->setPosition({ 0, 500, 200 });
-	GraphicalObject* spotl = addObject("foco", nullptr, "SPOTLIGHT");
-	spotl->setLightColor(1.0f, 0.2f, 0.2f);
-	spotl->setPosition({ 0, 0, 500 });
-	spotl->setPosition({ 0, 0.5, -1 });
-
-	// CUBO
-	GraphicalObject* aux = addObject("cube_empty");
-	aux->setPosition({ 0, 0, 50 });
-	aux->setScale({ 0.8f, 0.8f, 0.8f });
-	aux->makeVisible(true);
-	GraphicalObject* cubo = addObject("cube", aux, "cube.mesh", "logo");
-	cubo->translate({ 0, 0, 200 }, Ogre::Node::TransformSpace::TS_WORLD);
-
-	// AJOLOTE con emisor de partículas
-	GraphicalObject* ajo = addObject("suxalote", nullptr, "axolotl.mesh", "axolotl");
-	ajo->showDebugBox(false);
-	ajo->setPosition({ 0, 0, 50 }); // me lo acerco a la cara 50 ud.
-	ajo->setScale({ 60, 60, 60 });
-	GraphicalObject* burst = addObject("bubbles", ajo, "EMITTER", "bubble_burst");
-	burst->translate({ 2.5, 0, 0 });
-
-	// TRIPULANTES
-	GraphicalObject* rosco = addObject("crew", nullptr, "", "thiswontbeused");
-	rosco->setPosition({ 0, 0, 50 });
-	rosco->setScale({ 100, 100, 100 });
-	float delta_degrees = 360 / NUM_CREWMATES;
-	float init_degrees = 90;
-	float degrees = init_degrees;
-	float radius = 3;
-	for (size_t i = 0; i < NUM_CREWMATES; i++)
-	{
-		GraphicalObject* tripulante = addObject(
-			"crewmate_" + crew_colors[i], rosco, "amongus.mesh", crew_colors[i]);
-		Ogre::Vector3 p = {
-			radius * Ogre::Math::Cos(Ogre::Degree(degrees)),
-			radius * Ogre::Math::Sin(Ogre::Degree(degrees)),
-			0 };
-		tripulante->setPosition(p);
-		tripulante->setOrientation(degrees - init_degrees, { 0, 0, 1 });
-
-		degrees -= delta_degrees;
-	}
-
-	// PLANO
-	GraphicalObject* plano = addObject("bckgrnd_plane", nullptr, "mPlane1080x800");
-	plano->setPosition({ 0, 0, -400 });
 }
 
 // Definir malla mPlane1080x800

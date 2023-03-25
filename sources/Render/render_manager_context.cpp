@@ -87,11 +87,6 @@ void RenderManagerContext::closeApp()
 
 bool RenderManagerContext::frameStarted(const Ogre::FrameEvent& evt)
 {
-	// Esto no habría que hacerlo en cada frame,
-	// solo si se detectase que se cambia la ventana
-	// con POLLEVENTS de SDL
-	notifyWindowResized();
-
 	return true;
 }
 
@@ -106,6 +101,8 @@ void RenderManagerContext::windowMoved(Ogre::RenderWindow* rw)
 
 void RenderManagerContext::windowResized(Ogre::RenderWindow* rw)
 {
+	winWidth = rw->getWidth();
+	winHeight = rw->getHeight();
 }
 
 bool RenderManagerContext::windowClosing(Ogre::RenderWindow* rw)
@@ -326,4 +323,12 @@ void RenderManagerContext::locateResources()
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch +
 			"/materials/programs/HLSL", type, sec);
 	}
+}
+
+int RenderManagerContext::getWinWidth() {
+	return winWidth;
+}
+
+int RenderManagerContext::getWinHeight() {
+	return winHeight;
 }

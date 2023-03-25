@@ -24,6 +24,13 @@ UIButton::UIButton(Ogre::Overlay* overReference, std::string title, std::string 
 	onButton = false; 
 
 	panel->addChild(buttonImage);
+
+	screenwidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	screenheight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+	originalPosX = posX;
+	originalPosY = posY;
+	originalTamX = sizeX;
+	originalTamY = sizeY;
 }
 
 UIButton::~UIButton() 
@@ -75,4 +82,19 @@ bool UIButton::isOnButton()
 bool UIButton::isCursorInsideBounds(int mouseX, int mouseY)
 {
 	return (mouseX > x && mouseX < (x + tamX)) && (mouseY > y && mouseY < (y + tamY)); 
+}
+
+void UIButton::updateButton() {
+
+	float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+	if (newWidth != 0 && newHeight != 0 && screenwidth != 0 && screenheight != 0) {
+		x = originalPosX * (newWidth / screenwidth);
+		y = originalPosY * (newHeight / screenheight);
+		buttonImage->setPosition(x, y);
+
+		tamX = originalTamX * (newWidth / screenwidth);
+		tamY = originalTamY * (newHeight / screenheight);
+		buttonImage->setDimensions(tamX, tamY);
+	}
 }

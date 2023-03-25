@@ -6,6 +6,9 @@
 
 #include <string>
 
+#include "render_manager.h"
+
+
 class UI_Element
 {
 public:
@@ -37,6 +40,8 @@ protected:
 	bool isInteractive_;
 
 	Ogre::String title_;
+
+	//RenderManagerContext* rend;
 
 	/// Todos los elementos numericos (como la posicion o el tamaño), deben ser float
 	/// OGRE_DOUBLE_PRECISION que se define en OgreConfig.h y ogrebuildsettings.h, si es 1 entonces puede convertir double pero no float, y si es 0 al reves

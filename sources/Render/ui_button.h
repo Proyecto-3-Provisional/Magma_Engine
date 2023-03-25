@@ -21,6 +21,8 @@ public:
 
 	bool isCursorInsideBounds(int x, int y); 
 
+	void updateButton();
+
 private:
 
 	Ogre::OverlayElement* buttonImage;
@@ -36,4 +38,11 @@ private:
 	std::string normalButtonName;
 	std::string hoverButtonName;
 	std::string pressedButtonName;
+
+	float screenwidth;
+	float screenheight;
+	float originalPosX;
+	float originalPosY;
+	float originalTamX;
+	float originalTamY;
 };

@@ -11,6 +11,15 @@ public:
 	void setImageSize(float x, float y);
 	void changeImage(std::string title, std::string imageName);
 
+	void updateImage();
+
 private:
 	Ogre::OverlayElement* imageUI = nullptr;
+	float screenwidth = 1;
+	float screenheight = 1;
+	float originalwidth;
+	float originalheight;
+	float originalposx;
+	float originalposy;
+
 };

@@ -1,0 +1,12 @@
+material golf {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			texture_unit {
+				texture golf.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
