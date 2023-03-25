@@ -24,6 +24,7 @@
 #include "ECS/entity.h"
 #include "ECS/vector3D.h"
 #include "ECS/fps_counter.h"
+#include "ECS/transform.h"
 
 // DECLARACIÓN DE FUNCIONES
 void initManagers();
