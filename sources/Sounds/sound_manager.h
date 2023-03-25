@@ -14,6 +14,8 @@ struct AudioData
 	int channel;
 
 	float volume;
+
+	bool loop; 
 };
 
 class SoundManager
@@ -22,14 +24,14 @@ public:
 	SoundManager();
 	~SoundManager();
 
-	void loadWAV(const char* path);
+	void loadWAV(const char* path, float vol, int channel, bool loop);
 
-	void playSound(AudioData* audio, int loop = 0);
-	void stopSound(AudioData* audio);
-	void pauseSound(AudioData* audio);
-	void resumeSound(AudioData* audio);
+	void playSound(int channel);
+	void stopSound(int channel);
+	void pauseSound(int channel);
+	void resumeSound(int channel);
 
-	bool hasEnded(AudioData* audio);
+	bool hasEnded(int channel);
 
 	void setVolume(float soundVolume);
 	void setVolumeSongs(); 
@@ -38,7 +40,7 @@ public:
 	void initAudio();
 	void closeAudio();
 
-	void removeSong(AudioData* audio);
+	void removeSong(int channel);
 
 private:
 

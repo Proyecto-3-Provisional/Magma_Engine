@@ -148,12 +148,14 @@ int mainCode() {
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 	SoundManager* soundManager = new SoundManager();
 	soundManager->initAudio(); 
-	soundManager->loadWAV(".\executables\assets\sound.wav"); 
+	soundManager->loadWAV("../../executables/assets/loop.wav", 0.05, 2, true);
 
-	AudioSource* a = sampleEntity->addComponent<AudioSource>();
-	//a->setSongsValues(".\executables\assets\sound.wav", 10, 1, true, true); 
-	a->playSong(); 
-	a->setVolume(35);
+	soundManager->playSound(2); 
+
+	//AudioSource* a = sampleEntity->addComponent<AudioSource>();
+	////a->setSongsValues(".\executables\assets\sound.wav", 10, 1, true, true); 
+	//a->playSong(); 
+	//a->setVolume(35);
 
 	//>>>>>>>>>>>>>>>>>>>>>>> INIT SOUND MANAGER
 
@@ -175,7 +177,7 @@ int mainCode() {
 			PhysicsManager::getInstance()->update();
 		}
 		// Para ver los couts de colisiones descomentar la s
-		// s--; ඞ
+		// s--; ඞ 
 		//>>>>>>>>>>>>>>>>>>>>>>> TEST PHYSICS
 
 
@@ -218,6 +220,12 @@ int mainCode() {
 				ficticioTripulacion->roll(-rotationVelocity * timeSinceLastFrame);
 			if (tripulante_amarillo != nullptr)
 				tripulante_amarillo->yaw(rotationVelocity * timeSinceLastFrame);
+		}
+
+		if (input->isKeyDown(ScancodeKey::SCANCODE_J))
+		{
+			soundManager->setVolume(50);
+			soundManager->setVolumeSongs();
 		}
 
 		if (testButton->isButtonPressed() && ajolote != nullptr)

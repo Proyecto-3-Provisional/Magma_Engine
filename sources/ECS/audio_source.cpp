@@ -43,7 +43,7 @@ namespace ec {
 
 	void AudioSource::start()
 	{
-		manager->loadWAV(audio->audio_path.c_str()); 
+		//manager->loadWAV(audio->audio_path.c_str()); 
 
 		if (hasStarted)
 			playSong();
@@ -53,7 +53,7 @@ namespace ec {
 	{
 		playSong();
 
-		playing = !manager->hasEnded(audio);
+		//playing = !manager->hasEnded(audio);
 
 		if (playing)
 			paused = false;
@@ -68,7 +68,7 @@ namespace ec {
 			if (isLoop == -1)
 				loop = 0;
 
-			manager->playSound(audio, loop);
+			//manager->playSound(audio, loop);
 			playing = true; 
 			toPlay = false;
 		}
@@ -78,7 +78,7 @@ namespace ec {
 	{
 		if (playing && !paused) 
 		{
-			manager->pauseSound(audio);
+			//manager->pauseSound(audio);
 			paused = true;
 		}
 	}
@@ -87,7 +87,7 @@ namespace ec {
 	{
 		if (playing && paused) 
 		{
-			manager->resumeSound(audio);
+			//manager->resumeSound(audio);
 			paused = false;
 		}
 	}
@@ -96,7 +96,7 @@ namespace ec {
 	{
 		if (playing || paused) 
 		{
-			manager->stopSound(audio);
+			//manager->stopSound(audio);
 
 			playing = false; 
 			paused = false;

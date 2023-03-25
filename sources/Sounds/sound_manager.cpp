@@ -11,6 +11,9 @@ SoundManager::~SoundManager() {}
 
 void SoundManager::initAudio()
 {
+	if (SDL_Init(SDL_INIT_AUDIO) != 0)
+		std::cerr << "Error al iniciar el sistema de audio: " << SDL_GetError() << std::endl;
+
 	//Inicializamos SDL2_mixer
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 		throw std::exception("SDL2_mixer can't be initialized");
@@ -23,63 +26,79 @@ void SoundManager::closeAudio()
 	Mix_CloseAudio();
 }
 
-void SoundManager::loadWAV(const char* path)
+void SoundManager::loadWAV(const char* path, float vol, int channel, bool loop)
 {
 	Mix_Chunk* wav = Mix_LoadWAV(path);
 
-	if (!wav)
+	if (wav == 0)
 		std::cout << ".wav can't be loaded\n";
+
+	AudioData* data = new AudioData; 
+
+	data->wavSound = wav; 
+	data->volume = vol; 
+	data->channel = channel; 
+	data->loop = loop;
+
+	songs.push_back(data);
 }
 
 //Interacciones con el sonido
 
-void SoundManager::playSound(AudioData* audio, int loop)
+void SoundManager::playSound(int channel)
 {
-	songs.push_back(audio);
+	auto it = songs.begin(); 
 
-	Mix_VolumeChunk(audio->wavSound, volume * audio->volume * MIX_MAX_VOLUME);
+	while (it != songs.end() && (*it)->channel != channel)
+		it++;
 
-	if (Mix_PlayChannel(audio->channel, audio->wavSound, loop) == -1)
-		std::cout << ".wav can't be played\n";
+	if (it != songs.end())
+	{
+		Mix_VolumeChunk((*it)->wavSound, volume * (*it)->volume * MIX_MAX_VOLUME);
+
+		if (Mix_PlayChannel((*it)->channel, (*it)->wavSound, (*it)->loop) == -1)
+			std::cout << ".wav can't be played\n";
+	}
+
+	else
+		std::cout << ".wav doesn't exist\n"; 
 }
 
-void SoundManager::pauseSound(AudioData* audio)
+void SoundManager::pauseSound(int channel)
 {
-	Mix_Pause(audio->channel);
+	Mix_Pause(channel);
 }
 
-void SoundManager::resumeSound(AudioData* audio)
+void SoundManager::resumeSound(int channel)
 {
-	Mix_Resume(audio->channel);
+	Mix_Resume(channel);
 }
 
-void SoundManager::stopSound(AudioData* audio)
+void SoundManager::stopSound(int channel)
 {
-	removeSong(audio);
-	Mix_HaltChannel(audio->channel);
+	removeSong(channel);
+	Mix_HaltChannel(channel);
 }
 
-bool SoundManager::hasEnded(AudioData* audio)
+bool SoundManager::hasEnded(int channel)
 {
-	bool end = !Mix_Playing(audio->channel); 
+	bool end = !Mix_Playing(channel); 
 
 	if (end)
-		removeSong(audio);
+		removeSong(channel);
 
 	return end;
 }
 
-void SoundManager::removeSong(AudioData* audio)
+void SoundManager::removeSong(int channel)
 {
-	for (auto it = songs.begin(); it != songs.end(); ++it)
-	{
-		if ((*it) == audio)
-		{
-			songs.erase(it);
-			delete (*it);
-			break;
-		}
-	}
+	auto it = songs.begin(); 
+
+	while (it != songs.end() && (*it)->channel != channel)
+		it++; 
+
+	if (it != songs.end())
+		songs.erase(it); 
 }
 
 //Ajustes de volumen del sonido
