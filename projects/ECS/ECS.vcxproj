@@ -121,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\sdl_mixer\sources\SDL2_mixer-2.6.3\include;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,7 +166,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sources\Sounds;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
