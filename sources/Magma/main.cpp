@@ -40,7 +40,7 @@ int mainCode() {
 #if 1 // por comodidad (0 -> false; No 0 -> true)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #else	
-	_CrtSetBreakAlloc(39266); // id del new que queremos borrar
+	_CrtSetBreakAlloc(37510); // id del new que queremos borrar
 #endif
 #endif
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
@@ -157,11 +157,9 @@ int mainCode() {
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);
 
 	// ---------- Inicialización SOUND ----------
-	SoundManager* soundManager = new SoundManager();
-	soundManager->initAudio(); 
-	soundManager->loadWAV("../../executables/assets/loop.wav", 0.05, 2, true);
-
-	soundManager->playSound(2); 
+	Singleton<SoundManager>::instance()->initAudio();
+	Singleton<SoundManager>::instance()->loadWAV("../../executables/assets/loop.wav",50, 2, true);
+	Singleton<SoundManager>::instance()->playSound(2);
 
 
 
@@ -307,6 +305,10 @@ void initManagers() {
 
 	// ------ INPUT ------
 	Singleton<InputManager>::init();
+
+	// ------ SOUND ------
+	Singleton<SoundManager>::init();
+
 }
 
 void releaseManagers() {
@@ -327,6 +329,10 @@ void releaseManagers() {
 	// ------ RENDER ------
 	Singleton<RenderManager>::instance()->closeApp();
 	Singleton<RenderManager>::release();
+
+	// ------ SOUND ------
+	Singleton<SoundManager>::release();
+
 }
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola

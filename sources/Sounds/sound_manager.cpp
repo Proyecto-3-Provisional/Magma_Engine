@@ -5,9 +5,17 @@
 
 //Carga e inicializacion del sonido
 
-SoundManager::SoundManager() {}
+SoundManager::SoundManager() : volume(0) {}
 
-SoundManager::~SoundManager() {}
+SoundManager::~SoundManager() 
+{
+	for (int i = 0; i < songs.size(); i++)
+	{
+		delete songs[i];
+	}
+
+	songs.clear();
+}
 
 void SoundManager::initAudio()
 {
@@ -26,7 +34,7 @@ void SoundManager::closeAudio()
 	Mix_CloseAudio();
 }
 
-void SoundManager::loadWAV(const char* path, float vol, int channel, bool loop)
+void SoundManager::loadWAV(const char* path, int vol, int channel, bool loop)
 {
 	Mix_Chunk* wav = Mix_LoadWAV(path);
 
@@ -109,12 +117,12 @@ void SoundManager::setVolumeSongs()
 		Mix_VolumeChunk(songs[i]->wavSound, volume * songs[i]->volume * MIX_MAX_VOLUME);
 }
 
-void SoundManager::setVolume(float newVol) 
+void SoundManager::setVolume(int newVol) 
 {
 	volume = newVol;
 }
 
-float SoundManager::getVolume() 
+int SoundManager::getVolume() 
 {
 	return volume;
 }

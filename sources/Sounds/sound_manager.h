@@ -2,29 +2,30 @@
 
 #include <iostream>
 #include <vector> 
+#include "../singleton.h"
 
 class Mix_Chunk;
 
 struct AudioData
 {
-	std::string audio_path;
+	std::string audio_path = "";
 
-	Mix_Chunk* wavSound;
+	Mix_Chunk* wavSound = nullptr;
 
-	int channel;
+	int channel = -1;
 
-	float volume;
+	int volume = 0;
 
-	bool loop; 
+	bool loop = false; 
 };
 
-class SoundManager
+class SoundManager : public Singleton<SoundManager>
 {
 public:
 	SoundManager();
 	~SoundManager();
 
-	void loadWAV(const char* path, float vol, int channel, bool loop);
+	void loadWAV(const char* path, int vol, int channel, bool loop);
 
 	void playSound(int channel);
 	void stopSound(int channel);
@@ -33,9 +34,9 @@ public:
 
 	bool hasEnded(int channel);
 
-	void setVolume(float soundVolume);
+	void setVolume(int soundVolume);
 	void setVolumeSongs(); 
-	float getVolume();
+	int getVolume();
 
 	void initAudio();
 	void closeAudio();
@@ -44,7 +45,7 @@ public:
 
 private:
 
-	float volume;
+	int volume;
 
 	std::vector<AudioData*> songs;
 };
