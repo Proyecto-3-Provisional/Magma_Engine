@@ -158,7 +158,7 @@ int mainCode() {
 
 	// ---------- Inicialización SOUND ----------
 	Singleton<SoundManager>::instance()->initAudio();
-	Singleton<SoundManager>::instance()->loadWAV("../../executables/assets/loop.wav",50, 2, true);
+	Singleton<SoundManager>::instance()->loadWAV("./assets/loop.wav",50, 2, true);
 	Singleton<SoundManager>::instance()->playSound(2);
 
 
