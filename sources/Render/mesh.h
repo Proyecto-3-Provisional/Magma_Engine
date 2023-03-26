@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../ECS/component.h"
-#include "../ECS/vector3D.h"
+#include "../EC/component.h"
+#include "../EC/vector3D.h"
 #include "graphical_object.h"
 
 class Transform;

@@ -20,11 +20,11 @@
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 #include "Sounds/sound_manager.h"
-#include "ECS/entity_manager.h"
-#include "ECS/entity.h"
-#include "ECS/vector3D.h"
-#include "ECS/fps_counter.h"
-#include "ECS/transform.h"
+#include "EC/entity_manager.h"
+#include "EC/entity.h"
+#include "EC/vector3D.h"
+#include "EC/fps_counter.h"
+#include "EC/transform.h"
 
 // DECLARACIÓN DE FUNCIONES
 void initManagers();

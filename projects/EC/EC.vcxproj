@@ -19,24 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\ECS\component.h" />
-    <ClInclude Include="..\..\sources\ECS\ec.h" />
-    <ClInclude Include="..\..\sources\ECS\ec_defs.h" />
-    <ClInclude Include="..\..\sources\ECS\entity.h" />
-    <ClInclude Include="..\..\sources\ECS\entity_manager.h" />
-    <ClInclude Include="..\..\sources\ECS\fps_counter.h" />
-    <ClInclude Include="..\..\sources\ECS\messages.h" />
-    <ClInclude Include="..\..\sources\ECS\messages_defs.h" />
-    <ClInclude Include="..\..\sources\ECS\mpl.h" />
-    <ClInclude Include="..\..\sources\ECS\transform.h" />
-    <ClInclude Include="..\..\sources\ECS\vector3D.h" />
+    <ClInclude Include="..\..\sources\EC\component.h" />
+    <ClInclude Include="..\..\sources\EC\ec.h" />
+    <ClInclude Include="..\..\sources\EC\ec_defs.h" />
+    <ClInclude Include="..\..\sources\EC\entity.h" />
+    <ClInclude Include="..\..\sources\EC\entity_manager.h" />
+    <ClInclude Include="..\..\sources\EC\fps_counter.h" />
+    <ClInclude Include="..\..\sources\EC\messages.h" />
+    <ClInclude Include="..\..\sources\EC\messages_defs.h" />
+    <ClInclude Include="..\..\sources\EC\mpl.h" />
+    <ClInclude Include="..\..\sources\EC\transform.h" />
+    <ClInclude Include="..\..\sources\EC\vector3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\ECS\component.cpp" />
-    <ClCompile Include="..\..\sources\ECS\entity.cpp" />
-    <ClCompile Include="..\..\sources\ECS\entity_manager.cpp" />
-    <ClCompile Include="..\..\sources\ECS\transform.cpp" />
-    <ClCompile Include="..\..\sources\ECS\vector3D.cpp" />
+    <ClCompile Include="..\..\sources\EC\component.cpp" />
+    <ClCompile Include="..\..\sources\EC\entity.cpp" />
+    <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\transform.cpp" />
+    <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Physics\Physics.vcxproj">
@@ -47,7 +47,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{dbd48150-9583-4ca2-9dad-6a208679611b}</ProjectGuid>
-    <RootNamespace>ECS</RootNamespace>
+    <RootNamespace>EC</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

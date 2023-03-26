@@ -1,7 +1,7 @@
 #include "rigidbody.h"
 #include "physics_manager.h"
-#include "../ECS/entity.h"
-#include "../ECS/transform.h"
+#include "../EC/entity.h"
+#include "../EC/transform.h"
 
 Rigidbody::Rigidbody(const Vector3D& scale_) : scale(scale_)
 {

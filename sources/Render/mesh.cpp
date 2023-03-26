@@ -3,8 +3,8 @@
 #include "../singleton.h"
 #include "render_manager.h"
 
-#include "../ECS/transform.h"
-#include "../ECS/entity.h"
+#include "../EC/transform.h"
+#include "../EC/entity.h"
 
 Mesh::Mesh()
 {
