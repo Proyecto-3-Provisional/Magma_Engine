@@ -28,7 +28,7 @@ namespace ec {
 							return false;
 						}
 						else {
-							delete e;
+							delete e; e = nullptr;
 							return true;
 						}
 					}), groupEntities.end());

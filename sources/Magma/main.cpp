@@ -19,6 +19,7 @@
 #include "Render/mesh.h"		//
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
+#include "Physics/rigidbody.h"
 #include "Sounds/sound_manager.h"
 #include "ECS/entity_manager.h"
 #include "ECS/entity.h"
@@ -62,17 +63,17 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	//Cámara
-	Singleton<RenderManager>::instance()->createCam(nullptr, { 500, 0, 1000 });
+	Singleton<RenderManager>::instance()->createCam(nullptr, { 0, 0, 1000 });
 	Singleton<RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
 	Singleton<RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<RenderManager>::instance()->objectShowMode(0);
-	
+
 	//Sol
 	GraphicalObject* sol = Singleton<RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
 	sol->setLightColor(0.8f, 0.8f, 0.8f);
 	sol->setDirection({ 0.0f, -0.8f, -1.0f });
-	
+
 	GraphicalObject* equis = Singleton<RenderManager>::instance()->
 		addObject("x", nullptr, "cube.mesh", "rat");
 	equis->setPosition({ 400, 0, 0 });
@@ -85,21 +86,66 @@ int mainCode() {
 
 	// ---------- Inicialización EC ----------
 
-	ec::Entity* sampleEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>();
-	sampleEntityTransformCmp->setPosition({ 0, 0, 0 });
-	sampleEntityTransformCmp->setScale({ 40,40,40 });
-	Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
-	bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "axolotl.mesh", "axolotl");
+	//ec::Entity* sampleEntity = Singleton<ec::EntityManager>::instance()->addEntity();
+	//Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>();
+	//sampleEntityTransformCmp->setPosition({ 0, 0, 0 });
+	//sampleEntityTransformCmp->setScale({ 40,40,40 });
+	//Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
+	//bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "axolotl.mesh", "axolotl");
+	//// hacer cosas con el cmp solo si se inicializó correctamente
+	//if (meshInit)
+	//{
+	//	sampleEntityMeshCmp->getObj()->showDebugBox(true);
+	//	sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+	//}
+
+	ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
+	Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
+	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
+	physicsEntityTransformCmp->setScale({ 40,40,40 });
+	Mesh* physicsEntityMeshCmp = physicsEntity->addComponent<Mesh>();
+	bool meshInit2 = physicsEntityMeshCmp->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
-	if (meshInit) 
+	if (meshInit2)
 	{
-		sampleEntityMeshCmp->getObj()->showDebugBox(true);
-		sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+		physicsEntityMeshCmp->getObj()->showDebugBox(true);
+		physicsEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
+	Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<Rigidbody>(Vector3D(70, 40, 40));
+	bool eliminar = true;
+
+	ec::Entity* physicsEntity2 = Singleton<ec::EntityManager>::instance()->addEntity();
+	Transform* physicsEntityTransformCmp2 = physicsEntity2->addComponent<Transform>();
+	physicsEntityTransformCmp2->setPosition({ 500, 0, 0 });
+	physicsEntityTransformCmp2->setScale({ 40,40,40 });
+	Mesh* physicsEntityMeshCmp2 = physicsEntity2->addComponent<Mesh>();
+	bool meshInit3 = physicsEntityMeshCmp2->initComponent("ejemploPhysics2", "axolotl.mesh", "axolotl");
+	// hacer cosas con el cmp solo si se inicializó correctamente
+	if (meshInit3)
+	{
+		physicsEntityMeshCmp2->getObj()->showDebugBox(true);
+		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+	}
+	Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<Rigidbody>(Vector3D(70, 40, 40));
+	physicsEntityRigidbodyCmp2->addForce(Vector3D(-500, 0, 0));
+
+	ec::Entity* physicsEntity3 = Singleton<ec::EntityManager>::instance()->addEntity();
+	Transform* physicsEntityTransformCmp3 = physicsEntity3->addComponent<Transform>();
+	physicsEntityTransformCmp3->setPosition({ -500, 0, 0 });
+	physicsEntityTransformCmp3->setScale({ 40,40,40 });
+	Mesh* physicsEntityMeshCmp3 = physicsEntity3->addComponent<Mesh>();
+	bool meshInit4 = physicsEntityMeshCmp3->initComponent("ejemploPhysics3", "axolotl.mesh", "axolotl");
+	// hacer cosas con el cmp solo si se inicializó correctamente
+	if (meshInit4)
+	{
+		physicsEntityMeshCmp3->getObj()->showDebugBox(true);
+		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+	}
+	Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<Rigidbody>(Vector3D(70, 40, 40));
+	physicsEntityRigidbodyCmp3->addForce(Vector3D(500, 0, 0));
 
 	Fps fps;
-	
+
 	// ---------- Inicialización UI ----------
 
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
@@ -121,7 +167,7 @@ int mainCode() {
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
-		lastFrameTime = (int)SDL_GetTicks(); 
+		lastFrameTime = (int)SDL_GetTicks();
 
 		// ---------- TEST RENDER ----------
 
@@ -147,38 +193,45 @@ int mainCode() {
 
 		// ---------- TEST EC ----------
 		//ecTestUpdate
-		Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);	
+		Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);
 		Singleton<ec::EntityManager>::instance()->refresh();
 		//rota con referencia al componente transform
-		sampleEntityTransformCmp->yaw(1);
-		//rota pidiendo la referencia al componente transform
-		sampleEntity->getComponent<Transform>()->roll(1);
+		//sampleEntityTransformCmp->yaw(1);
+		////rota pidiendo la referencia al componente transform
+		//sampleEntity->getComponent<Transform>()->roll(1);
 
-		if (sampleEntityMeshCmp/* && trInit */ && meshInit)
-		{
-			// esta rotación DEBERÍA HACERSE según Transform
-			//sampleEntityTransformCmp->setRotation(/*LIADA_MASIVA*/)
-			//sampleEntityMeshCmp->getObj()->yaw(rotationVelocity * timeSinceLastFrame);
-			sampleEntityTransformCmp->setVelocity({ 0, 0, 25 });
-			//sampleEntityTransformCmp->yaw(10);
-		}
+		//if (sampleEntityMeshCmp/* && trInit */ && meshInit)
+		//{
+		//	// esta rotación DEBERÍA HACERSE según Transform
+		//	//sampleEntityTransformCmp->setRotation(/*LIADA_MASIVA*/)
+		//	//sampleEntityMeshCmp->getObj()->yaw(rotationVelocity * timeSinceLastFrame);
+		//	sampleEntityTransformCmp->setVelocity({ 0, 0, 25 });
+		//	//sampleEntityTransformCmp->yaw(10);
+		//}
 
 		fps.update();
 
 		// ---------- TEST PHYSICS ----------
-		miliecsSinceLastReport2 += timeSinceLastFrame;
-		if (miliecsSinceLastReport2 > miliecsToReport) {
-			miliecsSinceLastReport2 = 0;
-			Singleton<PhysicsManager>::instance()->update();
+
+		//miliecsSinceLastReport2 += timeSinceLastFrame;
+		//if (miliecsSinceLastReport2 > miliecsToReport) {
+		//	miliecsSinceLastReport2 = 0;
+		//}
+		Singleton<PhysicsManager>::instance()->update();
+		if (eliminar) {
+			if (physicsEntityRigidbodyCmp->isOnCollision()) {
+				physicsEntity->setAlive(false);
+				eliminar = false;
+			}
 		}
 
 		// ---------- TEST INPUT & UI ----------
 		Singleton<InputManager>::instance()->inputEvent();
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
-	
+
 		if (Singleton<InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 			Singleton<InputManager>::instance()->showOrHideMouse();
-		
+
 		auto posMouse = Singleton<InputManager>::instance()->getMousePos();
 
 		if (testButton->isCursorInsideBounds(posMouse.first, posMouse.second))
@@ -276,7 +329,7 @@ void releaseManagers() {
 
 	// ------ UI ------
 	Singleton<UI_Manager>::release();
-	
+
 	// ------ RENDER ------
 	Singleton<RenderManager>::instance()->closeApp();
 	Singleton<RenderManager>::release();
