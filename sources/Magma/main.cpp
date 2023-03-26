@@ -108,7 +108,7 @@ int mainCode() {
 	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit2)
 	{
-		sampleEntityMeshCmp->getObj()->showDebugBox(true);
+		//sampleEntityMeshCmp->getObj()->showDebugBox(true);
 		//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
 	Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<Rigidbody>(Vector3D(70, 40, 40));
