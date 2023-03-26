@@ -1,67 +1,121 @@
 #include "sound_manager.h"
 
-#include "SDL.h"
+#include <SDL_mixer.h>
+#include <SDL.h>
 
-static Uint8* audioPos; // Puntero a la posicion del bufer de audio que se reproduce actualmente
-static Uint32 audioLen; // Longitud restante del bufer de audio por reproducir.
+//Carga e inicializacion del sonido
 
-// Copia los datos del bufer de audio al bufer de audio del dispositivo.
-void audio_callback(void* userdata, Uint8* stream, int len);
+SoundManager::SoundManager() {}
 
-SoundManager::SoundManager() : device(0)
+SoundManager::~SoundManager() {}
+
+void SoundManager::initAudio()
 {
 	if (SDL_Init(SDL_INIT_AUDIO) != 0)
 		std::cerr << "Error al iniciar el sistema de audio: " << SDL_GetError() << std::endl;
 
-	if (SDL_LoadWAV("../../executables/assets/loop.wav", &data.spec, &data.buffer, &data.bufferSize) == nullptr)
-		std::cerr << "Error al cargar el sonido: " << SDL_GetError() << std::endl;
+	//Inicializamos SDL2_mixer
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+		throw std::exception("SDL2_mixer can't be initialized");
 
-	data.spec.callback = audio_callback;
-	data.spec.userdata = &data;
-
-	audioPos = data.buffer;
-	audioLen = data.bufferSize;
+	volume = 1;
 }
 
-SoundManager::~SoundManager() 
+void SoundManager::closeAudio()
 {
-	SDL_FreeWAV(data.buffer);
-	SDL_CloseAudio(); // Cerrar audio al final
+	Mix_CloseAudio();
 }
 
-// Reproduccion de audio
-void SoundManager::playSound()
+void SoundManager::loadWAV(const char* path, float vol, int channel, bool loop)
 {
-	if(SDL_OpenAudio(&data.spec, nullptr) != 0)
-		std::cerr << "Error de dispositivo de audio: " << SDL_GetError() << std::endl;
+	Mix_Chunk* wav = Mix_LoadWAV(path);
 
-	/*device = SDL_OpenAudio(&data.spec, nullptr);
-	if (device == 0) std::cerr << "Error de dispositivo de audio: " << SDL_GetError() << std::endl;*/
+	if (wav == 0)
+		std::cout << ".wav can't be loaded\n";
 
-	SDL_PauseAudio(0);
+	AudioData* data = new AudioData; 
+
+	data->wavSound = wav; 
+	data->volume = vol; 
+	data->channel = channel; 
+	data->loop = loop;
+
+	songs.push_back(data);
 }
 
-// Detiene la reproduccion de audio
-void SoundManager::stopSound() 
-{
-	SDL_PauseAudio(1);
-}
+//Interacciones con el sonido
 
-void audio_callback(void* userdata, Uint8* stream, int len)
+void SoundManager::playSound(int channel)
 {
-	AudioData* data = static_cast<AudioData*>(userdata);
+	auto it = songs.begin(); 
 
-	// Comprueba si queda audio por reproducir en el bufer
-	if (audioLen == 0) 
+	while (it != songs.end() && (*it)->channel != channel)
+		it++;
+
+	if (it != songs.end())
 	{
-		audioPos = data->buffer; // Reinicia la posicion actual del bufer de audio
-		audioLen = data->bufferSize; // Reinicia la longitud restante del audio por reproducir
+		Mix_VolumeChunk((*it)->wavSound, volume * (*it)->volume * MIX_MAX_VOLUME);
+
+		if (Mix_PlayChannel((*it)->channel, (*it)->wavSound, (*it)->loop) == -1)
+			std::cout << ".wav can't be played\n";
 	}
 
-	len = ((unsigned int)len > audioLen ? audioLen : len); // Cantidad de datos que se van a copiar (valor mínimo entre len y audioLen)
-	SDL_memcpy(stream, audioPos, len); // Copia los datos del bufer audioPos al bufer stream
-	SDL_MixAudio(stream, audioPos, len, SDL_MIX_MAXVOLUME); // Mezclan de los datos copiados con los datos almacenados en stream
-
-	audioPos += len; // Actualiza la posicion del bufer para apuntar al siguiente bloque de datos
-	audioLen -= len; // Actualiza la longitud restante del bufer
+	else
+		std::cout << ".wav doesn't exist\n"; 
 }
+
+void SoundManager::pauseSound(int channel)
+{
+	Mix_Pause(channel);
+}
+
+void SoundManager::resumeSound(int channel)
+{
+	Mix_Resume(channel);
+}
+
+void SoundManager::stopSound(int channel)
+{
+	removeSong(channel);
+	Mix_HaltChannel(channel);
+}
+
+bool SoundManager::hasEnded(int channel)
+{
+	bool end = !Mix_Playing(channel); 
+
+	if (end)
+		removeSong(channel);
+
+	return end;
+}
+
+void SoundManager::removeSong(int channel)
+{
+	auto it = songs.begin(); 
+
+	while (it != songs.end() && (*it)->channel != channel)
+		it++; 
+
+	if (it != songs.end())
+		songs.erase(it); 
+}
+
+//Ajustes de volumen del sonido
+
+void SoundManager::setVolumeSongs()
+{
+	for (size_t i = 0; i < songs.size(); i++) 
+		Mix_VolumeChunk(songs[i]->wavSound, volume * songs[i]->volume * MIX_MAX_VOLUME);
+}
+
+void SoundManager::setVolume(float newVol) 
+{
+	volume = newVol;
+}
+
+float SoundManager::getVolume() 
+{
+	return volume;
+}
+

@@ -7,6 +7,9 @@ set dir_sol_config_ogre=%dir_raiz%dependencies\ogre\builds\x64
 set dir_fuentes_bullet=%dir_raiz%\dependencies\bullet\sources
 set dir_sol_config_bullet=%dir_raiz%\dependencies\bullet\builds
 
+set dir_fuentes_mixer=%dir_raiz%dependencies\sdl_mixer\sources
+set dir_sol_config_mixer=%dir_raiz%dependencies\sdl_mixer\builds
+
 
 :: PREPARAR LAS DEPENDENCIAS ::
 :: Guía inicial -> https://ogrecave.github.io/ogre/api/latest/building-ogre.html
@@ -54,6 +57,23 @@ msbuild zlib.sln -p:Configuration=Release -noLogo -verbosity:minimal -maxCpuCoun
 cd %dir_raiz%
 copy .\dependencies\ogre\builds\x64\zlib-1.2.13\Release\zlib.dll .\dependencies\ogre\builds\x64\sdk\bin
 
+cd .\dependencies\cmake\bin
+
+:: SDL_MIXER DEBUG Y RELEASE
+:: Configurar fuentes para la plataforma
+.\cmake.exe  -DSDL2_DIR="../../ogre/builds/x64/SDL2-build/CMakeFiles" -DSDL2_LIBRARY="../../ogre/builds/x64/SDL2-build/Release/SDL2.lib" -DSDL2_INCLUDE_DIR="../../ogre/builds/x64/SDL2-build/include" -DCMAKE_POSITION_INDEPENDENT_CODE=on -DINSTALL_CMAKE_PACKAGE_MODULE=off -DSDL2MIXER_CMD=off -DSDL2MIXER_DEPS_SHARED=on -DSDL2MIXER_FLAC=off -DSDL2MIXER_INSTALL=on -DSDL2MIXER_MIDI=off -DSDL2MIXER_MOD=off -DSDL2MIXER_MP3=on -DSDL2MIXER_DRMP3=on -DSDL2MIXER_MP3_MPG123=off -DSDL2MIXER_OPUS=off -DSDL2MIXER_SAMPLES=off -DSDL2MIXER_SAMPLES_INSTALL=off -DSDL2MIXER_VENDORED=off -DSDL2MIXER_VORBIS=STB -DSDL2MIXER_WAVE=on -S %dir_fuentes_mixer% -B %dir_sol_config_mixer%
+:: Compilar solución fuente generada
+
+copy ..\..\ogre\builds\x64\SDL2-build\include-config-debug\SDL_config.h ..\..\ogre\builds\x64\SDL2-build\include
+
+.\cmake.exe --build %dir_sol_config_mixer% --config Debug
+
+del ..\..\ogre\builds\x64\SDL2-build\include\SDL_config.h
+copy ..\..\ogre\builds\x64\SDL2-build\include-config-release\SDL_config.h ..\..\ogre\builds\x64\SDL2-build\include
+
+.\cmake.exe --build %dir_sol_config_mixer% --config Release 
+cd %dir_raiz%
+
 :: Copia de ficheros necesarios al dir. de salida
 mkdir executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\OgreMain.dll .\executables
@@ -71,6 +91,8 @@ copy .\dependencies\ogre\builds\x64\sdk\bin\Codec_STBI.dll .\executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\Codec_STBI_d.dll .\executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\zlib.dll .\executables
 copy .\dependencies\ogre\builds\x64\sdk\bin\zlibd.dll .\executables
+copy .\dependencies\sdl_mixer\builds\Debug\SDL2_mixerd.dll .\executables
+copy .\dependencies\sdl_mixer\builds\Release\SDL2_mixer.dll .\executables
 
 :: COMPILAR LA SOLUCIÓN DEL MOTOR ::
 :: niveles de verborrea: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic]

@@ -26,6 +26,8 @@
 #include "EC/vector3D.h"
 #include "EC/fps_counter.h"
 #include "EC/transform.h"
+#include "EC/audio_source.h"
+
 
 // DECLARACIÓN DE FUNCIONES
 void initManagers();
@@ -155,8 +157,11 @@ int mainCode() {
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);
 
 	// ---------- Inicialización SOUND ----------
-	//SoundManager* soundManager = new SoundManager();
-	//soundManager->addSong(".\executables\assets\loop.wav", 35, 1, true); 
+	SoundManager* soundManager = new SoundManager();
+	soundManager->initAudio(); 
+	soundManager->loadWAV("../../executables/assets/loop.wav", 0.05, 2, true);
+
+	soundManager->playSound(2); 
 
 
 

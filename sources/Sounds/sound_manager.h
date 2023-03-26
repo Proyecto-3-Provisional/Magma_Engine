@@ -1,14 +1,21 @@
 #pragma once
 
-#include "SDL_audio.h"
-
 #include <iostream>
+#include <vector> 
 
-struct AudioData // Almacena y permite la reproducción de un sonido
+class Mix_Chunk;
+
+struct AudioData
 {
-	Uint8* buffer = nullptr; // Buffer que contiene los datos del sonido
-	Uint32 bufferSize = 0; // Tamaño del buffer de sonido
-	SDL_AudioSpec spec = {}; // Especificaciones del audio
+	std::string audio_path;
+
+	Mix_Chunk* wavSound;
+
+	int channel;
+
+	float volume;
+
+	bool loop; 
 };
 
 class SoundManager
@@ -17,12 +24,28 @@ public:
 	SoundManager();
 	~SoundManager();
 
-	void playSound();
-	void stopSound();
-	void changeVolume();
+	void loadWAV(const char* path, float vol, int channel, bool loop);
+
+	void playSound(int channel);
+	void stopSound(int channel);
+	void pauseSound(int channel);
+	void resumeSound(int channel);
+
+	bool hasEnded(int channel);
+
+	void setVolume(float soundVolume);
+	void setVolumeSongs(); 
+	float getVolume();
+
+	void initAudio();
+	void closeAudio();
+
+	void removeSong(int channel);
 
 private:
-	SDL_AudioDeviceID device; // Identificador del dispositivo de audio que se abre al reproducir un sonido
 
-	AudioData data; // Almacena los datos necesarios para reproducir un sonido
+	float volume;
+
+	std::vector<AudioData*> songs;
 };
+
