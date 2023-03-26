@@ -81,10 +81,13 @@ void PhysicsManager::deleteRigidBody(const int& userIndex)
 	dynamicsWorld->removeCollisionObject(obj);
 	delete obj;
 
-	// Al borrar la entidad se rellena el hueco del array con el último elemento. Actualizamos su índice:  
-	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
-	btRigidBody* body1 = btRigidBody::upcast(obj1);
-	body1->setUserIndex(userIndex);
+	int size = dynamicsWorld->getCollisionObjectArray().size();
+	// Al borrar la entidad se rellena el hueco del array con el último elemento. Actualizamos su índice:
+	if (size > 0 && size != userIndex) {
+		btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
+		btRigidBody* body1 = btRigidBody::upcast(obj1);
+		body1->setUserIndex(userIndex);
+	}
 }
 
 void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
@@ -99,7 +102,7 @@ void PhysicsManager::update()
 {
 	dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 
-	updateCollisions();
+	//updateCollisions();
 
 	for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
 	{
@@ -246,7 +249,7 @@ btRigidBody* PhysicsManager::getRigidBody(int index)
 void PhysicsManager::addForceTo(int index, btVector3 force)
 {
 	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-	btRigidBody::upcast(obj)->applyCentralForce(force);
+	btRigidBody::upcast(obj)->applyCentralImpulse(force);
 }
 
 // Eliminacion de objetos de la clase PhysicsManager

@@ -7,6 +7,11 @@ Rigidbody::Rigidbody(const Vector3D& scale_) : scale(scale_)
 {
 }
 
+Rigidbody::~Rigidbody()
+{
+	PhysicsManager::instance()->deleteRigidBody(rigidPtr->getUserIndex());
+}
+
 bool Rigidbody::initComponent()
 {
 	trPtr = ent->getComponent<Transform>();
@@ -40,10 +45,9 @@ bool Rigidbody::isCollideWith(int indexCollide)
 	return PhysicsManager::instance()->isCollide(rigidPtr->getUserIndex(), indexCollide);
 }
 
-bool Rigidbody::isOnCollision(std::vector<int>& indexCollides)
+bool Rigidbody::isOnCollision()
 {
-	indexCollides = PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
-	return (indexCollides.size() > 0);
+	return (PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex()).size() > 0);
 }
 
 void Rigidbody::addForce(const Vector3D& force)

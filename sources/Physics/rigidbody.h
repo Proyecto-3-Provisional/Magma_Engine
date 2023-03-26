@@ -11,12 +11,12 @@ class btRigidBody;
 class Rigidbody : public ec::Component {
 public:
 	Rigidbody(const Vector3D& scale_);
-	~Rigidbody() {};
+	~Rigidbody();
 
 	bool initComponent() override;
 	void update(float deltaTime) override;
 
-	bool isOnCollision(std::vector<int>& indexCollides);
+	bool isOnCollision();
 	bool isCollideWith(int indexCollide);
 
 	void addForce(const Vector3D& force);
