@@ -10,6 +10,9 @@ set dir_sol_config_bullet=%dir_raiz%\dependencies\bullet\builds
 set dir_fuentes_mixer=%dir_raiz%dependencies\sdl_mixer\sources
 set dir_sol_config_mixer=%dir_raiz%dependencies\sdl_mixer\builds
 
+set dir_fuentes_lua=%dir_raiz%dependencies\lua\sources
+set dir_sol_config_lua=%dir_raiz%dependencies\lua\builds
+
 
 :: PREPARAR LAS DEPENDENCIAS ::
 :: Guía inicial -> https://ogrecave.github.io/ogre/api/latest/building-ogre.html
@@ -40,6 +43,13 @@ cd .\dependencies\cmake\bin
 .\cmake.exe --build %dir_sol_config_bullet% --config Debug
 
 .\cmake.exe --build %dir_sol_config_bullet% --config Release
+
+:: LUABRIDGE DEBUG Y RELEASE
+.\cmake.exe %dir_fuentes_lua% -B %dir_sol_config_lua%
+
+.\cmake.exe --build %dir_sol_config_lua% --config Debug
+
+.\cmake.exe --build %dir_sol_config_lua% --config Release
 
 :: Volver a la raíz
 cd %dir_raiz%

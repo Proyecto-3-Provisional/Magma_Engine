@@ -18,6 +18,7 @@ echo =-==-= Por favor ESPERA unos segundos mientras la operación se completa...
 rmdir /Q /S dependencies\ogre\builds\x64
 rmdir /Q /S dependencies\bullet\builds
 rmdir /Q /S dependencies\sdl_mixer\builds
+rmdir /Q /S dependencies\lua\builds
 echo =-==-= Compilaciones de dependencias borradas =-==-=
 
 :: NOTAS :: :: :: :: :: :: :: ::
