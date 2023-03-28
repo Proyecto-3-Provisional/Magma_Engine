@@ -7,6 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magma", "projects\Magma\Mag
 	ProjectSection(ProjectDependencies) = postProject
 		{7D29AC9A-59C6-427C-898C-C9841695E698} = {7D29AC9A-59C6-427C-898C-C9841695E698}
 		{922B7516-F118-42BE-9AEB-749C8D010118} = {922B7516-F118-42BE-9AEB-749C8D010118}
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D} = {D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}
 		{FF2FE640-0732-4DE0-8558-E534D7C27C83} = {FF2FE640-0732-4DE0-8558-E534D7C27C83}
 	EndProjectSection
 EndProject
@@ -21,6 +22,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sounds", "projects\Sounds\Sounds.vcxproj", "{70807504-27C7-48F6-BDF8-097676983E72}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagmaEngine", "projects\MagmaEngine\MagmaEngine.vcxproj", "{FF2FE640-0732-4DE0-8558-E534D7C27C83}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LuaBridge", "projects\LuaBridge\LuaBridge.vcxproj", "{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +89,14 @@ Global
 		{FF2FE640-0732-4DE0-8558-E534D7C27C83}.Release|x64.Build.0 = Release|x64
 		{FF2FE640-0732-4DE0-8558-E534D7C27C83}.Release|x86.ActiveCfg = Release|Win32
 		{FF2FE640-0732-4DE0-8558-E534D7C27C83}.Release|x86.Build.0 = Release|Win32
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Debug|x64.ActiveCfg = Debug|x64
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Debug|x64.Build.0 = Debug|x64
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Debug|x86.ActiveCfg = Debug|Win32
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Debug|x86.Build.0 = Debug|Win32
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Release|x64.ActiveCfg = Release|x64
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Release|x64.Build.0 = Release|x64
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Release|x86.ActiveCfg = Release|Win32
+		{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
