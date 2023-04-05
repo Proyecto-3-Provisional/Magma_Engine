@@ -53,6 +53,13 @@ namespace ec{
 			return static_cast<T*>(c);
 		}
 
+		void addC(Component* c) {
+			c->setContext(this, mngr);
+			c->initComponent();
+			cmps[0] = c;
+			currCmps.push_back(c);
+		}
+
 		// Elimina el componente de la entidad 'e' que este en la posicion T::id
 		template<typename T>
 		void removeComponent() {

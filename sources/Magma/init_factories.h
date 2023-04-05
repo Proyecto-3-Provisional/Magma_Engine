@@ -6,19 +6,19 @@ class ec::Component;
 class TransformFactory : public Factory
 {
 public:
-	ec::Component* createComponent(std::map<std::string, std::string> args, ec::Entity* e) override;
+	ec::Component* createComponent(ec::Entity* e);
 };
 
 class RigidbodyFactory : public Factory
 {
 public:
-	ec::Component* createComponent(std::map<std::string, std::string> args, ec::Entity* e) override;
+	ec::Component* createComponent(ec::Entity* e);
 };
 
 class MeshFactory : public Factory
 {
 public:
-	ec::Component* createComponent(std::map<std::string, std::string> args, ec::Entity* e) override;
+	ec::Component* createComponent(ec::Entity* e);
 };
 
 void setUpFactories();

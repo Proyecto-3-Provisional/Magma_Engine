@@ -4,27 +4,26 @@
 #include "../Physics/rigidbody.h"
 #include "../Render/mesh.h"
 
-//ec::Component* TransformFactory::createComponent(std::map<std::string, std::string> args, ec::Entity* e)
-//{
-//	//return new Transform(args);
-//}
-//
-//ec::Component* RigidbodyFactory::createComponent(std::map<std::string, std::string> args, ec::Entity* e)
-//{
-//	//return new Rigidbody(args);
-//}
-//
-//ec::Component* MeshFactory::createComponent(std::map<std::string, std::string> args, ec::Entity* e)
-//{
-//	//return new Mesh(args);
-//}
+ec::Component* TransformFactory::createComponent(ec::Entity* e)
+{
+	return new Transform();
+}
+
+ec::Component* RigidbodyFactory::createComponent(ec::Entity* e)
+{
+	//return new Rigidbody();
+}
+
+ec::Component* MeshFactory::createComponent(ec::Entity* e)
+{
+	return new Mesh();
+}
 
 void setUpFactories() 
 {
-	/*FactoryManager* fm;
-
-	fm->addFactory("Transform", new TransformFactory());
-	fm->addFactory("Rigidbody", new RigidbodyFactory());
-	fm->addFactory("Mesh", new MeshFactory());*/
+	FactoryManager::instance()->addFactory(new TransformFactory());
+	//FactoryManager::instance()->addFactory("Transform", new TransformFactory());
+	//FactoryManager::instance()->addFactory("Rigidbody", new RigidbodyFactory());
+	//FactoryManager::instance()->addFactory("Mesh", new MeshFactory());
 }
 

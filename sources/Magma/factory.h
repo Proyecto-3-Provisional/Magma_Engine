@@ -7,7 +7,7 @@
 class Factory
 {
 public:
-	Factory();
-	virtual ~Factory();
-	virtual ec::Component* createComponent(std::map<std::string, std::string> args, ec::Entity* ent = nullptr) = 0;
+	Factory() {};
+	//virtual ~Factory();
+	virtual ec::Component* createComponent(ec::Entity* ent = nullptr) = 0;
 };

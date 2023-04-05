@@ -27,6 +27,8 @@
 #include "EC/fps_counter.h"
 #include "EC/transform.h"
 #include "EC/audio_source.h"
+#include "factory_manager.h"
+#include "init_factories.h"
 
 
 // DECLARACIÓN DE FUNCIONES
@@ -61,6 +63,9 @@ int mainCode() {
 	// ---------- Inicialización MANAGERS ----------
 
 	initManagers();
+
+	Singleton<FactoryManager>::init();
+	setUpFactories();
 
 	// ---------- Inicialización RENDER ----------
 
@@ -102,9 +107,13 @@ int mainCode() {
 	//}
 
 	ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
+	physicsEntity->addC(Singleton<FactoryManager>::instance()->findAndCreate());
+	physicsEntity->getComponent<Transform>()->setPosition({ 0, 0, 0 });
+	physicsEntity->getComponent<Transform>()->setScale({ 40,40,40 });
+	//Transform* physicsEntityTransformCmp = physicsEntity->getComponent<Transform>();
+	/*Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
 	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
-	physicsEntityTransformCmp->setScale({ 40,40,40 });
+	physicsEntityTransformCmp->setScale({ 40,40,40 });*/
 	Mesh* physicsEntityMeshCmp = physicsEntity->addComponent<Mesh>();
 	bool meshInit2 = physicsEntityMeshCmp->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
