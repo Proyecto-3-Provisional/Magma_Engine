@@ -2,12 +2,6 @@
 #include "framework.h"
 #include "MagmaEngine.h"
 
-#include "Render/render_manager.h"
-#include "Render/UI_Manager.h"
-#include "Input/input_manager.h"
-#include "Physics/physics_manager.h"
-#include "Sounds/sound_manager.h"
-#include "EC/entity_manager.h"
 
 
 CMagmaEngine* CMagmaEngine::_instance = nullptr;
@@ -29,40 +23,47 @@ CMagmaEngine::CMagmaEngine()
 
 bool CMagmaEngine::Init()
 {
-	if (_instance == nullptr)
-	{
-		_instance = new CMagmaEngine();
+	//if (_instance == nullptr)
+	//{
+	//	_instance = new CMagmaEngine();
 
-		// Aqui deberiamos de meter las instancias de todos los proyectos
+	//	// Aqui deberiamos de meter las instancias de todos los proyectos
 
-		//if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false) // ------ RENDER ------
-		//	&& Singleton<ec::EntityManager>::init()									// ------ EC ------
-		//	&& Singleton<PhysicsManager>::init() 									// ------ PHYSICS ------
-		//	&& Singleton<UI_Manager>::init()										// ------ UI ------
-		//	&& Singleton<InputManager>::init()										// ------ INPUT ------
-		//	&& Singleton<SoundManager>::init()										// ------ SOUND ------
-		//	)
-		//{
+	//	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false) // ------ RENDER ------
+	//		&& Singleton<ec::EntityManager>::init()									// ------ EC ------
+	//		&& Singleton<PhysicsManager>::init() 									// ------ PHYSICS ------
+	//		&& Singleton<UI_Manager>::init()										// ------ UI ------
+	//		&& Singleton<InputManager>::init()										// ------ INPUT ------
+	//		&& Singleton<SoundManager>::init()										// ------ SOUND ------
+	//		)
+	//	{
 
 
-		//	if (!Singleton<RenderManager>::instance()->initApp() || !Singleton<PhysicsManager>::instance()->initPhysics()) // if (!correct)
-		//	{
-		//		// Fin del renderizado
-		//		Singleton<RenderManager>::instance()->closeApp();
-		//		Singleton<RenderManager>::instance()->release();
+	//	if (!Singleton<RenderManager>::instance()->initApp() || !Singleton<PhysicsManager>::instance()->initPhysics()) // if (!correct)
+	//	{
+	//		// Fin del renderizado
+	//		Singleton<RenderManager>::instance()->closeApp();
+	//		Singleton<RenderManager>::instance()->release();
 
-		//		Singleton<PhysicsManager>::instance()->detachPhysics();
+	//		Singleton<PhysicsManager>::instance()->detachPhysics();
 
-		//		return false;
-		//	}
-		//}
-		//else
-		//{
-		//	return false;
-		//}
+	//		return false;
+	//	}
+	//	}
+	//	else
+	//	{
+	//		return false;
+	//	}
 
-		return true;
-	}
+	//	render = Singleton<RenderManager>::instance();
+	//	ui = Singleton<UI_Manager>::instance();
+	//	physics = Singleton<PhysicsManager>::instance();
+	//	input = Singleton<InputManager>::instance();
+	//	audio = Singleton<SoundManager>::instance();
+	//	ec = Singleton<ec::EntityManager>::instance();
+
+	//	return true;
+	//}
 
     return false;
 }

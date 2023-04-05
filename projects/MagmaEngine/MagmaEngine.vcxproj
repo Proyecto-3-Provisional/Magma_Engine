@@ -98,13 +98,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\EC;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sources\;$(SolutionDir)sources\EC;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)\sources\EC;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sources\;$(SolutionDir)sources\EC;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
@@ -126,6 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +145,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -164,6 +167,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

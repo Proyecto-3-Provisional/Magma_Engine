@@ -5,13 +5,19 @@
 #endif
 
 
-class RenderManager;
-class UIManager;
-class PhysicsManager;
-class AudioManager;
-class InputManager;
-class EC;
+#include "Render/render_manager.h"
+#include "Render/UI_Manager.h"
+#include "Input/input_manager.h"
+#include "Physics/physics_manager.h"
+#include "Sounds/sound_manager.h"
+#include "EC/entity_manager.h"
 
+//class RenderManager;
+//class UI_Manager;
+//class PhysicsManager;
+//class InputManager;
+//class SoundManager;
+//class ec::EntityManager;
 
 class MAGMAENGINE_API CMagmaEngine {
 public:
@@ -23,12 +29,12 @@ public:
 	static CMagmaEngine* _instance;
 	CMagmaEngine(void);
 private:
-	RenderManager* render;
-	UIManager* ui;
-	PhysicsManager* physics;
-	AudioManager* audio;
-	InputManager* input;
-	EC* ec;
+	static RenderManager* render;
+	static UI_Manager* ui;
+	static PhysicsManager* physics;
+	static SoundManager* audio;
+	static InputManager* input;
+	static ec::EntityManager* ec;
 };
 
 extern MAGMAENGINE_API int nMagmaEngine;
