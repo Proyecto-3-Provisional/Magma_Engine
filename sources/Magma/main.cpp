@@ -107,15 +107,11 @@ int mainCode() {
 	//}
 
 	ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	physicsEntity->addC(Singleton<FactoryManager>::instance()->findAndCreate());
+	physicsEntity->addC<Transform>(Singleton<FactoryManager>::instance()->findAndCreate("Transform"));
 	physicsEntity->getComponent<Transform>()->setPosition({ 0, 0, 0 });
 	physicsEntity->getComponent<Transform>()->setScale({ 40,40,40 });
-	//Transform* physicsEntityTransformCmp = physicsEntity->getComponent<Transform>();
-	/*Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
-	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
-	physicsEntityTransformCmp->setScale({ 40,40,40 });*/
-	Mesh* physicsEntityMeshCmp = physicsEntity->addComponent<Mesh>();
-	bool meshInit2 = physicsEntityMeshCmp->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
+	physicsEntity->addC<Mesh>(Singleton<FactoryManager>::instance()->findAndCreate("Mesh"));
+	bool meshInit2 = physicsEntity->getComponent<Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit2)
 	{

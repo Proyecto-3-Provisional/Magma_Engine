@@ -12,8 +12,8 @@ class FactoryManager : public Singleton<FactoryManager>
 public:
 	~FactoryManager();
 
-	ec::Component* findAndCreate(ec::Entity* e = nullptr);
-	void addFactory(Factory* f);
+	ec::Component* findAndCreate(const std::string& name, ec::Entity* ent = nullptr);
+	void addFactory(const std::string& name, Factory* fact);
 private:
 	std::map<std::string, Factory*> map_;
 	std::list<Factory*> list_;

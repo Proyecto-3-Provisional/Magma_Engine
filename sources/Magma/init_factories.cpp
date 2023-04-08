@@ -11,7 +11,7 @@ ec::Component* TransformFactory::createComponent(ec::Entity* e)
 
 ec::Component* RigidbodyFactory::createComponent(ec::Entity* e)
 {
-	//return new Rigidbody();
+	return new Rigidbody({0,0,0});
 }
 
 ec::Component* MeshFactory::createComponent(ec::Entity* e)
@@ -21,9 +21,9 @@ ec::Component* MeshFactory::createComponent(ec::Entity* e)
 
 void setUpFactories() 
 {
-	FactoryManager::instance()->addFactory(new TransformFactory());
-	//FactoryManager::instance()->addFactory("Transform", new TransformFactory());
-	//FactoryManager::instance()->addFactory("Rigidbody", new RigidbodyFactory());
-	//FactoryManager::instance()->addFactory("Mesh", new MeshFactory());
+	//FactoryManager::instance()->addFactory(new TransformFactory());
+	FactoryManager::instance()->addFactory("Transform", new TransformFactory());
+	FactoryManager::instance()->addFactory("Rigidbody", new RigidbodyFactory());
+	FactoryManager::instance()->addFactory("Mesh", new MeshFactory());
 }
 
