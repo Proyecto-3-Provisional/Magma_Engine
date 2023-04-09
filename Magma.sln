@@ -31,7 +31,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagmaEngine", "projects\Mag
 		{DBD48150-9583-4CA2-9DAD-6A208679611B} = {DBD48150-9583-4CA2-9DAD-6A208679611B}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LuaBridge", "projects\LuaBridge\LuaBridge.vcxproj", "{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "projects\Lua\Lua.vcxproj", "{D5177B27-BCC6-4D98-94D5-F698EFA1DE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
