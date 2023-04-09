@@ -1,9 +1,8 @@
-// MagmaEngine.cpp : Define las funciones exportadas del archivo DLL.
-//
-
 #include "pch.h"
 #include "framework.h"
 #include "MagmaEngine.h"
+
+
 
 CMagmaEngine* CMagmaEngine::_instance = nullptr;
 
@@ -24,22 +23,73 @@ CMagmaEngine::CMagmaEngine()
 
 bool CMagmaEngine::Init()
 {
-    if (_instance == nullptr)
-    {
-        _instance = new CMagmaEngine();
+	//if (_instance == nullptr)
+	//{
+	//	_instance = new CMagmaEngine();
 
-        // Aqui deberiamos de meter las instancias de todos los proyectos
+	//	// Aqui deberiamos de meter las instancias de todos los proyectos
 
-        return true;
-    }
-    
+	//	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false) // ------ RENDER ------
+	//		&& Singleton<ec::EntityManager>::init()									// ------ EC ------
+	//		&& Singleton<PhysicsManager>::init() 									// ------ PHYSICS ------
+	//		&& Singleton<UI_Manager>::init()										// ------ UI ------
+	//		&& Singleton<InputManager>::init()										// ------ INPUT ------
+	//		&& Singleton<SoundManager>::init()										// ------ SOUND ------
+	//		)
+	//	{
 
+
+	//	if (!Singleton<RenderManager>::instance()->initApp() || !Singleton<PhysicsManager>::instance()->initPhysics()) // if (!correct)
+	//	{
+	//		// Fin del renderizado
+	//		Singleton<RenderManager>::instance()->closeApp();
+	//		Singleton<RenderManager>::instance()->release();
+
+	//		Singleton<PhysicsManager>::instance()->detachPhysics();
+
+	//		return false;
+	//	}
+	//	}
+	//	else
+	//	{
+	//		return false;
+	//	}
+
+	//	render = Singleton<RenderManager>::instance();
+	//	ui = Singleton<UI_Manager>::instance();
+	//	physics = Singleton<PhysicsManager>::instance();
+	//	input = Singleton<InputManager>::instance();
+	//	audio = Singleton<SoundManager>::instance();
+	//	ec = Singleton<ec::EntityManager>::instance();
+
+	//	return true;
+	//}
 
     return false;
 }
 
 bool CMagmaEngine::ShutDown()
 {
+	//// ------ EC ------
+	//Singleton<ec::EntityManager>::release();
+
+	//// ------ PHYSICS ------
+	//Singleton<PhysicsManager>::instance()->detachPhysics();
+	//Singleton<PhysicsManager>::release();
+
+	//// ------ INPUT ------
+	//Singleton<InputManager>::release();
+
+	//// ------ UI ------
+	//Singleton<UI_Manager>::release();
+
+	//// ------ RENDER ------
+	//Singleton<RenderManager>::instance()->closeApp();
+	//Singleton<RenderManager>::release();
+
+	//// ------ SOUND ------
+	//Singleton<SoundManager>::release();
+
     return true;
 }
 

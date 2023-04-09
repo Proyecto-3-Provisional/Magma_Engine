@@ -54,7 +54,10 @@
     <ClInclude Include="..\..\sources\EC\ec_defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\ECS\audio_source.h">
+    <ClInclude Include="..\..\sources\EC\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\EC\scene_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -72,6 +75,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\EC\component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\EC\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\EC\scene_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
