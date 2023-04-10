@@ -22,6 +22,7 @@ public:
 
 	void setPanelPosition(float x, float y) {};
 	void setPanelSize(float w, float h) {};
+	void setMaterial(std::string nameMaterial); 
 
 	std::pair<float, float> getPosition();
 	std::pair<float, float> getSize();

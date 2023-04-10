@@ -52,6 +52,11 @@ bool UI_Element::isElementVisible()
 	return panel->isVisible();
 }
 
+void UI_Element::setMaterial(std::string materialName)
+{
+	panel->setMaterialName(materialName); 
+}
+
 // Devuelve la posicion del panel
 std::pair<float, float> UI_Element::getPosition()
 {
