@@ -10,8 +10,8 @@ set dir_sol_config_bullet=%dir_raiz%\dependencies\bullet\builds
 set dir_fuentes_mixer=%dir_raiz%dependencies\sdl_mixer\sources
 set dir_sol_config_mixer=%dir_raiz%dependencies\sdl_mixer\builds
 
-set dir_fuentes_lua=%dir_raiz%dependencies\lua\sources
-set dir_sol_config_lua=%dir_raiz%dependencies\lua\builds
+set dir_fuentes_lua=%dir_raiz%dependencies\lua\sources\lua-5.4.4
+set dir_sol_config_lua=%dir_raiz%dependencies\lua\builds\x64
 
 
 :: PREPARAR LAS DEPENDENCIAS ::
@@ -44,11 +44,9 @@ cd .\dependencies\cmake\bin
 
 .\cmake.exe --build %dir_sol_config_bullet% --config Release
 
-:: LUABRIDGE DEBUG Y RELEASE
+:: LUA DEBUG Y RELEASE
 .\cmake.exe %dir_fuentes_lua% -B %dir_sol_config_lua%
-
 .\cmake.exe --build %dir_sol_config_lua% --config Debug
-
 .\cmake.exe --build %dir_sol_config_lua% --config Release
 
 :: Volver a la raíz

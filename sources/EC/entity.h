@@ -53,6 +53,38 @@ namespace ec{
 			return static_cast<T*>(c);
 		}
 
+		template<typename T, typename ...Ts>
+		void addC(Component* c, Ts &&... args) {
+			constexpr cmpId_type cId = cmpId<T>;
+			assert(cId < maxComponentId);
+
+
+			removeComponent<T>();
+			
+			c = new T(std::forward<Ts>(args)...);
+			c->setContext(this, mngr);
+			c->initComponent();
+			cmps[cId] = c;
+			currCmps.push_back(c);
+		}
+
+		/*template<typename T, typename ...Ts>
+		void addCompon(T* c, Ts &&... args) {
+
+			constexpr cmpId_type cId = cmpId<T>;
+			assert(cId < maxComponentId);
+
+
+			removeComponent<T>();
+
+
+			Component* component = c;
+			component->setContext(this, mngr);
+			component->initComponent();
+			cmps[cId] = component;
+			currCmps.push_back(component);
+		}*/
+
 		// Elimina el componente de la entidad 'e' que este en la posicion T::id
 		template<typename T>
 		void removeComponent() {
