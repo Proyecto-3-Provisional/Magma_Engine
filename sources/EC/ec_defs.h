@@ -10,11 +10,13 @@ class Rigidbody;
 class Button; 
 class Image; 
 class Text; 
+class AudioSource;
 
 #define _CMPS_LIST_ Transform,\
 					Mesh,\
 					Rigidbody,\
 					Button,\
 					Image,\
-					Text
+					Text,\
+					AudioSource
 		

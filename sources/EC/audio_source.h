@@ -4,6 +4,7 @@
 
 #include <string>
 
+#include "../Sounds/sound_manager.h"
 class SoundManager;
 
 struct AudioData;

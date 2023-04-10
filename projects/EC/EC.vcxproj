@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\sources\EC\audio_source.h" />
     <ClInclude Include="..\..\sources\EC\button.h" />
     <ClInclude Include="..\..\sources\EC\component.h" />
     <ClInclude Include="..\..\sources\EC\ec.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\sources\EC\vector3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sources\EC\audio_source.cpp" />
     <ClCompile Include="..\..\sources\EC\button.cpp" />
     <ClCompile Include="..\..\sources\EC\component.cpp" />
     <ClCompile Include="..\..\sources\EC\entity.cpp" />

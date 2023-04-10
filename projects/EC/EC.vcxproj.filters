@@ -69,6 +69,9 @@
     <ClInclude Include="..\..\sources\EC\text.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\EC\audio_source.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\EC\entity.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\EC\button.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\EC\audio_source.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
