@@ -7,8 +7,14 @@
 class Transform;
 class Mesh;
 class Rigidbody;
+class Button; 
+class Image; 
+class Text; 
 
 #define _CMPS_LIST_ Transform,\
 					Mesh,\
-					Rigidbody
+					Rigidbody,\
+					Button,\
+					Image,\
+					Text
 		
