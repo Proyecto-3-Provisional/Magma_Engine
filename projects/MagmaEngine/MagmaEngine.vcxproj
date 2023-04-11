@@ -128,6 +128,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -146,6 +147,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -168,6 +170,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -182,6 +185,26 @@
     <ClInclude Include="..\..\sources\MagmaEngine\framework.h" />
     <ClInclude Include="..\..\sources\MagmaEngine\MagmaEngine.h" />
     <ClInclude Include="..\..\sources\MagmaEngine\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EC\EC.vcxproj">
+      <Project>{dbd48150-9583-4ca2-9dad-6a208679611b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Input\Input.vcxproj">
+      <Project>{860a6525-0260-4e54-b770-99469e896c5f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Lua\Lua.vcxproj">
+      <Project>{d5177b27-bcc6-4d98-94d5-f698efa1de0d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Physics\Physics.vcxproj">
+      <Project>{7d29ac9a-59c6-427c-898c-c9841695e698}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Render\Render.vcxproj">
+      <Project>{922b7516-f118-42be-9aeb-749c8d010118}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Sounds\Sounds.vcxproj">
+      <Project>{70807504-27c7-48f6-bdf8-097676983e72}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
