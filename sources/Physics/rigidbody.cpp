@@ -3,6 +3,10 @@
 #include "../EC/entity.h"
 #include "../EC/transform.h"
 
+Rigidbody::Rigidbody() : scale(Vector3D(0, 0, 0))
+{
+}
+
 Rigidbody::Rigidbody(const Vector3D& scale_) : scale(scale_)
 {
 }

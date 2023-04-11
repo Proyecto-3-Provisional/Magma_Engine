@@ -16,7 +16,6 @@ public:
 	void addFactory(const std::string& name, Factory* fact);
 private:
 	std::map<std::string, Factory*> map_;
-	std::list<Factory*> list_;
 	template <typename T>
 	ec::Component* createComponent() { return new T; };
 };

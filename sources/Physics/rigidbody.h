@@ -10,6 +10,7 @@ class btRigidBody;
 
 class Rigidbody : public ec::Component {
 public:
+	Rigidbody();
 	Rigidbody(const Vector3D& scale_);
 	~Rigidbody();
 

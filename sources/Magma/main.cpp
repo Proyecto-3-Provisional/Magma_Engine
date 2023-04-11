@@ -42,7 +42,7 @@ int mainCode() {
 #if 1 // por comodidad (0 -> false; No 0 -> true)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #else	
-	_CrtSetBreakAlloc(37510); // id del new que queremos borrar
+	_CrtSetBreakAlloc(34613); // id del new que queremos borrar
 #endif
 #endif
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
@@ -64,7 +64,6 @@ int mainCode() {
 
 	initManagers();
 
-	Singleton<FactoryManager>::init();
 	setUpFactories();
 
 	// ---------- Inicialización RENDER ----------
@@ -107,11 +106,18 @@ int mainCode() {
 	//}
 
 	ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	physicsEntity->addC<Transform>(Singleton<FactoryManager>::instance()->findAndCreate("Transform"));
+	Singleton<FactoryManager>::instance()->findAndCreate("Transform", physicsEntity);
+	//physicsEntity->addC<Transform>(Singleton<FactoryManager>::instance()->findAndCreate("Transform"));
 	physicsEntity->getComponent<Transform>()->setPosition({ 0, 0, 0 });
 	physicsEntity->getComponent<Transform>()->setScale({ 40,40,40 });
-	physicsEntity->addC<Mesh>(Singleton<FactoryManager>::instance()->findAndCreate("Mesh"));
+	Singleton<FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
 	bool meshInit2 = physicsEntity->getComponent<Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
+	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
+	Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
+	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
+	physicsEntityTransformCmp->setScale({ 40,40,40 });
+	Mesh* physicsEntityMeshCmp = physicsEntity->addComponent<Mesh>();
+	bool meshInit2 = physicsEntityMeshCmp->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");*/
 	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit2)
 	{
@@ -314,6 +320,10 @@ void initManagers() {
 	// ------ SOUND ------
 	Singleton<SoundManager>::init();
 
+	// ------ FACTORY ------
+	Singleton<FactoryManager>::init();
+
+
 }
 
 void releaseManagers() {
@@ -337,6 +347,9 @@ void releaseManagers() {
 
 	// ------ SOUND ------
 	Singleton<SoundManager>::release();
+
+	// ------ FACTORY ------
+	Singleton<FactoryManager>::release();
 
 }
 
