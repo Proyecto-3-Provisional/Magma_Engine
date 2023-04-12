@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <algorithm>
 
+std::unique_ptr<PhysicsManager> Singleton<PhysicsManager>::instance_;
+
 PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr)
 {
 }

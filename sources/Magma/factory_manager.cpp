@@ -1,6 +1,8 @@
 #include "factory_manager.h"
 #include "factory.h"
 
+std::unique_ptr<FactoryManager> Singleton<FactoryManager>::instance_;
+
 FactoryManager::~FactoryManager()
 {
 	for (std::pair<std::string, Factory*> i : map_)

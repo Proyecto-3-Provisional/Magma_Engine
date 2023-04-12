@@ -6,6 +6,8 @@
 #include "UI_Text.h"
 #include "UI_Image.h"
 
+std::unique_ptr<UI_Manager> Singleton<UI_Manager>::instance_;
+
 /*************************************************
 	Creamos un overlay y lo mostramos en pantalla
 **/

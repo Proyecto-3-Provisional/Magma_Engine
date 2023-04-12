@@ -32,5 +32,5 @@ public:
 private:
 	static std::unique_ptr<T> instance_;
 };
-template<typename T>
-std::unique_ptr<T> Singleton<T>::instance_;
+//template<typename T>
+//std::unique_ptr<T> Singleton<T>::instance_;

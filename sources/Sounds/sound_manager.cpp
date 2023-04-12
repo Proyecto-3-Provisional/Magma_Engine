@@ -3,6 +3,8 @@
 #include <SDL_mixer.h>
 #include <SDL.h>
 
+std::unique_ptr<SoundManager> Singleton<SoundManager>::instance_;
+
 //Carga e inicializacion del sonido
 
 SoundManager::SoundManager() : volume(0) {}

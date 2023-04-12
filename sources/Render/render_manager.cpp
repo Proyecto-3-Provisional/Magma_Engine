@@ -8,6 +8,8 @@
 
 #include <SDL_events.h>
 
+std::unique_ptr<RenderManager> Singleton<RenderManager>::instance_;
+
 // Recibe un booleano que indica si el cursor puede salir de la ventana o no
 RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest")
 {

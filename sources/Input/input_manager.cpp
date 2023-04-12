@@ -1,5 +1,7 @@
 #include "input_manager.h"
 
+std::unique_ptr<InputManager> Singleton<InputManager>::instance_;
+
 InputManager::InputManager() 
 {
 	exitRequest = false;

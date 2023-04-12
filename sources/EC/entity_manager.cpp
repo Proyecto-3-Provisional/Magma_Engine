@@ -3,7 +3,10 @@
 #include "entity.h"
 #include "transform.h"
 
+std::unique_ptr<ec::EntityManager> Singleton<ec::EntityManager>::instance_;
+
 namespace ec {
+
 	//EntityManager::EntityManager() :
 	//	ents_() {
 	//	ents_.reserve(100);

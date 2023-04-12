@@ -57,7 +57,7 @@ bool CMagmaEngine::Init()
 			}
 
 			// Error en la asignacion de los static
-			render = Singleton<RenderManager>::instance();
+			//render = Singleton<RenderManager>::instance();
 			//ui = Singleton<UI_Manager>::instance();
 			//physics = Singleton<PhysicsManager>::instance();
 			//input = Singleton<InputManager>::instance();
@@ -72,25 +72,25 @@ bool CMagmaEngine::Init()
 
 bool CMagmaEngine::ShutDown()
 {
-	//// ------ EC ------
-	//Singleton<ec::EntityManager>::release();
+	// ------ EC ------
+	Singleton<ec::EntityManager>::release();
 
-	//// ------ PHYSICS ------
-	//Singleton<PhysicsManager>::instance()->detachPhysics();
-	//Singleton<PhysicsManager>::release();
+	// ------ PHYSICS ------
+	Singleton<PhysicsManager>::instance()->detachPhysics();
+	Singleton<PhysicsManager>::release();
 
-	//// ------ INPUT ------
-	//Singleton<InputManager>::release();
+	// ------ INPUT ------
+	Singleton<InputManager>::release();
 
-	//// ------ UI ------
-	//Singleton<UI_Manager>::release();
+	// ------ UI ------
+	Singleton<UI_Manager>::release();
 
-	//// ------ RENDER ------
-	//Singleton<RenderManager>::instance()->closeApp();
-	//Singleton<RenderManager>::release();
+	// ------ RENDER ------
+	Singleton<RenderManager>::instance()->closeApp();
+	Singleton<RenderManager>::release();
 
-	//// ------ SOUND ------
-	//Singleton<SoundManager>::release();
+	// ------ SOUND ------
+	Singleton<SoundManager>::release();
 
     return true;
 }

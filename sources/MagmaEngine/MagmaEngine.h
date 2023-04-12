@@ -29,7 +29,7 @@ public:
 	static CMagmaEngine* _instance;
 	CMagmaEngine(void);
 private:
-	static RenderManager * render;
+	static RenderManager* render;
 	static UI_Manager* ui;
 	static PhysicsManager* physics;
 	static SoundManager* audio;
