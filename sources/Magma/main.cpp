@@ -29,6 +29,7 @@
 #include "EC/audio_source.h"
 #include "factory_manager.h"
 #include "init_factories.h"
+#include "LuaBridge/lua_main.h"
 
 
 // DECLARACIÓN DE FUNCIONES
@@ -54,6 +55,8 @@ int mainCode() {
 	//=====================
 
 	std::cout << "======== MAGMA iniciado ========\n";
+
+	luaMain();
 
 	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int

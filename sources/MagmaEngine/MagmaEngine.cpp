@@ -57,7 +57,7 @@ bool CMagmaEngine::Init()
 			}
 
 			// Error en la asignacion de los static
-			render = Singleton<RenderManager>::instance();
+			//render = Singleton<RenderManager>::instance();
 			//ui = Singleton<UI_Manager>::instance();
 			//physics = Singleton<PhysicsManager>::instance();
 			//input = Singleton<InputManager>::instance();
