@@ -24,39 +24,48 @@ CMagmaEngine::CMagmaEngine()
 
 bool CMagmaEngine::Init()
 {
-	Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false);
 	if (_instance == nullptr)
 	{
 		_instance = new CMagmaEngine();
 
-		// Aqui deberiamos de meter las instancias de todos los proyectos
-
-		if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false) // ------ RENDER ------
-			&& Singleton<PhysicsManager>::init() 									// ------ PHYSICS ------
-			&& Singleton<UI_Manager>::init()										// ------ UI ------
-			&& Singleton<InputManager>::init()										// ------ INPUT ------
-			&& Singleton<SoundManager>::init()										// ------ SOUND ------
-			&& Singleton<SceneManager>::init()										// ------ SCENE MANAGER ------
-			)
+		// RENDER
+		if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
 		{
+			if (!Singleton<RenderManager>::instance()->initApp())
+			{
+				// Fin del renderizado
+				Singleton<RenderManager>::instance()->closeApp();
+				Singleton<RenderManager>::instance()->release();
+				return false;
+			}
+		}
+		else return false;
 
-			if (!Singleton<RenderManager>::instance()->initApp() || !Singleton<PhysicsManager>::instance()->initPhysics()) // if (!correct)
+		// PHYSICS
+		if (Singleton<PhysicsManager>::init())
+		{
+			if (!Singleton<PhysicsManager>::instance()->initPhysics()) 
 			{
 				// Fin del renderizado
 				Singleton<RenderManager>::instance()->closeApp();
 				Singleton<RenderManager>::instance()->release();
 
+				// Cerrar el mundo fisico
 				Singleton<PhysicsManager>::instance()->detachPhysics();
-
 				return false;
 			}
 		}
-		else
-		{
-			return false;
-		}
+		else return false;
 
-		return true;
+		// INITS RESTANTES
+		if (Singleton<UI_Manager>::init()										// ------ UI ------
+			&& Singleton<InputManager>::init()										// ------ INPUT ------
+			&& Singleton<SoundManager>::init()										// ------ SOUND ------
+			&& Singleton<SceneManager>::init()										// ------ SCENE MANAGER ------
+			)
+		{
+			return true;
+		}
 	}
 
 	return false;
@@ -83,6 +92,8 @@ bool CMagmaEngine::ShutDown()
 
 	// ------ SOUND ------
 	Singleton<SoundManager>::release();
+
+	delete _instance;
 
 	return true;
 }
