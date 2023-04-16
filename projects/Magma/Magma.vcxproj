@@ -180,7 +180,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration);$(SolutionDir)libraries\Lua\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2d.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2d.lib; MagmaEngine_d.lib</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -201,7 +201,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration);$(SolutionDir)libraries\Lua\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib; MagmaEngine.lib</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>

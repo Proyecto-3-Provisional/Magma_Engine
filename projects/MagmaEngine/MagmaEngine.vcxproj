@@ -148,7 +148,11 @@
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Debug\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2d.lib</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)libraries\$(ProjectName)\$(Platform)\$(Configuration)\MagmaEngine_d.dll" "$(SolutionDir)executables"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -172,6 +176,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\Release\;$(SolutionDir)libraries\MagmaEngine\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)libraries\$(ProjectName)\$(Platform)\$(Configuration)\MagmaEngine.dll" "$(SolutionDir)executables"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
