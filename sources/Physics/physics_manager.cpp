@@ -98,11 +98,9 @@ void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
 }
 
 // Actualiza el estado de los rigidbody
-void PhysicsManager::update()
+void PhysicsManager::update(float deltaTime)
 {
-	dynamicsWorld->stepSimulation(1.f / 60.f, 10);
-
-	//updateCollisions();
+	dynamicsWorld->stepSimulation(deltaTime, 10);
 
 	for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
 	{
@@ -113,14 +111,6 @@ void PhysicsManager::update()
 		{
 			body->getMotionState()->getWorldTransform(trans);
 		}
-		// Por si no añadireamos MotionState
-		//else
-		//{
-		//	trans = obj->getWorldTransform();
-		//}
-
-		// Muestra la posición de todos los rigidbody  por consola
-		//printf("world pos object %d = %f,%f,%f\n", obj->getUserIndex(), float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}
 }
 

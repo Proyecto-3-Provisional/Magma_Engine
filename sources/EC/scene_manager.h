@@ -9,6 +9,7 @@ class Scene;
 class SceneManager : public Singleton<SceneManager> {
 
 public:
+	SceneManager();
 	~SceneManager();
 
 	void popScene();
@@ -21,7 +22,7 @@ public:
 
 	void update(float deltaTime);
 private:
-	SceneManager();
+	
 
 	void deleteScenes();
 

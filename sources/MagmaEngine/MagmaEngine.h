@@ -10,14 +10,8 @@
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 #include "Sounds/sound_manager.h"
-#include "EC/entity_manager.h"
+#include "EC/scene_manager.h"
 
-//class RenderManager;
-//class UI_Manager;
-//class PhysicsManager;
-//class InputManager;
-//class SoundManager;
-//class ec::EntityManager;
 
 class MAGMAENGINE_API CMagmaEngine {
 public:
@@ -28,13 +22,6 @@ public:
 	
 	static CMagmaEngine* _instance;
 	CMagmaEngine(void);
-private:
-	static RenderManager * render;
-	static UI_Manager* ui;
-	static PhysicsManager* physics;
-	static SoundManager* audio;
-	static InputManager* input;
-	static ec::EntityManager* ec;
 };
 
 extern MAGMAENGINE_API int nMagmaEngine;

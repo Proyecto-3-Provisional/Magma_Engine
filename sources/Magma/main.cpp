@@ -219,7 +219,7 @@ int mainCode() {
 		//if (miliecsSinceLastReport2 > miliecsToReport) {
 		//	miliecsSinceLastReport2 = 0;
 		//}
-		Singleton<PhysicsManager>::instance()->update();
+		Singleton<PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
 		if (eliminar) {
 			if (physicsEntityRigidbodyCmp->isOnCollision()) {
 				physicsEntity->setAlive(false);
