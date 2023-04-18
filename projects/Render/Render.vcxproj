@@ -168,10 +168,10 @@
     <ClCompile Include="..\..\sources\Render\render_manager.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager_context.cpp" />
     <ClCompile Include="..\..\sources\Render\ui_button.cpp" />
-    <ClCompile Include="..\..\sources\Render\UI_Element.cpp" />
-    <ClCompile Include="..\..\sources\Render\UI_Image.cpp" />
-    <ClCompile Include="..\..\sources\Render\UI_Manager.cpp" />
-    <ClCompile Include="..\..\sources\Render\UI_Text.cpp" />
+    <ClCompile Include="..\..\sources\Render\ui_element.cpp" />
+    <ClCompile Include="..\..\sources\Render\ui_image.cpp" />
+    <ClCompile Include="..\..\sources\Render\ui_manager.cpp" />
+    <ClCompile Include="..\..\sources\Render\ui_text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Render\graphical_object.h" />
@@ -179,10 +179,10 @@
     <ClInclude Include="..\..\sources\Render\render_manager.h" />
     <ClInclude Include="..\..\sources\Render\render_manager_context.h" />
     <ClInclude Include="..\..\sources\Render\ui_button.h" />
-    <ClInclude Include="..\..\sources\Render\UI_Element.h" />
-    <ClInclude Include="..\..\sources\Render\UI_Image.h" />
-    <ClInclude Include="..\..\sources\Render\UI_Manager.h" />
-    <ClInclude Include="..\..\sources\Render\UI_Text.h" />
+    <ClInclude Include="..\..\sources\Render\ui_element.h" />
+    <ClInclude Include="..\..\sources\Render\ui_image.h" />
+    <ClInclude Include="..\..\sources\Render\ui_manager.h" />
+    <ClInclude Include="..\..\sources\Render\ui_text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

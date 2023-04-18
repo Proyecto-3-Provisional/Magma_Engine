@@ -12,11 +12,9 @@
 
 // GUILLERMO: "...proyectos como espacios de nombres"
 #include "Render/render_manager.h"
-#include "Render/UI_Manager.h"
-#include "Render/UI_Text.h"
-#include "Render/UI_Image.h"
+#include "Render/ui_manager.h"
 #include "Render/ui_button.h"
-#include "Render/mesh.h"		//
+#include "Render/mesh.h"		
 #include "Input/input_manager.h"
 #include "Physics/physics_manager.h"
 #include "Physics/rigidbody.h"

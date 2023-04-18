@@ -1,4 +1,4 @@
-#include "UI_Image.h"
+#include "ui_image.h"
 
 /***************************************************************************
 	Crea un panel y asignamos la posicion y el tamaño del panel

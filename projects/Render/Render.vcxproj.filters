@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\Render\UI_Manager.cpp">
+    <ClCompile Include="..\..\sources\Render\ui_manager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\Render\UI_Element.cpp">
+    <ClCompile Include="..\..\sources\Render\ui_element.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\Render\UI_Text.cpp">
+    <ClCompile Include="..\..\sources\Render\ui_text.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\Render\render_manager.cpp">
@@ -33,7 +33,7 @@
     <ClCompile Include="..\..\sources\Render\graphical_object.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\Render\UI_Image.cpp">
+    <ClCompile Include="..\..\sources\Render\ui_image.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\Render\ui_button.cpp">
@@ -44,13 +44,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\Render\UI_Manager.h">
+    <ClInclude Include="..\..\sources\Render\ui_manager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\Render\UI_Element.h">
+    <ClInclude Include="..\..\sources\Render\ui_element.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\Render\UI_Text.h">
+    <ClInclude Include="..\..\sources\Render\ui_text.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\render_manager.h">
@@ -62,7 +62,7 @@
     <ClInclude Include="..\..\sources\Render\graphical_object.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\Render\UI_Image.h">
+    <ClInclude Include="..\..\sources\Render\ui_image.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\ui_button.h">

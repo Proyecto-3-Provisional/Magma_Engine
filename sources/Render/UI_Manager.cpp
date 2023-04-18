@@ -3,8 +3,8 @@
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
 
-#include "UI_Text.h"
-#include "UI_Image.h"
+#include "ui_text.h"
+#include "ui_image.h"
 
 /*************************************************
 	Creamos un overlay y lo mostramos en pantalla

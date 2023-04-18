@@ -1,7 +1,7 @@
 #include "text.h"
 
-#include "../Render/UI_Text.h"
-#include "../Render/UI_Manager.h"
+#include <Render/UI_Text.h>
+#include <Render/UI_Manager.h>
 
 Text::Text(std::string overlayName, std::string title, std::string font, std::string textCont,
 	float x, float y, float width, float height, float r, float g, float b) : Component()

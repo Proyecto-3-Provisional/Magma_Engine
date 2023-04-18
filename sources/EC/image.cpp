@@ -1,8 +1,7 @@
 #include "image.h"
-#include "entity.h"
 
-#include "../Render/UI_Image.h"
-#include "../Render/UI_Manager.h"
+#include <Render/UI_Image.h>
+#include <Render/UI_Manager.h>
 
 Image::Image() : Component() {}
 

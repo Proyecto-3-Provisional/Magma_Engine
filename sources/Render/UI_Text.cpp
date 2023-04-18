@@ -1,4 +1,4 @@
-#include "UI_Text.h"
+#include "ui_text.h"
 
 /***************************************************************************
 	Crea un panel y asignamos la posicion y el tama�o del panel
