@@ -4,57 +4,57 @@
 	Asignamos el overlay general y su manager y creamos un panel con su posicion y tamaño al que meterle todos los elementos necesarios
 ***************************************************************************************************************************************/
 
-UI_Element::UI_Element(Ogre::Overlay* overReference, std::string title,
-	Ogre::Real posX, Ogre::Real posY, Ogre::Real sizeX, Ogre::Real sizeY)
+UI_Element::UI_Element()
 {
-	title_ = title;
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
-	overlay_ = overReference;
 	
 	isInteractive_ = false;
 
-	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", title_));
-
-	position.first = posX;
-	position.second = posY;
-
-	size.first = sizeX;
-	size.second = sizeY;
-
-	panel->setMetricsMode(Ogre::GMM_PIXELS);
-	panel->setPosition(posX, posY);
-	panel->setDimensions(sizeX, sizeY);
-
-	overlay_->add2D(panel);
+	nOverlay++; 
 }
 
 UI_Element::~UI_Element()
 {
-	overlay_->remove2D(panel);
-	overlayMan_->destroyOverlayElement(title_);
+	overlayMan_->destroy(overlay_);
 }
 
 // Muestra el elemento dentro del overlay
 void UI_Element::showElement()
 {
-	panel->show();
+	overlay_->show();
 }
 
 // Esconde el elemento dentro del overlay
 void UI_Element::hideElement()
 {
-	panel->hide();
+	overlay_->hide();
 }
 
 // Comprueba si el elemento es visible o no
 bool UI_Element::isElementVisible()
 {
-	return panel->isVisible();
+	return overlay_->isVisible();
 }
 
 void UI_Element::setMaterial(std::string materialName)
 {
-	panel->setMaterialName(materialName); 
+	panel->setMaterialName(materialName);
+}
+
+void UI_Element::setPanelPosition(float x, float y)
+{
+	position.first = x; 
+	position.second = y; 
+
+	panel->setPosition(x, y);
+}
+
+void UI_Element::setPanelSize(float w, float h)
+{
+	size.first = w;
+	size.second = h;
+
+	panel->setDimensions(w, h); 
 }
 
 // Devuelve la posicion del panel

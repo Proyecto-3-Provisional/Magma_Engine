@@ -1,25 +1,33 @@
 #pragma once
 
 #include "component.h"
+#include "entity.h"
 
 #include <string>
 
-//#include "../Render/UI_Image.h"
-//class UI_Image; 
+class UI_Image; 
 
 class Image : public ec::Component
 {
 public:
 
-	Image(std::string overlayName, std::string name, 
-		float width, float height, float x, float y, bool interactive);
+	Image(); 
+	Image(std::string overlayName, std::string name,
+		float width, float height, float x, float y);
 
 	virtual ~Image();
 
-	std::string GetName();
+	virtual bool initComponent();
+
+	virtual void render() {};
+
+	virtual void onEnable();
+	virtual void onDisable();
 
 	virtual void start();
-	virtual void update();
+	virtual void update(float deltaTime);
+
+	std::string GetName();
 
 	void setInteractive(bool interactive);
 
@@ -28,7 +36,7 @@ public:
 private:
 
 	static std::string name;
-	//UI_Image* image;         
+	UI_Image* image;         
 
 	std::string imageName;
 	std::string normalName;
@@ -39,4 +47,6 @@ private:
 	float tamY;
 	float posX;
 	float posY; 
+	float screenHeight; 
+	float screenWidth; 
 };

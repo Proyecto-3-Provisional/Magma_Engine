@@ -26,9 +26,9 @@ public:
 	
 	// Crea un UI_Element de X tipo(Texto, image...) con su nombre de panel, una referencia al overlay y los argumentos que necesite su tipo
 	template<typename T, typename ...Ts>
-	T* createElement(std::string panelName, Ts&&... args)
+	T* createElement(std::string over, std::string panelName, Ts&&... args)
 	{
-		T* elem = new T(overlay, panelName, args...);
+		T* elem = new T(over, panelName, args...);
 		elements.push_back(elem);
 		return elem;
 	}

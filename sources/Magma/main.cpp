@@ -26,6 +26,7 @@
 #include "EC/vector3D.h"
 #include "EC/fps_counter.h"
 #include "EC/transform.h"
+#include "EC/image.h"
 #include "EC/audio_source.h"
 #include "factory_manager.h"
 #include "init_factories.h"
@@ -165,14 +166,19 @@ int mainCode() {
 	// ---------- Inicialización UI ----------
 
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
-	UI_Text* testText = Singleton<UI_Manager>::instance()->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "Arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
+	/*UI_Text* testText = Singleton<UI_Manager>::instance()->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "Arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
 	testText->setText("Ahhh yessss");
 	UI_Image* testImage = Singleton<UI_Manager>::instance()->createElement<UI_Image>("ImgPrueba", "golf", 0.0f, 80.0f, 100.0f, 100.0f);
-	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);
+	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);*/
+
+	ec::Entity* imageEntity = Singleton<ec::EntityManager>::instance()->addEntity();
+	Image* componentImageEntity = imageEntity->addComponent<Image>
+		("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
+	componentImageEntity->start();
 
 	// ---------- Inicialización SOUND ----------
 	Singleton<SoundManager>::instance()->initAudio();
-	Singleton<SoundManager>::instance()->loadWAV("./assets/loop.wav",50, 2, true);
+	Singleton<SoundManager>::instance()->loadWAV("./assets/loop.wav", 50, 2, true);
 	Singleton<SoundManager>::instance()->playSound(2);
 
 
@@ -236,7 +242,7 @@ int mainCode() {
 
 		auto posMouse = Singleton<InputManager>::instance()->getMousePos();
 
-		if (testButton->isCursorInsideBounds(posMouse.first, posMouse.second))
+		/*if (testButton->isCursorInsideBounds(posMouse.first, posMouse.second))
 		{
 			testButton->cursorOnButton();
 
@@ -250,7 +256,7 @@ int mainCode() {
 		{
 			if (testButton->isOnButton())
 				testButton->mouseLeavingButton();
-		}
+		}*/
 
 		if (Singleton<InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_K))
 			std::cout << "Pos Raton = " << posMouse.first << " " << posMouse.second << "\n";
@@ -258,9 +264,10 @@ int mainCode() {
 		//Redimensión ventana
 		if (Singleton<InputManager>::instance()->hasWindowChange()) {
 			Singleton<RenderManager>::instance()->notifyWindowResized();
-			testImage->updateImage();
+			/*testImage->updateImage();
 			testButton->updateButton();
-			testText->updateText();
+			testText->updateText();*/
+			imageEntity->update(timeSinceLastFrame * 0.001f);
 		}
 
 
@@ -270,7 +277,7 @@ int mainCode() {
 		fps.update();
 
 		if (miliecsSinceLastReport > miliecsToReport) {
-			testText->setText(std::to_string(fps.get()) + " fps");
+			//testText->setText(std::to_string(fps.get()) + " fps");
 			miliecsSinceLastReport = 0;
 		}
 

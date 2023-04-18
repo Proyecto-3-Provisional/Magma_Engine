@@ -9,6 +9,7 @@ namespace ec {
 	struct Component {
 	public:
 		Component() : ent(), mngr() {}
+		Component(Entity* entity) : ent(), mngr() { ent = entity; }
 		virtual ~Component() { }
 		void setContext(Entity* ent_, EntityManager* mngr_);
 		inline bool isEnable() { return enable; }

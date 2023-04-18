@@ -1,7 +1,13 @@
 #include "image.h"
+#include "entity.h"
 
-Image::Image(std::string overlayName, std::string name, 
-	float width, float height, float x, float y, bool interact) : Component() 
+#include "../Render/UI_Image.h"
+#include "../Render/UI_Manager.h"
+
+Image::Image() : Component() {}
+
+Image::Image(std::string overlayName, std::string name,
+	float width, float height, float x, float y) : Component() 
 {
 	imageName = overlayName;
 	normalName = name;
@@ -9,10 +15,11 @@ Image::Image(std::string overlayName, std::string name,
 	tamX = width;
 	tamY = height;
 
-	posX = x; 
-	posY = y; 
+	posX = x;
+	posY = y;
 
-	interactive = interact;
+	screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
 }
 
 Image::~Image() {}
@@ -22,14 +29,39 @@ std::string Image::GetName()
 	return imageName; 
 }
 
+bool Image::initComponent() { return true; }
+
 void Image::start()
 {
-	/*image->setPanelSize(tamX, tamY); 
-	image->setPanelPosition(posX, posY); 
-	image->setInteractive(interactive);*/
+	image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(imageName, normalName, posX, posY, tamX, tamY);
+
+	image->setPanelPosition(posX, posY);
+	image->setPanelSize(tamX, tamY); 
+	image->setInteractive(interactive);
 }
 
-void Image::update() {}
+void Image::onEnable()
+{
+	if (image != nullptr)
+		image->showElement();
+}
+
+void Image::onDisable()
+{
+	image->hideElement();
+}
+
+void Image::update(float deltaTime)
+{
+	float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+	float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+
+	if (newWidth != 0 && newHeight != 0 && screenWidth != 0 && screenHeight != 0) 
+	{
+		image->setPanelPosition(posX * (newWidth / screenWidth), posY * (newHeight / screenHeight));
+		image->setPanelSize(tamX * (newWidth / screenWidth), tamY * (newHeight / screenHeight));
+	}
+}
 
 void Image::setInteractive(bool interact)
 {
@@ -38,5 +70,5 @@ void Image::setInteractive(bool interact)
 
 void Image::changeImage(std::string newImage)
 {
-	//image->setMaterial(newImage); 
+	image->setMaterial(newImage); 
 }
