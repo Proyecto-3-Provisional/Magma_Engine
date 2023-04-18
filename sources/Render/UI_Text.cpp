@@ -12,7 +12,7 @@
 UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
 	float posX, float posY, float sizeX, float sizeY, std::string fontTitle,
 	std::string textContent, float r, float g, float b)
-	: UI_Element(overReference,title, posX, posY, sizeX, sizeY)
+	: UI_Element()
 {	
 	textArea = static_cast<Ogre::TextAreaOverlayElement*>
 		(overlayMan_->createOverlayElement("TextArea", title_ + "Text"));
