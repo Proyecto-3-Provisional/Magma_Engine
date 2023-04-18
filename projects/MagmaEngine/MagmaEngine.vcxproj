@@ -97,7 +97,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;MAGMAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)sources\;$(SolutionDir)sources\EC;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
@@ -117,7 +118,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;MAGMAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)sources\;$(SolutionDir)sources\EC;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
@@ -138,7 +140,8 @@
       <PreprocessorDefinitions>_DEBUG;MAGMAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-debug\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
@@ -163,7 +166,8 @@
       <PreprocessorDefinitions>NDEBUG;MAGMAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\sources\;$(SolutionDir)dependencies\ogre\builds\x64\sdk\include\OGRE\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include\;$(SolutionDir)dependencies\ogre\builds\x64\SDL2-build\include-config-release\;$(SolutionDir)dependencies\bullet\sources\src\</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(SolutionDir)temporary\$(ProjectName)\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
@@ -181,17 +185,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\sources\MagmaEngine\dllmain.cpp" />
     <ClCompile Include="..\..\sources\MagmaEngine\MagmaEngine.cpp" />
-    <ClCompile Include="..\..\sources\MagmaEngine\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\MagmaEngine\framework.h" />
     <ClInclude Include="..\..\sources\MagmaEngine\MagmaEngine.h" />
-    <ClInclude Include="..\..\sources\MagmaEngine\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EC\EC.vcxproj">
@@ -212,6 +211,9 @@
     <ProjectReference Include="..\Sounds\Sounds.vcxproj">
       <Project>{70807504-27c7-48f6-bdf8-097676983e72}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\sources\MagmaEngine\cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#include "pch.h"
+
 #include "framework.h"
 #include "MagmaEngine.h"
 #include "SDL_timer.h"
@@ -7,19 +7,11 @@
 
 CMagmaEngine* CMagmaEngine::_instance = nullptr;
 
-// Ejemplo de variable exportada
-MAGMAENGINE_API int nMagmaEngine = 0;
 
-// Ejemplo de función exportada.
-MAGMAENGINE_API int fnMagmaEngine(void)
-{
-	return 0;
-}
 
 // Constructor de clase exportada.
 CMagmaEngine::CMagmaEngine()
 {
-	return;
 }
 
 bool CMagmaEngine::Init()

@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\sources\MagmaEngine\dllmain.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\MagmaEngine\MagmaEngine.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\MagmaEngine\pch.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,8 +29,8 @@
     <ClInclude Include="..\..\sources\MagmaEngine\MagmaEngine.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\MagmaEngine\pch.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\sources\MagmaEngine\cpp.hint" />
   </ItemGroup>
 </Project>

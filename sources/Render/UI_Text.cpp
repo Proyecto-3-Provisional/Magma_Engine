@@ -1,10 +1,10 @@
 #include "UI_Text.h"
 
 /***************************************************************************
-	Crea un panel y asignamos la posicion y el tamaño del panel
+	Crea un panel y asignamos la posicion y el tamaï¿½o del panel
 	(en el cual se puede meter varios elementos, pero solo metemos uno).
 	Luego creamos un texto y asignamos sus propios valores, incluyendo
-	tamaño del texto y color, y lo metemos en el panel.
+	tamaï¿½o del texto y color, y lo metemos en el panel.
 ***************************************************************************/
 
 UI_Text::UI_Text(std::string overlayName, std::string title,
@@ -37,7 +37,7 @@ void UI_Text::setText(std::string text)
 	overlayText->setCaption(text);
 }
 
-//Metodo para cambiar el tamaño del texto
+//Metodo para cambiar el tamaï¿½o del texto
 void UI_Text::setFontSize(float fontSize)
 {
 	overlayText->setCharHeight(fontSize);
