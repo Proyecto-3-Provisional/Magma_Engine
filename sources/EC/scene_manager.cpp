@@ -3,6 +3,8 @@
 
 SceneManager::SceneManager()
 {
+	Scene* escenaVacia = new Scene();
+	pushScene(escenaVacia);
 }
 
 SceneManager::~SceneManager()

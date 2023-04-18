@@ -18,12 +18,11 @@ public:
 	static bool Init();
 	static bool ShutDown();
 	void run();
-	// static bool setup(); // Se podria hacer en el propio Init
 	
 	static CMagmaEngine* _instance;
-	CMagmaEngine(void);
+	CMagmaEngine();
 };
 
-extern MAGMAENGINE_API int nMagmaEngine;
+//extern MAGMAENGINE_API int nMagmaEngine;
 
-MAGMAENGINE_API int fnMagmaEngine(void);
+//MAGMAENGINE_API int fnMagmaEngine(void);

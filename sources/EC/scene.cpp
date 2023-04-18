@@ -3,10 +3,12 @@
 
 Scene::Scene()
 {
+	Singleton<ec::EntityManager>::init();
 }
 
 Scene::~Scene()
 {
+	Singleton<ec::EntityManager>::release();
 }
 
 void Scene::update(float deltaTime)
