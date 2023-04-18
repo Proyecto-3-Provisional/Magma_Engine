@@ -57,6 +57,22 @@ void UI_Element::setPanelSize(float w, float h)
 	panel->setDimensions(w, h); 
 }
 
+void UI_Element::setTextPosition(float x, float y)
+{
+	position.first = x;
+	position.second = y;
+
+	overlayText->setPosition(x, y); 
+}
+
+void UI_Element::setTextSize(float w, float h)
+{
+	size.first = w;
+	size.second = h;
+
+	overlayText->setDimensions(w, h);
+}
+
 // Devuelve la posicion del panel
 std::pair<float, float> UI_Element::getPosition()
 {

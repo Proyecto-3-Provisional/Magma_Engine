@@ -11,16 +11,26 @@ class Text : public ec::Component
 {
 public:
 
-	Text(std::string overlayName, std::string fontName, std::string text,
-		float x, float y, float width, float height);
+	Text(std::string overlayName, std::string title, std::string fontName, std::string text,
+		float x, float y, float width, float height, float r, float g, float b);
 	virtual ~Text();
+
+	virtual bool initComponent();
+
+	virtual void render() {};
+
+	virtual void onEnable();
+	virtual void onDisable();
+
+	virtual void start();
+	virtual void update(float deltaTime);
 
 	std::string GetName();
 
-	virtual void start();
-	virtual void update();
-
 	void changeText(std::string newText);
+	void changeFontText(std::string newFont);
+	void changeSizeText(float size);
+	void changeColorText(float r, float g, float b);
 
 private:
 
@@ -28,7 +38,8 @@ private:
 
 	UI_Text* text; 
 
-	std::string textName;
+	std::string textReference;
+	std::string textTitle; 
 	std::string fontName;
 	std::string textContent;
 
@@ -36,4 +47,9 @@ private:
 	float posY;
 	float tamX;
 	float tamY;
+	float red; 
+	float green; 
+	float blue;
+	float screenHeight;
+	float screenWidth;
 };

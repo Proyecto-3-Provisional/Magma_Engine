@@ -3,6 +3,8 @@
 #include <Overlay/OgreOverlay.h>
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
+#include <Overlay/OgreTextAreaOverlayElement.h>
+#include <Overlay/OgreFontManager.h>
 
 #include <string>
 
@@ -21,6 +23,10 @@ public:
 
 	void setPanelPosition(float x, float y);
 	void setPanelSize(float w, float h);
+
+	void setTextPosition(float x, float y);
+	void setTextSize(float w, float h);
+
 	void setMaterial(std::string nameMaterial); 
 
 	std::pair<float, float> getPosition();
@@ -35,6 +41,7 @@ protected:
 	std::pair<float, float> position;
 	std::pair<float, float> size;
 	
+	Ogre::TextAreaOverlayElement* overlayText;
 	Ogre::OverlayManager* overlayMan_;
 	Ogre::Overlay* overlay_;
 	Ogre::OverlayContainer* panel;

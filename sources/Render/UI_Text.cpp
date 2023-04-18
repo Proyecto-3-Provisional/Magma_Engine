@@ -1,6 +1,4 @@
 #include "UI_Text.h"
-#include <Overlay/OgreTextAreaOverlayElement.h>
-#include <Overlay/OgreFontManager.h>
 
 /***************************************************************************
 	Crea un panel y asignamos la posicion y el tamaño del panel
@@ -9,73 +7,45 @@
 	tamaño del texto y color, y lo metemos en el panel.
 ***************************************************************************/
 
-UI_Text::UI_Text(Ogre::Overlay* overReference, std::string title,
-	float posX, float posY, float sizeX, float sizeY, std::string fontTitle,
-	std::string textContent, float r, float g, float b)
-	: UI_Element(overReference,title, posX, posY, sizeX, sizeY)
+UI_Text::UI_Text(std::string overlayName, std::string title,
+	float posX, float posY, float sizeX, float sizeY)
+	: UI_Element()
 {	
-	textArea = static_cast<Ogre::TextAreaOverlayElement*>
-		(overlayMan_->createOverlayElement("TextArea", title_ + "Text"));
+	overlayText = static_cast<Ogre::TextAreaOverlayElement*>
+		(overlayMan_->createOverlayElement("TextArea", overlayName + "Text"));
 
-	textArea->setMetricsMode(Ogre::GMM_PIXELS);
-	textArea->setPosition(posX, posY);
-	textArea->setDimensions(sizeX, sizeY);
+	overlayText->setMetricsMode(Ogre::GMM_PIXELS);
+	overlayText->setPosition(posX, posY);
+	overlayText->setDimensions(sizeX, sizeY);
 
-	textArea->setFontName(fontTitle);
-	textArea->setCaption(textContent);
-
-	textArea->setCharHeight(sizeY);
-	textArea->setColourBottom(Ogre::ColourValue(r, g, b));
-	textArea->setColourTop(Ogre::ColourValue(r, g, b));
-
-	panel->addChild(textArea);
-
-	screenwidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-	screenheight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-	originalwidth = sizeX;
-	originalheight = sizeY;
-	originalposx = posX;
-	originalposy = posY;
+	overlay_ = overlayMan_->create(overlayName + std::to_string(nOverlay));
+	overlay_->add2D((Ogre::OverlayContainer*)overlayText);
+	overlay_->show();
 }
 
-UI_Text::~UI_Text()
+UI_Text::~UI_Text() = default; 
+
+//Metodo para cambiar la fuente del texto
+void UI_Text::setFont(std::string font)
 {
-	panel->removeChild(title_ + "Text");
-	overlayMan_->destroyOverlayElement(textArea);
+	overlayText->setFontName(font); 
 }
 
-void UI_Text::setText(std::string newText)
+//Metodo para cambiar el contenido del texto
+void UI_Text::setText(std::string text)
 {
-	textArea->setCaption(newText);
+	overlayText->setCaption(text);
 }
 
-void UI_Text::setTextPosition(float x, float y)
+//Metodo para cambiar el tamaño del texto
+void UI_Text::setFontSize(float fontSize)
 {
-	textArea->setPosition(x, y);
+	overlayText->setCharHeight(fontSize);
 }
 
-void UI_Text::setTextSize(float x, float y)
+//Metodo para cambiar el color del texto
+void UI_Text::setTextColor(float r, float g, float b)
 {
-	textArea->setDimensions(x, y);
-}
-
-void UI_Text::changeFontSize(float fontSize)
-{
-	textArea->setCharHeight(fontSize);
-}
-
-void UI_Text::changeTextColor(float r, float g, float b)
-{
-	textArea->setColourBottom(Ogre::ColourValue(r, g, b));
-	textArea->setColourTop(Ogre::ColourValue(r, g, b));
-}
-
-void UI_Text::updateText() {
-	float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-	float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-	if (newWidth != 0 && newHeight != 0 && screenwidth != 0 && screenheight != 0) {
-		textArea->setPosition(originalposx * (newWidth / screenwidth), originalposy * (newHeight / screenheight));
-		textArea->setDimensions(originalwidth * (newWidth / screenwidth), originalheight * (newHeight / screenheight));
-		textArea->setCharHeight(originalheight * (newHeight / screenheight));
-	}
+	overlayText->setColourBottom(Ogre::ColourValue(r, g, b));
+	overlayText->setColourTop(Ogre::ColourValue(r, g, b));
 }

@@ -27,6 +27,7 @@
 #include "EC/fps_counter.h"
 #include "EC/transform.h"
 #include "EC/image.h"
+#include "EC/text.h"
 #include "EC/audio_source.h"
 #include "factory_manager.h"
 #include "init_factories.h"
@@ -175,6 +176,10 @@ int mainCode() {
 	Image* componentImageEntity = imageEntity->addComponent<Image>
 		("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
 	componentImageEntity->start();
+
+	Text* componentTextEntity = imageEntity->addComponent<Text>
+		("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
+	componentTextEntity->start();
 
 	// ---------- Inicialización SOUND ----------
 	Singleton<SoundManager>::instance()->initAudio();
