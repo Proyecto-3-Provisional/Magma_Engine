@@ -4,12 +4,12 @@ class UIButton : public UI_Element
 {
 public:
 
-	UIButton(Ogre::Overlay* overReference, std::string title, std::string imageName, 
+	UIButton(std::string overReference, /*std::string title, */ std::string imageName,
 		std::string hoverImageName, std::string pressedImageName,
 		float posX, float posY, float sizeX, float sizeY);
 	virtual ~UIButton();
 
-	void setButtonPosition(float x, float y);
+	/*void setButtonPosition(float x, float y);
 	void setButtonSize(float x, float y);
 
 	void cursorOnButton();
@@ -21,11 +21,11 @@ public:
 
 	bool isCursorInsideBounds(int x, int y); 
 
-	void updateButton();
+	void updateButton();*/
 
 private:
 
-	Ogre::OverlayElement* buttonImage;
+	/*Ogre::OverlayElement* buttonImage;
 
 	bool pressed;
 	bool onButton; 
@@ -44,5 +44,5 @@ private:
 	float originalPosX;
 	float originalPosY;
 	float originalTamX;
-	float originalTamY;
+	float originalTamY;*/
 };

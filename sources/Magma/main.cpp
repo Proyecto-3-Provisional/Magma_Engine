@@ -26,6 +26,7 @@
 #include <EC/transform.h>
 #include <EC/image.h>
 #include <EC/text.h>
+#include <EC/button.h>
 #include <EC/audio_source.h>
 #include <Magma/factory_manager.h>
 #include <Magma/init_factories.h>
@@ -180,6 +181,10 @@ int mainCode() {
 	Text* componentTextEntity = imageEntity->addComponent<Text>
 		("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
 	componentTextEntity->start();
+
+	Button* componentButtonEntity = imageEntity->addComponent<Button>
+		("ButtonPrueba", "golf", "bubble", "golf", 100.0f, 100.0f, 0.0f, 30.0f);
+	componentButtonEntity->start();
 
 	// ---------- Inicialización SOUND ----------
 	Singleton<SoundManager>::instance()->initAudio();
