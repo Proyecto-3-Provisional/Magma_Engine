@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "OgreNode.h"
+#include <OgreNode.h>
 
 // Envoltorio para el uso básico de SceneNode, Entity y Light de Ogre.
 // Permite crear y manipular fácilmente desde fuera objetos del mundo gráfico.

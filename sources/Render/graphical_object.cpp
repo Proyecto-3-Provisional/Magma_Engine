@@ -1,8 +1,8 @@
-#include "graphical_object.h"
+#include <Render/graphical_object.h>
 
-#include "OgreRoot.h"
-#include "OgreEntity.h"
-#include "OgreParticleSystem.h"
+#include <OgreRoot.h>
+#include <OgreEntity.h>
+#include <OgreParticleSystem.h>
 
 // Primero se crea el nodo de este Objeto Gráfico como hijo de otro, o
 // como hijo del nodo raíz de la escena (en función de 'parent').

@@ -1,4 +1,4 @@
-#include "component.h"
+#include <EC/component.h>
 
 #include <string>
 

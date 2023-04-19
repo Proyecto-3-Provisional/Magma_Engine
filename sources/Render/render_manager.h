@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../singleton.h"
+#include <singleton.h>
 
-#include "render_manager_context.h"
-#include "graphical_object.h"
+#include <Render/render_manager_context.h>
+#include <Render/graphical_object.h>
 
 class RenderManager : public RenderManagerContext, public Singleton<RenderManager>
 {

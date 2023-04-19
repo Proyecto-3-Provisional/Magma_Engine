@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../singleton.h"
+#include <singleton.h>
+
 #include <stack>
 #include <string>
 

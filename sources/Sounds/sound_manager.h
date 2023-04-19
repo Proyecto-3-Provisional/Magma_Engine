@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector> 
-#include "../singleton.h"
+#include <singleton.h>
 
 class Mix_Chunk;
 

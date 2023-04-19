@@ -1,9 +1,12 @@
-#include "init_factories.h"
-#include "factory_manager.h"
-#include "../EC/entity.h" 
-#include "../EC/transform.h"
-#include "../Physics/rigidbody.h"
-#include "../Render/mesh.h"
+#include <Magma/init_factories.h>
+#include <Magma/factory_manager.h>
+
+#include <EC/entity.h>
+#include <EC/transform.h>
+
+#include <Physics/rigidbody.h>
+
+#include <Render/mesh.h>
 
 ec::Component* TransformFactory::createComponent(ec::Entity* e)
 {

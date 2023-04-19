@@ -1,5 +1,5 @@
-#include "scene.h"
-#include "entity_manager.h"
+#include <EC/scene.h>
+#include <EC/entity_manager.h>
 
 Scene::Scene()
 {

@@ -2,8 +2,10 @@
 #include <string>
 #include <map>
 #include <list>
-#include "../EC/component.h"
-#include "../singleton.h"
+
+#include <EC/component.h>
+
+#include <singleton.h>
 
 class Factory;
 

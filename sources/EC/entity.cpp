@@ -1,6 +1,5 @@
-#include "entity.h"
-
-#include "component.h"
+#include <EC/entity.h>
+#include <EC/component.h>
 
 namespace ec {
 

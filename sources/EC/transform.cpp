@@ -1,5 +1,5 @@
-#include "transform.h"
-#include "entity.h"
+#include <EC/transform.h>
+#include <EC/entity.h>
 
 
 Vector3D& Transform::getPos()

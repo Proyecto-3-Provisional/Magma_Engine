@@ -18,7 +18,7 @@
     <ClInclude Include="..\..\sources\Input\input_manager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\Input\input_commands.h">
+    <ClInclude Include="input_commands.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

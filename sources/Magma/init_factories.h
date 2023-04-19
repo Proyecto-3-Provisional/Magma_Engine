@@ -1,7 +1,7 @@
 #pragma once
-#include "factory.h"
+#include <Magma/factory.h>
 
-class ec::Component;
+struct ec::Component;
 
 class TransformFactory : public Factory
 {

@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "ec.h"
-#include "messages.h"
+#include <EC/ec.h>
+#include <EC/messages.h>
 
 namespace ec {
 	struct Component {

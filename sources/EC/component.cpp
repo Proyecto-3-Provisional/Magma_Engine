@@ -1,4 +1,4 @@
-#include "component.h"
+#include <EC/component.h>
 
 void ec::Component::setContext(Entity* ent_, EntityManager* mngr_)
 {

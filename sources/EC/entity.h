@@ -5,8 +5,8 @@
 #include <array>
 #include <vector>
 
-#include "component.h"
-#include "ec.h"
+#include <EC/component.h>
+#include <EC/ec.h>
 
 namespace ec{
 

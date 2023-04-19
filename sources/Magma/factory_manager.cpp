@@ -1,5 +1,5 @@
-#include "factory_manager.h"
-#include "factory.h"
+#include <Magma/factory_manager.h>
+#include <Magma/factory.h>
 
 FactoryManager::~FactoryManager()
 {

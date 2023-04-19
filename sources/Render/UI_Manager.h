@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "../singleton.h"
+#include <singleton.h>
 
 namespace Ogre
 {

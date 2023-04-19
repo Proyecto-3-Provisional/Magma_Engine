@@ -1,4 +1,4 @@
-#include "sound_manager.h"
+#include <Sounds/sound_manager.h>
 
 #include <SDL_mixer.h>
 #include <SDL.h>

@@ -1,6 +1,7 @@
 #include "lua_main.h"
 
-#include "lua.hpp"
+#include <lua.hpp>
+
 #include <iostream>
 
 int luaMain(){

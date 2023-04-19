@@ -1,1 +1,1 @@
-#include "factory.h"
+#include <Magma/factory.h>

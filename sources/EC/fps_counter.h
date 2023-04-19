@@ -1,5 +1,5 @@
 #pragma once
-#include "SDL_timer.h"
+#include <SDL_timer.h>
 
 class Interval
 {

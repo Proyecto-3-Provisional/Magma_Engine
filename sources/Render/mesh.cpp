@@ -1,10 +1,11 @@
-#include "mesh.h"
 
-#include "../singleton.h"
-#include "render_manager.h"
+#include <singleton.h>
 
-#include "../EC/transform.h"
-#include "../EC/entity.h"
+#include <Render/render_manager.h>
+#include <Render/mesh.h>
+
+#include <EC/transform.h>
+#include <EC/entity.h>
 
 Mesh::Mesh()
 {

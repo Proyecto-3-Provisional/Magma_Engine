@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../EC/component.h"
+#include <EC/component.h>
 #include <string>
 #include <map>
 

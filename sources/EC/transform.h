@@ -1,7 +1,7 @@
 #pragma once
 
-#include "vector3D.h"
-#include "component.h"
+#include <EC/vector3D.h>
+#include <EC/component.h>
 
 class Transform : public ec::Component {
 public:

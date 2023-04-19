@@ -3,7 +3,7 @@
 #pragma once
 
 #include <cstdint>
-#include "ec.h"
+#include <EC/ec.h>
 
 // Definimos los nombres de los mensajes, son accesibles desde nuestros componentes, por ejemplo en transform.h, pitch(). 
 // Para recibir, usar como ejemplo mesh recieve 

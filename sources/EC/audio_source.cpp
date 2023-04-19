@@ -1,11 +1,8 @@
-#include "audio_source.h"
-//#include "sound_manager.h"
-//
+#include <EC/audio_source.h>
+
 namespace ec {
 
-	AudioSource::AudioSource() : Component() {}
-
-	AudioSource::AudioSource(Entity* e, std::string path, float vol, int channel, bool loop, bool start) : Component()
+	AudioSource::AudioSource(Entity* e, std::string path, int vol, int channel, bool loop, bool start) : Component()
 	{
 		audio = new AudioData;
 
@@ -26,7 +23,7 @@ namespace ec {
 		delete audio;
 	}
 
-	void AudioSource::setSongsValues(std::string path, float vol, int channel, bool loop, bool start)
+	void AudioSource::setSongsValues(std::string path, int vol, int channel, bool loop, bool start)
 	{
 		audio = new AudioData;
 
@@ -65,7 +62,7 @@ namespace ec {
 		{
 			int loop = 1; 
 
-			if (isLoop == -1)
+			if (!isLoop)
 				loop = 0;
 
 			manager->playSound(audio->channel);
@@ -104,13 +101,13 @@ namespace ec {
 	}
 
 
-	void AudioSource::setVolume(float vol) 
+	void AudioSource::setVolume(int vol) 
 	{
 		audio->volume = vol;
 	}
 
 
-	float AudioSource::getVolume()
+	int AudioSource::getVolume()
 	{
 		return audio->volume;
 	}

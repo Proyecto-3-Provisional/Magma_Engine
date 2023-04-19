@@ -3,8 +3,8 @@
 #include <string.h>
 #include <iostream>
 
-#include "input_commands.h"
-#include "../singleton.h"
+#include <singleton.h>
+#include <Input/input_commands.h>
 
 class InputManager : public Singleton<InputManager>
 {

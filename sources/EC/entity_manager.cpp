@@ -1,7 +1,6 @@
-#include "entity_manager.h"
-
-#include "entity.h"
-#include "transform.h"
+#include <EC/entity_manager.h>
+#include <EC/entity.h>
+#include <EC/transform.h>
 
 namespace ec {
 	//EntityManager::EntityManager() :

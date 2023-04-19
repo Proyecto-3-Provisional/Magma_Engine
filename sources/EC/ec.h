@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <limits>
 
-#include "mpl.h"
+#include <EC/mpl.h>
 
 //Struct para el grupo "general", no se debe usar en los grupos definidos por el usuario
 struct _grp_GENERAL;
@@ -14,7 +14,7 @@ struct _grp_GENERAL;
 
 //ver ecs_defs para las listas de componentes, grupos...
 #if __has_include("ec_defs.h")
-#include "ec_defs.h"
+#include <EC/ec_defs.h>
 #endif
 
 #ifndef _CMPS_LIST_

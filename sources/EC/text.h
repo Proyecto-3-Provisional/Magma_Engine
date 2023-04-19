@@ -1,7 +1,6 @@
 #pragma once
 
-#include "component.h"
-#include "OgreVector3.h"
+#include <EC/component.h>
 
 #include <string>
 

@@ -1,10 +1,11 @@
 #pragma once
 
-#include "component.h"
-
 #include <string>
 
-#include "../Sounds/sound_manager.h"
+#include <EC/component.h>
+
+#include <Sounds/sound_manager.h>
+
 class SoundManager;
 
 struct AudioData;
@@ -15,23 +16,22 @@ namespace ec
 	{
 	public:
 
-		AudioSource();
-		AudioSource(Entity* e, std::string path, float vol, int channel, bool loop, bool start);
+		AudioSource(Entity* e, std::string path, int vol, int channel, bool loop, bool start);
 
 		virtual ~AudioSource();
 
 		virtual void start();
 		virtual void update(int frameTime);
 
-		void setSongsValues(std::string path, float vol, int channel, bool loop, bool start); 
+		void setSongsValues(std::string path, int vol, int channel, bool loop, bool start); 
 
 		void playSong();
 		void pauseSong();
 		void resumeSong();
 		void stopSong();
 
-		void setVolume(float vol);
-		float getVolume();
+		void setVolume(int vol);
+		int getVolume();
 
 	private:
 

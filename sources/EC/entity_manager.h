@@ -4,11 +4,12 @@
 
 #include <vector>
 
-#include "component.h"
-#include "entity.h"
-#include "ec.h"
-#include "messages.h"
-#include "../singleton.h"
+#include <EC/component.h>
+#include <EC/entity.h>
+#include <EC/ec.h>
+#include <EC/messages.h>
+
+#include <singleton.h>
 
 namespace ec {
 	class EntityManager : public Singleton<EntityManager> {

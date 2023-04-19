@@ -8,28 +8,28 @@
 #include <iostream>
 
 // para calcular el tiempo transcurrido entre fotogramas
-#include "SDL_timer.h"
+#include <SDL_timer.h>
 
 // GUILLERMO: "...proyectos como espacios de nombres"
-#include "Render/render_manager.h"
-#include "Render/ui_manager.h"
-#include "Render/ui_button.h"
-#include "Render/mesh.h"		
-#include "Input/input_manager.h"
-#include "Physics/physics_manager.h"
-#include "Physics/rigidbody.h"
-#include "Sounds/sound_manager.h"
-#include "EC/entity_manager.h"
-#include "EC/entity.h"
-#include "EC/vector3D.h"
-#include "EC/fps_counter.h"
-#include "EC/transform.h"
-#include "EC/image.h"
-#include "EC/text.h"
-#include "EC/audio_source.h"
-#include "factory_manager.h"
-#include "init_factories.h"
-#include "LuaBridge/lua_main.h"
+#include <Render/render_manager.h>
+#include <Render/ui_manager.h>
+#include <Render/ui_button.h>
+#include <Render/mesh.h>	
+#include <Input/input_manager.h>
+#include <Physics/physics_manager.h>
+#include <Physics/rigidbody.h>
+#include <Sounds/sound_manager.h>
+#include <EC/entity_manager.h>
+#include <EC/entity.h>
+#include <EC/vector3D.h>
+#include <EC/fps_counter.h>
+#include <EC/transform.h>
+#include <EC/image.h>
+#include <EC/text.h>
+#include <EC/audio_source.h>
+#include <Magma/factory_manager.h>
+#include <Magma/init_factories.h>
+#include <LuaBridge/lua_main.h>
 
 
 // DECLARACIÓN DE FUNCIONES

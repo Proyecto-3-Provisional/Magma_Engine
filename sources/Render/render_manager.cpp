@@ -1,4 +1,4 @@
-#include "render_manager.h"
+#include <Render/render_manager.h>
 
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>

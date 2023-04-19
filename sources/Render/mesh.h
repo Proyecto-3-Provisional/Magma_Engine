@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../EC/component.h"
-#include "../EC/vector3D.h"
-#include "graphical_object.h"
+#include <EC/component.h>
+#include <EC/vector3D.h>
+
+#include <Render/graphical_object.h>
 
 class Transform;
 

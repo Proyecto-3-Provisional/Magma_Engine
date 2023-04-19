@@ -1,5 +1,6 @@
-#include "physics_manager.h"
-#include "../EC/vector3D.h"
+#include <Physics/physics_manager.h>
+#include <EC/vector3D.h>
+
 #include <iostream>
 #include <stdio.h>
 #include <algorithm>
