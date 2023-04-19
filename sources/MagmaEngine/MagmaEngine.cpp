@@ -1,17 +1,42 @@
 
 #include "framework.h"
 #include "MagmaEngine.h"
+
+
 #include "SDL_timer.h"
 
-
-
 CMagmaEngine* CMagmaEngine::_instance = nullptr;
-
-
 
 // Constructor de clase exportada.
 CMagmaEngine::CMagmaEngine()
 {
+}
+
+bool CMagmaEngine::loadGame()
+{
+#ifdef _DEBUG
+	game = LoadLibrary(TEXT("TheRiseOfSuxalote_d"));
+#else 
+	game = LoadLibrary(TEXT("TheRiseOfSuxalote"));
+#endif 
+	if (game != NULL)
+	{
+		std::cout << "Libreria del juego cargada" << std::endl;
+		GameExample pruebaJuego = (GameExample)GetProcAddress(game, "prueba");
+		
+		
+		if (pruebaJuego != NULL)
+			pruebaJuego();
+		else
+			std::cout << "No se ha encontrado el metodo del juego\n";
+
+		return true;
+	}
+	else
+	{
+		std::cout << "Libreria del juego no encontrada" << std::endl;
+		return false;
+	}
 }
 
 bool CMagmaEngine::Init()
@@ -19,46 +44,51 @@ bool CMagmaEngine::Init()
 	if (_instance == nullptr)
 	{
 		_instance = new CMagmaEngine();
-
-		// RENDER
-		if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
+		
+		// Si consigue cargar el juego, se inicializa el resto
+		if (loadGame())
 		{
-			if (!Singleton<RenderManager>::instance()->initApp())
+			// RENDER
+			if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
 			{
-				// Fin del renderizado
-				Singleton<RenderManager>::instance()->closeApp();
-				Singleton<RenderManager>::instance()->release();
-				return false;
+				if (!Singleton<RenderManager>::instance()->initApp())
+				{
+					// Fin del renderizado
+					Singleton<RenderManager>::instance()->closeApp();
+					Singleton<RenderManager>::instance()->release();
+					return false;
+				}
+			}
+			else return false;
+
+			// PHYSICS
+			if (Singleton<PhysicsManager>::init())
+			{
+				if (!Singleton<PhysicsManager>::instance()->initPhysics())
+				{
+					// Fin del renderizado
+					Singleton<RenderManager>::instance()->closeApp();
+					Singleton<RenderManager>::instance()->release();
+
+					// Cerrar el mundo fisico
+					Singleton<PhysicsManager>::instance()->detachPhysics();
+					return false;
+				}
+			}
+			else return false;
+
+			// INITS RESTANTES
+			if (Singleton<UI_Manager>::init()											// ------ UI ------
+				&& Singleton<InputManager>::init()										// ------ INPUT ------
+				&& Singleton<SoundManager>::init()										// ------ SOUND ------
+				&& Singleton<SceneManager>::init()										// ------ SCENE MANAGER ------
+				)
+			{
+				return true;
 			}
 		}
-		else return false;
 
-		// PHYSICS
-		if (Singleton<PhysicsManager>::init())
-		{
-			if (!Singleton<PhysicsManager>::instance()->initPhysics()) 
-			{
-				// Fin del renderizado
-				Singleton<RenderManager>::instance()->closeApp();
-				Singleton<RenderManager>::instance()->release();
-
-				// Cerrar el mundo fisico
-				Singleton<PhysicsManager>::instance()->detachPhysics();
-				return false;
-			}
 		}
-		else return false;
-
-		// INITS RESTANTES
-		if (Singleton<UI_Manager>::init()										// ------ UI ------
-			&& Singleton<InputManager>::init()										// ------ INPUT ------
-			&& Singleton<SoundManager>::init()										// ------ SOUND ------
-			&& Singleton<SceneManager>::init()										// ------ SCENE MANAGER ------
-			)
-		{
-			return true;
-		}
-	}
 
 	return false;
 }
@@ -84,6 +114,8 @@ bool CMagmaEngine::ShutDown()
 
 	// ------ SOUND ------
 	Singleton<SoundManager>::release();
+
+	FreeLibrary(game);
 
 	delete _instance;
 

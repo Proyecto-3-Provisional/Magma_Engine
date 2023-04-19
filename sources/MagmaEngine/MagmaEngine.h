@@ -15,12 +15,16 @@
 
 class MAGMAENGINE_API CMagmaEngine {
 public:
-	static bool Init();
-	static bool ShutDown();
+	bool Init();
+	bool ShutDown();
 	void run();
-	
 	static CMagmaEngine* _instance;
 	CMagmaEngine();
+private:
+	typedef void(__cdecl* GameExample)(void);
+	
+	HMODULE game;
+	bool loadGame();
 };
 
 //extern MAGMAENGINE_API int nMagmaEngine;
