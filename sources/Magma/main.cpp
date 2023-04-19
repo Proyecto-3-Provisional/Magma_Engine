@@ -69,6 +69,8 @@ int mainCode() {
 
 	setUpFactories();
 
+	std::cout << "Managers inicializados\n";
+
 	// ---------- Inicialización RENDER ----------
 
 	//Cámara
