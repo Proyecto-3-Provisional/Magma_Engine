@@ -9,7 +9,7 @@
 UI_Image::UI_Image(std::string overReference, std::string imageName,
 	float posX, float posY, float sizeX, float sizeY) : UI_Element()
 {
-	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", imageName + std::to_string(nOverlay)));
+	panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", overReference + std::to_string(nOverlay)));
 	panel->setMetricsMode(Ogre::GMM_PIXELS);
 	panel->setPosition(posX, posY);
 	panel->setDimensions(sizeX, sizeY);

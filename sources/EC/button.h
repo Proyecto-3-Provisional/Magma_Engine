@@ -32,7 +32,6 @@ public:
 
 private:
 
-	//InputManager* input;
 	UIButton* button;
 
 	std::string buttonName;

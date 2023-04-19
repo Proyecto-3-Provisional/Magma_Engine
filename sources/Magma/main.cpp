@@ -183,8 +183,9 @@ int mainCode() {
 	componentTextEntity->start();
 
 	Button* componentButtonEntity = imageEntity->addComponent<Button>
-		("ButtonPrueba", "golf", "bubble", "golf", 100.0f, 100.0f, 0.0f, 30.0f);
+		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
 	componentButtonEntity->start();
+
 
 	// ---------- Inicialización SOUND ----------
 	Singleton<SoundManager>::instance()->initAudio();
@@ -225,7 +226,7 @@ int mainCode() {
 			error = true;
 
 		// ---------- TEST EC ----------
-		Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);	
+		Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);
 		Singleton<ec::EntityManager>::instance()->refresh();
 
 
@@ -277,9 +278,15 @@ int mainCode() {
 			/*testImage->updateImage();
 			testButton->updateButton();
 			testText->updateText();*/
-			imageEntity->update(timeSinceLastFrame * 0.001f);
+			//imageEntity->update(timeSinceLastFrame * 0.001f);
 		}
 
+		//esto hace que ya pille bien el imput la ui al pulsar el raton
+		imageEntity->update(timeSinceLastFrame * 0.001f);
+		//si dejo descomentado esto de abajo no me hace falta lo de arriba pero necesito confirmacion de los compañeros
+		// ---------- TEST EC ----------
+		//Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);	
+		//Singleton<ec::EntityManager>::instance()->refresh();
 
 		Singleton<InputManager>::instance()->flush();
 
@@ -290,7 +297,8 @@ int mainCode() {
 			//testText->setText(std::to_string(fps.get()) + " fps");
 			miliecsSinceLastReport = 0;
 		}
-
+		
+		
 
 	}
 	if (error)

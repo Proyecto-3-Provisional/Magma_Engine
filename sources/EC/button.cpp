@@ -21,9 +21,8 @@ Button::Button(std::string overlayName, std::string imageName,
 	posY = y; 
 	screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
 	screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+	pressed = false;
 
-
-	//input = Singleton<InputManager>::instance();
 }
 
 Button::~Button() {};
@@ -50,17 +49,16 @@ bool Button::isCursorInsideBounds(int mouseX, int mouseY)
 	return (mouseX > posX && mouseX < (posX + tamX)) && (mouseY > posY && mouseY < (posY + tamY));
 }
 
+//actualiza el tamaño del boton cuando cambia la ventana y cambia la imagen del boton cuando es pulsado o el raton esta por encima
 void Button::update(float deltaTime)
 {
-	//pressed = false;
-
-	//auto pointPos = input->getMousePos();
 
 	auto pointPos = Singleton<InputManager>::instance()->getMousePos();
 
+
 	if (isCursorInsideBounds(pointPos.first, pointPos.second))
 	{
-		//if (input->isMouseDown())
+		
 		if(Singleton<InputManager>::instance()->isMouseDown())
 		{
 			pressed = true;
@@ -69,7 +67,8 @@ void Button::update(float deltaTime)
 
 		else
 		{
-			button->setMaterial(hoverButtonName);
+			if(!pressed)
+				button->setMaterial(hoverButtonName);
 		}
 	}
 	else
