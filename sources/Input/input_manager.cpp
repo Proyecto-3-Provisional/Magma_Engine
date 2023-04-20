@@ -101,7 +101,7 @@ void InputManager::inputEvent()
 
 		case SDL_MOUSEMOTION:
 
-			mouseMovement(event);
+			mouseMovement(event.motion.x, event.motion.y);
 
 			break;
 
@@ -157,10 +157,10 @@ std::pair<int, int> InputManager::getMousePos()
 	return mousePos;
 }
 
-void InputManager::mouseMovement(const SDL_Event& event)
+void InputManager::mouseMovement(const int& x, const int& y)
 {
-	mousePos.first = event.motion.x;
-	mousePos.second = event.motion.y;
+	mousePos.first = x;
+	mousePos.second = y;
 }
 
 bool InputManager::isMouseReleased()

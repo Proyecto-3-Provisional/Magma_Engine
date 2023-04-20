@@ -38,7 +38,7 @@ public:
     std::pair<int, int> getMousePos(); 
 
     //Desplaza el raton a su nueva posicion 
-    void mouseMovement(const SDL_Event& event);
+    void mouseMovement(const int& x, const int& y);
 
     //Activa o desactiva el cursor del raton 
     void showOrHideMouse(); 
