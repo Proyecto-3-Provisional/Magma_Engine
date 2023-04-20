@@ -1,9 +1,11 @@
 
 #include <singleton.h>
 
+#include <Render/graphical_object.h>
 #include <Render/render_manager.h>
 #include <Render/mesh.h>
 
+#include <EC/vector3D.h>
 #include <EC/transform.h>
 #include <EC/entity.h>
 
@@ -25,10 +27,12 @@ GraphicalObject* Mesh::getObj()
 bool Mesh::initComponent(std::string gObjKey, std::string mesh, std::string material)
 {
 	trPtr = ent->getComponent<Transform>();
+
 	if (trPtr == nullptr)
 		return false;
 
 	gObjPtr = RenderManager::instance()->addObject(gObjKey, nullptr, mesh, material);
+
 	return (gObjPtr != nullptr);
 }
 

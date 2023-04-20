@@ -2,9 +2,8 @@
 
 #include<Render/ui_button.h>
 #include<Render/UI_Manager.h>
-#include<Input/input_manager.h>
 
-Button::Button() : Component() {}
+#include<Input/input_manager.h>
 
 Button::Button(std::string overlayName, std::string imageName,
 	std::string hoverImageName, std::string pressedImageName,
@@ -49,16 +48,12 @@ bool Button::isCursorInsideBounds(int mouseX, int mouseY)
 	return (mouseX > posX && mouseX < (posX + tamX)) && (mouseY > posY && mouseY < (posY + tamY));
 }
 
-//actualiza el tamaño del boton cuando cambia la ventana y cambia la imagen del boton cuando es pulsado o el raton esta por encima
 void Button::update(float deltaTime)
 {
-
 	auto pointPos = Singleton<InputManager>::instance()->getMousePos();
 
-
 	if (isCursorInsideBounds(pointPos.first, pointPos.second))
-	{
-		
+	{	
 		if(Singleton<InputManager>::instance()->isMouseDown())
 		{
 			pressed = true;

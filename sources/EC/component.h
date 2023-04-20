@@ -5,8 +5,10 @@
 #include <EC/ec.h>
 #include <EC/messages.h>
 
-namespace ec {
-	struct Component {
+namespace ec 
+{
+	struct Component 
+	{
 	public:
 		Component() : ent(), mngr() {}
 		Component(Entity* entity) : ent(), mngr() { ent = entity; }
@@ -21,14 +23,10 @@ namespace ec {
 		virtual void onEnable() {};
 		virtual void onDisable() {};
 
-		// a method to receive a message, will be called by the sender or
-		// from the manager when a message is sent to all
-		//
-		// the struct msg is forward declared in ecs.h, the actual meesage will
-		// be defined by the user
-		//
 		virtual void recieve(const Message&) {};
+
 	protected:
+
 		Entity* ent;
 		EntityManager* mngr;
 		bool enable = true;

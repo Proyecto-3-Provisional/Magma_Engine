@@ -186,13 +186,9 @@ int mainCode() {
 		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
 	componentButtonEntity->start();
 
-
-	// ---------- Inicialización SOUND ----------
-	Singleton<SoundManager>::instance()->initAudio();
-	Singleton<SoundManager>::instance()->loadWAV("./assets/loop.wav", 50, 2, true);
-	Singleton<SoundManager>::instance()->playSound(2);
-
-
+	//ec::AudioSource* componentSound = imageEntity->addComponent<ec::AudioSource>
+		//("./assets/loop.wav", 50, 2, true, true); 
+	//componentSound->start(); 
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;

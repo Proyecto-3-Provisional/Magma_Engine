@@ -65,7 +65,6 @@ void InputManager::inputEvent()
 	{
 		switch (event.type)
 		{
-		// Los siguientes comandos cierran el main
 		// CRUZ DE CIERRE
 		case SDL_QUIT: 
 
@@ -83,10 +82,7 @@ void InputManager::inputEvent()
 		case SDL_KEYDOWN:
 
 			if (event.key.keysym.scancode == SCANCODE_ESCAPE)
-			{
-				std::cout << "EXIT PRESS\n";
 				exitRequest = true;
-			}
 
 			else
 			{

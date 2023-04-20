@@ -4,19 +4,15 @@
 
 #include <EC/component.h>
 
-#include <Sounds/sound_manager.h>
-
 class SoundManager;
 
 struct AudioData;
 
-namespace ec 
-{
-	class AudioSource : public Component
+class AudioSource : public ec::Component
 	{
 	public:
 
-		AudioSource(Entity* e, std::string path, int vol, int channel, bool loop, bool start);
+		AudioSource(std::string path, int vol, int channel, bool loop, bool start);
 
 		virtual ~AudioSource();
 
@@ -44,4 +40,4 @@ namespace ec
 
 		bool toPlay = false;
 	};
-}
+

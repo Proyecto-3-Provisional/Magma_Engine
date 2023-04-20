@@ -3,8 +3,6 @@
 #include <SDL_mixer.h>
 #include <SDL.h>
 
-//Carga e inicializacion del sonido
-
 SoundManager::SoundManager() : volume(0) {}
 
 SoundManager::~SoundManager() 
@@ -22,7 +20,6 @@ void SoundManager::initAudio()
 	if (SDL_Init(SDL_INIT_AUDIO) != 0)
 		std::cerr << "Error al iniciar el sistema de audio: " << SDL_GetError() << std::endl;
 
-	//Inicializamos SDL2_mixer
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 		throw std::exception("SDL2_mixer can't be initialized");
 

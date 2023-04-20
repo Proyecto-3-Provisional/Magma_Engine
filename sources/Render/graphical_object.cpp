@@ -4,15 +4,6 @@
 #include <OgreEntity.h>
 #include <OgreParticleSystem.h>
 
-// Primero se crea el nodo de este Objeto Gráfico como hijo de otro, o
-// como hijo del nodo raíz de la escena (en función de 'parent').
-// Después se determina el tipo de Objeto (según la cadena 'mesh'):
-//  * ""			-> nodo vacío (ignora 'mesh' y 'material')
-//	* "SUN"			-> luz direccional (ignora 'mesh' y 'material')
-//	* "LIGHTBULB"	-> luz puntual (ignora 'mesh' y 'material')
-//	* "SPOTLIGHT"	-> foco de luz (ignora 'mesh' y 'material')
-//	* "EMITTER"		-> emisor de partículas (ignora 'mesh'; 'material' indica sistema)
-//	* (otra cosa)	-> entidad gráfica normal con malla determinada 'mesh'
 
 GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
 	GraphicalObject* parent, std::string mesh, std::string material)

@@ -9,7 +9,8 @@
 class Transform;
 class btRigidBody;
 
-class Rigidbody : public ec::Component {
+class Rigidbody : public ec::Component 
+{
 public:
 	Rigidbody();
 	Rigidbody(const Vector3D& scale_);
@@ -25,6 +26,7 @@ public:
 	int getIndex();
 
 private:
+
 	Transform* trPtr = nullptr;
 	btRigidBody* rigidPtr = nullptr;
 	Vector3D scale;

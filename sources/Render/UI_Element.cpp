@@ -1,9 +1,5 @@
 #include <Render/ui_element.h>
 
-/**************************************************************************************************************************************
-	Asignamos el overlay general y su manager y creamos un panel con su posicion y tamaño al que meterle todos los elementos necesarios
-***************************************************************************************************************************************/
-
 UI_Element::UI_Element()
 {
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();

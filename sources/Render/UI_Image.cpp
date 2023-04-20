@@ -1,11 +1,5 @@
 #include <Render/ui_image.h>
 
-/***************************************************************************
-	Crea un panel y asignamos la posicion y el tamaño del panel
-	(en el cual se puede meter varios elementos, pero solo metemos uno).
-	Luego le metemos la imagen como material en el panel.
-***************************************************************************/
-
 UI_Image::UI_Image(std::string overReference, std::string imageName,
 	float posX, float posY, float sizeX, float sizeY) : UI_Element()
 {

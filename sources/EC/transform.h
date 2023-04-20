@@ -42,14 +42,16 @@ public:
 
 	void setDirection(Vector3D v);
 
-	// Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
+	//Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
 	void lookAtPoint(Vector3D target);
 	
 
 private:
+
 	Vector3D pos;
 	Vector3D scale;
-	Vector3D forward; //la direccion hacia delante en el eje z del objeto
+	//La direccion hacia delante en el eje z del objeto
+	Vector3D forward; 
 
 	float vel;
 };
