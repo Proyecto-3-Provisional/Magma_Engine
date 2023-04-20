@@ -35,7 +35,7 @@ public:
 	btRigidBody* getRigidBody(int index);
 
 	//Metodo para añadir un vector de fuerzas
-	void addForceTo(int index, btVector3 force);
+	void addForceTo(int index, const Vector3D& force);
 
 	int initPhysics();
 	void detachPhysics();

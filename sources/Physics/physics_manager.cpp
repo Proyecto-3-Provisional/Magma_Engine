@@ -208,10 +208,10 @@ btRigidBody* PhysicsManager::getRigidBody(int index)
 		return nullptr;
 }
 
-void PhysicsManager::addForceTo(int index, btVector3 force)
+void PhysicsManager::addForceTo(int index, const Vector3D& force)
 {
 	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-	btRigidBody::upcast(obj)->applyCentralImpulse(force);
+	btRigidBody::upcast(obj)->applyCentralImpulse(btVector3(force.getX(), force.getY(), force.getZ()));
 }
 
 void PhysicsManager::detachPhysics()
