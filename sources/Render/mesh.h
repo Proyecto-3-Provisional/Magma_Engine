@@ -1,13 +1,12 @@
 #pragma once
 
 #include <EC/component.h>
-#include <EC/vector3D.h>
-
-#include <Render/graphical_object.h>
 
 class Transform;
+class GraphicalObject; 
 
-class Mesh : public ec::Component {
+class Mesh : public ec::Component 
+{
 public:
 	Mesh();
 	virtual ~Mesh();
@@ -26,6 +25,7 @@ public:
 
 
 private:
+
 	GraphicalObject* gObjPtr = nullptr;
 	Transform* trPtr = nullptr;
 };

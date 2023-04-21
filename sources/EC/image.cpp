@@ -3,8 +3,6 @@
 #include <Render/UI_Image.h>
 #include <Render/UI_Manager.h>
 
-Image::Image() : Component() {}
-
 Image::Image(std::string overlayName, std::string name,
 	float width, float height, float x, float y) : Component() 
 {

@@ -6,9 +6,6 @@
 #include <Render/ui_text.h>
 #include <Render/ui_image.h>
 
-/*************************************************
-	Creamos un overlay y lo mostramos en pantalla
-**/
 UI_Manager::UI_Manager()
 {
 	overlayMngr_ = Ogre::OverlayManager::getSingletonPtr();
@@ -30,10 +27,6 @@ void UI_Manager::init()
 
 void UI_Manager::update()
 {}
-
-/****************************************
-	Borra todos los elementos del overlay
-*****************************************/
 
 void UI_Manager::cleanPanel()
 {

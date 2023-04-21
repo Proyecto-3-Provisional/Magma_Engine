@@ -2,8 +2,8 @@
 
 #pragma once
 
-//lista de componentes. El nombre de la class debe coincidir con el nombre del componente al que hace referencia
-//abajo ejemplo de uso
+//Lista de componentes. 
+// El nombre de la class debe coincidir con el nombre del componente al que hace referencia
 class Transform;
 class Mesh;
 class Rigidbody;

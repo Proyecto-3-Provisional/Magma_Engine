@@ -32,50 +32,51 @@ RenderManager::~RenderManager()
 	// CONTEXT: delete -> shutdown()
 }
 
-void RenderManager::setCamPos(Ogre::Vector3 vec)
+void RenderManager::setCamPos(const Vector3D& vec)
 {
 	if (cameraNode)
-		cameraNode->setPosition(vec);
+		cameraNode->setPosition(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()));
 }
 
-void RenderManager::translateCam(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo)
+void RenderManager::translateCam(const Vector3D& vec)
 {
 	if (cameraNode)
-		cameraNode->translate(vec, relTo);
+		cameraNode->translate(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()), Ogre::Node::TransformSpace::TS_LOCAL);
 }
 
-void RenderManager::setCamOrientation(float ang, Ogre::Vector3 axis)
+void RenderManager::setCamOrientation(float ang, const Vector3D& axis)
 {
 	if (cameraNode)
 	{
-		Ogre::Quaternion q = Ogre::Quaternion(Ogre::Degree(ang), Ogre::Vector3(axis));
+		Ogre::Quaternion q = Ogre::Quaternion(Ogre::Degree(ang), Ogre::Vector3(axis.getX(), axis.getY(), axis.getZ()));
 		cameraNode->setOrientation(q);
 	}
 }
 
-void RenderManager::yawCam(float deg, Ogre::Node::TransformSpace relTo)
+void RenderManager::yawCam(float deg)
 {
 	if (cameraNode)
-		cameraNode->yaw(Ogre::Degree(deg), relTo);
+		cameraNode->yaw(Ogre::Degree(deg), Ogre::Node::TransformSpace::TS_LOCAL);
 }
 
-void RenderManager::pitchCam(float deg, Ogre::Node::TransformSpace relTo)
+void RenderManager::pitchCam(float deg)
 {
 	if (cameraNode)
-		cameraNode->pitch(Ogre::Degree(deg), relTo);
+		cameraNode->pitch(Ogre::Degree(deg), Ogre::Node::TransformSpace::TS_LOCAL);
 }
 
-void RenderManager::rollCam(float deg, Ogre::Node::TransformSpace relTo)
+void RenderManager::rollCam(float deg)
 {
 	if (cameraNode)
-		cameraNode->roll(Ogre::Degree(deg), relTo);
+		cameraNode->roll(Ogre::Degree(deg), Ogre::Node::TransformSpace::TS_LOCAL);
 }
 
-void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo,
-	Ogre::Vector3 lDirVec)
+void RenderManager::setCamLookAt(const Vector3D& vec, const Vector3D& lDirVec)
 {
 	if (cameraNode)
-		cameraNode->lookAt(vec, relTo, lDirVec);
+		cameraNode->lookAt(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()), 
+			Ogre::Node::TransformSpace::TS_WORLD,
+			Ogre::Vector3(lDirVec.getX(), lDirVec.getY(), lDirVec.getZ()));
 }
 
 // 0. Comprobar que no hay cámara
@@ -83,7 +84,7 @@ void RenderManager::setCamLookAt(Ogre::Vector3 vec, Ogre::Node::TransformSpace r
 // 2. Crear la cámara y asignarle su nodo
 // 3. Configurar cámara
 // 4. Crear puerto de vista
-void RenderManager::createCam(GraphicalObject* follow, Ogre::Vector3 startPos)
+void RenderManager::createCam(GraphicalObject* follow, const Vector3D& startPos)
 {
 	if (camera && cameraNode && cameraViewport)
 		return;
@@ -107,9 +108,9 @@ void RenderManager::createCam(GraphicalObject* follow, Ogre::Vector3 startPos)
 	camera->setAutoAspectRatio(true);	//
 	setCamPos(startPos);
 	if (cameraFollows)
-		setCamLookAt({ 0, 0, 1000 }, Ogre::Node::TS_LOCAL);
+		setCamLookAt({ startPos.getX(), startPos.getY(), startPos.getZ() - 1000});
 	else
-		setCamLookAt({ 0, 0, 0 }, Ogre::Node::TS_WORLD);
+		setCamLookAt({ 0, 0, 0 });
 
 	cameraViewport = getRenderWindow()->addViewport(camera);
 }

@@ -5,19 +5,12 @@
 #include <stdio.h>
 #include <algorithm>
 
-PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr)
-{
-}
+PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr) {}
 
-PhysicsManager::~PhysicsManager()
-{
-}
+PhysicsManager::~PhysicsManager() {}
 
-// Inicia la clase y el mundo físico de PhysicsManager
 int PhysicsManager::initPhysics()
 {
-
-	// Configuración de colisión: contiene la configuración predeterminada para la memoria
 	collisionConfiguration = new btDefaultCollisionConfiguration();
 
 	dispatcher = new btCollisionDispatcher(collisionConfiguration);
@@ -33,7 +26,6 @@ int PhysicsManager::initPhysics()
 	return 1;
 }
 
-// Añadir un rigidbody a la escena con forma cúbica
 int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform)
 {
 	btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
@@ -46,7 +38,6 @@ int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, con
 
 	btScalar mass(1.);
 
-	/// El objeto es dinamico si la masa es distinta a zero, en el caso contrario seria estatico
 	bool isDynamic = (mass != 0.f);
 
 	btVector3 localInertia(0, 0, 0);
@@ -54,7 +45,6 @@ int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, con
 	if (isDynamic)
 		rigidBodyShape->calculateLocalInertia(mass, localInertia);
 
-	// El uso de MotionState es opcional, proporciona capacidades de interpolación y solo sincroniza objetos 'activos'
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(newRigidBody);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, rigidBodyShape, localInertia);
 
@@ -64,13 +54,11 @@ int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, con
 	//body->setUserIndex(lastUserIndex);
 	//lastUserIndex++;
 
-	// Añadir el cuerpo al mundo de la dinámica
 	dynamicsWorld->addRigidBody(body);
 
 	return body->getUserIndex();
 }
 
-// Borra un rigidbody dado su índice
 void PhysicsManager::deleteRigidBody(const int& userIndex)
 {
 	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[userIndex];
@@ -83,7 +71,7 @@ void PhysicsManager::deleteRigidBody(const int& userIndex)
 	delete obj;
 
 	int size = dynamicsWorld->getCollisionObjectArray().size();
-	// Al borrar la entidad se rellena el hueco del array con el último elemento. Actualizamos su índice:
+	
 	if (size > 0 && size != userIndex) {
 		btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
 		btRigidBody* body1 = btRigidBody::upcast(obj1);
@@ -98,7 +86,6 @@ void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
 		deleteRigidBody(i);
 }
 
-// Actualiza el estado de los rigidbody
 void PhysicsManager::update(float deltaTime)
 {
 	dynamicsWorld->stepSimulation(deltaTime, 10);
@@ -115,30 +102,23 @@ void PhysicsManager::update(float deltaTime)
 	}
 }
 
-// Muestra los pares de objetos que colisionan
 void PhysicsManager::updateCollisions()
 {
-	// Obtenemos la lista de colisiones por pares
 	btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
 
-	// Iteramos sobre cada par de colisiones
 	for (int i = 0; i < collisionPairs.size(); ++i) {
 		btBroadphasePair& collisionPair = collisionPairs[i];
 
-		// Obtenemos los cuerpos rígidos que han colisionado
 		btRigidBody* body1 = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
 		btRigidBody* body2 = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
 
-		// Verificamos que ambos cuerpos rígidos existan y que no sean estáticos (para evitar falsos positivos)
 		if (body1 && body2 && body1->getInvMass() > 0.0f && body2->getInvMass() > 0.0f) {
 
-			// Verificamos que los cuerpos tengan indices de usuario asignados
 			if (body1->getUserIndex() == -1 || body2->getUserIndex() == -1) {
 				std::cout << "Al menos uno de los objetos no tiene índice de usuario asignado" << std::endl;
 				continue;
 			}
 
-			// Verificamos que los cuerpos sean distintos
 			if (body1->getUserIndex() == body2->getUserIndex()) {
 				std::cout << "Los objetos son iguales" << std::endl;
 				continue;
@@ -149,7 +129,6 @@ void PhysicsManager::updateCollisions()
 	}
 }
 
-// Comprueba si dos rigidbody en concreto colisionan
 bool PhysicsManager::isCollide(const int& index1, const int& index2)
 {
 	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[index1];
@@ -157,20 +136,17 @@ bool PhysicsManager::isCollide(const int& index1, const int& index2)
 	btCollisionObject* obj2 = dynamicsWorld->getCollisionObjectArray()[index2];
 	btRigidBody* body2 = btRigidBody::upcast(obj2);
 
-	// Obtenemos la lista de colisiones por pares
 	btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
 
 	bool colision = false;
 	for (int i = 0; i < collisionPairs.size(); ++i) {
 		btBroadphasePair& collisionPair = collisionPairs[i];
 
-		// Obtenemos los cuerpos rígidos que han colisionado
 		btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
 		btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
 
-		// Verificamos que ambos cuerpos rígidos existan y que no sean estáticos (para evitar falsos positivos)
 		if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
-			// Comprobamos si el par que colisiona es el que buscamos 
+			
 			if ((body1 == body1Pair && body2 == body2Pair) || (body2 == body1Pair && body1 == body2Pair)) {
 				colision = true;
 				break;
@@ -181,27 +157,22 @@ bool PhysicsManager::isCollide(const int& index1, const int& index2)
 	return colision;
 }
 
-// Devuelve un vector con los índices de los rigidbody que colisionan con index   
 std::vector<int> PhysicsManager::getArrayOfIndexColliders(int index)
 {
 	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
 	btRigidBody* body = btRigidBody::upcast(obj);
 
-	// Obtenemos la lista de colisiones por pares
 	btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
 
 	std::vector<int> colliders;
 	for (int i = 0; i < collisionPairs.size(); ++i) {
 		btBroadphasePair& collisionPair = collisionPairs[i];
 
-		// Obtenemos los cuerpos rígidos que han colisionado
 		btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
 		btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
 
-		// Verificamos que ambos cuerpos rígidos existan y que no sean estáticos (para evitar falsos positivos)
 		if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
 
-			// Si alguno del par de colision es el indice principal guardamos la informacion del indice que hemos colisionado
 			if (body == body1Pair) colliders.push_back(body2Pair->getUserIndex());
 			else if (body == body2Pair) colliders.push_back(body1Pair->getUserIndex());
 		}
@@ -237,13 +208,12 @@ btRigidBody* PhysicsManager::getRigidBody(int index)
 		return nullptr;
 }
 
-void PhysicsManager::addForceTo(int index, btVector3 force)
+void PhysicsManager::addForceTo(int index, const Vector3D& force)
 {
 	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-	btRigidBody::upcast(obj)->applyCentralImpulse(force);
+	btRigidBody::upcast(obj)->applyCentralImpulse(btVector3(force.getX(), force.getY(), force.getZ()));
 }
 
-// Eliminacion de objetos de la clase PhysicsManager
 void PhysicsManager::detachPhysics()
 {
 	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
@@ -258,7 +228,6 @@ void PhysicsManager::detachPhysics()
 		delete obj;
 	}
 
-	// Borra los rigidbody
 	for (int j = 0; j < collisionShapes.size(); j++)
 	{
 		btCollisionShape* shape = collisionShapes[j];
@@ -276,6 +245,5 @@ void PhysicsManager::detachPhysics()
 
 	delete collisionConfiguration;
 
-	//next line is optional: it will be cleared by the destructor when the array goes out of scope
 	collisionShapes.clear();
 }

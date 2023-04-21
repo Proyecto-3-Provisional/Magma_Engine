@@ -57,8 +57,7 @@ bool Rigidbody::isOnCollision()
 
 void Rigidbody::addForce(const Vector3D& force)
 {
-	PhysicsManager::instance()->addForceTo(rigidPtr->getUserIndex(),
-		btVector3(force.getX(), force.getY(), force.getZ()));
+	PhysicsManager::instance()->addForceTo(rigidPtr->getUserIndex(), force);
 }
 
 int Rigidbody::getIndex()

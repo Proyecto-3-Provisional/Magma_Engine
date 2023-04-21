@@ -1,9 +1,5 @@
 #include <Render/ui_element.h>
 
-/**************************************************************************************************************************************
-	Asignamos el overlay general y su manager y creamos un panel con su posicion y tamaño al que meterle todos los elementos necesarios
-***************************************************************************************************************************************/
-
 UI_Element::UI_Element()
 {
 	overlayMan_ = Ogre::OverlayManager::getSingletonPtr();
@@ -18,19 +14,16 @@ UI_Element::~UI_Element()
 	overlayMan_->destroy(overlay_);
 }
 
-// Muestra el elemento dentro del overlay
 void UI_Element::showElement()
 {
 	overlay_->show();
 }
 
-// Esconde el elemento dentro del overlay
 void UI_Element::hideElement()
 {
 	overlay_->hide();
 }
 
-// Comprueba si el elemento es visible o no
 bool UI_Element::isElementVisible()
 {
 	return overlay_->isVisible();
@@ -73,13 +66,11 @@ void UI_Element::setTextSize(float w, float h)
 	overlayText->setDimensions(w, h);
 }
 
-// Devuelve la posicion del panel
 std::pair<float, float> UI_Element::getPosition()
 {
 	return position;
 }
 
-// Devuelve el tamaño del panel
 std::pair<float, float> UI_Element::getSize()
 {
 	return size;

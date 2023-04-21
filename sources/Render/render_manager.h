@@ -1,5 +1,6 @@
 #pragma once
 
+#include <EC/vector3D.h>
 #include <singleton.h>
 
 #include <Render/render_manager_context.h>
@@ -17,21 +18,19 @@ public:
 	virtual ~RenderManager();
 
 	// Crear y destruir cámara
-	void createCam(GraphicalObject* follow, Ogre::Vector3 startPos = {0, 0, 1000});
+	void createCam(GraphicalObject* follow, const Vector3D& startPos = Vector3D(0, 0, 1000));
 	void destroyCam();
 
 	// Establecer transformación de cámara
-	void setCamPos(Ogre::Vector3 vec);
-	void translateCam(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
-	void setCamOrientation(float ang, Ogre::Vector3 axis);
-	void yawCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
-	void pitchCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
-	void rollCam(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
+	void setCamPos(const Vector3D& vec);
+	void translateCam(const Vector3D& vec);
+	void setCamOrientation(float ang, const Vector3D& axis);
+	void yawCam(float deg);
+	void pitchCam(float deg);
+	void rollCam(float deg);
 	
 	// Establecer mirada de la cámara
-	void setCamLookAt(Ogre::Vector3 vec,
-		Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_WORLD,
-		Ogre::Vector3 lDirVec = Ogre::Vector3::NEGATIVE_UNIT_Z);
+	void setCamLookAt(const Vector3D& vec, const Vector3D& lDirVec = Vector3D(0, 0, -1));
 
 	// ¿Visualizar alambres de mallas?
 	void objectShowMode(unsigned int val);

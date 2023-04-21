@@ -10,22 +10,33 @@ class Text : public ec::Component
 {
 public:
 
+	//Metodo de declaración del componente
 	Text(std::string overlayName, std::string title, std::string fontName, std::string text,
 		float x, float y, float width, float height, float r, float g, float b);
+	
 	virtual ~Text();
 
 	virtual bool initComponent();
 
 	virtual void render() {};
 
+	//Metodos para activación o desactivación del componente
 	virtual void onEnable();
 	virtual void onDisable();
 
-	virtual void start();
-	virtual void update(float deltaTime);
-
+	//Metodo para obtener el nombre del componente
 	std::string GetName();
 
+	//Metodo para inicializar el componente
+	virtual void start();
+
+	//Metodo para actualizar el componente
+	//En este caso, modificamos el tamaño del texto si ha habido
+	//cambios en el tamaño de la ventana
+	virtual void update(float deltaTime);
+
+	//Metodos para cambiar el contenido, la fuente, el
+	//tamaño o el color del texto
 	void changeText(std::string newText);
 	void changeFontText(std::string newFont);
 	void changeSizeText(float size);
@@ -33,15 +44,18 @@ public:
 
 private:
 
-	std::string name;
-
 	UI_Text* text; 
 
+	//Referencia al texto
 	std::string textReference;
+	//Nombre del texto 
 	std::string textTitle; 
+	//Nombre de la fuente del texto
 	std::string fontName;
+	//Contenido del texto
 	std::string textContent;
 
+	//Variables de tamaño, color, posicion y tamaño de pantalla
 	float posX;
 	float posY;
 	float tamX;
