@@ -44,7 +44,7 @@ int mainCode() {
 #if 1 // por comodidad (0 -> false; No 0 -> true)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #else	
-	_CrtSetBreakAlloc(34613); // id del new que queremos borrar
+	_CrtSetBreakAlloc(996); // id del new que queremos borrar
 #endif
 #endif
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
@@ -57,7 +57,7 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	luaMain();
+	luaMain("luatest.lua");
 
 	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int

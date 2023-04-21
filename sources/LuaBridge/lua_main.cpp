@@ -4,26 +4,73 @@
 
 #include <iostream>
 
-int luaMain(){
+#include "LuaBridge/LuaBridge.h"
+#include "lua_state_manager.h"
+
+
+using namespace luabridge;
+
+void foo();
+
+int luaMain(std::string filename){
+	
 	lua_State* L = luaL_newstate();
-	int r = luaL_dofile(L, "luatest.lua");
-	std::string name;
 
-	if (r == LUA_OK) { //luabridge nos ayudara a evitar el uso de control de niveles en la pila(-1, -2...)
-		lua_getglobal(L, "player");
-		if (lua_istable(L, -1)) {
-			lua_pushstring(L, "name");
-			lua_gettable(L, -2);
-			name = lua_tostring(L, -1);
+	luaL_openlibs(L);
 
-			lua_pop(L, -1);
 
-			std::cout << name << '\n';
+	//getGlobalNamespace(L) //abrimos espacio de nombres
+	//	.beginNamespace("Test")
+	//	/*.addFunction("foo", foo)*/
+	//.endNamespace() //cerramos globalNamespace
+	;
+
+	int r = luaL_dofile(L, filename.c_str());
+
+	if (r != LUA_OK) {
+		std::cout << "Error al abrir fichero Lua";
+		lua_close(L);
+		return -1;
+	}
+
+	//LuaRef s = getGlobal(L, "player");
+
+	//if (!s.isNumber()) {
+	//	std::cout << s.tostring() << '\n'; //tostring quita " "" "
+	//}
+	//
+
+	//LuaRef xd = getGlobal(L, "entities");
+
+	/*if (xd.isTable()) {
+		std::string straux = xd[1];
+		LuaRef xd2 = getGlobal(L, straux.c_str());
+
+		if (xd2.isTable()) {
+			std::string straux2 = xd2["nombre"];
+
+			if (xd2["nombre"].isString())
+				std::cout << xd2["nombre"].tostring() << '\n';
 		}
-	}
-	else {
-		std::cout << "LUA WARNING, SCRIPT INCORRECTO O NO ENCONTRADO";
-	}
+	}*/
+	/*while (lua_gettop(L) > 0)
+		lua_pop(L, 1);
+		*/
+
+	lua_close(L);
+	
+	// 
+	//error porque esta intentado hacer la recoleccion de basura posterior
+	//delete stateManager; stateManager = nullptr;
 
 	return 0;
 }
+
+void foo() {
+	std::cout << "AQUIIII AQUI AQUI AUIIIIII AAAAAAAAA\n";
+}
+
+
+
+//EJEMPLO LUABRIDGE, PARA LLAMAR A FOO ESCRIBIRIAS EN EL ARCHIVO LUA Test:foo()
+
