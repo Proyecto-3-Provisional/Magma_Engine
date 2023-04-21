@@ -68,31 +68,31 @@ int mainCode() {
 
 	initManagers();
 
-	setUpFactories();
+	magma_engine::setUpFactories();
 
 	std::cout << "Managers inicializados\n";
 
 	// ---------- Inicialización RENDER ----------
 
 	//Cámara
-	Singleton<RenderManager>::instance()->createCam(nullptr, { 0, 0, 1000 });
-	Singleton<RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
-	Singleton<RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
-	Singleton<RenderManager>::instance()->objectShowMode(0);
+	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 0, 1000 });
+	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
+	Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
+	Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
 
 	//Sol
-	GraphicalObject* sol = Singleton<RenderManager>::instance()->
+	magma_engine::GraphicalObject* sol = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
 	sol->setLightColor(0.8f, 0.8f, 0.8f);
 	sol->setDirection({ 0.0f, -0.8f, -1.0f });
 
-	GraphicalObject* equis = Singleton<RenderManager>::instance()->
+	magma_engine::GraphicalObject* equis = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("x", nullptr, "cube.mesh", "rat");
 	equis->setPosition({ 400, 0, 0 });
-	GraphicalObject* igriega = Singleton<RenderManager>::instance()->
+	magma_engine::GraphicalObject* igriega = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("y", nullptr, "cube.mesh", "golf");
 	igriega->setPosition({ 0, 400, 0 });
-	GraphicalObject* ceta = Singleton<RenderManager>::instance()->
+	magma_engine::GraphicalObject* ceta = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("z", nullptr, "cube.mesh", "logo");
 	ceta->setPosition({ 0, 0, 400 });
 
@@ -111,13 +111,13 @@ int mainCode() {
 	//	sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	//}
 
-	ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	Singleton<FactoryManager>::instance()->findAndCreate("Transform", physicsEntity);
+	magma_engine::ec::Entity* physicsEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
+	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Transform", physicsEntity);
 	//physicsEntity->addC<Transform>(Singleton<FactoryManager>::instance()->findAndCreate("Transform"));
-	physicsEntity->getComponent<Transform>()->setPosition({ 0, 0, 0 });
-	physicsEntity->getComponent<Transform>()->setScale({ 40,40,40 });
-	Singleton<FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
-	bool meshInit2 = physicsEntity->getComponent<Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
+	physicsEntity->getComponent<magma_engine::Transform>()->setPosition({ 0, 0, 0 });
+	physicsEntity->getComponent<magma_engine::Transform>()->setScale({ 40,40,40 });
+	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
+	bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
 	Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
 	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
@@ -130,40 +130,40 @@ int mainCode() {
 		//sampleEntityMeshCmp->getObj()->showDebugBox(true);
 		//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
-	Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<Rigidbody>(Vector3D(70, 40, 40));
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>(magma_engine::Vector3D(70, 40, 40));
 	bool eliminar = true;
 
-	ec::Entity* physicsEntity2 = Singleton<ec::EntityManager>::instance()->addEntity();
-	Transform* physicsEntityTransformCmp2 = physicsEntity2->addComponent<Transform>();
+	magma_engine::ec::Entity* physicsEntity2 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
+	magma_engine::Transform* physicsEntityTransformCmp2 = physicsEntity2->addComponent<magma_engine::Transform>();
 	physicsEntityTransformCmp2->setPosition({ 500, 0, 0 });
 	physicsEntityTransformCmp2->setScale({ 40,40,40 });
-	Mesh* physicsEntityMeshCmp2 = physicsEntity2->addComponent<Mesh>();
+	magma_engine::Mesh* physicsEntityMeshCmp2 = physicsEntity2->addComponent<magma_engine::Mesh>();
 	bool meshInit3 = physicsEntityMeshCmp2->initComponent("ejemploPhysics2", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit3)
 	{
 		physicsEntityMeshCmp2->getObj()->showDebugBox(true);
-		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Vector3D(1, 0, 0));
+		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
-	Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<Rigidbody>(Vector3D(70, 40, 40));
-	physicsEntityRigidbodyCmp2->addForce(Vector3D(-500, 0, 0));
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<magma_engine::Rigidbody>(magma_engine::Vector3D(70, 40, 40));
+	physicsEntityRigidbodyCmp2->addForce(magma_engine::Vector3D(-500, 0, 0));
 
-	ec::Entity* physicsEntity3 = Singleton<ec::EntityManager>::instance()->addEntity();
-	Transform* physicsEntityTransformCmp3 = physicsEntity3->addComponent<Transform>();
+	magma_engine::ec::Entity* physicsEntity3 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
+	magma_engine::Transform* physicsEntityTransformCmp3 = physicsEntity3->addComponent<magma_engine::Transform>();
 	physicsEntityTransformCmp3->setPosition({ -500, 0, 0 });
 	physicsEntityTransformCmp3->setScale({ 40,40,40 });
-	Mesh* physicsEntityMeshCmp3 = physicsEntity3->addComponent<Mesh>();
+	magma_engine::Mesh* physicsEntityMeshCmp3 = physicsEntity3->addComponent<magma_engine::Mesh>();
 	bool meshInit4 = physicsEntityMeshCmp3->initComponent("ejemploPhysics3", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit4)
 	{
 		physicsEntityMeshCmp3->getObj()->showDebugBox(true);
-		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Vector3D(1, 0, 0));
+		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
-	Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<Rigidbody>(Vector3D(70, 40, 40));
-	physicsEntityRigidbodyCmp3->addForce(Vector3D(500, 0, 0));
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>(magma_engine::Vector3D(70, 40, 40));
+	physicsEntityRigidbodyCmp3->addForce(magma_engine::Vector3D(500, 0, 0));
 
-	Fps fps;
+	magma_engine::Fps fps;
 
 	// ---------- Inicialización UI ----------
 
@@ -173,16 +173,16 @@ int mainCode() {
 	UI_Image* testImage = Singleton<UI_Manager>::instance()->createElement<UI_Image>("ImgPrueba", "golf", 0.0f, 80.0f, 100.0f, 100.0f);
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);*/
 
-	ec::Entity* imageEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	Image* componentImageEntity = imageEntity->addComponent<Image>
+	magma_engine::ec::Entity* imageEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
+	magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
 		("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
 	componentImageEntity->start();
 
-	Text* componentTextEntity = imageEntity->addComponent<Text>
+	magma_engine::Text* componentTextEntity = imageEntity->addComponent<magma_engine::Text>
 		("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
 	componentTextEntity->start();
 
-	Button* componentButtonEntity = imageEntity->addComponent<Button>
+	magma_engine::Button* componentButtonEntity = imageEntity->addComponent<magma_engine::Button>
 		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
 	componentButtonEntity->start();
 
@@ -193,7 +193,7 @@ int mainCode() {
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
 	int s = 50;
-	while (!Singleton<InputManager>::instance()->exitRequested() && !error && s > 0)
+	while (!Singleton<magma_engine::InputManager>::instance()->exitRequested() && !error && s > 0)
 	{
 		// Marcas de tiempo y cálculo del "delta"
 		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
@@ -202,28 +202,28 @@ int mainCode() {
 		// ---------- TEST RENDER ----------
 
 		//Prueba de animaciones
-		Singleton<RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
+		Singleton<magma_engine::RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
 		//Imprimir número de objetos gráficos cada cierto tiempo
 		miliecsSinceLastReport += timeSinceLastFrame;
 		if (miliecsSinceLastReport > miliecsToReport)
 		{
 			std::cout << "Objetos gráficos: " <<
-				Singleton<RenderManager>::instance()->getNumObjects() << std::endl;
+				Singleton<magma_engine::RenderManager>::instance()->getNumObjects() << std::endl;
 		}
 		//Control de cuándo se borran aquellos que deben ser borrados
-		int f = Singleton<RenderManager>::instance()->refreshObjects();
+		int f = Singleton<magma_engine::RenderManager>::instance()->refreshObjects();
 		if (f != 0)
 		{
 			std::cout << f <<
 				" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
 		}
 		//Renderizar fotogramas de uno en uno
-		if (!Singleton<RenderManager>::instance()->renderFrame())
+		if (!Singleton<magma_engine::RenderManager>::instance()->renderFrame())
 			error = true;
 
 		// ---------- TEST EC ----------
-		Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);
-		Singleton<ec::EntityManager>::instance()->refresh();
+		Singleton<magma_engine::ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);
+		Singleton<magma_engine::ec::EntityManager>::instance()->refresh();
 
 
 		// ---------- TEST PHYSICS ----------
@@ -232,7 +232,7 @@ int mainCode() {
 		//if (miliecsSinceLastReport2 > miliecsToReport) {
 		//	miliecsSinceLastReport2 = 0;
 		//}
-		Singleton<PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
+		Singleton<magma_engine::PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
 		if (eliminar) {
 			if (physicsEntityRigidbodyCmp->isOnCollision()) {
 				physicsEntity->setAlive(false);
@@ -241,13 +241,13 @@ int mainCode() {
 		}
 
 		// ---------- TEST INPUT & UI ----------
-		Singleton<InputManager>::instance()->inputEvent();
+		Singleton<magma_engine::InputManager>::instance()->inputEvent();
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
-		if (Singleton<InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
-			Singleton<InputManager>::instance()->showOrHideMouse();
+		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
+			Singleton<magma_engine::InputManager>::instance()->showOrHideMouse();
 
-		auto posMouse = Singleton<InputManager>::instance()->getMousePos();
+		auto posMouse = Singleton<magma_engine::InputManager>::instance()->getMousePos();
 
 		/*if (testButton->isCursorInsideBounds(posMouse.first, posMouse.second))
 		{
@@ -265,12 +265,12 @@ int mainCode() {
 				testButton->mouseLeavingButton();
 		}*/
 
-		if (Singleton<InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_K))
+		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_K))
 			std::cout << "Pos Raton = " << posMouse.first << " " << posMouse.second << "\n";
 
 		//Redimensión ventana
-		if (Singleton<InputManager>::instance()->hasWindowChange()) {
-			Singleton<RenderManager>::instance()->notifyWindowResized();
+		if (Singleton<magma_engine::InputManager>::instance()->hasWindowChange()) {
+			Singleton<magma_engine::RenderManager>::instance()->notifyWindowResized();
 			/*testImage->updateImage();
 			testButton->updateButton();
 			testText->updateText();*/
@@ -284,7 +284,7 @@ int mainCode() {
 		//Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);	
 		//Singleton<ec::EntityManager>::instance()->refresh();
 
-		Singleton<InputManager>::instance()->flush();
+		Singleton<magma_engine::InputManager>::instance()->flush();
 
 		// ---------- FPS CALCULATOR ----------
 		fps.update();
@@ -311,41 +311,41 @@ int mainCode() {
 void initManagers() {
 
 	// ------ RENDER ------
-	if (Singleton<RenderManager>::init(false, 1280, 720, false, true, 4, false))
+	if (Singleton<magma_engine::RenderManager>::init(false, 1280, 720, false, true, 4, false))
 	{
-		if (!Singleton<RenderManager>::instance()->initApp()) // if (!correct)
+		if (!Singleton<magma_engine::RenderManager>::instance()->initApp()) // if (!correct)
 		{
 			// Fin del renderizado
-			Singleton<RenderManager>::instance()->closeApp();
-			Singleton<RenderManager>::instance()->release();
+			Singleton<magma_engine::RenderManager>::instance()->closeApp();
+			Singleton<magma_engine::RenderManager>::instance()->release();
 		}
 	}
 
 	// ------ EC ------
-	Singleton<ec::EntityManager>::init();
+	Singleton<magma_engine::ec::EntityManager>::init();
 
 	// ------ PHYSICS ------
 	bool correct = false;
-	if (Singleton<PhysicsManager>::init())
-		correct = Singleton<PhysicsManager>::instance()->initPhysics();
+	if (Singleton<magma_engine::PhysicsManager>::init())
+		correct = Singleton<magma_engine::PhysicsManager>::instance()->initPhysics();
 
 	if (!correct)
 	{
 		// Fin del renderizado
-		Singleton<PhysicsManager>::instance()->detachPhysics();
+		Singleton<magma_engine::PhysicsManager>::instance()->detachPhysics();
 	}
 
 	// ------ UI ------
-	Singleton<UI_Manager>::init();
+	Singleton<magma_engine::UI_Manager>::init();
 
 	// ------ INPUT ------
-	Singleton<InputManager>::init();
+	Singleton<magma_engine::InputManager>::init();
 
 	// ------ SOUND ------
-	Singleton<SoundManager>::init();
+	Singleton<magma_engine::SoundManager>::init();
 
 	// ------ FACTORY ------
-	Singleton<FactoryManager>::init();
+	Singleton<magma_engine::FactoryManager>::init();
 
 
 }
@@ -353,27 +353,27 @@ void initManagers() {
 void releaseManagers() {
 
 	// ------ EC ------
-	Singleton<ec::EntityManager>::release();
+	Singleton<magma_engine::ec::EntityManager>::release();
 
 	// ------ PHYSICS ------
-	Singleton<PhysicsManager>::instance()->detachPhysics();
-	Singleton<PhysicsManager>::release();
+	Singleton<magma_engine::PhysicsManager>::instance()->detachPhysics();
+	Singleton<magma_engine::PhysicsManager>::release();
 
 	// ------ INPUT ------
-	Singleton<InputManager>::release();
+	Singleton<magma_engine::InputManager>::release();
 
 	// ------ UI ------
-	Singleton<UI_Manager>::release();
+	Singleton<magma_engine::UI_Manager>::release();
 
 	// ------ RENDER ------
-	Singleton<RenderManager>::instance()->closeApp();
-	Singleton<RenderManager>::release();
+	Singleton<magma_engine::RenderManager>::instance()->closeApp();
+	Singleton<magma_engine::RenderManager>::release();
 
 	// ------ SOUND ------
-	Singleton<SoundManager>::release();
+	Singleton<magma_engine::SoundManager>::release();
 
 	// ------ FACTORY ------
-	Singleton<FactoryManager>::release();
+	Singleton<magma_engine::FactoryManager>::release();
 
 }
 

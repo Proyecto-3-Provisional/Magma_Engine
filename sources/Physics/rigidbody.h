@@ -6,28 +6,33 @@
 #include <EC/component.h>
 #include <EC/vector3D.h>
 
-class Transform;
 class btRigidBody;
 
-class Rigidbody : public ec::Component 
+namespace magma_engine
 {
-public:
-	Rigidbody();
-	Rigidbody(const Vector3D& scale_);
-	~Rigidbody();
+	class Transform;
 
-	bool initComponent() override;
-	void update(float deltaTime) override;
+	class Rigidbody : public ec::Component
+	{
+	public:
+		Rigidbody();
+		Rigidbody(const Vector3D& scale_);
+		~Rigidbody();
 
-	bool isOnCollision();
-	bool isCollideWith(int indexCollide);
+		bool initComponent() override;
+		void update(float deltaTime) override;
 
-	void addForce(const Vector3D& force);
-	int getIndex();
+		bool isOnCollision();
+		bool isCollideWith(int indexCollide);
 
-private:
+		void addForce(const Vector3D& force);
+		int getIndex();
 
-	Transform* trPtr = nullptr;
-	btRigidBody* rigidPtr = nullptr;
-	Vector3D scale;
-};
+	private:
+
+		Transform* trPtr = nullptr;
+		btRigidBody* rigidPtr = nullptr;
+		Vector3D scale;
+	};
+}
+

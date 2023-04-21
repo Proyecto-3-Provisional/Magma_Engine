@@ -7,98 +7,103 @@
 // Para SDL_Window (y evitar a SDL.h aquí (roba el main()))
 #include <SDL_video.h>
 
-// Alias para SDL_Window
-typedef SDL_Window NativeWindowType;
-
-// Enlace entre una RenderWindow y una Window de una plataforma específica
-struct NativeWindowPair
+namespace magma_engine
 {
-	Ogre::RenderWindow* render = nullptr;
-	NativeWindowType* native = nullptr;
-};
+	// Alias para SDL_Window
+	typedef SDL_Window NativeWindowType;
 
-// Clase base responsable de establecer un contexto común para aplicaciones
-// con ventana. La subclase debe especificar los callbacks a eventos.
-class RenderManagerContext : public Ogre::FrameListener
-{
-protected:
-	explicit RenderManagerContext(const Ogre::String& appName = OGRE_VERSION_NAME);
-	explicit RenderManagerContext(const Ogre::String& appName,
-		uint32_t w, uint32_t h, bool fScr, bool vSyn, int fsaa, bool gamm);
-public:
-	virtual ~RenderManagerContext();
+	// Enlace entre una RenderWindow y una Window de una plataforma específica
+	struct NativeWindowPair
+	{
+		Ogre::RenderWindow* render = nullptr;
+		NativeWindowType* native = nullptr;
+	};
 
-	// Obtener la RenderWindow; posee el contexto en OpenGL
-	Ogre::RenderWindow* getRenderWindow() const;
-	// Obtener raíz de Ogre
-	Ogre::Root* getRoot() const;
-	// Obtener sistema de Overlay
-	Ogre::OverlaySystem* getOverlaySystem() const;
+	// Clase base responsable de establecer un contexto común para aplicaciones
+	// con ventana. La subclase debe especificar los callbacks a eventos.
+	class RenderManagerContext : public Ogre::FrameListener
+	{
+	protected:
+		explicit RenderManagerContext(const Ogre::String& appName = OGRE_VERSION_NAME);
+		explicit RenderManagerContext(const Ogre::String& appName,
+			uint32_t w, uint32_t h, bool fScr, bool vSyn, int fsaa, bool gamm);
+	public:
+		virtual ~RenderManagerContext();
 
-	// Inicializar sistema de renderizado y recursos
-	bool initApp();
+		// Obtener la RenderWindow; posee el contexto en OpenGL
+		Ogre::RenderWindow* getRenderWindow() const;
+		// Obtener raíz de Ogre
+		Ogre::Root* getRoot() const;
+		// Obtener sistema de Overlay
+		Ogre::OverlaySystem* getOverlaySystem() const;
 
-	// Cerrar la aplicación, tras salvar la configuración
-	void closeApp();
+		// Inicializar sistema de renderizado y recursos
+		bool initApp();
 
-	// Interfaz de callbacks copiada de varios listeners para usarse aquí
-	virtual bool frameStarted(const Ogre::FrameEvent& evt);
-	virtual bool frameEnded(const Ogre::FrameEvent& evt);
-	virtual void windowMoved(Ogre::RenderWindow* rw);
-	virtual void windowResized(Ogre::RenderWindow* rw);
-	virtual bool windowClosing(Ogre::RenderWindow* rw);
-	virtual void windowClosed(Ogre::RenderWindow* rw);
-	virtual void windowFocusChange(Ogre::RenderWindow* rw);
+		// Cerrar la aplicación, tras salvar la configuración
+		void closeApp();
 
-	// Crear la raíz de Ogre
-	virtual void createRoot();
+		// Interfaz de callbacks copiada de varios listeners para usarse aquí
+		virtual bool frameStarted(const Ogre::FrameEvent& evt);
+		virtual bool frameEnded(const Ogre::FrameEvent& evt);
+		virtual void windowMoved(Ogre::RenderWindow* rw);
+		virtual void windowResized(Ogre::RenderWindow* rw);
+		virtual bool windowClosing(Ogre::RenderWindow* rw);
+		virtual void windowClosed(Ogre::RenderWindow* rw);
+		virtual void windowFocusChange(Ogre::RenderWindow* rw);
 
-	// Configura las opciones de inicio para Ogre
-	virtual bool oneTimeConfig();
+		// Crear la raíz de Ogre
+		virtual void createRoot();
 
-	// Preparar el contexto tras la configuración
-	virtual void setup();
+		// Configura las opciones de inicio para Ogre
+		virtual bool oneTimeConfig();
 
-	// Crear una nueva ventana para renderizar
-	virtual NativeWindowPair createWindow(const Ogre::String& name);
+		// Preparar el contexto tras la configuración
+		virtual void setup();
 
-	// Confinar ratón dentro de la ventana
-	void setWindowGrab(bool grab);
+		// Crear una nueva ventana para renderizar
+		virtual NativeWindowPair createWindow(const Ogre::String& name);
 
-	// Encontrar grupos de recursos para el contexto
-	virtual void locateResources();
+		// Confinar ratón dentro de la ventana
+		void setWindowGrab(bool grab);
 
-	// Cargar grupos de recursos para el contexto
-	virtual void loadResources();
+		// Encontrar grupos de recursos para el contexto
+		virtual void locateResources();
 
-	// Limpiar y cerrar el contexto
-	virtual void shutdown();
+		// Cargar grupos de recursos para el contexto
+		virtual void loadResources();
 
-	// Reaccionar al reescalado de ventana
-	void notifyWindowResized();
+		// Limpiar y cerrar el contexto
+		virtual void shutdown();
 
-	// Renderizar un fotograma
-	bool renderFrame();
+		// Reaccionar al reescalado de ventana
+		void notifyWindowResized();
 
-	int getWinWidth();
-	int getWinHeight();
+		// Renderizar un fotograma
+		bool renderFrame();
 
-protected:
-	bool cursorGrab;
+		int getWinWidth();
+		int getWinHeight();
 
-	Ogre::String mAppName;				// Nombre de la aplicación
-	Ogre::String appPath;				// Ruta a la aplicación
+	protected:
+		bool cursorGrab;
 
-	NativeWindowPair mWindow;			// Ventana
-	Ogre::Root* mRoot;					// Raíz de Ogre
-	Ogre::FileSystemLayer* mFSLayer;	// Abstracción del sist. de ficheros
-	Ogre::OverlaySystem* mOverlaySystem;// Requerido por OverlayManager (UI)
+		Ogre::String mAppName;				// Nombre de la aplicación
+		Ogre::String appPath;				// Ruta a la aplicación
 
-	// Config. de ventana
-	uint32_t winWidth;
-	uint32_t winHeight;
-	bool fullScreenEnabled;
-	bool vSyncEnabled;
-	int fsaaLevel;
-	bool gammaEnabled;
-};
+		NativeWindowPair mWindow;			// Ventana
+		Ogre::Root* mRoot;					// Raíz de Ogre
+		Ogre::FileSystemLayer* mFSLayer;	// Abstracción del sist. de ficheros
+		Ogre::OverlaySystem* mOverlaySystem;// Requerido por OverlayManager (UI)
+
+		// Config. de ventana
+		uint32_t winWidth;
+		uint32_t winHeight;
+		bool fullScreenEnabled;
+		bool vSyncEnabled;
+		int fsaaLevel;
+		bool gammaEnabled;
+	};
+}
+
+

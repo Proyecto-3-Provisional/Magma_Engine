@@ -4,61 +4,65 @@
 
 #include <string>
 
-class UI_Image; 
-
-class Image : public ec::Component
+namespace magma_engine
 {
-public:
+	class UI_Image;
 
-	//Metodo de declaración del componente
-	Image(std::string overlayName, std::string name,
-		float width, float height, float x, float y);
+	class Image : public ec::Component
+	{
+	public:
 
-	virtual ~Image();
+		//Metodo de declaración del componente
+		Image(std::string overlayName, std::string name,
+			float width, float height, float x, float y);
 
-	virtual bool initComponent();
+		virtual ~Image();
 
-	virtual void render() {};
+		virtual bool initComponent();
 
-	//Metodos para activación o desactivación del componente
-	virtual void onEnable();
-	virtual void onDisable();
+		virtual void render() {};
 
-	//Metodo para obtener el nombre del componente
-	std::string GetName();
+		//Metodos para activación o desactivación del componente
+		virtual void onEnable();
+		virtual void onDisable();
 
-	//Metodo para inicializar el componente
-	virtual void start();
+		//Metodo para obtener el nombre del componente
+		std::string GetName();
 
-	//Metodo para actualizar el componente
-	//En este caso, modificamos el tamaño de la imagen si ha habido
-	//cambios en el tamaño de la ventana
-	virtual void update(float deltaTime);
+		//Metodo para inicializar el componente
+		virtual void start();
 
-	//Indicamos si puedes interactuar o no con el componente
-	void setInteractive(bool interactive);
+		//Metodo para actualizar el componente
+		//En este caso, modificamos el tamaño de la imagen si ha habido
+		//cambios en el tamaño de la ventana
+		virtual void update(float deltaTime);
 
-	//Metodo para cambiar la textura de la imagen
-	void changeImage(std::string newImage);
+		//Indicamos si puedes interactuar o no con el componente
+		void setInteractive(bool interactive);
 
-private:
+		//Metodo para cambiar la textura de la imagen
+		void changeImage(std::string newImage);
 
-	static std::string name;
-	UI_Image* image;         
+	private:
 
-	//Nombre de la imagen
-	std::string imageName;
-	//Nombre de la textura
-	std::string normalName;
+		static std::string name;
+		UI_Image* image;
 
-	//Booleano de interaccion o no
-	bool interactive;
+		//Nombre de la imagen
+		std::string imageName;
+		//Nombre de la textura
+		std::string normalName;
 
-	//Variables de tamaño, posicion y tamaño de pantalla
-	float tamX;
-	float tamY;
-	float posX;
-	float posY; 
-	float screenHeight; 
-	float screenWidth; 
-};
+		//Booleano de interaccion o no
+		bool interactive;
+
+		//Variables de tamaño, posicion y tamaño de pantalla
+		float tamX;
+		float tamY;
+		float posX;
+		float posY;
+		float screenHeight;
+		float screenWidth;
+	};
+}
+

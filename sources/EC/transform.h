@@ -3,55 +3,59 @@
 #include <EC/vector3D.h>
 #include <EC/component.h>
 
-class Transform : public ec::Component {
-public:
-	Transform() : pos(), vel() {};
-	Transform(Vector3D pos_, float vel_) : pos(pos_), vel(vel_) {};
+namespace magma_engine
+{
+	class Transform : public ec::Component {
+	public:
+		Transform() : pos(), vel() {};
+		Transform(Vector3D pos_, float vel_) : pos(pos_), vel(vel_) {};
 
-	virtual ~Transform() {};
+		virtual ~Transform() {};
 
-	Vector3D& getPos();
-	Vector3D& getForward();
-	Vector3D getScale();
+		Vector3D& getPos();
+		Vector3D& getForward();
+		Vector3D getScale();
 
 
-	void setPosition(Vector3D pos_);
-	void setScale(Vector3D scale_);
-	void setVel(float v);
-	
-	// w = width, eje X
-	float getW() const;
-	// h = height, eje Y
-	float getH() const;
-	// d = depth, eje Z
-	float getD() const;
+		void setPosition(Vector3D pos_);
+		void setScale(Vector3D scale_);
+		void setVel(float v);
 
-	// w = width, eje X
-	void setW(float width_);
-	// h = height, eje Y
-	void setH(float height_);
-	// d = depth, eje Z
-	void setD(float depth_);
+		// w = width, eje X
+		float getW() const;
+		// h = height, eje Y
+		float getH() const;
+		// d = depth, eje Z
+		float getD() const;
 
-	virtual bool initComponent();
-	virtual void update(float deltaTime);
+		// w = width, eje X
+		void setW(float width_);
+		// h = height, eje Y
+		void setH(float height_);
+		// d = depth, eje Z
+		void setD(float depth_);
 
-	void pitch(float deg);
-	void yaw(float deg);
-	void roll(float deg);
+		virtual bool initComponent();
+		virtual void update(float deltaTime);
 
-	void setDirection(Vector3D v);
+		void pitch(float deg);
+		void yaw(float deg);
+		void roll(float deg);
 
-	//Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
-	void lookAtPoint(Vector3D target);
-	
+		void setDirection(Vector3D v);
 
-private:
+		//Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
+		void lookAtPoint(Vector3D target);
 
-	Vector3D pos;
-	Vector3D scale;
-	//La direccion hacia delante en el eje z del objeto
-	Vector3D forward; 
 
-	float vel;
-};
+	private:
+
+		Vector3D pos;
+		Vector3D scale;
+		//La direccion hacia delante en el eje z del objeto
+		Vector3D forward;
+
+		float vel;
+	};
+}
+

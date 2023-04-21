@@ -1,15 +1,20 @@
 #pragma once
 
-class EntityManager;
-
-class Scene
+namespace magma_engine
 {
-public:
-	Scene();
-	~Scene();
+	class EntityManager;
 
-	void update(float deltaTime);
+	class Scene
+	{
+	public:
+		Scene();
+		~Scene();
 
-	bool loadScene();
-};
+		void update(float deltaTime);
+
+		bool loadScene();
+	};
+}
+
+
 

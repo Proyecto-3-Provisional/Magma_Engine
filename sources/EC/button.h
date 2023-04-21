@@ -2,65 +2,69 @@
 
 #include <string>
 
-class UIButton;
-
-class Button : public ec::Component
+namespace magma_engine
 {
-public:
+	class UIButton;
 
-	//Metodo de declaración del componente
-	Button(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName,
-		float width, float height, float x, float y);
+	class Button : public ec::Component
+	{
+	public:
 
-	virtual ~Button();
+		//Metodo de declaración del componente
+		Button(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName,
+			float width, float height, float x, float y);
 
-	virtual bool initComponent();
+		virtual ~Button();
 
-	virtual void render() {};
+		virtual bool initComponent();
 
-	//Metodos para activación o desactivación del componente
-	virtual void onEnable();
-	virtual void onDisable();
+		virtual void render() {};
 
-	//Metodo para obtener el nombre del componente
-	std::string GetName();
+		//Metodos para activación o desactivación del componente
+		virtual void onEnable();
+		virtual void onDisable();
 
-	//Metodo para inicializar el componente
-	virtual void start();
+		//Metodo para obtener el nombre del componente
+		std::string GetName();
 
-	//Metodo para actualizar el componente
-	//En este caso, modificamos el tamaño del boton si ha habido
-	//cambios en el tamaño de la ventana o modificamos el boton si ha sido pulsado
-	virtual void update(float deltaTime);
+		//Metodo para inicializar el componente
+		virtual void start();
 
-	//Indicamos si puedes interactuar o no con el componente
-	void setInteractive(bool interactive);
+		//Metodo para actualizar el componente
+		//En este caso, modificamos el tamaño del boton si ha habido
+		//cambios en el tamaño de la ventana o modificamos el boton si ha sido pulsado
+		virtual void update(float deltaTime);
 
-	//Comprobamos si el cursor está en los limites del botón y si
-	//ha sido pulsado
-	bool isCursorInsideBounds(int x, int y);
-	bool isButtonPressed();
+		//Indicamos si puedes interactuar o no con el componente
+		void setInteractive(bool interactive);
 
-private:
+		//Comprobamos si el cursor está en los limites del botón y si
+		//ha sido pulsado
+		bool isCursorInsideBounds(int x, int y);
+		bool isButtonPressed();
 
-	UIButton* button;
+	private:
 
-	//Nombre del boton
-	std::string buttonName;
-	//Nombres de las texturas del boton segun su estado
-	std::string normalButtonName;
-	std::string hoverButtonName;
-	std::string pressedButtonName;
+		UIButton* button;
 
-	//Booleano de boton presionado o no, y de interactuable o no
-	bool pressed;
-	bool interactive;
+		//Nombre del boton
+		std::string buttonName;
+		//Nombres de las texturas del boton segun su estado
+		std::string normalButtonName;
+		std::string hoverButtonName;
+		std::string pressedButtonName;
 
-	//Variables de tamaño, posicion y tamaño de pantalla
-	float tamX;
-	float tamY;
-	float posX;
-	float posY;
-	float screenHeight;
-	float screenWidth;
-};
+		//Booleano de boton presionado o no, y de interactuable o no
+		bool pressed;
+		bool interactive;
+
+		//Variables de tamaño, posicion y tamaño de pantalla
+		float tamX;
+		float tamY;
+		float posX;
+		float posY;
+		float screenHeight;
+		float screenWidth;
+	};
+}
+

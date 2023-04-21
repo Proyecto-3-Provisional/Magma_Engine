@@ -5,99 +5,103 @@
 
 #include<Input/input_manager.h>
 
-Button::Button(std::string overlayName, std::string imageName,
-	std::string hoverImageName, std::string pressedImageName,
-	float width, float height, float x, float y) : Component()
+namespace magma_engine
 {
-	buttonName = overlayName;
-	normalButtonName = imageName;
-	hoverButtonName = hoverImageName;
-	pressedButtonName = pressedImageName;
+	Button::Button(std::string overlayName, std::string imageName,
+		std::string hoverImageName, std::string pressedImageName,
+		float width, float height, float x, float y) : Component()
+	{
+		buttonName = overlayName;
+		normalButtonName = imageName;
+		hoverButtonName = hoverImageName;
+		pressedButtonName = pressedImageName;
 
-	tamX = width;
-	tamY = height;
-	posX = x;
-	posY = y; 
-	screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-	screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-	pressed = false;
+		tamX = width;
+		tamY = height;
+		posX = x;
+		posY = y;
+		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		pressed = false;
 
-}
+	}
 
-Button::~Button() {};
+	Button::~Button() {};
 
-std::string Button::GetName()
-{
-	return buttonName;
-}
+	std::string Button::GetName()
+	{
+		return buttonName;
+	}
 
-void Button::start()
-{
-	button = Singleton<UI_Manager>::instance()->createElement<UIButton>(buttonName, normalButtonName, hoverButtonName,
-		pressedButtonName, posX, posY, tamX, tamY);
+	void Button::start()
+	{
+		button = Singleton<UI_Manager>::instance()->createElement<UIButton>(buttonName, normalButtonName, hoverButtonName,
+			pressedButtonName, posX, posY, tamX, tamY);
 
-	button->setPanelPosition(posX, posY);
-	button->setPanelSize(tamX, tamY);
-	button->setInteractive(true);
-}
+		button->setPanelPosition(posX, posY);
+		button->setPanelSize(tamX, tamY);
+		button->setInteractive(true);
+	}
 
-bool Button::initComponent() { return true; }
+	bool Button::initComponent() { return true; }
 
-bool Button::isCursorInsideBounds(int mouseX, int mouseY)
-{
-	return (mouseX > posX && mouseX < (posX + tamX)) && (mouseY > posY && mouseY < (posY + tamY));
-}
+	bool Button::isCursorInsideBounds(int mouseX, int mouseY)
+	{
+		return (mouseX > posX && mouseX < (posX + tamX)) && (mouseY > posY && mouseY < (posY + tamY));
+	}
 
-void Button::update(float deltaTime)
-{
-	auto pointPos = Singleton<InputManager>::instance()->getMousePos();
+	void Button::update(float deltaTime)
+	{
+		auto pointPos = Singleton<InputManager>::instance()->getMousePos();
 
-	if (isCursorInsideBounds(pointPos.first, pointPos.second))
-	{	
-		if(Singleton<InputManager>::instance()->isMouseDown())
+		if (isCursorInsideBounds(pointPos.first, pointPos.second))
 		{
-			pressed = true;
-			button->setMaterial(pressedButtonName);
-		}
+			if (Singleton<InputManager>::instance()->isMouseDown())
+			{
+				pressed = true;
+				button->setMaterial(pressedButtonName);
+			}
 
+			else
+			{
+				if (!pressed)
+					button->setMaterial(hoverButtonName);
+			}
+		}
 		else
 		{
-			if(!pressed)
-				button->setMaterial(hoverButtonName);
+			button->setMaterial(normalButtonName);
+			pressed = false;
+		}
+
+		float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+		float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+
+		if (newWidth != 0 && newHeight != 0 && screenWidth != 0 && screenHeight != 0)
+		{
+			button->setPanelPosition(posX * (newWidth / screenWidth), posY * (newHeight / screenHeight));
+			button->setPanelSize(tamX * (newWidth / screenWidth), tamY * (newHeight / screenHeight));
 		}
 	}
-	else
+
+	void Button::onEnable()
 	{
-		button->setMaterial(normalButtonName);
-		pressed = false;
+		if (button != nullptr)
+			button->showElement();
 	}
 
-	float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-	float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-
-	if (newWidth != 0 && newHeight != 0 && screenWidth != 0 && screenHeight != 0)
+	void Button::onDisable()
 	{
-		button->setPanelPosition(posX * (newWidth / screenWidth), posY * (newHeight / screenHeight));
-		button->setPanelSize(tamX * (newWidth / screenWidth), tamY * (newHeight / screenHeight));
+		button->hideElement();
+	}
+
+	void Button::setInteractive(bool interact)
+	{
+		interactive = interact;
+	}
+
+	bool Button::isButtonPressed() {
+		return pressed;
 	}
 }
 
-void Button::onEnable()
-{
-	if (button != nullptr)
-		button->showElement();
-}
-
-void Button::onDisable()
-{
-	button->hideElement();
-}
-
-void Button::setInteractive(bool interact)
-{
-	interactive = interact;
-}
-
-bool Button::isButtonPressed() {
-	return pressed;
-}

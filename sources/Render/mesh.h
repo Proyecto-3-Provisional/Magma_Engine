@@ -2,30 +2,34 @@
 
 #include <EC/component.h>
 
-class Transform;
-class GraphicalObject; 
-
-class Mesh : public ec::Component 
+namespace magma_engine
 {
-public:
-	Mesh();
-	virtual ~Mesh();
+	class Transform;
+	class GraphicalObject;
 
-	GraphicalObject* getObj();
+	class Mesh : public ec::Component
+	{
+	public:
+		Mesh();
+		virtual ~Mesh();
 
-	bool initComponent(std::string name, std::string mesh = "", std::string material = "default");
-	void update(float deltaTime);
-	void render();
+		GraphicalObject* getObj();
 
-	void recieve(const Message&) override;
+		bool initComponent(std::string name, std::string mesh = "", std::string material = "default");
+		void update(float deltaTime);
+		void render();
 
-	//axis char: 'x', 'y' or 'z'
-	void rotate(float deg, char axis);
-	void setDirection(float x, float y, float z);
+		void recieve(const Message&) override;
+
+		//axis char: 'x', 'y' or 'z'
+		void rotate(float deg, char axis);
+		void setDirection(float x, float y, float z);
 
 
-private:
+	private:
 
-	GraphicalObject* gObjPtr = nullptr;
-	Transform* trPtr = nullptr;
-};
+		GraphicalObject* gObjPtr = nullptr;
+		Transform* trPtr = nullptr;
+	};
+}
+

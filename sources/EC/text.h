@@ -4,65 +4,69 @@
 
 #include <string>
 
-class UI_Text; 
-
-class Text : public ec::Component
+namespace magma_engine
 {
-public:
+	class UI_Text;
 
-	//Metodo de declaración del componente
-	Text(std::string overlayName, std::string title, std::string fontName, std::string text,
-		float x, float y, float width, float height, float r, float g, float b);
-	
-	virtual ~Text();
+	class Text : public ec::Component
+	{
+	public:
 
-	virtual bool initComponent();
+		//Metodo de declaración del componente
+		Text(std::string overlayName, std::string title, std::string fontName, std::string text,
+			float x, float y, float width, float height, float r, float g, float b);
 
-	virtual void render() {};
+		virtual ~Text();
 
-	//Metodos para activación o desactivación del componente
-	virtual void onEnable();
-	virtual void onDisable();
+		virtual bool initComponent();
 
-	//Metodo para obtener el nombre del componente
-	std::string GetName();
+		virtual void render() {};
 
-	//Metodo para inicializar el componente
-	virtual void start();
+		//Metodos para activación o desactivación del componente
+		virtual void onEnable();
+		virtual void onDisable();
 
-	//Metodo para actualizar el componente
-	//En este caso, modificamos el tamaño del texto si ha habido
-	//cambios en el tamaño de la ventana
-	virtual void update(float deltaTime);
+		//Metodo para obtener el nombre del componente
+		std::string GetName();
 
-	//Metodos para cambiar el contenido, la fuente, el
-	//tamaño o el color del texto
-	void changeText(std::string newText);
-	void changeFontText(std::string newFont);
-	void changeSizeText(float size);
-	void changeColorText(float r, float g, float b);
+		//Metodo para inicializar el componente
+		virtual void start();
 
-private:
+		//Metodo para actualizar el componente
+		//En este caso, modificamos el tamaño del texto si ha habido
+		//cambios en el tamaño de la ventana
+		virtual void update(float deltaTime);
 
-	UI_Text* text; 
+		//Metodos para cambiar el contenido, la fuente, el
+		//tamaño o el color del texto
+		void changeText(std::string newText);
+		void changeFontText(std::string newFont);
+		void changeSizeText(float size);
+		void changeColorText(float r, float g, float b);
 
-	//Referencia al texto
-	std::string textReference;
-	//Nombre del texto 
-	std::string textTitle; 
-	//Nombre de la fuente del texto
-	std::string fontName;
-	//Contenido del texto
-	std::string textContent;
+	private:
 
-	//Variables de tamaño, color, posicion y tamaño de pantalla
-	float posX;
-	float posY;
-	float tamX;
-	float tamY;
-	float red; 
-	float green; 
-	float blue;
-	float screenHeight;
-	float screenWidth;
-};
+		UI_Text* text;
+
+		//Referencia al texto
+		std::string textReference;
+		//Nombre del texto 
+		std::string textTitle;
+		//Nombre de la fuente del texto
+		std::string fontName;
+		//Contenido del texto
+		std::string textContent;
+
+		//Variables de tamaño, color, posicion y tamaño de pantalla
+		float posX;
+		float posY;
+		float tamX;
+		float tamY;
+		float red;
+		float green;
+		float blue;
+		float screenHeight;
+		float screenWidth;
+	};
+}
+
