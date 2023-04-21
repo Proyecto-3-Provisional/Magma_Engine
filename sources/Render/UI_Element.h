@@ -17,9 +17,9 @@ public:
 	UI_Element();
 	virtual ~UI_Element();
 
-	void showElement(); 
-	void hideElement(); 
-	bool isElementVisible();
+	void showElement(); // Muestra el elemento dentro del overlay
+	void hideElement(); // Esconde el elemento dentro del overlay
+	bool isElementVisible(); // Comprueba si el elemento es visible o no
 
 	void setPanelPosition(float x, float y);
 	void setPanelSize(float w, float h);

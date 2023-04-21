@@ -17,14 +17,17 @@ class UI_Element;
 class UI_Manager : public Singleton<UI_Manager>
 {
 public:
-	UI_Manager();
+	UI_Manager(); // Crea un overlay y lo muestra en pantalla
 	~UI_Manager();
 
 	void init();
 	void update();
-	void cleanPanel();
+	void cleanPanel(); // Borra todos los elementos del overlay
 	
-	// Crea un UI_Element de X tipo(Texto, image...) con su nombre de panel, una referencia al overlay y los argumentos que necesite su tipo
+	/* 
+	Crea un UI_Element de X tipo(Texto, Image, etc.) con su nombre de panel, 
+	una referencia al overlay y los argumentos que necesite su tipo
+	*/
 	template<typename T, typename ...Ts>
 	T* createElement(std::string over, std::string panelName, Ts&&... args)
 	{
@@ -32,7 +35,6 @@ public:
 		elements.push_back(elem);
 		return elem;
 	}
-
 
 private:
 	Ogre::OverlayManager* overlayMngr_;
