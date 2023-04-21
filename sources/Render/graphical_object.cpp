@@ -5,7 +5,7 @@
 #include <OgreParticleSystem.h>
 
 
-GraphicalObject::GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
+GraphicalObject::GraphicalObject(std::string name, Ogre::SceneManager& mSM,
 	GraphicalObject* parent, std::string mesh, std::string material)
 	: keyName(name), mySceneManager(mSM), parentObject(parent), childrenUsing(0),
 	camAttached(false), meshFile(mesh), materialName(material),
@@ -91,20 +91,21 @@ GraphicalObject::~GraphicalObject()
 	objectNode = nullptr;
 }
 
-void GraphicalObject::translate(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo)
+void GraphicalObject::translate(const Vector3D& vec, Ogre::Node::TransformSpace relTo)
 {
-	objectNode->translate(vec, relTo);
+	objectNode->translate(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()), relTo);
 }
 
-void GraphicalObject::setPosition(Ogre::Vector3 vec)
+void GraphicalObject::setPosition(const Vector3D& vec)
 {
-	objectNode->setPosition(vec);
+	objectNode->setPosition(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()));
 }
 
 // Útil en luces direccionales
-void GraphicalObject::setDirection(Ogre::Vector3 vec)
+void GraphicalObject::setDirection(const Vector3D& vec)
 {
-	objectNode->setDirection(vec.normalisedCopy(), Ogre::Node::TS_PARENT, Ogre::VectorBase<3, Ogre::Real>::UNIT_X);
+	objectNode->setDirection(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()).normalisedCopy(), 
+		Ogre::Node::TS_PARENT, Ogre::VectorBase<3, Ogre::Real>::UNIT_X);
 }
 
 void GraphicalObject::yaw(float deg, Ogre::Node::TransformSpace relTo)
@@ -122,16 +123,17 @@ void GraphicalObject::roll(float deg, Ogre::Node::TransformSpace relTo)
 	objectNode->roll(Ogre::Degree(deg), relTo);
 }
 
-void GraphicalObject::setOrientation(float ang, Ogre::Vector3 axis)
+void GraphicalObject::setOrientation(float ang, const Vector3D& axis)
 {
-	Ogre::Quaternion q = Ogre::Quaternion(Ogre::Degree(ang), Ogre::Vector3(axis));
+	Ogre::Quaternion q = Ogre::Quaternion(Ogre::Degree(ang), Ogre::Vector3(axis.getX(), axis.getY(), axis.getZ()));
 	objectNode->setOrientation(q);
 }
 
-void GraphicalObject::setOriLookingAt(Ogre::Vector3 target,
-	Ogre::Node::TransformSpace relTo, Ogre::Vector3 lDirVec)
+void GraphicalObject::setOriLookingAt(const Vector3D& target,
+	Ogre::Node::TransformSpace relTo, const Vector3D& lDirVec)
 {
-	objectNode->lookAt(target, relTo, lDirVec);
+	objectNode->lookAt(Ogre::Vector3(target.getX(), target.getY(), target.getZ()), relTo, 
+		Ogre::Vector3(lDirVec.getX(), lDirVec.getY(), lDirVec.getZ()));
 }
 
 void GraphicalObject::scale(float factor)
@@ -144,14 +146,14 @@ void GraphicalObject::setScale(float factor)
 	objectNode->setScale(factor, factor, factor);
 }
 
-void GraphicalObject::scale(Ogre::Vector3 factor)
+void GraphicalObject::scale(const Vector3D& factor)
 {
-	objectNode->scale(factor);
+	objectNode->scale(Ogre::Vector3(factor.getX(), factor.getY(), factor.getZ()));
 }
 
-void GraphicalObject::setScale(Ogre::Vector3 factor)
+void GraphicalObject::setScale(const Vector3D& factor)
 {
-	objectNode->setScale(factor);
+	objectNode->setScale(Ogre::Vector3(factor.getX(), factor.getY(), factor.getZ()));
 }
 
 void GraphicalObject::setMaterial(std::string matName)
@@ -185,7 +187,7 @@ void GraphicalObject::setEmitting(bool b)
 		particleSystem->setEmitting(b);
 }
 
-Ogre::String GraphicalObject::getKeyName()
+std::string GraphicalObject::getKeyName()
 {
 	return keyName;
 }
@@ -230,7 +232,7 @@ bool GraphicalObject::isEntityAnimated()
 	return (isTrueEntity() && (entityAnimation != nullptr));
 }
 
-void GraphicalObject::setAnimation(Ogre::String animName, bool startRightAway)
+void GraphicalObject::setAnimation(std::string animName, bool startRightAway)
 {
 	if (entity)
 	{

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <EC/vector3D.h>
 #include <string>
 
 #include <OgreNode.h>
@@ -13,24 +14,24 @@
 
 class GraphicalObject {
 public:
-	GraphicalObject(Ogre::String name, Ogre::SceneManager& mSM,
+	GraphicalObject(std::string name, Ogre::SceneManager& mSM,
 		GraphicalObject* parent = nullptr,
 		std::string mesh = "", std::string material = "default");
 	~GraphicalObject();
 
 	// Transformaciones
-	void translate(Ogre::Vector3 vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
-	void setPosition(Ogre::Vector3 vec);
-	void setDirection(Ogre::Vector3 vec);
+	void translate(const Vector3D& vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
+	void setPosition(const Vector3D& vec);
+	void setDirection(const Vector3D& vec);
 	void yaw(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void pitch(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 	void roll(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
-	void setOrientation(float ang, Ogre::Vector3 axis);
-	void setOriLookingAt(Ogre::Vector3 target, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_WORLD, Ogre::Vector3 lDirVec = Ogre::Vector3::NEGATIVE_UNIT_Z);
+	void setOrientation(float ang, const Vector3D& axis);
+	void setOriLookingAt(const Vector3D& target, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_WORLD, const Vector3D& lDirVec = Vector3D(0, 0, -1));
 	void scale(float factor);
 	void setScale(float factor);
-	void scale(Ogre::Vector3 factor);
-	void setScale(Ogre::Vector3 factor);
+	void scale(const Vector3D& factor);
+	void setScale(const Vector3D& factor);
 
 	// Visibilidad
 	void setMaterial(std::string matName);
@@ -44,7 +45,7 @@ public:
 	void setEmitting(bool b);
 
 	// Acerca del nodo
-	Ogre::String getKeyName();
+	std::string getKeyName();
 	Ogre::SceneNode* getNode();
 	int getChildrenUsing();
 
@@ -57,7 +58,7 @@ public:
 
 	// Posible animación
 	bool isEntityAnimated();
-	void setAnimation(Ogre::String animName, bool startRightAway = false);
+	void setAnimation(std::string animName, bool startRightAway = false);
 	void stepAnimation(float deltaTime);
 	void animationSetEnabled(bool val);
 	void animationSetLooping(bool val);
