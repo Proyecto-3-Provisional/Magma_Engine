@@ -4,10 +4,15 @@
 #include <string>
 #include <map>
 
-class Factory
+namespace magma_engine
 {
-public:
-	Factory() {};
-	virtual ~Factory() {};
-	virtual ec::Component* createComponent(ec::Entity* ent = nullptr) = 0;
-};
+	class Factory
+	{
+	public:
+		Factory() {};
+		virtual ~Factory() {};
+		virtual ec::Component* createComponent(ec::Entity* ent = nullptr) = 0;
+	};
+}
+
+

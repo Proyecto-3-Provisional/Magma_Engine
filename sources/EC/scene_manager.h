@@ -5,28 +5,32 @@
 #include <stack>
 #include <string>
 
-class Scene;
+namespace magma_engine
+{
+	class Scene;
 
-class SceneManager : public Singleton<SceneManager> {
+	class SceneManager : public Singleton<SceneManager> {
 
-public:
-	SceneManager();
-	~SceneManager();
+	public:
+		SceneManager();
+		~SceneManager();
 
-	void popScene();
+		void popScene();
 
-	void pushScene(Scene* newScene);
+		void pushScene(Scene* newScene);
 
-	void changeScene(Scene* newScene);
+		void changeScene(Scene* newScene);
 
-	Scene* currentScene();
+		Scene* currentScene();
 
-	void update(float deltaTime);
-private:
-	
+		void update(float deltaTime);
+	private:
 
-	void deleteScenes();
 
-	std::stack<Scene*> scenes;
-	std::stack<Scene*> scenesToDelete;
-};
+		void deleteScenes();
+
+		std::stack<Scene*> scenes;
+		std::stack<Scene*> scenesToDelete;
+	};
+}
+

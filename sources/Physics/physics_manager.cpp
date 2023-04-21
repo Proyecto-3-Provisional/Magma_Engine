@@ -5,220 +5,65 @@
 #include <stdio.h>
 #include <algorithm>
 
-PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr) {}
-
-PhysicsManager::~PhysicsManager() {}
-
-int PhysicsManager::initPhysics()
+namespace magma_engine
 {
-	collisionConfiguration = new btDefaultCollisionConfiguration();
+	PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr) {}
 
-	dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	PhysicsManager::~PhysicsManager() {}
 
-	overlappingPairCache = new btDbvtBroadphase();
-
-	solver = new btSequentialImpulseConstraintSolver;
-
-	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-
-	dynamicsWorld->setGravity(btVector3(0, 0, 0));
-
-	return 1;
-}
-
-int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform)
-{
-	btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
-
-	collisionShapes.push_back(rigidBodyShape);
-
-	btTransform newRigidBody;
-	newRigidBody.setIdentity();
-	newRigidBody.setOrigin(btVector3(btScalar(xTransform), btScalar(yTransform), btScalar(zTransform)));
-
-	btScalar mass(1.);
-
-	bool isDynamic = (mass != 0.f);
-
-	btVector3 localInertia(0, 0, 0);
-
-	if (isDynamic)
-		rigidBodyShape->calculateLocalInertia(mass, localInertia);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(newRigidBody);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, rigidBodyShape, localInertia);
-
-	btRigidBody* body = new btRigidBody(rbInfo);
-
-	body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
-	//body->setUserIndex(lastUserIndex);
-	//lastUserIndex++;
-
-	dynamicsWorld->addRigidBody(body);
-
-	return body->getUserIndex();
-}
-
-void PhysicsManager::deleteRigidBody(const int& userIndex)
-{
-	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[userIndex];
-	btRigidBody* body = btRigidBody::upcast(obj);
-	if (body && body->getMotionState())
+	int PhysicsManager::initPhysics()
 	{
-		delete body->getMotionState();
+		collisionConfiguration = new btDefaultCollisionConfiguration();
+
+		dispatcher = new btCollisionDispatcher(collisionConfiguration);
+
+		overlappingPairCache = new btDbvtBroadphase();
+
+		solver = new btSequentialImpulseConstraintSolver;
+
+		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+
+		dynamicsWorld->setGravity(btVector3(0, 0, 0));
+
+		return 1;
 	}
-	dynamicsWorld->removeCollisionObject(obj);
-	delete obj;
 
-	int size = dynamicsWorld->getCollisionObjectArray().size();
-	
-	if (size > 0 && size != userIndex) {
-		btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
-		btRigidBody* body1 = btRigidBody::upcast(obj1);
-		body1->setUserIndex(userIndex);
-	}
-}
-
-void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
-{
-	std::sort(vIndex.begin(), vIndex.end(), std::greater<int>());
-	for (int i : vIndex)
-		deleteRigidBody(i);
-}
-
-void PhysicsManager::update(float deltaTime)
-{
-	dynamicsWorld->stepSimulation(deltaTime, 10);
-
-	for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
+	int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform)
 	{
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		btTransform trans;
-		if (body && body->getMotionState())
-		{
-			body->getMotionState()->getWorldTransform(trans);
-		}
-	}
-}
+		btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
 
-void PhysicsManager::updateCollisions()
-{
-	btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
+		collisionShapes.push_back(rigidBodyShape);
 
-	for (int i = 0; i < collisionPairs.size(); ++i) {
-		btBroadphasePair& collisionPair = collisionPairs[i];
+		btTransform newRigidBody;
+		newRigidBody.setIdentity();
+		newRigidBody.setOrigin(btVector3(btScalar(xTransform), btScalar(yTransform), btScalar(zTransform)));
 
-		btRigidBody* body1 = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
-		btRigidBody* body2 = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
+		btScalar mass(1.);
 
-		if (body1 && body2 && body1->getInvMass() > 0.0f && body2->getInvMass() > 0.0f) {
+		bool isDynamic = (mass != 0.f);
 
-			if (body1->getUserIndex() == -1 || body2->getUserIndex() == -1) {
-				std::cout << "Al menos uno de los objetos no tiene índice de usuario asignado" << std::endl;
-				continue;
-			}
+		btVector3 localInertia(0, 0, 0);
 
-			if (body1->getUserIndex() == body2->getUserIndex()) {
-				std::cout << "Los objetos son iguales" << std::endl;
-				continue;
-			}
+		if (isDynamic)
+			rigidBodyShape->calculateLocalInertia(mass, localInertia);
 
-			std::cout << "Colisión detectada entre objetos " << body1->getUserIndex() << " y " << body2->getUserIndex() << std::endl;
-		}
-	}
-}
+		btDefaultMotionState* myMotionState = new btDefaultMotionState(newRigidBody);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, rigidBodyShape, localInertia);
 
-bool PhysicsManager::isCollide(const int& index1, const int& index2)
-{
-	btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[index1];
-	btRigidBody* body1 = btRigidBody::upcast(obj1);
-	btCollisionObject* obj2 = dynamicsWorld->getCollisionObjectArray()[index2];
-	btRigidBody* body2 = btRigidBody::upcast(obj2);
+		btRigidBody* body = new btRigidBody(rbInfo);
 
-	btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
+		body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
+		//body->setUserIndex(lastUserIndex);
+		//lastUserIndex++;
 
-	bool colision = false;
-	for (int i = 0; i < collisionPairs.size(); ++i) {
-		btBroadphasePair& collisionPair = collisionPairs[i];
+		dynamicsWorld->addRigidBody(body);
 
-		btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
-		btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
-
-		if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
-			
-			if ((body1 == body1Pair && body2 == body2Pair) || (body2 == body1Pair && body1 == body2Pair)) {
-				colision = true;
-				break;
-			}
-		}
+		return body->getUserIndex();
 	}
 
-	return colision;
-}
-
-std::vector<int> PhysicsManager::getArrayOfIndexColliders(int index)
-{
-	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-	btRigidBody* body = btRigidBody::upcast(obj);
-
-	btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
-
-	std::vector<int> colliders;
-	for (int i = 0; i < collisionPairs.size(); ++i) {
-		btBroadphasePair& collisionPair = collisionPairs[i];
-
-		btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
-		btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
-
-		if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
-
-			if (body == body1Pair) colliders.push_back(body2Pair->getUserIndex());
-			else if (body == body2Pair) colliders.push_back(body1Pair->getUserIndex());
-		}
-	}
-
-	return colliders;
-}
-
-Vector3D PhysicsManager::getTransform(int index)
-{
-	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-	btRigidBody* body = btRigidBody::upcast(obj);
-	btTransform trans;
-	if (body && body->getMotionState())
+	void PhysicsManager::deleteRigidBody(const int& userIndex)
 	{
-		body->getMotionState()->getWorldTransform(trans);
-	}
-	// Por si no añadireamos MotionState
-	//else
-	//{
-	//	trans = obj->getWorldTransform();
-	//}
-	return Vector3D(float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-}
-
-btRigidBody* PhysicsManager::getRigidBody(int index)
-{
-	if (dynamicsWorld->getCollisionObjectArray().size() > index) {
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-		return btRigidBody::upcast(obj);
-	}
-	else
-		return nullptr;
-}
-
-void PhysicsManager::addForceTo(int index, const Vector3D& force)
-{
-	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
-	btRigidBody::upcast(obj)->applyCentralImpulse(btVector3(force.getX(), force.getY(), force.getZ()));
-}
-
-void PhysicsManager::detachPhysics()
-{
-	for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
-	{
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[userIndex];
 		btRigidBody* body = btRigidBody::upcast(obj);
 		if (body && body->getMotionState())
 		{
@@ -226,24 +71,184 @@ void PhysicsManager::detachPhysics()
 		}
 		dynamicsWorld->removeCollisionObject(obj);
 		delete obj;
+
+		int size = dynamicsWorld->getCollisionObjectArray().size();
+
+		if (size > 0 && size != userIndex) {
+			btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
+			btRigidBody* body1 = btRigidBody::upcast(obj1);
+			body1->setUserIndex(userIndex);
+		}
 	}
 
-	for (int j = 0; j < collisionShapes.size(); j++)
+	void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
 	{
-		btCollisionShape* shape = collisionShapes[j];
-		collisionShapes[j] = 0;
-		delete shape;
+		std::sort(vIndex.begin(), vIndex.end(), std::greater<int>());
+		for (int i : vIndex)
+			deleteRigidBody(i);
 	}
 
-	delete dynamicsWorld;
+	void PhysicsManager::update(float deltaTime)
+	{
+		dynamicsWorld->stepSimulation(deltaTime, 10);
 
-	delete solver;
+		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
+		{
+			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			btTransform trans;
+			if (body && body->getMotionState())
+			{
+				body->getMotionState()->getWorldTransform(trans);
+			}
+		}
+	}
 
-	delete overlappingPairCache;
+	void PhysicsManager::updateCollisions()
+	{
+		btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
 
-	delete dispatcher;
+		for (int i = 0; i < collisionPairs.size(); ++i) {
+			btBroadphasePair& collisionPair = collisionPairs[i];
 
-	delete collisionConfiguration;
+			btRigidBody* body1 = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
+			btRigidBody* body2 = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
 
-	collisionShapes.clear();
+			if (body1 && body2 && body1->getInvMass() > 0.0f && body2->getInvMass() > 0.0f) {
+
+				if (body1->getUserIndex() == -1 || body2->getUserIndex() == -1) {
+					std::cout << "Al menos uno de los objetos no tiene índice de usuario asignado" << std::endl;
+					continue;
+				}
+
+				if (body1->getUserIndex() == body2->getUserIndex()) {
+					std::cout << "Los objetos son iguales" << std::endl;
+					continue;
+				}
+
+				std::cout << "Colisión detectada entre objetos " << body1->getUserIndex() << " y " << body2->getUserIndex() << std::endl;
+			}
+		}
+	}
+
+	bool PhysicsManager::isCollide(const int& index1, const int& index2)
+	{
+		btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[index1];
+		btRigidBody* body1 = btRigidBody::upcast(obj1);
+		btCollisionObject* obj2 = dynamicsWorld->getCollisionObjectArray()[index2];
+		btRigidBody* body2 = btRigidBody::upcast(obj2);
+
+		btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
+
+		bool colision = false;
+		for (int i = 0; i < collisionPairs.size(); ++i) {
+			btBroadphasePair& collisionPair = collisionPairs[i];
+
+			btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
+			btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
+
+			if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
+
+				if ((body1 == body1Pair && body2 == body2Pair) || (body2 == body1Pair && body1 == body2Pair)) {
+					colision = true;
+					break;
+				}
+			}
+		}
+
+		return colision;
+	}
+
+	std::vector<int> PhysicsManager::getArrayOfIndexColliders(int index)
+	{
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+		btRigidBody* body = btRigidBody::upcast(obj);
+
+		btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
+
+		std::vector<int> colliders;
+		for (int i = 0; i < collisionPairs.size(); ++i) {
+			btBroadphasePair& collisionPair = collisionPairs[i];
+
+			btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
+			btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
+
+			if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
+
+				if (body == body1Pair) colliders.push_back(body2Pair->getUserIndex());
+				else if (body == body2Pair) colliders.push_back(body1Pair->getUserIndex());
+			}
+		}
+
+		return colliders;
+	}
+
+	Vector3D PhysicsManager::getTransform(int index)
+	{
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+		btRigidBody* body = btRigidBody::upcast(obj);
+		btTransform trans;
+		if (body && body->getMotionState())
+		{
+			body->getMotionState()->getWorldTransform(trans);
+		}
+		// Por si no añadireamos MotionState
+		//else
+		//{
+		//	trans = obj->getWorldTransform();
+		//}
+		return Vector3D(float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+	}
+
+	btRigidBody* PhysicsManager::getRigidBody(int index)
+	{
+		if (dynamicsWorld->getCollisionObjectArray().size() > index) {
+			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+			return btRigidBody::upcast(obj);
+		}
+		else
+			return nullptr;
+	}
+
+	void PhysicsManager::addForceTo(int index, const Vector3D& force)
+	{
+		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
+		btRigidBody::upcast(obj)->applyCentralImpulse(btVector3(force.getX(), force.getY(), force.getZ()));
+	}
+
+	void PhysicsManager::detachPhysics()
+	{
+		for (int i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
+		{
+			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			if (body && body->getMotionState())
+			{
+				delete body->getMotionState();
+			}
+			dynamicsWorld->removeCollisionObject(obj);
+			delete obj;
+		}
+
+		for (int j = 0; j < collisionShapes.size(); j++)
+		{
+			btCollisionShape* shape = collisionShapes[j];
+			collisionShapes[j] = 0;
+			delete shape;
+		}
+
+		delete dynamicsWorld;
+
+		delete solver;
+
+		delete overlappingPairCache;
+
+		delete dispatcher;
+
+		delete collisionConfiguration;
+
+		collisionShapes.clear();
+	}
 }
+
+

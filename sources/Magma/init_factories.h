@@ -1,24 +1,28 @@
 #pragma once
 #include <Magma/factory.h>
 
-struct ec::Component;
-
-class TransformFactory : public Factory
+namespace magma_engine
 {
-public:
-	ec::Component* createComponent(ec::Entity* e);
-};
+	struct ec::Component;
 
-class RigidbodyFactory : public Factory
-{
-public:
-	ec::Component* createComponent(ec::Entity* e);
-};
+	class TransformFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
 
-class MeshFactory : public Factory
-{
-public:
-	ec::Component* createComponent(ec::Entity* e);
-};
+	class RigidbodyFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
 
-void setUpFactories();
+	class MeshFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
+	void setUpFactories();
+}
+

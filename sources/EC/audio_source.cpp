@@ -1,113 +1,118 @@
 #include <EC/audio_source.h>
 #include <Sounds/sound_manager.h>
 
-AudioSource::AudioSource(std::string path, int vol, int channel, bool loop, bool start) : Component()
+namespace magma_engine
 {
-	audio = new AudioData;
-
-	audio->audio_path = path;
-	audio->volume = vol;
-	audio->channel = channel;
-
-	isLoop = loop;
-	hasStarted = start;
-
-	playing = false;
-	paused = false;
-}
-
-AudioSource::~AudioSource()
-{
-	stopSong();
-	delete audio;
-}
-
-void AudioSource::setSongsValues(std::string path, int vol, int channel, bool loop, bool start)
-{
-	audio = new AudioData;
-
-	audio->audio_path = path;
-	audio->volume = vol;
-	audio->channel = channel;
-
-	isLoop = loop;
-	hasStarted = start;
-
-	playing = false;
-	paused = false;
-}
-
-void AudioSource::start()
-{
-	manager->loadWAV(audio->audio_path.c_str(), audio->volume, audio->channel, isLoop);
-
-	if (hasStarted)
-		playSong();
-}
-
-void AudioSource::update(int frameTime)
-{
-	playSong();
-
-	playing = !manager->hasEnded(audio->channel);
-
-	if (playing)
-		paused = false;
-}
-
-void AudioSource::playSong()
-{
-	if (!playing)
+	AudioSource::AudioSource(std::string path, int vol, int channel, bool loop, bool start) : Component()
 	{
-		int loop = 1;
+		audio = new AudioData;
 
-		if (!isLoop)
-			loop = 0;
+		audio->audio_path = path;
+		audio->volume = vol;
+		audio->channel = channel;
 
-		manager->playSound(audio->channel);
-		playing = true;
-		toPlay = false;
-	}
-}
-
-void AudioSource::pauseSong()
-{
-	if (playing && !paused)
-	{
-		manager->pauseSound(audio->channel);
-		paused = true;
-	}
-}
-
-void AudioSource::resumeSong()
-{
-	if (playing && paused)
-	{
-		manager->resumeSound(audio->channel);
-		paused = false;
-	}
-}
-
-void AudioSource::stopSong()
-{
-	if (playing || paused)
-	{
-		manager->stopSound(audio->channel);
+		isLoop = loop;
+		hasStarted = start;
 
 		playing = false;
 		paused = false;
 	}
+
+	AudioSource::~AudioSource()
+	{
+		stopSong();
+		delete audio;
+	}
+
+	void AudioSource::setSongsValues(std::string path, int vol, int channel, bool loop, bool start)
+	{
+		audio = new AudioData;
+
+		audio->audio_path = path;
+		audio->volume = vol;
+		audio->channel = channel;
+
+		isLoop = loop;
+		hasStarted = start;
+
+		playing = false;
+		paused = false;
+	}
+
+	void AudioSource::start()
+	{
+		manager->loadWAV(audio->audio_path.c_str(), audio->volume, audio->channel, isLoop);
+
+		if (hasStarted)
+			playSong();
+	}
+
+	void AudioSource::update(int frameTime)
+	{
+		playSong();
+
+		playing = !manager->hasEnded(audio->channel);
+
+		if (playing)
+			paused = false;
+	}
+
+	void AudioSource::playSong()
+	{
+		if (!playing)
+		{
+			int loop = 1;
+
+			if (!isLoop)
+				loop = 0;
+
+			manager->playSound(audio->channel);
+			playing = true;
+			toPlay = false;
+		}
+	}
+
+	void AudioSource::pauseSong()
+	{
+		if (playing && !paused)
+		{
+			manager->pauseSound(audio->channel);
+			paused = true;
+		}
+	}
+
+	void AudioSource::resumeSong()
+	{
+		if (playing && paused)
+		{
+			manager->resumeSound(audio->channel);
+			paused = false;
+		}
+	}
+
+	void AudioSource::stopSong()
+	{
+		if (playing || paused)
+		{
+			manager->stopSound(audio->channel);
+
+			playing = false;
+			paused = false;
+		}
+	}
+
+
+	void AudioSource::setVolume(int vol)
+	{
+		audio->volume = vol;
+	}
+
+
+	int AudioSource::getVolume()
+	{
+		return audio->volume;
+	}
 }
 
 
-void AudioSource::setVolume(int vol)
-{
-	audio->volume = vol;
-}
-
-
-int AudioSource::getVolume()
-{
-	return audio->volume;
-}
 

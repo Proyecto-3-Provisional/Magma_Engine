@@ -12,21 +12,25 @@
 #include <Sounds/sound_manager.h>
 #include <EC/scene_manager.h>
 
+namespace magma_engine
+{
+	class MAGMAENGINE_API CMagmaEngine {
+	public:
+		bool Init();
+		bool ShutDown();
+		void run();
+		static CMagmaEngine* _instance;
+		CMagmaEngine();
+	private:
+		typedef void(__cdecl* GameExample)(void);
 
-class MAGMAENGINE_API CMagmaEngine {
-public:
-	bool Init();
-	bool ShutDown();
-	void run();
-	static CMagmaEngine* _instance;
-	CMagmaEngine();
-private:
-	typedef void(__cdecl* GameExample)(void);
-	
-	HMODULE game;
-	bool loadGame();
-};
+		HMODULE game;
+		bool loadGame();
+	};
 
-//extern MAGMAENGINE_API int nMagmaEngine;
+	//extern MAGMAENGINE_API int nMagmaEngine;
 
-//MAGMAENGINE_API int fnMagmaEngine(void);
+	//MAGMAENGINE_API int fnMagmaEngine(void);
+}
+
+

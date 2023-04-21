@@ -8,25 +8,30 @@
 
 #include <Render/mesh.h>
 
-ec::Component* TransformFactory::createComponent(ec::Entity* e)
+namespace magma_engine
 {
-	return e->addComponent<Transform>();
-}
+	ec::Component* TransformFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Transform>();
+	}
 
-ec::Component* RigidbodyFactory::createComponent(ec::Entity* e)
-{
-	return e->addComponent<Rigidbody>();
-}
+	ec::Component* RigidbodyFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Rigidbody>();
+	}
 
-ec::Component* MeshFactory::createComponent(ec::Entity* e)
-{
-	return e->addComponent<Mesh>();
-}
+	ec::Component* MeshFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Mesh>();
+	}
 
-void setUpFactories() 
-{
-	FactoryManager::instance()->addFactory("Transform", new TransformFactory());
-	FactoryManager::instance()->addFactory("Rigidbody", new RigidbodyFactory());
-	FactoryManager::instance()->addFactory("Mesh", new MeshFactory());
+	void setUpFactories()
+	{
+		FactoryManager::instance()->addFactory("Transform", new TransformFactory());
+		FactoryManager::instance()->addFactory("Rigidbody", new RigidbodyFactory());
+		FactoryManager::instance()->addFactory("Mesh", new MeshFactory());
+	}
+
+
 }
 

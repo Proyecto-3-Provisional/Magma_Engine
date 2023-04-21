@@ -12,32 +12,36 @@ namespace Ogre
 	class OverlayManager;
 }
 
-class UI_Element;
-
-class UI_Manager : public Singleton<UI_Manager>
+namespace magma_engine
 {
-public:
-	UI_Manager(); // Crea un overlay y lo muestra en pantalla
-	~UI_Manager();
+	class UI_Element;
 
-	void init();
-	void update();
-	void cleanPanel(); // Borra todos los elementos del overlay
-	
-	/* 
-	Crea un UI_Element de X tipo(Texto, Image, etc.) con su nombre de panel, 
-	una referencia al overlay y los argumentos que necesite su tipo
-	*/
-	template<typename T, typename ...Ts>
-	T* createElement(std::string over, std::string panelName, Ts&&... args)
+	class UI_Manager : public Singleton<UI_Manager>
 	{
-		T* elem = new T(over, panelName, args...);
-		elements.push_back(elem);
-		return elem;
-	}
+	public:
+		UI_Manager(); // Crea un overlay y lo muestra en pantalla
+		~UI_Manager();
 
-private:
-	Ogre::OverlayManager* overlayMngr_;
-	Ogre::Overlay* overlay;
-	std::vector<UI_Element*> elements;
-};
+		void init();
+		void update();
+		void cleanPanel(); // Borra todos los elementos del overlay
+
+		/*
+		Crea un UI_Element de X tipo(Texto, Image, etc.) con su nombre de panel,
+		una referencia al overlay y los argumentos que necesite su tipo
+		*/
+		template<typename T, typename ...Ts>
+		T* createElement(std::string over, std::string panelName, Ts&&... args)
+		{
+			T* elem = new T(over, panelName, args...);
+			elements.push_back(elem);
+			return elem;
+		}
+
+	private:
+		Ogre::OverlayManager* overlayMngr_;
+		Ogre::Overlay* overlay;
+		std::vector<UI_Element*> elements;
+	};
+}
+

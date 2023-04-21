@@ -3,50 +3,54 @@
 #include <singleton.h>
 #include <vector>
 
-class Vector3D;
-
-class PhysicsManager : public Singleton<PhysicsManager> 
+namespace magma_engine
 {
-public:
-	PhysicsManager();
-	~PhysicsManager();
+	class Vector3D;
 
-	//Metodo para añadir un elemento rigidbody 
-	int addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
-	
-	//Metodos para eliminar rigidbodys almacenados 
-	void deleteRigidBody(const int& userIndex);
-	void deleteRigidBodies(std::vector<int>& vIndex);
+	class PhysicsManager : public Singleton<PhysicsManager>
+	{
+	public:
+		PhysicsManager();
+		~PhysicsManager();
 
-	//Metodo que actualiza las fisicas
-	void update(float deltaTime);
+		//Metodo para añadir un elemento rigidbody 
+		int addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
 
-	//Metodo que muestra los pares que colisionan
-	void updateCollisions();
+		//Metodos para eliminar rigidbodys almacenados 
+		void deleteRigidBody(const int& userIndex);
+		void deleteRigidBodies(std::vector<int>& vIndex);
 
-	//Metodo para comprobar si ha habido colision entre rigidbodys
-	bool isCollide(const int& index1, const int& index2);
+		//Metodo que actualiza las fisicas
+		void update(float deltaTime);
 
-	//Metodo para obtener un vector con 
-	std::vector<int> getArrayOfIndexColliders(int index);
-	
-	Vector3D getTransform(int index);
+		//Metodo que muestra los pares que colisionan
+		void updateCollisions();
 
-	btRigidBody* getRigidBody(int index);
+		//Metodo para comprobar si ha habido colision entre rigidbodys
+		bool isCollide(const int& index1, const int& index2);
 
-	//Metodo para añadir un vector de fuerzas
-	void addForceTo(int index, const Vector3D& force);
+		//Metodo para obtener un vector con 
+		std::vector<int> getArrayOfIndexColliders(int index);
 
-	int initPhysics();
-	void detachPhysics();
+		Vector3D getTransform(int index);
 
-private:
+		btRigidBody* getRigidBody(int index);
 
-	btDefaultCollisionConfiguration* collisionConfiguration;
-	btCollisionDispatcher* dispatcher;
-	btBroadphaseInterface* overlappingPairCache;
-	btSequentialImpulseConstraintSolver* solver;
-	btDiscreteDynamicsWorld* dynamicsWorld;
-	btAlignedObjectArray<btCollisionShape*> collisionShapes;
-	//int lastUserIndex = 0;
-};
+		//Metodo para añadir un vector de fuerzas
+		void addForceTo(int index, const Vector3D& force);
+
+		int initPhysics();
+		void detachPhysics();
+
+	private:
+
+		btDefaultCollisionConfiguration* collisionConfiguration;
+		btCollisionDispatcher* dispatcher;
+		btBroadphaseInterface* overlappingPairCache;
+		btSequentialImpulseConstraintSolver* solver;
+		btDiscreteDynamicsWorld* dynamicsWorld;
+		btAlignedObjectArray<btCollisionShape*> collisionShapes;
+		//int lastUserIndex = 0;
+	};
+}
+

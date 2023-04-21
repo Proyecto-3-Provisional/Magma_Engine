@@ -4,11 +4,13 @@
 
 #include <EC/component.h>
 
-class SoundManager;
+namespace magma_engine
+{
+	class SoundManager;
 
-struct AudioData;
+	struct AudioData;
 
-class AudioSource : public ec::Component
+	class AudioSource : public ec::Component
 	{
 	public:
 
@@ -19,7 +21,7 @@ class AudioSource : public ec::Component
 		virtual void start();
 		virtual void update(int frameTime);
 
-		void setSongsValues(std::string path, int vol, int channel, bool loop, bool start); 
+		void setSongsValues(std::string path, int vol, int channel, bool loop, bool start);
 
 		void playSong();
 		void pauseSong();
@@ -34,10 +36,13 @@ class AudioSource : public ec::Component
 		static std::string name;
 
 		AudioData* audio;
-		SoundManager* manager; 
+		SoundManager* manager;
 
 		bool isLoop, hasStarted, playing, paused;
 
 		bool toPlay = false;
 	};
+}
+
+
 
