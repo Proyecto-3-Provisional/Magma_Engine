@@ -143,7 +143,7 @@ int mainCode() {
 	if (meshInit3)
 	{
 		physicsEntityMeshCmp2->getObj()->showDebugBox(true);
-		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Vector3D(1, 0, 0));
 	}
 	Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<Rigidbody>(Vector3D(70, 40, 40));
 	physicsEntityRigidbodyCmp2->addForce(Vector3D(-500, 0, 0));
@@ -158,7 +158,7 @@ int mainCode() {
 	if (meshInit4)
 	{
 		physicsEntityMeshCmp3->getObj()->showDebugBox(true);
-		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Vector3D(1, 0, 0));
 	}
 	Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<Rigidbody>(Vector3D(70, 40, 40));
 	physicsEntityRigidbodyCmp3->addForce(Vector3D(500, 0, 0));
