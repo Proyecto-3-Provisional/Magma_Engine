@@ -3,16 +3,16 @@
 #include <lua.hpp>
 #include "LuaBridge/LuaBridge.h"
 
-LuaStateManager::LuaStateManager(): L(luaL_newstate()) {
-    luaL_openlibs(L);
+LuaStateManager::LuaStateManager()
+{
 }
 
 LuaStateManager::~LuaStateManager()
 {
-	lua_close(L);
 }
 
-lua_State* LuaStateManager::getLuaState() const
-{
-	return L;
-}
+//int LuaStateManager::LoadScene(std::string sceneFile)
+//{
+//	return 0;
+//}
+

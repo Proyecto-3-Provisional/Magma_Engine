@@ -1,0 +1,12 @@
+SceneLoader:printInfo()
+
+entities = { "axolotl", "cube", 69, "crewmate", baka, "rat" }
+
+axolotl = { 
+    Transform = { "a", "12", "pepito" },  
+    Mesh = { "mongus" }
+}
+
+crewmate = {
+    Transform = posicion
+}

@@ -11,8 +11,10 @@ public:
     LuaStateManager();
     ~LuaStateManager();
 
-    lua_State* getLuaState() const;
+    ///int LoadScene(std::string sceneFile);
+
+    ///lua_State* getLuaState() const;
 
 private:
-    lua_State* L;
+    ///lua_State* L = nullptr;
 };

@@ -57,7 +57,7 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	luaMain("luatest.lua");
+	luaMain("Assets/test.magmascene");
 
 	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int
