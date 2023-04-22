@@ -1,5 +1,5 @@
 #include <Input/input_manager.h>
-
+#include "SDL_events.h"
 namespace magma_engine
 {
 	InputManager::InputManager()

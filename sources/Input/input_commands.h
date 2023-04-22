@@ -1,7 +1,5 @@
 #pragma once
 
-#include "SDL_events.h"
-
 #define SIZE 82
 
 typedef enum 
