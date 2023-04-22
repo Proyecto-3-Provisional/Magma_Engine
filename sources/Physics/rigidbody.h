@@ -12,7 +12,7 @@ namespace magma_engine
 {
 	class Transform;
 
-	class __declspec(dllexport) Rigidbody : public ec::Component
+	class Rigidbody : public ec::Component
 	{
 	public:
 		Rigidbody();
