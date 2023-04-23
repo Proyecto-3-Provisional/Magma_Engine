@@ -1,6 +1,7 @@
 #include <Magma/factory_manager.h>
 #include <Magma/factory.h>
 
+
 namespace magma_engine
 {
 	FactoryManager::~FactoryManager()

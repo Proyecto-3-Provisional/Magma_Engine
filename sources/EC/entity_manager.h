@@ -4,11 +4,7 @@
 
 #include <vector>
 
-#include <EC/component.h>
 #include <EC/entity.h>
-#include <EC/ec.h>
-#include <EC/messages.h>
-
 #include <singleton.h>
 
 namespace magma_engine

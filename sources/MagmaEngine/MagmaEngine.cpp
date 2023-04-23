@@ -2,6 +2,12 @@
 #include "framework.h"
 #include "MagmaEngine.h"
 
+#include <Render/render_manager.h>
+#include <Render/ui_manager.h>
+#include <Input/input_manager.h>
+#include <Physics/physics_manager.h>
+#include <Sounds/sound_manager.h>
+#include <EC/scene_manager.h>
 
 #include "SDL_timer.h"
 

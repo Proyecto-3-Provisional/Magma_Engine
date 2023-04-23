@@ -49,7 +49,6 @@ namespace magma_engine
 
 		bool isInteractive_;
 
-		Ogre::String title_;
 
 		//RenderManagerContext* rend;
 

@@ -43,8 +43,13 @@ namespace magma_engine
 
 	void Rigidbody::update(float deltaTime)
 	{
-		Vector3D pos = PhysicsManager::instance()->getTransform(rigidPtr->getUserIndex());
-		trPtr->setPosition(pos);
+
+		Vector3D pos = PhysicsManager::instance()->getPos(rigidPtr->getUserIndex());
+		
+		if (trPtr != nullptr)
+		{
+			trPtr->setPosition(pos);
+		}
 	}
 
 	bool Rigidbody::isCollideWith(int indexCollide)

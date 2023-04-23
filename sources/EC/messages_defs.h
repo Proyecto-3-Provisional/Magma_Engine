@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include <cstdint>
 #include <EC/ec.h>
 
 // Definimos los nombres de los mensajes, son accesibles desde nuestros componentes, por ejemplo en transform.h, pitch(). 

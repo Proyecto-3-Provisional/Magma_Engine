@@ -1,7 +1,6 @@
 #pragma once
 
 #include <EC/vector3D.h>
-#include <string>
 
 #include <OgreNode.h>
 

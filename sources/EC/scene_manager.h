@@ -3,7 +3,6 @@
 #include <singleton.h>
 
 #include <stack>
-#include <string>
 
 namespace magma_engine
 {

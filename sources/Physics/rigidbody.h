@@ -1,8 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
-
 #include <EC/component.h>
 #include <EC/vector3D.h>
 

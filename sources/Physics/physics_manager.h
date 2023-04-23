@@ -32,7 +32,7 @@ namespace magma_engine
 		//Metodo para obtener un vector con 
 		std::vector<int> getArrayOfIndexColliders(int index);
 
-		Vector3D getTransform(int index);
+		Vector3D getPos(int index);
 
 		btRigidBody* getRigidBody(int index);
 

@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string.h>
-#include <iostream>
-
 #include <singleton.h>
 #include <Input/input_commands.h>
 

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <EC/component.h>
-#include <string>
-#include <map>
 
 namespace magma_engine
 {

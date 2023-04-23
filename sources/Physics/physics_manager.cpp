@@ -183,7 +183,7 @@ namespace magma_engine
 		return colliders;
 	}
 
-	Vector3D PhysicsManager::getTransform(int index)
+	Vector3D PhysicsManager::getPos(int index)
 	{
 		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
 		btRigidBody* body = btRigidBody::upcast(obj);
@@ -192,11 +192,7 @@ namespace magma_engine
 		{
 			body->getMotionState()->getWorldTransform(trans);
 		}
-		// Por si no añadireamos MotionState
-		//else
-		//{
-		//	trans = obj->getWorldTransform();
-		//}
+
 		return Vector3D(float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}
 

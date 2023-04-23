@@ -2,10 +2,7 @@
 
 #pragma once
 
-#include <cassert>
-#include <cstdint>
 #include <limits>
-
 #include <EC/mpl.h>
 
 namespace magma_engine
