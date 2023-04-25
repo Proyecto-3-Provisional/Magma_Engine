@@ -23,11 +23,6 @@ namespace magma_engine
 		pos = pos_;
 	}
 
-	//void Transform::setVelocity(Vector3D vel_)
-	//{
-	//	vel = vel_;
-	//}
-
 	void Transform::setScale(Vector3D scale_)
 	{
 		scale = scale_;
