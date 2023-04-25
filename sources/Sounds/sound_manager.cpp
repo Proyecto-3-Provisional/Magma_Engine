@@ -104,8 +104,10 @@ namespace magma_engine
 		while (it != songs.end() && (*it)->channel != channel)
 			it++;
 
-		if (it != songs.end())
+		if (it != songs.end()) {
+			delete (*it);
 			songs.erase(it);
+		}
 	}
 
 	//Ajustes de volumen del sonido

@@ -186,9 +186,9 @@ int mainCode() {
 		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
 	componentButtonEntity->start();
 
-	//ec::AudioSource* componentSound = imageEntity->addComponent<ec::AudioSource>
-		//("./assets/loop.wav", 50, 2, true, true); 
-	//componentSound->start(); 
+	magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
+		("./assets/loop.wav", 50, 2, true, true); 
+	componentSound->start(); 
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
@@ -342,7 +342,8 @@ void initManagers() {
 	Singleton<magma_engine::InputManager>::init();
 
 	// ------ SOUND ------
-	Singleton<magma_engine::SoundManager>::init();
+	if(Singleton<magma_engine::SoundManager>::init())
+		Singleton<magma_engine::SoundManager>::instance()->initAudio();
 
 	// ------ FACTORY ------
 	Singleton<magma_engine::FactoryManager>::init();

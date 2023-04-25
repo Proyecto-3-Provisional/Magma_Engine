@@ -37,7 +37,6 @@ namespace magma_engine
 		static std::string name;
 
 		AudioData* audio;
-		SoundManager* manager;
 
 		bool isLoop, hasStarted, playing, paused;
 

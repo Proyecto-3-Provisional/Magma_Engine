@@ -41,7 +41,7 @@ namespace magma_engine
 
 	void AudioSource::start()
 	{
-		manager->loadWAV(audio->audio_path.c_str(), audio->volume, audio->channel, isLoop);
+		Singleton<SoundManager>::instance()->loadWAV(audio->audio_path.c_str(), audio->volume, audio->channel, isLoop);
 
 		if (hasStarted)
 			playSong();
@@ -51,7 +51,7 @@ namespace magma_engine
 	{
 		playSong();
 
-		playing = !manager->hasEnded(audio->channel);
+		playing = !Singleton<SoundManager>::instance()->hasEnded(audio->channel);
 
 		if (playing)
 			paused = false;
@@ -66,7 +66,7 @@ namespace magma_engine
 			if (!isLoop)
 				loop = 0;
 
-			manager->playSound(audio->channel);
+			Singleton<SoundManager>::instance()->playSound(audio->channel);
 			playing = true;
 			toPlay = false;
 		}
@@ -76,7 +76,7 @@ namespace magma_engine
 	{
 		if (playing && !paused)
 		{
-			manager->pauseSound(audio->channel);
+			Singleton<SoundManager>::instance()->pauseSound(audio->channel);
 			paused = true;
 		}
 	}
@@ -85,7 +85,7 @@ namespace magma_engine
 	{
 		if (playing && paused)
 		{
-			manager->resumeSound(audio->channel);
+			Singleton<SoundManager>::instance()->resumeSound(audio->channel);
 			paused = false;
 		}
 	}
@@ -94,7 +94,7 @@ namespace magma_engine
 	{
 		if (playing || paused)
 		{
-			manager->stopSound(audio->channel);
+			Singleton<SoundManager>::instance()->stopSound(audio->channel);
 
 			playing = false;
 			paused = false;
