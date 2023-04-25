@@ -6,7 +6,7 @@ namespace magma_engine
 	{
 	public:
 
-		//Metodo de creacion del elemento boton 
+		// Creacion del elemento boton 
 		UIButton(std::string overReference, std::string imageName,
 			std::string hoverImageName, std::string pressedImageName,
 			float posX, float posY, float sizeX, float sizeY);

@@ -42,6 +42,7 @@ namespace magma_engine
 		void yaw(float deg);
 		void roll(float deg);
 
+		// Establece la orientación de la entidad a un punto en el espacio
 		void setDirection(Vector3D v);
 
 		//Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ

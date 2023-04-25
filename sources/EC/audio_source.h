@@ -21,12 +21,13 @@ namespace magma_engine
 		virtual void start();
 		virtual void update(int frameTime);
 
+		// Establece los valores iniciales del sonido
 		void setSongsValues(std::string path, int vol, int channel, bool loop, bool start);
 
-		void playSong();
-		void pauseSong();
-		void resumeSong();
-		void stopSong();
+		void playSong(); // Reproduce el audio si no se está reproduciendo
+		void pauseSong(); // Pausa la reproducción del audio
+		void resumeSong(); // Reanuda la reproducción del audio si se había pausado previamente
+		void stopSong(); // Detiene la reproducción del audio
 
 		void setVolume(int vol);
 		int getVolume();

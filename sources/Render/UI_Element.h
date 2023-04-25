@@ -22,13 +22,13 @@ namespace magma_engine
 		void hideElement(); // Esconde el elemento dentro del overlay
 		bool isElementVisible(); // Comprueba si el elemento es visible o no
 
-		void setPanelPosition(float x, float y);
-		void setPanelSize(float w, float h);
+		void setPanelPosition(float x, float y); // Establece la posición del panel
+		void setPanelSize(float w, float h); // Establece el tamaño del panel
 
-		void setTextPosition(float x, float y);
-		void setTextSize(float w, float h);
+		void setTextPosition(float x, float y); // Establece la posicion del texto dentro del overlay
+		void setTextSize(float w, float h); // Establece el tamaño del texto
 
-		void setMaterial(std::string nameMaterial);
+		void setMaterial(std::string nameMaterial); // Establece el material del panel
 
 		std::pair<float, float> getPosition();
 		std::pair<float, float> getSize();

@@ -20,11 +20,11 @@ namespace magma_engine
 		bool initComponent() override;
 		void update(float deltaTime) override;
 
-		bool isOnCollision();
-		bool isCollideWith(int indexCollide);
+		bool isOnCollision(); // Determina si el objeto se encuentra en colisión con otros objetos
+		bool isCollideWith(int indexCollide); // Detectar colision con otro objeto cuyo índice se proporciona como parámetro
 
-		void addForce(const Vector3D& force);
-		int getIndex();
+		void addForce(const Vector3D& force); // Aplica una fuerza al objeto
+		int getIndex(); // Devuelve el índice del objeto
 
 	private:
 
