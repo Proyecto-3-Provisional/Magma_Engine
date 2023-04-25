@@ -1,12 +1,27 @@
 SceneLoader:printInfo()
 
-entities = { "axolotl", "cube", 69, "crewmate", baka, "rat" }
-
-axolotl = { 
-    Transform = { "a", "12", "pepito" },  
-    Mesh = { "mongus" }
-}
-
-crewmate = {
-    Transform = posicion
+entities = {
+	axolotl = {
+		Transform = {
+			pX = 1,
+			pY = 2,
+			pZ = 4,
+			sX = 1,
+			sY = 1,
+			sZ = 1
+		},
+		Mesh = {
+			name = "mesh_axolotl",
+			shape = "cube.mesh",
+			material = "default",
+		}
+	},
+	cube = {
+		Transform = {
+			pX = 1.25,
+			pZ = 3.75
+		},
+		Mesh = {
+		}
+	}
 }
