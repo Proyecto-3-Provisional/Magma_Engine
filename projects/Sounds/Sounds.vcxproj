@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sources\Sounds\audio_source.cpp" />
     <ClCompile Include="..\..\sources\Sounds\sound_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\sources\Sounds\audio_source.h" />
     <ClInclude Include="..\..\sources\Sounds\sound_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

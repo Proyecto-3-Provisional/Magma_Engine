@@ -1,4 +1,4 @@
-#include <EC/image.h>
+#include <Render/image.h>
 
 #include <Render/UI_Image.h>
 #include <Render/UI_Manager.h>

@@ -24,10 +24,10 @@
 #include <EC/vector3D.h>
 #include <EC/fps_counter.h>
 #include <EC/transform.h>
-#include <EC/image.h>
-#include <EC/text.h>
-#include <EC/button.h>
-#include <EC/audio_source.h>
+#include <Render/image.h>
+#include <Render/text.h>
+#include <Render/button.h>
+#include <Sounds/audio_source.h>
 #include <Magma/factory_manager.h>
 #include <Magma/init_factories.h>
 #include <LuaBridge/lua_main.h>
