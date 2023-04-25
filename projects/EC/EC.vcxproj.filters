@@ -19,6 +19,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Components\Game">
+      <UniqueIdentifier>{82414e52-cd02-4abe-b3e1-6dfd6bd2d3c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Game">
+      <UniqueIdentifier>{7943bad3-548f-4fe6-a275-f4c0ea6c6c26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\EC\component.h">
