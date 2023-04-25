@@ -23,6 +23,30 @@ namespace magma_engine
 		ec::Component* createComponent(ec::Entity* e);
 	};
 
+	class AudioSourceFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
+	class ButtonFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
+	class ImageFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
+	class TextFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
 	void setUpFactories();
 }
 
