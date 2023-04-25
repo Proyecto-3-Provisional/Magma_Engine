@@ -25,11 +25,36 @@ namespace magma_engine
 		return e->addComponent<Mesh>();
 	}
 
+	ec::Component* AudioSourceFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Mesh>();
+	}
+
+	ec::Component* ButtonFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Mesh>();
+	}
+
+	ec::Component* ImageFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Mesh>();
+	}
+
+	ec::Component* TextFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Mesh>();
+	}
+
 	void setUpFactories()
 	{
 		FactoryManager::instance()->addFactory("Transform", new TransformFactory());
 		FactoryManager::instance()->addFactory("Rigidbody", new RigidbodyFactory());
 		FactoryManager::instance()->addFactory("Mesh", new MeshFactory());
+		FactoryManager::instance()->addFactory("AudioSource", new AudioSourceFactory());
+		FactoryManager::instance()->addFactory("Button", new ButtonFactory());
+		FactoryManager::instance()->addFactory("Image", new ImageFactory());
+		FactoryManager::instance()->addFactory("Text", new TextFactory());
+
 	}
 
 
