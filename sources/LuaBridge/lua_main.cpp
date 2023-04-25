@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include "LuaBridge/LuaBridge.h"
-#include "lua_state_manager.h"
 #include <queue>
 
 using namespace luabridge;

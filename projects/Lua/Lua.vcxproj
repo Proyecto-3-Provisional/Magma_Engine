@@ -20,12 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\LuaBridge\lua_main.cpp" />
-    <ClCompile Include="..\..\sources\LuaBridge\lua_state_manager.cpp" />
     <ClCompile Include="..\..\sources\Lua\Placeholder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\LuaBridge\lua_main.h" />
-    <ClInclude Include="..\..\sources\LuaBridge\lua_state_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
