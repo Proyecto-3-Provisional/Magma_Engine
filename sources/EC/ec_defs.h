@@ -12,6 +12,7 @@ class Image;
 class Text; 
 class AudioSource;
 class Progress_Bar;
+class Timer; 
 
 #define _CMPS_LIST_ Transform,\
 					Mesh,\
@@ -20,5 +21,6 @@ class Progress_Bar;
 					Image,\
 					Text,\
 					AudioSource, \
-					Progress_Bar
+					Progress_Bar, \
+					Timer
 		

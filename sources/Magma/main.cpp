@@ -25,6 +25,7 @@
 #include <EC/fps_counter.h>
 #include <EC/transform.h>
 #include <EC/progress_bar.h>
+#include <EC/timer.h>
 #include <Render/image.h>
 #include <Render/text.h>
 #include <Render/button.h>
@@ -197,6 +198,9 @@ int mainCode() {
 		("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
 	componentProgress->start();
 
+	magma_engine::Timer* timeComponent = imageEntity->addComponent<magma_engine::Timer>();
+	timeComponent->start();
+
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
 	int s = 50;
@@ -255,6 +259,23 @@ int mainCode() {
 		{
 			progreso += 5.0f; 
 			componentProgress->setProgress(progreso);
+
+			timeComponent->pause(); 
+		}
+
+		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
+		{
+			timeComponent->resume();
+		}
+
+		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_I))
+		{
+			timeComponent->reset();
+		}
+
+		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_P))
+		{
+			timeComponent->assignText(componentTextEntity);
 		}
 
 		auto posMouse = Singleton<magma_engine::InputManager>::instance()->getMousePos();
