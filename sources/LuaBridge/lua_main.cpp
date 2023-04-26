@@ -1,12 +1,9 @@
 #include "lua_main.h"
 
 #include <lua.hpp>
-
 #include <iostream>
 
 #include "LuaBridge/LuaBridge.h"
-#include "lua_state_manager.h"
-#include <queue>
 
 using namespace luabridge;
 
@@ -14,61 +11,68 @@ void printInfo() {
 	std::cout << "INFO:\tMagma Scene Loader ~\n";
 }
 
-// Devuelve 0 si y solo si todo va bien
-int extractEntityData(lua_State* L, std::string entityName, std::queue<std::map<std::string, std::string>>* entityCmps) {
-	lua_getglobal(L, entityName.c_str()); // apilar tabla de datos de la entidad: mete 1
-	if (lua_isnil(L, -1)) {	// comprobar que existen los datos: entidad declarada de verdad
-		return 1; // ERROR
-	}
-	
-	// Conjunto de componentes de la ent.
-	std::map<std::string, std::string> cmps;
+// Devuelve el tamaño del mapa de argumentos del componente
+int readComponent(lua_State* L,	std::map<std::string, std::string>* argsM)
+{
+	std::string argumentName = "";
+	std::string argumentValue = "";
 
-	for (size_t j = 0; j < NUM_P_CMPS; j++)
-	{
-		lua_pushstring(L, possibleCmps[j].c_str());	// apilar la petición: mete 1
-		lua_gettable(L, -2);						// recoger valor: come 1; mete 1
-		if (lua_istable(L, -1)) {	// comprobar si componente declarado, y que es tabla
-			std::string cmpData = "";
-			int k = 1;
-			lua_pushinteger(L, k);		// apilar la petición: mete 1
-			lua_gettable(L, -2);		// recoger valor: come 1; mete 1
-			while (!lua_isnil(L, -1))
-			{
-				std::string auxstr = lua_tostring(L, -1);
-				if (k != 1)
-					cmpData += ",";
-				cmpData += auxstr;
-				lua_pop(L, 1);	// desapilar resultado: come 1; (t. entidades | t. entidad actual | t. componente actual)
-				++k;
-				lua_pushinteger(L, k);	// apilar la petición: mete 1
-				lua_gettable(L, -2);	// recoger valor: come 1; mete 1
-			}
-			lua_pop(L, 1);	// desapilar resultado: come 1; (t. entidades | t. entidad actual | t. componente actual)
-		
-			// Registrar componente
-			cmps.insert(std::make_pair(possibleCmps[j], cmpData));
-			std::cout << "\n    * " << possibleCmps[j] << ":\t" << cmpData;
+	lua_pushnil(L);						//+1
+	// ¡ahora se pasa a recorrer la tabla del componente!
+	while (lua_next(L, -2) != 0) {		//-1;+2/+0
+		// valor: -1; clave: -2
+
+		if (lua_isstring(L, -2) && lua_isstring(L, -1)) {
+			argumentName = lua_tostring(L, -2);
+			argumentValue = lua_tostring(L, -1);
+			std::cout << "    " << argumentName << ": " << argumentValue << "\n";
+			// añadir argumento
+			argsM->insert(std::make_pair(argumentName, argumentValue));
 		}
-		lua_pop(L, 1); // desapilar resultado: come 1; (t. entidades | t. entidad actual)
-	}
 
-	if (cmps.size() <= 0) {
-		return 1; // ERROR
+		lua_pop(L, 1);					//-1
 	}
-	else {
-		// Registrar entidad con sus componentes
-		entityCmps->push(cmps);
-	}
+	// clave desaparece
 
-	return 0;
+	std::cout << "    . " << argsM->size() << "\n";
+	return argsM->size();
 }
 
+// Devuelve el tamaño del mapa de componentes de la entidad
+int readEntity(lua_State* L, std::map<std::string, std::map<std::string, std::string>>* cmpsM)
+{
+	std::string componentName = "";
+
+	lua_pushnil(L);						//+1
+	// ¡ahora se pasa a recorrer la tabla de la entidad!
+	while (lua_next(L, -2) != 0) {		//-1;+2/+0
+		// tras lua_next: valor en -1; clave en -2
+		componentName = lua_tostring(L, -2);
+		std::cout << "  " << componentName << "\n";
+
+		if (lua_istable(L, -1))
+		{
+			std::map<std::string, std::string> auxM;
+			if (readComponent(L, &auxM) > 0)
+			{
+				// añadir componente
+				cmpsM->insert(std::make_pair(componentName, auxM));
+			}
+		}
+
+		lua_pop(L, 1);					//-1
+	}
+	// lua_next quita clave final
+	
+	std::cout << "  - " << cmpsM->size() << "\n";
+	return cmpsM->size();
+}
+
+// Devuelve 0 solo si todo fue bien
 int luaMain(std::string filename) {
-	// cola de entidades a buscar por el fichero
-	std::queue<std::string> entityNames;
-	// cola de mapas de comps. (nombre, args.)
-	std::queue<std::map<std::string, std::string>> entityCmps;
+	// Mapa de Entidades -> Mapa de Componentes -> Argumentos
+	std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>* sceneMap;
+	sceneMap = new std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>;
 
 	// Apertura de Lua
 	lua_State* L = luaL_newstate();
@@ -77,7 +81,7 @@ int luaMain(std::string filename) {
 	//espacio de nombres
 	getGlobalNamespace(L).beginNamespace("SceneLoader")
 		.addFunction("printInfo", printInfo)
-	.endNamespace();
+		.endNamespace();
 
 	// Lectura y evaluación del fichero
 	int r = luaL_dofile(L, filename.c_str());
@@ -87,38 +91,34 @@ int luaMain(std::string filename) {
 		return -1; // ERROR al leer el fichero
 	}
 
-	lua_getglobal(L, "entities"); // apilar lista de entidades: mete 1
-
+	int nEnts = 0;
+	lua_getglobal(L, "entities");		//+1 // apilar lista de entidades
 	if (lua_istable(L, -1)) {
-		int i = 1;					// índice para recorrer lista de entidades de escena
-		lua_pushinteger(L, i);		// apilar la petición: mete 1
-		lua_gettable(L, -2);		// recoger valor: come 1; mete 1
-		while (!lua_isnil(L, -1)) {	// comprobación de fin de lista de entidades
-			if (lua_isstring(L, -1)) {	// comprobar si es lo esperado, y actuar
-				std::string entityName = lua_tostring(L, -1); // recoger nombre en C++
-				entityNames.push(entityName);
-			}
-			lua_pop(L, 1);	// desapilar resultado: come 1; (tabla en la cima)
-			++i;
-			lua_pushinteger(L, i);	// apilar la petición: mete 1
-			lua_gettable(L, -2);	// recoger valor: come 1; mete 1
-		}
-		lua_pop(L, 1);	// desapilar resultado: come 1; (tabla en la cima)
+		std::string entityName = "";
 
-		int errAcc = 0; // número de entidades que no se pudieron interpretar
-		std::cout << "SceneLoader:\t" << entityNames.size() << " entities declared in scene" << "\n";
-		while (!entityNames.empty()) {	// recorrer cola de entidades a buscar
-			// Construir serie de componentes con sus parámetros, para cada entidad
-			std::cout << " " << entityNames.front();
-			if (extractEntityData(L, entityNames.front(), &entityCmps))
+		/* https://www.lua.org/manual/5.4/manual.html#lua_next */
+		lua_pushnil(L);					//+1 // apilar nada
+		while (lua_next(L, -2) != 0) {	//-1;+2/+0 // siguiente elemento de la tabla
+			// CIMA -> valor -> clave -> ...
+			entityName = lua_tostring(L, -2);
+			std::cout << entityName << "\n";
+
+			if (lua_istable(L, -1))
 			{
-				std::cout << "\t- [FAILED]";
-				++errAcc;
+				std::map<std::string, std::map<std::string, std::string>> auxM;
+				if (readEntity(L, &auxM) > 0)
+				{
+					// registrar entidad
+					sceneMap->insert(std::make_pair(entityName, auxM));
+					++nEnts;
+				}
 			}
-			std::cout << "\n";
-			entityNames.pop(); // siguiente entidad...
+
+			lua_pop(L, 1);				// -1 // quitar valor, mantener clave para lua_next
 		}
-		std::cout << "SceneLoader:\t" << errAcc << " entities could not be parsed" << "\n";
+		// ¡ lua_next quita la clave final al terminar el bucle !
+
+		std::cout << "* " << nEnts << "\n";
 	}
 
 	// Desapilar todo Lua
@@ -131,5 +131,13 @@ int luaMain(std::string filename) {
 	lua_close(L);
 	L = nullptr;
 
+	// Borrar mapa
+	delete sceneMap;
+	sceneMap = nullptr;
+
+	if (nEnts <= 0)
+	{
+		return -1;
+	}
 	return 0;
 }

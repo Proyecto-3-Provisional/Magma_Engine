@@ -24,11 +24,11 @@
 #include <EC/vector3D.h>
 #include <EC/fps_counter.h>
 #include <EC/transform.h>
-#include <EC/image.h>
-#include <EC/text.h>
-#include <EC/button.h>
-#include <EC/audio_source.h>
 #include <EC/progress_bar.h>
+#include <Render/image.h>
+#include <Render/text.h>
+#include <Render/button.h>
+#include <Sounds/audio_source.h>
 #include <Magma/factory_manager.h>
 #include <Magma/init_factories.h>
 #include <LuaBridge/lua_main.h>
@@ -115,8 +115,8 @@ int mainCode() {
 	magma_engine::ec::Entity* physicsEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Transform", physicsEntity);
 	//physicsEntity->addC<Transform>(Singleton<FactoryManager>::instance()->findAndCreate("Transform"));
-	physicsEntity->getComponent<magma_engine::Transform>()->setPosition({ 0, 0, 0 });
-	physicsEntity->getComponent<magma_engine::Transform>()->setScale({ 40,40,40 });
+	physicsEntity->getComponent<magma_engine::Transform>()->initComponent({ 0, 0, 0 }, { 40,40,40 });
+
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
 	bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();

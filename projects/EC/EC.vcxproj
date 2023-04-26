@@ -19,36 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\EC\audio_source.h" />
-    <ClInclude Include="..\..\sources\EC\button.h" />
     <ClInclude Include="..\..\sources\EC\component.h" />
     <ClInclude Include="..\..\sources\EC\ec.h" />
     <ClInclude Include="..\..\sources\EC\ec_defs.h" />
     <ClInclude Include="..\..\sources\EC\entity.h" />
     <ClInclude Include="..\..\sources\EC\entity_manager.h" />
     <ClInclude Include="..\..\sources\EC\fps_counter.h" />
-    <ClInclude Include="..\..\sources\EC\image.h" />
     <ClInclude Include="..\..\sources\EC\messages.h" />
     <ClInclude Include="..\..\sources\EC\messages_defs.h" />
     <ClInclude Include="..\..\sources\EC\mpl.h" />
     <ClInclude Include="..\..\sources\EC\progress_bar.h" />
     <ClInclude Include="..\..\sources\EC\scene.h" />
     <ClInclude Include="..\..\sources\EC\scene_manager.h" />
-    <ClInclude Include="..\..\sources\EC\text.h" />
     <ClInclude Include="..\..\sources\EC\transform.h" />
     <ClInclude Include="..\..\sources\EC\vector3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\EC\audio_source.cpp" />
-    <ClCompile Include="..\..\sources\EC\button.cpp" />
     <ClCompile Include="..\..\sources\EC\component.cpp" />
     <ClCompile Include="..\..\sources\EC\entity.cpp" />
     <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
-    <ClCompile Include="..\..\sources\EC\image.cpp" />
     <ClCompile Include="..\..\sources\EC\progress_bar.cpp" />
     <ClCompile Include="..\..\sources\EC\scene.cpp" />
     <ClCompile Include="..\..\sources\EC\scene_manager.cpp" />
-    <ClCompile Include="..\..\sources\EC\text.cpp" />
     <ClCompile Include="..\..\sources\EC\transform.cpp" />
     <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
   </ItemGroup>

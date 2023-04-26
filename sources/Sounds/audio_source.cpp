@@ -1,4 +1,4 @@
-#include <EC/audio_source.h>
+#include <Sounds/audio_source.h>
 #include <Sounds/sound_manager.h>
 
 namespace magma_engine

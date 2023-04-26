@@ -7,8 +7,7 @@ namespace magma_engine
 {
 	class Transform : public ec::Component {
 	public:
-		Transform() : pos(), vel() {};
-		Transform(Vector3D pos_, float vel_) : pos(pos_), vel(vel_) {};
+		Transform(){};
 
 		virtual ~Transform() {};
 
@@ -19,7 +18,6 @@ namespace magma_engine
 
 		void setPosition(Vector3D pos_);
 		void setScale(Vector3D scale_);
-		void setVel(float v);
 
 		// w = width, eje X
 		float getW() const;
@@ -35,8 +33,7 @@ namespace magma_engine
 		// d = depth, eje Z
 		void setD(float depth_);
 
-		virtual bool initComponent();
-		virtual void update(float deltaTime);
+		virtual bool initComponent(Vector3D pos_, Vector3D scale_);
 
 		void pitch(float deg);
 		void yaw(float deg);
@@ -55,8 +52,6 @@ namespace magma_engine
 		Vector3D scale;
 		//La direccion hacia delante en el eje z del objeto
 		Vector3D forward;
-
-		float vel;
 	};
 }
 

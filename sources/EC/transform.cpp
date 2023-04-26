@@ -23,19 +23,9 @@ namespace magma_engine
 		pos = pos_;
 	}
 
-	//void Transform::setVelocity(Vector3D vel_)
-	//{
-	//	vel = vel_;
-	//}
-
 	void Transform::setScale(Vector3D scale_)
 	{
 		scale = scale_;
-	}
-
-	void Transform::setVel(float v)
-	{
-		vel = v;
 	}
 
 	float Transform::getW() const
@@ -68,20 +58,18 @@ namespace magma_engine
 		scale.setZ(depth_);
 	}
 
-	bool Transform::initComponent()
+	bool Transform::initComponent(Vector3D pos_, Vector3D scale_)
 	{
-		pos = Vector3D(0, 0, 0);
-		scale = Vector3D(1, 1, 1);
-		forward = Vector3D(0, 0, 1);
-		vel = 50;
+		try {
+			pos = pos_;
+			scale = scale_;
+			forward = Vector3D(0, 0, 1);
+		}
+		catch (...) {
+			return false;
+		}
 
 		return true;
-	}
-
-	// movimiento entidad
-	void Transform::update(float deltaTime)
-	{
-		pos = pos + forward * vel * deltaTime;
 	}
 
 	void Transform::pitch(float deg)

@@ -18,9 +18,15 @@
     <ClCompile Include="..\..\sources\Sounds\sound_manager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\Sounds\audio_source.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Sounds\sound_manager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\Sounds\audio_source.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
