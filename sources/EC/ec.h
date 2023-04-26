@@ -12,11 +12,12 @@ namespace magma_engine
 
 
 	//ver ecs_defs para las listas de componentes, grupos...
-#if __has_include("ec_defs.h")
+#if __has_include("EC/ec_defs.h")
 #include <EC/ec_defs.h>
 #endif
 
-#ifndef _CMPS_LIST_
+	//comprobamos si hemos definido componentes en ec_defs.h, si no lo definimos junt a _ext_CMPS_LIST_
+#ifndef _CMPS_LIST_ 
 #define _ext_CMPS_LIST_
 #else
 #define _ext_CMPS_LIST_ _CMPS_LIST_

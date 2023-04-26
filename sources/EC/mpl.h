@@ -1,6 +1,8 @@
 #pragma once
 
 // Samir Genaim
+// Esta clase (meta programming library, im guessing) nos sirve para poder crear listas con muchos tipos distintos dentro. Por ejemplo, la lista de componentes, que contiene Transform, Mesh...
+// Además, nos ayuda a crear variables de modo que cuando se guarden tengan un tamaño apropiado para no ocupar mas de la cuenta
 
 #include <type_traits>
 
