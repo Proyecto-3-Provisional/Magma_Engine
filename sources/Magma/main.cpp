@@ -28,6 +28,7 @@
 #include <EC/text.h>
 #include <EC/button.h>
 #include <EC/audio_source.h>
+#include <EC/progress_bar.h>
 #include <Magma/factory_manager.h>
 #include <Magma/init_factories.h>
 #include <LuaBridge/lua_main.h>
@@ -174,9 +175,11 @@ int mainCode() {
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);*/
 
 	magma_engine::ec::Entity* imageEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
-	magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
+	/*magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
 		("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
-	componentImageEntity->start();
+	componentImageEntity->start();*/
+
+	float progreso = 20.0f; 
 
 	magma_engine::Text* componentTextEntity = imageEntity->addComponent<magma_engine::Text>
 		("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
@@ -186,9 +189,13 @@ int mainCode() {
 		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
 	componentButtonEntity->start();
 
-	magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
-		("./assets/loop.wav", 50, 2, true, true); 
-	componentSound->start(); 
+	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
+	//	("./assets/loop.wav", 50, 2, true, true); 
+	//componentSound->start(); 
+
+	magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>
+		("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
+	componentProgress->start();
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
@@ -245,7 +252,10 @@ int mainCode() {
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
 		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
-			Singleton<magma_engine::InputManager>::instance()->showOrHideMouse();
+		{
+			progreso += 5.0f; 
+			componentProgress->setProgress(progreso);
+		}
 
 		auto posMouse = Singleton<magma_engine::InputManager>::instance()->getMousePos();
 
