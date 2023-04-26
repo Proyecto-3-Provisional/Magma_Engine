@@ -88,7 +88,13 @@ int mainCode() {
 	sol->setDirection({ 0.0f, -0.8f, -1.0f });
 
 	magma_engine::GraphicalObject* equis = Singleton<magma_engine::RenderManager>::instance()->
-		addObject("x", nullptr, "cube.mesh", "rat");
+		addObject("x", nullptr, "cube.mesh", "magmaBackMat");
+	equis->setPosition({ 0, 0, 550 });
+
+	// Adaptar segun viewport camara
+	equis->setScaleX(24);
+	equis->setScaleY(12);
+
 	equis->setPosition({ 400, 0, 0 });
 	magma_engine::GraphicalObject* igriega = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("y", nullptr, "cube.mesh", "golf");
@@ -176,8 +182,13 @@ int mainCode() {
 
 	magma_engine::ec::Entity* imageEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	/*magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
-		("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
-	componentImageEntity->start();*/
+		("ImgPrueba", "barBack", 400.0f, 25.0f, 100.0f, 100.0f);
+	componentImageEntity->start();
+
+	magma_engine::Image* componentImageEntityV2 = imageEntity->addComponent<magma_engine::Image>
+		("ImgPruebav2", "barFill", 400.0f, 25.0f, 100.0f, 100.0f);
+	componentImageEntityV2->start();*/
+
 
 	float progreso = 20.0f; 
 
@@ -186,7 +197,7 @@ int mainCode() {
 	componentTextEntity->start();
 
 	magma_engine::Button* componentButtonEntity = imageEntity->addComponent<magma_engine::Button>
-		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
+		("ButtonPrueba", "buttonV1", "buttonV2", "bubble", 100.0f, 50.0f, 0.0f, 0.0f);
 	componentButtonEntity->start();
 
 	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>

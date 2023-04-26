@@ -31,6 +31,11 @@ namespace magma_engine
 		void setOriLookingAt(const Vector3D& target, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_WORLD, const Vector3D& lDirVec = Vector3D(0, 0, -1));
 		void scale(float factor);
 		void setScale(float factor);
+
+		void setScaleX(float factor);
+		void setScaleY(float factor);
+		void setScaleZ(float factor);
+
 		void scale(const Vector3D& factor);
 		void setScale(const Vector3D& factor);
 
