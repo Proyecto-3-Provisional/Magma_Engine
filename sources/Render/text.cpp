@@ -5,9 +5,21 @@
 
 namespace magma_engine
 {
-	Text::Text(std::string overlayName, std::string title, std::string font, std::string textCont,
-		float x, float y, float width, float height, float r, float g, float b) : Component()
+	Text::Text() : Component(), textReference(), textTitle(), fontName(), textContent(), posX(), posY(), tamX(), tamY(), red(), green(), blue()
 	{
+
+	}
+
+	Text::~Text() {}
+
+	std::string Text::GetName()
+	{
+		return textTitle;
+	}
+
+	bool Text::initComponent(std::string overlayName, std::string title, std::string font, std::string textCont,
+		float x, float y, float width, float height, float r, float g, float b) 
+	{ 
 		textReference = overlayName;
 
 		textTitle = title;
@@ -26,16 +38,8 @@ namespace magma_engine
 
 		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
 		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		return true; 
 	}
-
-	Text::~Text() {}
-
-	std::string Text::GetName()
-	{
-		return textTitle;
-	}
-
-	bool Text::initComponent() { return true; }
 
 	void Text::start()
 	{

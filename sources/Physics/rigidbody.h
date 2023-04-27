@@ -14,10 +14,9 @@ namespace magma_engine
 	{
 	public:
 		Rigidbody();
-		Rigidbody(const Vector3D& scale_);
 		~Rigidbody();
 
-		bool initComponent() override;
+		bool initComponent(const Vector3D& scale_);
 		void update(float deltaTime) override;
 
 		bool isOnCollision(); // Determina si el objeto se encuentra en colisión con otros objetos

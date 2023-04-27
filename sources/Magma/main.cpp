@@ -106,40 +106,20 @@ int mainCode() {
 
 	// ---------- Inicialización EC ----------
 
-	//ec::Entity* sampleEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	//Transform* sampleEntityTransformCmp = sampleEntity->addComponent<Transform>();
-	//sampleEntityTransformCmp->setPosition({ 0, 0, 0 });
-	//sampleEntityTransformCmp->setScale({ 40,40,40 });
-	//Mesh* sampleEntityMeshCmp = sampleEntity->addComponent<Mesh>();
-	//bool meshInit = sampleEntityMeshCmp->initComponent("ejemploComponent", "axolotl.mesh", "axolotl");
-	//// hacer cosas con el cmp solo si se inicializó correctamente
-	//if (meshInit)
-	//{
-	//	sampleEntityMeshCmp->getObj()->showDebugBox(true);
-	//	sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
-	//}
-
 	magma_engine::ec::Entity* physicsEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Transform", physicsEntity);
 	//physicsEntity->addC<Transform>(Singleton<FactoryManager>::instance()->findAndCreate("Transform"));
-	physicsEntity->getComponent<magma_engine::Transform>()->initComponent({ 0, 0, 0 }, { 40,40,40 });
+	//physicsEntity->getComponent<magma_engine::Transform>()->initComponent({ 0, 0, 0 }, { 40,40,40 });
 
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
 	bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
-	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
-	Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
-	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
-	physicsEntityTransformCmp->setScale({ 40,40,40 });
-	Mesh* physicsEntityMeshCmp = physicsEntity->addComponent<Mesh>();
-	bool meshInit2 = physicsEntityMeshCmp->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");*/
-	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit2)
 	{
 		//sampleEntityMeshCmp->getObj()->showDebugBox(true);
 		//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
-	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>(magma_engine::Vector3D(70, 40, 40));
-	bool eliminar = true;
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
+	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent(magma_engine::Vector3D(70, 40, 40));
 
 	magma_engine::ec::Entity* physicsEntity2 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	magma_engine::Transform* physicsEntityTransformCmp2 = physicsEntity2->addComponent<magma_engine::Transform>();
@@ -153,7 +133,8 @@ int mainCode() {
 		physicsEntityMeshCmp2->getObj()->showDebugBox(true);
 		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
-	magma_engine::Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<magma_engine::Rigidbody>(magma_engine::Vector3D(70, 40, 40));
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<magma_engine::Rigidbody>();
+	physicsEntityRigidbodyCmp2->initComponent(magma_engine::Vector3D(70, 40, 40));
 	physicsEntityRigidbodyCmp2->addForce(magma_engine::Vector3D(-500, 0, 0));
 
 	magma_engine::ec::Entity* physicsEntity3 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
@@ -168,7 +149,8 @@ int mainCode() {
 		physicsEntityMeshCmp3->getObj()->showDebugBox(true);
 		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
-	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>(magma_engine::Vector3D(70, 40, 40));
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>();
+	physicsEntityRigidbodyCmp3->initComponent(magma_engine::Vector3D(70, 40, 40));
 	physicsEntityRigidbodyCmp3->addForce(magma_engine::Vector3D(500, 0, 0));
 
 	magma_engine::Fps fps;
@@ -182,35 +164,32 @@ int mainCode() {
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);*/
 
 	magma_engine::ec::Entity* imageEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
-	/*magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
-		("ImgPrueba", "barBack", 400.0f, 25.0f, 100.0f, 100.0f);
-	componentImageEntity->start();
-
-	magma_engine::Image* componentImageEntityV2 = imageEntity->addComponent<magma_engine::Image>
-		("ImgPruebav2", "barFill", 400.0f, 25.0f, 100.0f, 100.0f);
-	componentImageEntityV2->start();*/
-
 
 	float progreso = 20.0f; 
 
-	magma_engine::Text* componentTextEntity = imageEntity->addComponent<magma_engine::Text>
-		("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
+	magma_engine::Text* componentTextEntity = imageEntity->addComponent<magma_engine::Text>();
+	componentTextEntity->initComponent("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
 	componentTextEntity->start();
 
-	magma_engine::Button* componentButtonEntity = imageEntity->addComponent<magma_engine::Button>
-		("ButtonPrueba", "buttonV1", "buttonV2", "bubble", 100.0f, 50.0f, 0.0f, 0.0f);
+	magma_engine::Button* componentButtonEntity = imageEntity->addComponent<magma_engine::Button>();
+	componentButtonEntity->initComponent("ButtonPrueba", "buttonV1", "buttonV2", "bubble", 100.0f, 50.0f, 0.0f, 0.0f);
 	componentButtonEntity->start();
+
+	magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>();
+	componentImageEntity->initComponent("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
+	componentImageEntity->start();
 
 	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
 	//	("./assets/loop.wav", 50, 2, true, true); 
 	//componentSound->start(); 
 
-	magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>
-		("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
+	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
+	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
 	componentProgress->start();
 
 	magma_engine::Timer* timeComponent = imageEntity->addComponent<magma_engine::Timer>();
-	timeComponent->start();
+	timeComponent->initComponent();
+	timeComponent->start();*/
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
@@ -266,7 +245,7 @@ int mainCode() {
 		Singleton<magma_engine::InputManager>::instance()->inputEvent();
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
-		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
+		/*if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 		{
 			progreso += 5.0f; 
 			componentProgress->setProgress(progreso);
@@ -287,7 +266,7 @@ int mainCode() {
 		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_P))
 		{
 			timeComponent->assignText(componentTextEntity);
-		}
+		}*/
 
 		auto posMouse = Singleton<magma_engine::InputManager>::instance()->getMousePos();
 

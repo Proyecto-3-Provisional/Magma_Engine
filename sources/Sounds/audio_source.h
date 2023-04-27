@@ -15,7 +15,6 @@ namespace magma_engine
 	public:
 
 		AudioSource(std::string path, int vol, int channel, bool loop, bool start);
-
 		virtual ~AudioSource();
 
 		virtual void start();

@@ -13,12 +13,11 @@ namespace magma_engine
 	public:
 
 		//Metodo de declaración del componente
-		Text(std::string overlayName, std::string title, std::string fontName, std::string text,
-			float x, float y, float width, float height, float r, float g, float b);
-
+		Text();
 		virtual ~Text();
 
-		virtual bool initComponent();
+		virtual bool initComponent(std::string overlayName, std::string title, std::string fontName, std::string text,
+			float x, float y, float width, float height, float r, float g, float b);
 
 		virtual void render() {};
 

@@ -6,11 +6,7 @@
 
 namespace magma_engine
 {
-	Rigidbody::Rigidbody() : scale(Vector3D(0, 0, 0))
-	{
-	}
-
-	Rigidbody::Rigidbody(const Vector3D& scale_) : scale(scale_)
+	Rigidbody::Rigidbody() : scale()
 	{
 	}
 
@@ -19,8 +15,9 @@ namespace magma_engine
 		PhysicsManager::instance()->deleteRigidBody(rigidPtr->getUserIndex());
 	}
 
-	bool Rigidbody::initComponent()
+	bool Rigidbody::initComponent(const Vector3D& scale_)
 	{
+		scale = scale_;
 		trPtr = ent->getComponent<Transform>();
 
 		if (trPtr == nullptr)

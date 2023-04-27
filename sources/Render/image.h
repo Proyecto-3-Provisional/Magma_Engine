@@ -13,12 +13,11 @@ namespace magma_engine
 	public:
 
 		//Metodo de declaración del componente
-		Image(std::string overlayName, std::string name,
-			float width, float height, float x, float y);
-
+		Image();
 		virtual ~Image();
 
-		virtual bool initComponent();
+		virtual bool initComponent(std::string overlayName, std::string name,
+			float width, float height, float x, float y);
 
 		virtual void render() {};
 
