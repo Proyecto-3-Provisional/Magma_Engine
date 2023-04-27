@@ -24,6 +24,8 @@
 #include <EC/vector3D.h>
 #include <EC/fps_counter.h>
 #include <EC/transform.h>
+#include <EC/progress_bar.h>
+#include <EC/timer.h>
 #include <Render/image.h>
 #include <Render/text.h>
 #include <Render/button.h>
@@ -87,7 +89,13 @@ int mainCode() {
 	sol->setDirection({ 0.0f, -0.8f, -1.0f });
 
 	magma_engine::GraphicalObject* equis = Singleton<magma_engine::RenderManager>::instance()->
-		addObject("x", nullptr, "cube.mesh", "rat");
+		addObject("x", nullptr, "cube.mesh", "magmaBackMat");
+	equis->setPosition({ 0, 0, 550 });
+
+	// Adaptar segun viewport camara
+	equis->setScaleX(24);
+	equis->setScaleY(12);
+
 	equis->setPosition({ 400, 0, 0 });
 	magma_engine::GraphicalObject* igriega = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("y", nullptr, "cube.mesh", "golf");
@@ -174,21 +182,35 @@ int mainCode() {
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);*/
 
 	magma_engine::ec::Entity* imageEntity = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
-	magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
-		("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
+	/*magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>
+		("ImgPrueba", "barBack", 400.0f, 25.0f, 100.0f, 100.0f);
 	componentImageEntity->start();
+
+	magma_engine::Image* componentImageEntityV2 = imageEntity->addComponent<magma_engine::Image>
+		("ImgPruebav2", "barFill", 400.0f, 25.0f, 100.0f, 100.0f);
+	componentImageEntityV2->start();*/
+
+
+	float progreso = 20.0f; 
 
 	magma_engine::Text* componentTextEntity = imageEntity->addComponent<magma_engine::Text>
 		("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
 	componentTextEntity->start();
 
 	magma_engine::Button* componentButtonEntity = imageEntity->addComponent<magma_engine::Button>
-		("ButtonPrueba", "golf", "rat", "bubble", 100.0f, 100.0f, 0.0f, 30.0f);
+		("ButtonPrueba", "buttonV1", "buttonV2", "bubble", 100.0f, 50.0f, 0.0f, 0.0f);
 	componentButtonEntity->start();
 
-	magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
-		("./assets/loop.wav", 50, 2, true, true); 
-	componentSound->start(); 
+	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
+	//	("./assets/loop.wav", 50, 2, true, true); 
+	//componentSound->start(); 
+
+	magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>
+		("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
+	componentProgress->start();
+
+	magma_engine::Timer* timeComponent = imageEntity->addComponent<magma_engine::Timer>();
+	timeComponent->start();
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
@@ -245,7 +267,27 @@ int mainCode() {
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
 		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
-			Singleton<magma_engine::InputManager>::instance()->showOrHideMouse();
+		{
+			progreso += 5.0f; 
+			componentProgress->setProgress(progreso);
+
+			timeComponent->pause(); 
+		}
+
+		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
+		{
+			timeComponent->resume();
+		}
+
+		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_I))
+		{
+			timeComponent->reset();
+		}
+
+		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_P))
+		{
+			timeComponent->assignText(componentTextEntity);
+		}
 
 		auto posMouse = Singleton<magma_engine::InputManager>::instance()->getMousePos();
 

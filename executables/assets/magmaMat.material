@@ -1,0 +1,41 @@
+material magmaBlockMat {
+technique {
+	pass {
+		scene_blend alpha_blend
+		diffuse 1.0 1.0 1.0
+		texture_unit {
+			texture magmaCube.png
+			colour_op modulate
+			tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material magmaBackMat {
+technique {
+	pass {
+		scene_blend alpha_blend
+		diffuse 1.0 1.0 1.0
+		texture_unit {
+			texture magmaBackgroundText.jpg
+			colour_op modulate
+			tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material lavaMat {
+technique {
+	pass {
+		scene_blend alpha_blend
+		diffuse 1.0 1.0 1.0
+		texture_unit {
+			texture lavaText.jpg
+			colour_op modulate
+			tex_address_mode wrap
+			}
+		}
+	}
+}

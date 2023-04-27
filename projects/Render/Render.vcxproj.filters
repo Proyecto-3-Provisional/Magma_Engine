@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\sources\Render\mesh.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\Render\ui_progress_bar.cpp">
+          <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\sources\Render\button.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\mesh.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\Render\ui_progress_bar.h">
+          <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\button.h">
       <Filter>Archivos de encabezado</Filter>

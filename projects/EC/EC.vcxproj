@@ -28,8 +28,10 @@
     <ClInclude Include="..\..\sources\EC\messages.h" />
     <ClInclude Include="..\..\sources\EC\messages_defs.h" />
     <ClInclude Include="..\..\sources\EC\mpl.h" />
+    <ClInclude Include="..\..\sources\EC\progress_bar.h" />
     <ClInclude Include="..\..\sources\EC\scene.h" />
     <ClInclude Include="..\..\sources\EC\scene_manager.h" />
+    <ClInclude Include="..\..\sources\EC\timer.h" />
     <ClInclude Include="..\..\sources\EC\transform.h" />
     <ClInclude Include="..\..\sources\EC\vector3D.h" />
   </ItemGroup>
@@ -37,8 +39,10 @@
     <ClCompile Include="..\..\sources\EC\component.cpp" />
     <ClCompile Include="..\..\sources\EC\entity.cpp" />
     <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\progress_bar.cpp" />
     <ClCompile Include="..\..\sources\EC\scene.cpp" />
     <ClCompile Include="..\..\sources\EC\scene_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\timer.cpp" />
     <ClCompile Include="..\..\sources\EC\transform.cpp" />
     <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
   </ItemGroup>

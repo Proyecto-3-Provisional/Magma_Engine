@@ -147,6 +147,21 @@ namespace magma_engine
 		objectNode->setScale(factor, factor, factor);
 	}
 
+	void GraphicalObject::setScaleX(float factor)
+	{
+		objectNode->setScale(factor, objectNode->getScale().y, objectNode->getScale().z);
+	}
+
+	void GraphicalObject::setScaleY(float factor)
+	{
+		objectNode->setScale(objectNode->getScale().x, factor, objectNode->getScale().z);
+	}
+
+	void GraphicalObject::setScaleZ(float factor)
+	{
+		objectNode->setScale(objectNode->getScale().x, objectNode->getScale().y, factor);
+	}
+
 	void GraphicalObject::scale(const Vector3D& factor)
 	{
 		objectNode->scale(Ogre::Vector3(factor.getX(), factor.getY(), factor.getZ()));
