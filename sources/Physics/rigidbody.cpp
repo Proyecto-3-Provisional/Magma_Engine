@@ -46,6 +46,9 @@ namespace magma_engine
 		if (trPtr != nullptr)
 		{
 			trPtr->setPosition(pos);
+
+			btCollisionShape* shape = rigidPtr->getCollisionShape();
+			shape->setLocalScaling(btVector3(trPtr->getScale().getX(), trPtr->getScale().getY(), trPtr->getScale().getZ()));
 		}
 	}
 
@@ -57,6 +60,11 @@ namespace magma_engine
 	bool Rigidbody::isOnCollision()
 	{
 		return (PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex()).size() > 0);
+	}
+
+	std::vector<int> Rigidbody::getCollisionObjs()
+	{
+		return PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
 	}
 
 	void Rigidbody::addForce(const Vector3D& force)
