@@ -13,6 +13,7 @@ class Text;
 class AudioSource;
 class Progress_Bar;
 class Timer; 
+class PlayerControllah;
 
 #define _CMPS_LIST_ Transform,\
 					Mesh,\
@@ -22,5 +23,6 @@ class Timer;
 					Text,\
 					AudioSource, \
 					Progress_Bar, \
-					Timer
+					Timer, \
+					PlayerControllah
 		

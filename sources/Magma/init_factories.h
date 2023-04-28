@@ -47,6 +47,12 @@ namespace magma_engine
 		ec::Component* createComponent(ec::Entity* e);
 	};
 
+	class PlayerControllahFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
 	class ProgressBarFactory : public Factory
 	{
 	public:

@@ -2,6 +2,7 @@
 #include <Magma/factory_manager.h>
 
 #include <EC/entity.h>
+#include <EC/player_controller.h>
 #include <EC/transform.h>
 #include <EC/progress_bar.h>
 #include <EC/timer.h>
@@ -12,6 +13,7 @@
 #include <Render/button.h>
 #include <Render/image.h>
 #include <Render/text.h>
+
 
 #include <Sounds/audio_source.h>
 
@@ -54,6 +56,13 @@ namespace magma_engine
 		return e->addComponent<Text>();
 	}
 
+	ec::Component* PlayerControllahFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<PlayerControllah>();
+		//return e->addComponent<Text>();
+
+	}
+
 	ec::Component* ProgressBarFactory::createComponent(ec::Entity* e)
 	{
 		return e->addComponent<Progress_Bar>();
@@ -64,6 +73,7 @@ namespace magma_engine
 		return e->addComponent<Timer>();
 	}
 
+
 	void setUpFactories()
 	{
 		FactoryManager::instance()->addFactory("Transform", new TransformFactory());
@@ -73,6 +83,8 @@ namespace magma_engine
 		FactoryManager::instance()->addFactory("Button", new ButtonFactory());
 		FactoryManager::instance()->addFactory("Image", new ImageFactory());
 		FactoryManager::instance()->addFactory("Text", new TextFactory());
+		FactoryManager::instance()->addFactory("PlayerControllah", new PlayerControllahFactory());
+
 		FactoryManager::instance()->addFactory("ProgressBar", new ProgressBarFactory());
 		FactoryManager::instance()->addFactory("Timer", new TimerFactory());
 	}

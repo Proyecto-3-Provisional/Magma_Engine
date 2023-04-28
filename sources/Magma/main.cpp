@@ -26,6 +26,7 @@
 #include <EC/transform.h>
 #include <EC/progress_bar.h>
 #include <EC/timer.h>
+#include <EC/player_controller.h>
 #include <Render/image.h>
 #include <Render/text.h>
 #include <Render/button.h>
@@ -113,13 +114,23 @@ int mainCode() {
 
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
 	bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
+
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
+	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent(magma_engine::Vector3D(70, 40, 40));
+
+	
+	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
+	Transform* physicsEntityTransformCmp = physicsEntity->addComponent<Transform>();
+	physicsEntityTransformCmp->setPosition({ 0, 0, 0 });
+	physicsEntityTransformCmp->setScale({ 40,40,40 });
+	Mesh* physicsEntityMeshCmp = physicsEntity->addComponent<Mesh>();
+	bool meshInit2 = physicsEntityMeshCmp->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");*/
+	// hacer cosas con el cmp solo si se inicializó correctamente
 	if (meshInit2)
 	{
 		//sampleEntityMeshCmp->getObj()->showDebugBox(true);
 		//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
-	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
-	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent(magma_engine::Vector3D(70, 40, 40));
 
 	magma_engine::ec::Entity* physicsEntity2 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	magma_engine::Transform* physicsEntityTransformCmp2 = physicsEntity2->addComponent<magma_engine::Transform>();
@@ -140,7 +151,7 @@ int mainCode() {
 	magma_engine::ec::Entity* physicsEntity3 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	magma_engine::Transform* physicsEntityTransformCmp3 = physicsEntity3->addComponent<magma_engine::Transform>();
 	physicsEntityTransformCmp3->setPosition({ -500, 0, 0 });
-	physicsEntityTransformCmp3->setScale({ 40,40,40 });
+	physicsEntityTransformCmp3->setScale({ 40,60,40 });
 	magma_engine::Mesh* physicsEntityMeshCmp3 = physicsEntity3->addComponent<magma_engine::Mesh>();
 	bool meshInit4 = physicsEntityMeshCmp3->initComponent("ejemploPhysics3", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
@@ -152,6 +163,14 @@ int mainCode() {
 	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>();
 	physicsEntityRigidbodyCmp3->initComponent(magma_engine::Vector3D(70, 40, 40));
 	physicsEntityRigidbodyCmp3->addForce(magma_engine::Vector3D(500, 0, 0));
+	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("PlayerControllah", physicsEntity3);
+	bool funca = physicsEntity3->getComponent<magma_engine::PlayerControllah>()->initComponent();
+
+
+
+	if (!funca) {
+		std::cout << "no funca";
+	}
 
 	magma_engine::Fps fps;
 
@@ -241,8 +260,10 @@ int mainCode() {
 			}
 		}
 
-		// ---------- TEST INPUT & UI ----------
+		// ---------- TEST INPUT & UI ----------update
+		physicsEntity3->getComponent<magma_engine::PlayerControllah>()->update(timeSinceLastFrame * 0.001f);
 		Singleton<magma_engine::InputManager>::instance()->inputEvent();
+
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
 		/*if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
