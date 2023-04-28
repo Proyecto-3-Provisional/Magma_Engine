@@ -10,6 +10,7 @@ class btRigidBody;
 namespace magma_engine
 {
 	class Transform;
+	class Mesh;
 
 	class Rigidbody : public ec::Component
 	{
@@ -17,7 +18,7 @@ namespace magma_engine
 		Rigidbody();
 		~Rigidbody();
 
-		bool initComponent(const Vector3D& scale_);
+		bool initComponent();
 		void update(float deltaTime) override;
 
 		bool isOnCollision(); // Determina si el objeto se encuentra en colisión con otros objetos
@@ -27,11 +28,17 @@ namespace magma_engine
 		void addForce(const Vector3D& force); // Aplica una fuerza al objeto
 		int getIndex(); // Devuelve el índice del objeto
 
+		void setLinearDamping(float d);
+		void setAngularDamping(float d);
+
 	private:
 
 		Transform* trPtr = nullptr;
+		Mesh* meshPtr;
 		btRigidBody* rigidPtr = nullptr;
-		Vector3D scale;
+		Vector3D proportions;
+		float linearDamping;
+		float angularDamping;
 	};
 }
 

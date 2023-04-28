@@ -115,8 +115,8 @@ int mainCode() {
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
 	bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 
-	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
-	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent(magma_engine::Vector3D(70, 40, 40));
+	/*magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
+	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent();*/
 
 	
 	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
@@ -145,13 +145,11 @@ int mainCode() {
 		physicsEntityMeshCmp2->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
 	magma_engine::Rigidbody* physicsEntityRigidbodyCmp2 = physicsEntity2->addComponent<magma_engine::Rigidbody>();
-	physicsEntityRigidbodyCmp2->initComponent(magma_engine::Vector3D(70, 40, 40));
-	physicsEntityRigidbodyCmp2->addForce(magma_engine::Vector3D(-500, 0, 0));
 
 	magma_engine::ec::Entity* physicsEntity3 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	magma_engine::Transform* physicsEntityTransformCmp3 = physicsEntity3->addComponent<magma_engine::Transform>();
 	physicsEntityTransformCmp3->setPosition({ -500, 0, 0 });
-	physicsEntityTransformCmp3->setScale({ 40,60,40 });
+	physicsEntityTransformCmp3->setScale({ 40,40,40 });
 	magma_engine::Mesh* physicsEntityMeshCmp3 = physicsEntity3->addComponent<magma_engine::Mesh>();
 	bool meshInit4 = physicsEntityMeshCmp3->initComponent("ejemploPhysics3", "axolotl.mesh", "axolotl");
 	// hacer cosas con el cmp solo si se inicializó correctamente
@@ -161,8 +159,6 @@ int mainCode() {
 		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
 	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>();
-	physicsEntityRigidbodyCmp3->initComponent(magma_engine::Vector3D(70, 40, 40));
-	physicsEntityRigidbodyCmp3->addForce(magma_engine::Vector3D(500, 0, 0));
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("PlayerControllah", physicsEntity3);
 	bool funca = physicsEntity3->getComponent<magma_engine::PlayerControllah>()->initComponent();
 
@@ -261,8 +257,8 @@ int mainCode() {
 		}
 
 		// ---------- TEST INPUT & UI ----------update
-		physicsEntity3->getComponent<magma_engine::PlayerControllah>()->update(timeSinceLastFrame * 0.001f);
 		Singleton<magma_engine::InputManager>::instance()->inputEvent();
+		physicsEntity3->getComponent<magma_engine::PlayerControllah>()->update(timeSinceLastFrame * 0.001f);
 
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 

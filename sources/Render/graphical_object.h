@@ -69,6 +69,9 @@ namespace magma_engine
 		void animationSetEnabled(bool val);
 		void animationSetLooping(bool val);
 
+		// Malla
+		Vector3D getMeshProportions();
+
 	protected:
 		// Notificar existencia de objetos hijos
 		void aknowledgeChild();
@@ -99,6 +102,9 @@ namespace magma_engine
 		std::string materialName;
 		bool visible;
 		bool showsBox;
+
+		// Dimensiones de la malla
+		Vector3D meshProportions;
 	};
 }
 

@@ -95,5 +95,9 @@ namespace magma_engine
 		//getObj()->setOrientation(180, { 0,1,0 });
 		//getObj()->setOriLookingAt
 	}
+	Vector3D Mesh::getProportions()
+	{
+		return gObjPtr->getMeshProportions();
+	}
 }
 

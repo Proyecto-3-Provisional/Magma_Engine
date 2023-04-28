@@ -1,5 +1,6 @@
 #include <Render/graphical_object.h>
 
+#include <iostream>
 #include <OgreRoot.h>
 #include <OgreEntity.h>
 #include <OgreParticleSystem.h>
@@ -10,7 +11,7 @@ namespace magma_engine
 		GraphicalObject* parent, std::string mesh, std::string material)
 		: keyName(name), mySceneManager(mSM), parentObject(parent), childrenUsing(0),
 		camAttached(false), meshFile(mesh), materialName(material),
-		visible(true), showsBox(false)
+		visible(true), showsBox(false), meshProportions({1, 1, 1})
 	{
 		if (parentObject)
 		{
@@ -58,6 +59,8 @@ namespace magma_engine
 				entity = mySceneManager.createEntity(meshFile);
 				entity->setMaterialName(materialName);
 				objectNode->attachObject(entity);
+				Ogre::Vector3 size = entity->getBoundingBox().getSize();
+				meshProportions = Vector3D({ size.x, size.y, size.z });
 			}
 		}
 	}
@@ -282,6 +285,10 @@ namespace magma_engine
 	{
 		if (entityAnimation)
 			entityAnimation->setLoop(val);
+	}
+	Vector3D GraphicalObject::getMeshProportions()
+	{
+		return meshProportions;
 	}
 }
 

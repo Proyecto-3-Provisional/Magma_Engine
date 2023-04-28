@@ -25,6 +25,7 @@ namespace magma_engine
 		void rotate(float deg, char axis);
 		void setDirection(float x, float y, float z);
 
+		Vector3D getProportions();
 
 	private:
 
