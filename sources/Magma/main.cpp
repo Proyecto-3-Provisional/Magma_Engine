@@ -115,8 +115,8 @@ int mainCode() {
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
 	bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
 
-	/*magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
-	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent();*/
+	magma_engine::Rigidbody* physicsEntityRigidbodyCmp = physicsEntity->addComponent<magma_engine::Rigidbody>();
+	bool eliminar = physicsEntity->getComponent<magma_engine::Rigidbody>()->initComponent();
 
 	
 	/*ec::Entity* physicsEntity = Singleton<ec::EntityManager>::instance()->addEntity();
