@@ -1,8 +1,10 @@
-class lua_State;
+#pragma once
 
 #include <singleton.h>
 #include <string>
 #include <map>
+
+class lua_State;
 
 #define SceneMap std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>
 #define EntityMap std::map<std::string, std::map<std::string, std::string>>
@@ -22,8 +24,8 @@ namespace magma_engine
 	private:
 		void popLStack();
 		void delScene();
-		int readComponent(lua_State* L, ComponentMap* argsM);
-		int readEntity(lua_State* L, EntityMap* cmpsM);
+		size_t readComponent(lua_State* L, ComponentMap* argsM);
+		size_t readEntity(lua_State* L, EntityMap* cmpsM);
 
 		lua_State* L = nullptr;
 		SceneMap* lastLoadedScene = nullptr;

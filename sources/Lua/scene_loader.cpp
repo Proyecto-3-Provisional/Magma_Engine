@@ -1,7 +1,6 @@
 #include "scene_loader.h"
-#include <lua.hpp> //#include "lua.h"
+#include <lua.hpp>
 #include <LuaBridge/LuaBridge.h> // LuaBridge/LuaBridge.h
-#include "lauxlib.h"
 #include <iostream>
 
 using namespace luabridge;
@@ -52,7 +51,7 @@ namespace magma_engine
 	}
 
 	// Devuelve el tamaño del mapa de argumentos del componente
-	int SceneLoader::readComponent(lua_State* L, ComponentMap* argsM)
+	size_t SceneLoader::readComponent(lua_State* L, ComponentMap* argsM)
 	{
 		std::string argumentName = "";
 		std::string argumentValue = "";
@@ -79,7 +78,7 @@ namespace magma_engine
 	}
 
 	// Devuelve el tamaño del mapa de componentes de la entidad
-	int SceneLoader::readEntity(lua_State* L, EntityMap* cmpsM)
+	size_t SceneLoader::readEntity(lua_State* L, EntityMap* cmpsM)
 	{
 		std::string componentName = "";
 

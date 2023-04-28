@@ -157,11 +157,11 @@ namespace magma_engine
 
 
 			// Actualizar mundo de fisicas
-			Singleton<PhysicsManager>::instance()->update(timeSinceLastFrame);
+			Singleton<PhysicsManager>::instance()->update((float)timeSinceLastFrame);
 
 
 			// Actualizar la escena y todas sus entidades
-			Singleton<SceneManager>::instance()->update(timeSinceLastFrame);
+			Singleton<SceneManager>::instance()->update((float)timeSinceLastFrame);
 
 
 			// Si la ventana cambia de tamaño
