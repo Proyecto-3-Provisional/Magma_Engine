@@ -72,6 +72,11 @@
     <ClInclude Include="..\..\sources\EC\timer.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\EC\size_temp.h">
+      <Filter>Header Files\Components</Filter>
+    <ClInclude Include="..\..\sources\EC\player_controller.h">
+      <Filter>Header Files\Components\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\EC\entity.cpp">
@@ -100,6 +105,11 @@
     </ClCompile>
     <ClCompile Include="..\..\sources\EC\timer.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\EC\size_temp.cpp">
+      <Filter>Source Files\Components</Filter>
+    <ClCompile Include="..\..\sources\EC\player_controller.cpp">
+      <Filter>Source Files\Components\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

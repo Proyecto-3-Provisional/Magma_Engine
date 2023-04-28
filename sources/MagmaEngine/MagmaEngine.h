@@ -11,7 +11,7 @@ namespace magma_engine
 	class MAGMAENGINE_API CMagmaEngine {
 	public:
 		bool Init();
-		bool ShutDown();
+		bool ShutDown(int i = 0);
 		void run();
 		static CMagmaEngine* _instance;
 		CMagmaEngine();

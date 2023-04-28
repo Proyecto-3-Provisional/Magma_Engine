@@ -62,9 +62,7 @@ namespace magma_engine
 				{
 					if (!Singleton<RenderManager>::instance()->initApp())
 					{
-						// Fin del renderizado
-						Singleton<RenderManager>::instance()->closeApp();
-						Singleton<RenderManager>::instance()->release();
+						ShutDown(2);
 						return false;
 					}
 				}
@@ -75,12 +73,7 @@ namespace magma_engine
 				{
 					if (!Singleton<PhysicsManager>::instance()->initPhysics())
 					{
-						// Fin del renderizado
-						Singleton<RenderManager>::instance()->closeApp();
-						Singleton<RenderManager>::instance()->release();
-
-						// Cerrar el mundo fisico
-						Singleton<PhysicsManager>::instance()->detachPhysics();
+						ShutDown(1);
 						return false;
 					}
 				}
@@ -94,7 +87,12 @@ namespace magma_engine
 					&& Singleton<SceneLoader>::init()	// ------ SCENE_LOADER ------
 					)
 				{
+					Singleton<magma_engine::SoundManager>::instance()->initAudio();
 					return true;
+				}
+				else {
+					ShutDown();
+					return false;
 				}
 			}
 
@@ -103,27 +101,29 @@ namespace magma_engine
 		return false;
 	}
 
-	bool CMagmaEngine::ShutDown()
+	bool CMagmaEngine::ShutDown(int i)
 	{
-		// ------ SCENE MANAGER ------
-		Singleton<SceneManager>::release();
-
-		// ------ PHYSICS ------
-		Singleton<PhysicsManager>::instance()->detachPhysics();
-		Singleton<PhysicsManager>::release();
-
-		// ------ INPUT ------
-		Singleton<InputManager>::release();
-
-		// ------ UI ------
-		Singleton<UI_Manager>::release();
-
-		// ------ RENDER ------
-		Singleton<RenderManager>::instance()->closeApp();
-		Singleton<RenderManager>::release();
-
-		// ------ SOUND ------
-		Singleton<SoundManager>::release();
+		switch (i) {
+		case 0:
+			// ------ SCENE MANAGER ------
+			Singleton<SceneManager>::release();
+			// ------ SOUND ------
+			Singleton<SoundManager>::release();
+			// ------ INPUT ------
+			Singleton<InputManager>::release();
+			// ------ UI ------
+			Singleton<UI_Manager>::release();
+		case 1:
+			// ------ PHYSICS ------
+			Singleton<PhysicsManager>::instance()->detachPhysics();
+			Singleton<PhysicsManager>::release();
+		case 2:
+			// ------ RENDER ------
+			Singleton<RenderManager>::instance()->closeApp();
+			Singleton<RenderManager>::release();
+		default:
+			break;
+		}
 
 		// ------ SCENE_LOADER ------
 		Singleton<SceneLoader>::release();

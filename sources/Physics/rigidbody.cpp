@@ -3,10 +3,11 @@
 
 #include <EC/entity.h>
 #include <EC/transform.h>
+#include <Render/mesh.h>
 
 namespace magma_engine
 {
-	Rigidbody::Rigidbody() : scale()
+	Rigidbody::Rigidbody() : proportions({1, 1, 1}), linearDamping(0.8f), angularDamping(0.8f)
 	{
 	}
 
@@ -15,24 +16,27 @@ namespace magma_engine
 		PhysicsManager::instance()->deleteRigidBody(rigidPtr->getUserIndex());
 	}
 
-	bool Rigidbody::initComponent(const Vector3D& scale_)
+	bool Rigidbody::initComponent()
 	{
-		scale = scale_;
 		trPtr = ent->getComponent<Transform>();
+		meshPtr = ent->getComponent<Mesh>();
 
-		if (trPtr == nullptr)
+		if (trPtr == nullptr || meshPtr == nullptr)
 			return false;
 
 		Vector3D pos = trPtr->getPos();
+		proportions = meshPtr->getProportions();
 
 		if (PhysicsManager::instance() != nullptr) {
-			int index = PhysicsManager::instance()->addRigidBody(
-				scale.getX(), scale.getY(), scale.getZ(), pos.getX(), pos.getY(), pos.getZ());
+			int index = PhysicsManager::instance()->addRigidBody(proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2, 
+				pos.getX(), pos.getY(), pos.getZ());
 
 			rigidPtr = PhysicsManager::instance()->getRigidBody(index);
 
 			if (rigidPtr == nullptr)
 				return false;
+
+			rigidPtr->setDamping(linearDamping, angularDamping);
 		}
 
 		return true;
@@ -45,7 +49,11 @@ namespace magma_engine
 		
 		if (trPtr != nullptr)
 		{
+			// Actualizamos la posición del transform
 			trPtr->setPosition(pos);
+
+			// Actualizamos la escala del collider en función del transform
+			rigidPtr->getCollisionShape()->setLocalScaling(btVector3(trPtr->getScale().getX(), trPtr->getScale().getY(), trPtr->getScale().getZ()));
 		}
 	}
 
@@ -59,6 +67,11 @@ namespace magma_engine
 		return (PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex()).size() > 0);
 	}
 
+	std::vector<int> Rigidbody::getCollisionObjs()
+	{
+		return PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
+	}
+
 	void Rigidbody::addForce(const Vector3D& force)
 	{
 		PhysicsManager::instance()->addForceTo(rigidPtr->getUserIndex(), force);
@@ -67,6 +80,17 @@ namespace magma_engine
 	int Rigidbody::getIndex()
 	{
 		return rigidPtr->getUserIndex();
+	}
+
+	void Rigidbody::setLinearDamping(float d) {
+		linearDamping = d;
+		rigidPtr->setDamping(linearDamping, angularDamping);
+	}
+
+	void Rigidbody::setAngularDamping(float d) {
+		angularDamping = d;
+		rigidPtr->setDamping(linearDamping, angularDamping);
+
 	}
 }
 

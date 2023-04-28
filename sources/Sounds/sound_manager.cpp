@@ -17,15 +17,20 @@ namespace magma_engine
 		songs.clear();
 	}
 
-	void SoundManager::initAudio()
+	bool SoundManager::initAudio()
 	{
-		if (SDL_Init(SDL_INIT_AUDIO) != 0)
+		if (SDL_Init(SDL_INIT_AUDIO) != 0) {
 			std::cerr << "Error al iniciar el sistema de audio: " << SDL_GetError() << std::endl;
+			return false;
+		}
 
-		if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+		if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
 			throw std::exception("SDL2_mixer can't be initialized");
+			return false;
+		}
 
 		volume = 1;
+		return true;
 	}
 
 	void SoundManager::closeAudio()
