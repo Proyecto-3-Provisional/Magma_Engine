@@ -99,27 +99,27 @@ namespace magma_engine
 		GraphicalObject* cameraFollows = nullptr;
 
 	private:
-		// Colores de tripulantes
-#define NUM_CREWMATES 16
-		const Ogre::String crew_colors[NUM_CREWMATES]
-		{
-			"amongus_red",
-			"amongus_brown",
-			"amongus_orange",
-			"amongus_yellow",
-			"amongus_lime",
-			"amongus_green",
-			"amongus_aqua",
-			"amongus_cyan",
-			"amongus_blue",
-			"amongus_purple",
-			"amongus_magenta",
-			"amongus_pink",
-			"amongus_white",
-			"amongus_grey_light",
-			"amongus_grey_dark",
-			"amongus_black"
-		};
+//		// Colores de tripulantes
+//#define NUM_CREWMATES 16
+//		const Ogre::String crew_colors[NUM_CREWMATES]
+//		{
+//			"amongus_red",
+//			"amongus_brown",
+//			"amongus_orange",
+//			"amongus_yellow",
+//			"amongus_lime",
+//			"amongus_green",
+//			"amongus_aqua",
+//			"amongus_cyan",
+//			"amongus_blue",
+//			"amongus_purple",
+//			"amongus_magenta",
+//			"amongus_pink",
+//			"amongus_white",
+//			"amongus_grey_light",
+//			"amongus_grey_dark",
+//			"amongus_black"
+//		};
 	};
 
 }

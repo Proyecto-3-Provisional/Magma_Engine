@@ -32,7 +32,7 @@
 #include <Sounds/audio_source.h>
 #include <Magma/factory_manager.h>
 #include <Magma/init_factories.h>
-#include <LuaBridge/lua_main.h>
+#include <Lua/scene_loader.h>
 
 
 // DECLARACIÓN DE FUNCIONES
@@ -59,7 +59,11 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	luaMain("Assets/test.magmascene");
+	// Carga de mapa
+	Singleton<magma_engine::SceneLoader>::init();
+	Singleton<magma_engine::SceneLoader>::instance()->loadScene("Assets/test.magmascene");
+	Singleton<magma_engine::SceneLoader>::release();
+	// Carga de mapa
 
 	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int

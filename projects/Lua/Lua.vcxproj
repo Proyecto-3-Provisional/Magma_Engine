@@ -19,11 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\LuaBridge\lua_main.cpp" />
-    <ClCompile Include="..\..\sources\Lua\Placeholder.cpp" />
+    <ClCompile Include="..\..\sources\Lua\scene_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\LuaBridge\lua_main.h" />
+    <ClInclude Include="..\..\sources\Lua\scene_loader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -120,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\lua\sources\lua-5.4.4\src;$(SolutionDir)dependencies\luabridge\sources</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\lua\sources\lua-5.4.4\src;$(SolutionDir)dependencies\luabridge\sources;$(SolutionDir)sources\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +138,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\lua\sources\lua-5.4.4\src;$(SolutionDir)dependencies\luabridge\sources;$(SolutionDir)sources\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\lua\sources\lua-5.4.4\src;$(SolutionDir)dependencies\luabridge\sources;$(SolutionDir)sources\;$(SolutionDir)sources\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

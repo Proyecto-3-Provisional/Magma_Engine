@@ -8,6 +8,7 @@
 #include <Physics/physics_manager.h>
 #include <Sounds/sound_manager.h>
 #include <EC/scene_manager.h>
+#include <Lua/scene_loader.h>
 
 #include "SDL_timer.h"
 
@@ -86,10 +87,11 @@ namespace magma_engine
 				else return false;
 
 				// INITS RESTANTES
-				if (Singleton<UI_Manager>::init()											// ------ UI ------
-					&& Singleton<InputManager>::init()										// ------ INPUT ------
-					&& Singleton<SoundManager>::init()										// ------ SOUND ------
-					&& Singleton<SceneManager>::init()										// ------ SCENE MANAGER ------
+				if (Singleton<UI_Manager>::init()		// ------ UI ------
+					&& Singleton<InputManager>::init()	// ------ INPUT ------
+					&& Singleton<SoundManager>::init()	// ------ SOUND ------
+					&& Singleton<SceneManager>::init()	// ------ SCENE MANAGER ------
+					&& Singleton<SceneLoader>::init()	// ------ SCENE_LOADER ------
 					)
 				{
 					return true;
@@ -122,6 +124,9 @@ namespace magma_engine
 
 		// ------ SOUND ------
 		Singleton<SoundManager>::release();
+
+		// ------ SCENE_LOADER ------
+		Singleton<SceneLoader>::release();
 
 		FreeLibrary(game);
 
