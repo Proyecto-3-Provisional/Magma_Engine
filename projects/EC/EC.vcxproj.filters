@@ -72,6 +72,9 @@
     <ClInclude Include="..\..\sources\EC\timer.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\EC\size_temp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\EC\entity.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\EC\timer.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\EC\size_temp.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
