@@ -50,7 +50,7 @@ namespace magma_engine
 		int getVolume();
 
 		//Metodo para inicializar el audio o cerrarlo
-		void initAudio();
+		bool initAudio();
 		void closeAudio();
 
 		//Metodo para eliminar canciones
