@@ -3,19 +3,9 @@
 
 namespace magma_engine
 {
-	AudioSource::AudioSource(std::string path, int vol, int channel, bool loop, bool start) : Component()
+	AudioSource::AudioSource() : Component()
 	{
-		audio = new AudioData;
-
-		audio->audio_path = path;
-		audio->volume = vol;
-		audio->channel = channel;
-
-		isLoop = loop;
-		hasStarted = start;
-
-		playing = false;
-		paused = false;
+		
 	}
 
 	AudioSource::~AudioSource()
@@ -24,7 +14,7 @@ namespace magma_engine
 		delete audio;
 	}
 
-	void AudioSource::setSongsValues(std::string path, int vol, int channel, bool loop, bool start)
+	bool AudioSource::initComponent(std::string path, int vol, int channel, bool loop, bool start)
 	{
 		audio = new AudioData;
 

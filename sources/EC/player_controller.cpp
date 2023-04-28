@@ -6,16 +6,16 @@
 
 namespace magma_engine
 {
-	PlayerControllah::PlayerControllah()
+	PlayerController::PlayerController()
 	{
 	}
 
-	PlayerControllah::~PlayerControllah()
+	PlayerController::~PlayerController()
 	{
 
 	}
 
-	bool PlayerControllah::initComponent()
+	bool PlayerController::initComponent()
 	{
 		try {
 			rb = ent->getComponent<Rigidbody>();
@@ -29,7 +29,7 @@ namespace magma_engine
 		return false;
 	}
 
-	void PlayerControllah::update(float deltaTime)
+	void PlayerController::update(float deltaTime)
 	{
 		if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_A)) {
 			rb->addForce(Vector3D(-1, 0, 0));

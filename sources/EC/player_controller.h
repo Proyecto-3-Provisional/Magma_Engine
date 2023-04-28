@@ -9,11 +9,11 @@ namespace magma_engine
 {
 	class Rigidbody;
 
-	class PlayerControllah : public ec::Component
+	class PlayerController : public ec::Component
 	{
 	public:
-		PlayerControllah();
-		~PlayerControllah();
+		PlayerController();
+		~PlayerController();
 
 		bool initComponent();
 		void update(float deltaTime);

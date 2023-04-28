@@ -14,14 +14,15 @@ namespace magma_engine
 	{
 	public:
 
-		AudioSource(std::string path, int vol, int channel, bool loop, bool start);
+		AudioSource();
 		virtual ~AudioSource();
+
+		// Establece los valores iniciales del sonido
+		virtual bool initComponent(std::string path, int vol, int channel, bool loop, bool start);
 
 		virtual void start();
 		virtual void update(int frameTime);
 
-		// Establece los valores iniciales del sonido
-		void setSongsValues(std::string path, int vol, int channel, bool loop, bool start);
 
 		void playSong(); // Reproduce el audio si no se está reproduciendo
 		void pauseSong(); // Pausa la reproducción del audio

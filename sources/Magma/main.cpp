@@ -135,6 +135,13 @@ int mainCode() {
 		//sampleEntityMeshCmp->getObj()->showDebugBox(true);
 		//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
 	}
+	//Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("Mesh", physicsEntity);
+	//bool meshInit2 = physicsEntity->getComponent<magma_engine::Mesh>()->initComponent("ejemploPhysics", "axolotl.mesh", "axolotl");
+	//if (meshInit2)
+	//{
+	//	//sampleEntityMeshCmp->getObj()->showDebugBox(true);
+	//	//sampleEntityMeshCmp->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_X);
+	//}
 
 	magma_engine::ec::Entity* physicsEntity2 = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 	magma_engine::Transform* physicsEntityTransformCmp2 = physicsEntity2->addComponent<magma_engine::Transform>();
@@ -163,8 +170,8 @@ int mainCode() {
 		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
 	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>();
-	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("PlayerControllah", physicsEntity3);
-	bool funca = physicsEntity3->getComponent<magma_engine::PlayerControllah>()->initComponent();
+	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("PlayerController", physicsEntity3);
+	bool funca = physicsEntity3->getComponent<magma_engine::PlayerController>()->initComponent();
 
 
 
@@ -262,7 +269,7 @@ int mainCode() {
 
 		// ---------- TEST INPUT & UI ----------update
 		Singleton<magma_engine::InputManager>::instance()->inputEvent();
-		physicsEntity3->getComponent<magma_engine::PlayerControllah>()->update(timeSinceLastFrame * 0.001f);
+		physicsEntity3->getComponent<magma_engine::PlayerController>()->update(timeSinceLastFrame * 0.001f);
 
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
