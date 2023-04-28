@@ -3,16 +3,25 @@
 
 #include <EC/entity.h>
 #include <EC/transform.h>
+#include <EC/progress_bar.h>
+#include <EC/timer.h>
 
 #include <Physics/rigidbody.h>
 
 #include <Render/mesh.h>
+#include <Render/button.h>
+#include <Render/image.h>
+#include <Render/text.h>
+
+#include <Sounds/audio_source.h>
 
 namespace magma_engine
 {
 	ec::Component* TransformFactory::createComponent(ec::Entity* e)
 	{
-		return e->addComponent<Transform>();
+		Transform* t = e->addComponent<Transform>();
+		t->initComponent({ 0, 0, 0 }, { 40,40,40 });
+		return t;
 	}
 
 	ec::Component* RigidbodyFactory::createComponent(ec::Entity* e)
@@ -32,17 +41,27 @@ namespace magma_engine
 
 	ec::Component* ButtonFactory::createComponent(ec::Entity* e)
 	{
-		return e->addComponent<Mesh>();
+		return e->addComponent<Button>();
 	}
 
 	ec::Component* ImageFactory::createComponent(ec::Entity* e)
 	{
-		return e->addComponent<Mesh>();
+		return e->addComponent<Image>();
 	}
 
 	ec::Component* TextFactory::createComponent(ec::Entity* e)
 	{
-		return e->addComponent<Mesh>();
+		return e->addComponent<Text>();
+	}
+
+	ec::Component* ProgressBarFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Progress_Bar>();
+	}
+
+	ec::Component* TimerFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Timer>();
 	}
 
 	void setUpFactories()
@@ -54,7 +73,8 @@ namespace magma_engine
 		FactoryManager::instance()->addFactory("Button", new ButtonFactory());
 		FactoryManager::instance()->addFactory("Image", new ImageFactory());
 		FactoryManager::instance()->addFactory("Text", new TextFactory());
-
+		FactoryManager::instance()->addFactory("ProgressBar", new ProgressBarFactory());
+		FactoryManager::instance()->addFactory("Timer", new TimerFactory());
 	}
 
 

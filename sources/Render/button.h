@@ -11,12 +11,11 @@ namespace magma_engine
 	public:
 
 		//Metodo de declaración del componente
-		Button(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName,
-			float width, float height, float x, float y);
-
+		Button();
 		virtual ~Button();
 
-		virtual bool initComponent();
+		virtual bool initComponent(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName,
+			float width, float height, float x, float y);
 
 		virtual void render() {};
 

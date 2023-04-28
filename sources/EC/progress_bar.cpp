@@ -5,23 +5,9 @@
 
 namespace magma_engine
 {
-	Progress_Bar::Progress_Bar(std::string overlayName, std::string name,
-		float width, float height, float x, float y, float pro, float proLimit) : Component()
+	Progress_Bar::Progress_Bar() : Component(), imageName(), normalName(), tamX(), tamY(), posX(), posY(), progress(), limit()
 	{
-		imageName = overlayName;
-		normalName = name;
 
-		tamX = width;
-		tamY = height;
-
-		posX = x;
-		posY = y;
-
-		progress = pro; 
-		limit = proLimit; 
-
-		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
 	}
 
 	Progress_Bar::~Progress_Bar() {}
@@ -31,7 +17,25 @@ namespace magma_engine
 		return imageName;
 	}
 
-	bool Progress_Bar::initComponent() { return true; }
+	bool Progress_Bar::initComponent(std::string overlayName, std::string name,
+		float width, float height, float x, float y, float pro, float proLimit) 
+	{ 
+		imageName = overlayName;
+		normalName = name;
+
+		tamX = width;
+		tamY = height;
+
+		posX = x;
+		posY = y;
+
+		progress = pro;
+		limit = proLimit;
+
+		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		return true; 
+	}
 
 	void Progress_Bar::start()
 	{

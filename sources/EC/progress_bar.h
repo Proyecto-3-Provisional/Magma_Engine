@@ -13,12 +13,11 @@ namespace magma_engine
 	public:
 
 		//Metodo de declaración del componente
-		Progress_Bar(std::string overlayName, std::string name,
-			float width, float height, float x, float y, float pro, float proLimit);
-
+		Progress_Bar();
 		virtual ~Progress_Bar();
 
-		virtual bool initComponent();
+		virtual bool initComponent(std::string overlayName, std::string name,
+			float width, float height, float x, float y, float pro, float proLimit);
 
 		virtual void render() {};
 
