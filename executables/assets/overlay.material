@@ -1,10 +1,10 @@
-material buttonV1 {
+material button_solid {
 	technique {
 		pass {
 			diffuse 1.0 1.0 1.0
 			scene_blend alpha_blend
 			texture_unit {
-				texture ButtonV1.png
+				texture button_solid.png
 				colour_op modulate
 				tex_address_mode wrap
 			}
@@ -12,13 +12,13 @@ material buttonV1 {
 	}
 }
 
-material buttonV2 {
+material button_transparent {
 	technique {
 		pass {
 			diffuse 1.0 1.0 1.0
 			scene_blend alpha_blend
 			texture_unit {
-				texture ButtonV2.png
+				texture button_transparent.png
 				colour_op modulate
 				tex_address_mode wrap
 			}
@@ -26,12 +26,13 @@ material buttonV2 {
 	}
 }
 
-material barFill {
+material bar_foreground {
 	technique {
 		pass {
 			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
 			texture_unit {
-				texture BarFill.png
+				texture bar_foreground.png
 				colour_op modulate
 				tex_address_mode wrap
 			}
@@ -39,12 +40,13 @@ material barFill {
 	}
 }
 
-material barBack {
+material bar_background {
 	technique {
 		pass {
 			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
 			texture_unit {
-				texture BarBackground.png
+				texture bar_background.png
 				colour_op modulate
 				tex_address_mode wrap
 			}

@@ -1,8 +1,8 @@
-font Arial
+font arial
 {
 	zorder 1
 	type 		truetype
-	source 		ARIAL.TTF
+	source 		arial.ttf
 	size 		15
 	resolution 	180
 }

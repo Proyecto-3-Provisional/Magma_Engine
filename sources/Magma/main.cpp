@@ -95,7 +95,7 @@ int mainCode() {
 
 	// Fondo
 	magma_engine::GraphicalObject* lavaBg = Singleton<magma_engine::RenderManager>::instance()->
-		addObject("background", nullptr, "mPlane1080x800", "magmaBackMat");
+		addObject("background", nullptr, "mPlane1080x800", "magma_background");
 	lavaBg->setScale(1.67);	// Adaptar segun viewport camara
 	lavaBg->setPosition({ 0, 0, -225 });
 
@@ -174,7 +174,7 @@ int mainCode() {
 	// ---------- Inicialización UI ----------
 
 	// UI Manager (Para que funcione, es necesario que render_manager se haya ejecutado antes)
-	/*UI_Text* testText = Singleton<UI_Manager>::instance()->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "Arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
+	/*UI_Text* testText = Singleton<UI_Manager>::instance()->createElement<UI_Text>("Prueba", 0.0f, 0.0f, 200.0f, 34.0f, "arial", "Who's the impostor?", 0.5f, 0.3f, 0.1f);
 	testText->setText("Ahhh yessss");
 	UI_Image* testImage = Singleton<UI_Manager>::instance()->createElement<UI_Image>("ImgPrueba", "golf", 0.0f, 80.0f, 100.0f, 100.0f);
 	UIButton* testButton = Singleton<UI_Manager>::instance()->createElement<UIButton>("PruebaBoton", "golf", "bubble_color", "bubble_color", 0.0f, 30.0f, 100.0f, 100.0f);*/
@@ -184,11 +184,11 @@ int mainCode() {
 	float progreso = 20.0f; 
 
 	magma_engine::Text* componentTextEntity = imageEntity->addComponent<magma_engine::Text>();
-	componentTextEntity->initComponent("Prueba", "PruebaTexto", "Arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
+	componentTextEntity->initComponent("Prueba", "PruebaTexto", "arial", "It's working? Yessssss", 0.0f, 0.0f, 200.0f, 34.0f, 0.5f, 0.3f, 0.1f);
 	componentTextEntity->start();
 
 	magma_engine::Button* componentButtonEntity = imageEntity->addComponent<magma_engine::Button>();
-	componentButtonEntity->initComponent("ButtonPrueba", "buttonV1", "buttonV2", "bubble", 100.0f, 50.0f, 0.0f, 0.0f);
+	componentButtonEntity->initComponent("ButtonPrueba", "button_solid", "button_transparent", "bubble", 100.0f, 50.0f, 0.0f, 0.0f);
 	componentButtonEntity->start();
 
 	magma_engine::Image* componentImageEntity = imageEntity->addComponent<magma_engine::Image>();
