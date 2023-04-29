@@ -82,22 +82,23 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Cámara
-	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 0, 1000 });
-	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
+	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1000, 0 });
+	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, -1000, 0 });
 	Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
 
 	// Sol
 	magma_engine::GraphicalObject* sol = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
-	sol->setLightColor(0.9f, 0.9f, 0.9f);
-	sol->setDirection({ 0.0f, -0.8f, -1.0f });
-
+	sol->setLightColor(0.8f, 0.8f, 0.8f);
+	sol->setDirection({ 0.0f, -1.0f, 0.0f }, true);
+	
 	// Fondo
 	magma_engine::GraphicalObject* lavaBg = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("background", nullptr, "mPlane1080x800", "magma_background");
 	lavaBg->setScale(1.67);	// Adaptar segun viewport camara
-	lavaBg->setPosition({ 0, 0, -225 });
+	lavaBg->setPosition({ 0, -225, 0 });
+	lavaBg->yaw(90);
 
 	// ---------- Inicialización EC ----------
 

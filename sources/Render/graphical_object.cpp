@@ -106,10 +106,16 @@ namespace magma_engine
 	}
 
 	// Útil en luces direccionales
-	void GraphicalObject::setDirection(const Vector3D& vec)
+	void GraphicalObject::setDirection(const Vector3D& vec, bool m)
 	{
-		objectNode->setDirection(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()).normalisedCopy(),
-			Ogre::Node::TS_PARENT, Ogre::VectorBase<3, Ogre::Real>::UNIT_X);
+		if (m) {
+			objectNode->setDirection(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()).normalisedCopy(),
+				Ogre::Node::TS_PARENT);
+		}
+		else {
+			objectNode->setDirection(Ogre::Vector3(vec.getX(), vec.getY(), vec.getZ()).normalisedCopy(),
+				Ogre::Node::TS_PARENT, Ogre::VectorBase<3, Ogre::Real>::UNIT_X);
+		}
 	}
 
 	void GraphicalObject::yaw(float deg, Ogre::Node::TransformSpace relTo)

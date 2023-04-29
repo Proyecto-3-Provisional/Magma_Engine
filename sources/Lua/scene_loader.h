@@ -7,8 +7,13 @@
 class lua_State;
 
 #define SceneMap std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>
+	/* > contiene entidades */
+
 #define EntityMap std::map<std::string, std::map<std::string, std::string>>
+	/* > contiene componentes */
+
 #define ComponentMap std::map<std::string, std::string>
+	/* > contiene argumentos */
 
 namespace magma_engine
 {
