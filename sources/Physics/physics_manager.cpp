@@ -51,6 +51,7 @@ namespace magma_engine
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, rigidBodyShape, localInertia);
 
 		btRigidBody* body = new btRigidBody(rbInfo);
+		body->setActivationState(DISABLE_DEACTIVATION);
 
 		body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
 		//body->setUserIndex(lastUserIndex);
