@@ -1,22 +1,26 @@
 #pragma once
+
+#include <map>
 #include <string>
 
 namespace magma_engine
 {
-	class EntityManager;
-	class SceneLoader;
-
 	class Scene
 	{
-		public:
-			Scene();
-			~Scene();
+	public:
+		Scene();
+		~Scene();
 
-			void update(float deltaTime);
+		void update(float deltaTime);
 
-			bool loadScene(std::string fileName);
+		bool loadScene(std::map<std::string,
+						std::map<std::string,
+							std::map<std::string,
+								std::string>>>* map);
+
+		bool isValid();
+
+	private:
+		bool valid;
 	};
 }
-
-
-

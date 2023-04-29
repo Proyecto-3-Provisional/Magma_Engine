@@ -5,19 +5,16 @@
 
 namespace magma_engine
 {
-	Scene::Scene()
+	Scene::Scene() : valid(false)
 	{
-		Singleton<ec::EntityManager>::init();
-		Singleton<FactoryManager>::init();
-		Singleton<SceneLoader>::init();
-
+		if (Singleton<ec::EntityManager>::instance() &&
+			Singleton<FactoryManager>::instance()
+		)
+			valid = true;
 	}
 
 	Scene::~Scene()
 	{
-		Singleton<SceneLoader>::release();
-		Singleton<ec::EntityManager>::release();
-		Singleton<FactoryManager>::release();
 	}
 
 	void Scene::update(float deltaTime)
@@ -26,29 +23,31 @@ namespace magma_engine
 		ec::EntityManager::instance()->refresh();
 	}
 
-	bool Scene::loadScene(std::string fileName)
+	bool Scene::loadScene(SceneMap* map)
 	{
-		Singleton<SceneLoader>::instance()->loadScene(fileName);
+		bool noErrors = true;
 
-		SceneMap* file = Singleton<SceneLoader>::instance()->getMapFile();
-
-		if (file != nullptr)
+		if (map != nullptr)
 		{
-			for (auto itEntity = file->begin(); itEntity != file->end(); itEntity++)
+			for (auto itEntity = map->begin(); itEntity != map->end(); itEntity++)
 			{
 				ec::Entity* e = ec::EntityManager::instance()->addEntity();
 
 				for (auto itComponent = itEntity->second.begin(); itComponent != itEntity->second.end(); itComponent++)
 				{
 					ec::Component* c = Singleton<FactoryManager>::instance()->findAndCreate(itComponent->first, e);
-					c->initComponent(itComponent->second);
+					noErrors = noErrors && c->initComponent(itComponent->second);
 				}
 			}
 		}
+		else return false;
 		
+		return noErrors;
+	}
 
-		
-		return false;
+	bool Scene::isValid()
+	{
+		return valid;
 	}
 }
 

@@ -90,7 +90,5 @@ namespace magma_engine
 		FactoryManager::instance()->addFactory("ProgressBar", new ProgressBarFactory());
 		FactoryManager::instance()->addFactory("Timer", new TimerFactory());
 	}
-
-
 }
 

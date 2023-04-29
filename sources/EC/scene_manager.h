@@ -25,7 +25,6 @@ namespace magma_engine
 		void update(float deltaTime);
 	private:
 
-
 		void deleteScenes();
 
 		std::stack<Scene*> scenes;
