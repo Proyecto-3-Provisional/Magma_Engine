@@ -1,4 +1,4 @@
-SceneLoader:printInfo()
+#SceneLoader:printInfo()
 
 entities = {
 	axolotl = {

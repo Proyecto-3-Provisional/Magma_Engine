@@ -20,9 +20,10 @@ namespace magma_engine
 		luaL_openlibs(L);
 
 		// Espacio de nombres; registrar funciones para Lua
-		getGlobalNamespace(L).beginNamespace("SceneLoader")
-			.addFunction("printInfo", printInfo)
-			.endNamespace();
+		////getGlobalNamespace(L).beginNamespace("SceneLoader")
+		////	.addFunction("printInfo", printInfo)
+		////	.endNamespace();
+		////FALLA AL HACER INIT DEL SINGLETON
 	}
 
 	SceneLoader::~SceneLoader()

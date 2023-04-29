@@ -36,6 +36,7 @@
 #include <EC/init_factories.h>
 #include <Lua/scene_loader.h>
 #include <EC/scene.h>
+#include <EC/scene_manager.h>
 
 // DECLARACIÓN DE FUNCIONES
 void initManagers();
@@ -48,7 +49,7 @@ int mainCode() {
 #if 1 // por comodidad (0 -> false; No 0 -> true)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #else	
-	_CrtSetBreakAlloc(996); // id del new que queremos borrar
+	_CrtSetBreakAlloc(12944); // id del new que queremos borrar
 #endif
 #endif
 	//\\//\\//\\//\\// Comprobación Fugas Memoria //\\//\\//\\//\\//
@@ -61,36 +62,23 @@ int mainCode() {
 
 	std::cout << "======== MAGMA iniciado ========\n";
 
-	// Carga de mapa
-	Singleton<magma_engine::SceneLoader>::init();
-	Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
-	Singleton<magma_engine::SceneLoader>::release();
-	// Carga de mapa
-
 	// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 	int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int
 	// Cálculo del tiempo, en milisegundos, entre fotogramas
 	int timeSinceLastFrame = 0;
 
+
 	// ---------- Inicialización MANAGERS ----------
-
 	initManagers();
-
-	magma_engine::setUpFactories();
-
-	//magma_engine::Scene* escenita = new magma_engine::Scene();
-	//escenita->loadScene("assets/scenes/test.magmascene");
-
 	std::cout << "Managers inicializados\n";
 
-	// ---------- Inicialización RENDER ----------
 
+	// ---------- Inicialización RENDER ----------
 	// Cámara
 	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1000, 0 });
 	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, -1000, 0 });
 	Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
-
 	// Sol
 	magma_engine::GraphicalObject* sol = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
@@ -217,6 +205,19 @@ int mainCode() {
 	
 	
 
+	// Carga de mapa
+	int errScn = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
+	magma_engine::Scene* scn = nullptr;
+	if (errScn >= 0) {
+		SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
+
+		scn = new magma_engine::Scene();
+		scn->loadScene(sncMp);
+		///Singleton<magma_engine::SceneManager>::instance()->pushScene(scn);
+	}
+	// Carga de mapa
+
+
 	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
 	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
 	componentProgress->start();
@@ -330,10 +331,6 @@ int mainCode() {
 		//Redimensión ventana
 		if (Singleton<magma_engine::InputManager>::instance()->hasWindowChange()) {
 			Singleton<magma_engine::RenderManager>::instance()->notifyWindowResized();
-			/*testImage->updateImage();
-			testButton->updateButton();
-			testText->updateText();*/
-			//imageEntity->update(timeSinceLastFrame * 0.001f);
 		}
 
 		//esto hace que ya pille bien el imput la ui al pulsar el raton
@@ -348,22 +345,28 @@ int mainCode() {
 		if (miliecsSinceLastReport > miliecsToReport) {
 			miliecsSinceLastReport = 0;
 		}
-
 	}
 	if (error)
 	{
 		std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 	}
 
-	// ---------- Release MANAGERS ----------
+
+	// Carga de mapa
+	if (errScn >= 0) {
+		//Singleton<magma_engine::SceneManager>::instance()->popScene();
+		delete scn;
+		scn = nullptr;
+	}
+	// Carga de mapa
+
 	releaseManagers();
 
 	return 0;
 }
 
 void initManagers() {
-
-	// ------ RENDER ------
+	// ------ RENDER		------
 	if (Singleton<magma_engine::RenderManager>::init(false, 1280, 720, false, true, 4, false))
 	{
 		if (!Singleton<magma_engine::RenderManager>::instance()->initApp()) // if (!correct)
@@ -373,62 +376,55 @@ void initManagers() {
 			Singleton<magma_engine::RenderManager>::instance()->release();
 		}
 	}
-
-	// ------ EC ------
+	// ------ EC			------
 	Singleton<magma_engine::ec::EntityManager>::init();
+	// ------ FACTORY		------
+	Singleton<magma_engine::FactoryManager>::init();
+	magma_engine::setUpFactories();
+	// ------ GAME SCENES	------
+	Singleton<magma_engine::SceneManager>::init();
+	// ------ LUA SCENES	------
+	Singleton<magma_engine::SceneLoader>::init();
 
-	// ------ PHYSICS ------
+	// ------ PHYSICS		------
 	bool correct = false;
 	if (Singleton<magma_engine::PhysicsManager>::init())
 		correct = Singleton<magma_engine::PhysicsManager>::instance()->initPhysics();
-
 	if (!correct)
-	{
 		// Fin del renderizado
 		Singleton<magma_engine::PhysicsManager>::instance()->detachPhysics();
-	}
-
-	// ------ UI ------
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	/// esta detección con 'correct' HAY QUE HACERLA PARA TODO !!!!
+	// ------ UI			------
 	Singleton<magma_engine::UI_Manager>::init();
-
-	// ------ INPUT ------
+	// ------ INPUT			------
 	Singleton<magma_engine::InputManager>::init();
-
-	// ------ SOUND ------
-	if(Singleton<magma_engine::SoundManager>::init())
+	// ------ SOUND			------
+	if (Singleton<magma_engine::SoundManager>::init())
 		Singleton<magma_engine::SoundManager>::instance()->initAudio();
-
-	// ------ FACTORY ------
-	Singleton<magma_engine::FactoryManager>::init();
-
-
 }
 
 void releaseManagers() {
-
-	// ------ EC ------
+	// ------ LUA SCENES	------
+	Singleton<magma_engine::SceneLoader>::release();
+	// ------ GAME SCENES	------
+	Singleton<magma_engine::SceneManager>::release();
+	// ------ EC			------
 	Singleton<magma_engine::ec::EntityManager>::release();
-
-	// ------ PHYSICS ------
+	// ------ PHYSICS		------
 	Singleton<magma_engine::PhysicsManager>::instance()->detachPhysics();
 	Singleton<magma_engine::PhysicsManager>::release();
-
-	// ------ INPUT ------
+	// ------ INPUT			------
 	Singleton<magma_engine::InputManager>::release();
-
-	// ------ UI ------
+	// ------ UI			------
 	Singleton<magma_engine::UI_Manager>::release();
-
-	// ------ RENDER ------
+	// ------ RENDER		------
 	Singleton<magma_engine::RenderManager>::instance()->closeApp();
 	Singleton<magma_engine::RenderManager>::release();
-
-	// ------ SOUND ------
+	// ------ SOUND			------
 	Singleton<magma_engine::SoundManager>::release();
-
-	// ------ FACTORY ------
+	// ------ FACTORY		------
 	Singleton<magma_engine::FactoryManager>::release();
-
 }
 
 // Esta disyuntiva hace que en config. Release no aparezca la consola

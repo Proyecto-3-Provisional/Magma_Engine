@@ -21,12 +21,15 @@ namespace magma_engine
 	{
 		// Permiso para construir
 		friend Singleton<SceneLoader>;
+
 	protected:
 		explicit SceneLoader();
+
 	public:
 		virtual ~SceneLoader();
 		int loadScene(std::string filename);
 		SceneMap* getMapFile();
+
 	private:
 		void popLStack();
 		void delScene();

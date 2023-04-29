@@ -52,5 +52,3 @@ namespace magma_engine
 		}
 	}
 }
-
-
