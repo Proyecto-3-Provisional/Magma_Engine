@@ -1,16 +1,3 @@
-material golf {
-	technique {
-		pass {
-			diffuse 1.0 1.0 1.0
-			texture_unit {
-				texture golf.png
-				colour_op modulate
-				tex_address_mode wrap
-			}
-		}
-	}
-}
-
 material buttonV1 {
 	technique {
 		pass {
@@ -43,7 +30,6 @@ material barFill {
 	technique {
 		pass {
 			diffuse 1.0 1.0 1.0
-			scene_blend alpha_blend
 			texture_unit {
 				texture BarFill.png
 				colour_op modulate
@@ -57,7 +43,6 @@ material barBack {
 	technique {
 		pass {
 			diffuse 1.0 1.0 1.0
-			scene_blend alpha_blend
 			texture_unit {
 				texture BarBackground.png
 				colour_op modulate
