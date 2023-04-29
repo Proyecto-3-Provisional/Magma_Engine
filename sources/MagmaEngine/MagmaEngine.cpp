@@ -105,6 +105,8 @@ namespace magma_engine
 	{
 		switch (i) {
 		case 0:
+			// ------ SCENE_LOADER ------
+			Singleton<SceneLoader>::release();
 			// ------ SCENE MANAGER ------
 			Singleton<SceneManager>::release();
 			// ------ SOUND ------
@@ -125,14 +127,11 @@ namespace magma_engine
 			break;
 		}
 
-		// ------ SCENE_LOADER ------
-		Singleton<SceneLoader>::release();
-
-		FreeLibrary(game);
+		bool success = FreeLibrary(game);
 
 		delete _instance;
 
-		return true;
+		return success;
 	}
 
 	void CMagmaEngine::run()
@@ -157,11 +156,11 @@ namespace magma_engine
 
 
 			// Actualizar mundo de fisicas
-			Singleton<PhysicsManager>::instance()->update((float)timeSinceLastFrame);
+			Singleton<PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
 
 			// Actualizar la escena y todas sus entidades
-			Singleton<SceneManager>::instance()->update((float)timeSinceLastFrame);
+			Singleton<SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
 
 			// Si la ventana cambia de tamaño
