@@ -1,5 +1,5 @@
-#include <Magma/init_factories.h>
-#include <Magma/factory_manager.h>
+#include <EC/init_factories.h>
+#include <EC/factory_manager.h>
 
 #include <EC/entity.h>
 #include <EC/player_controller.h>

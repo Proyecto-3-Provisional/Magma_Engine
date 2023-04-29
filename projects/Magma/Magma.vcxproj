@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\Magma\factory.cpp" />
-    <ClCompile Include="..\..\sources\Magma\factory_manager.cpp" />
-    <ClCompile Include="..\..\sources\Magma\init_factories.cpp" />
     <ClCompile Include="..\..\sources\Magma\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -43,11 +40,6 @@
     <ProjectReference Include="..\Sounds\Sounds.vcxproj">
       <Project>{70807504-27c7-48f6-bdf8-097676983e72}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\sources\Magma\factory.h" />
-    <ClInclude Include="..\..\sources\Magma\factory_manager.h" />
-    <ClInclude Include="..\..\sources\Magma\init_factories.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

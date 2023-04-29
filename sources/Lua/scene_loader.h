@@ -6,14 +6,14 @@
 
 class lua_State;
 
+/* > contiene entidades */
 #define SceneMap std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>
-	/* > contiene entidades */
 
+/* > contiene componentes */
 #define EntityMap std::map<std::string, std::map<std::string, std::string>>
-	/* > contiene componentes */
 
+/* > contiene argumentos */
 #define ComponentMap std::map<std::string, std::string>
-	/* > contiene argumentos */
 
 namespace magma_engine
 {
@@ -26,6 +26,7 @@ namespace magma_engine
 	public:
 		virtual ~SceneLoader();
 		int loadScene(std::string filename);
+		SceneMap* getMapFile();
 	private:
 		void popLStack();
 		void delScene();

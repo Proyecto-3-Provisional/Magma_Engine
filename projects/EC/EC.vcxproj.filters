@@ -13,6 +13,9 @@
     <ClCompile Include="..\..\sources\EC\transform.cpp" />
     <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
     <ClCompile Include="..\..\sources\EC\quaternion.cpp" />
+    <ClCompile Include="..\..\sources\EC\factory.cpp" />
+    <ClCompile Include="..\..\sources\EC\factory_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\init_factories.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\EC\component.h" />
@@ -33,5 +36,8 @@
     <ClInclude Include="..\..\sources\EC\transform.h" />
     <ClInclude Include="..\..\sources\EC\vector3D.h" />
     <ClInclude Include="..\..\sources\EC\quaternion.h" />
+    <ClInclude Include="..\..\sources\EC\factory.h" />
+    <ClInclude Include="..\..\sources\EC\factory_manager.h" />
+    <ClInclude Include="..\..\sources\EC\init_factories.h" />
   </ItemGroup>
 </Project>

@@ -167,4 +167,10 @@ namespace magma_engine
 			return 0;
 		}
 	}
+
+	// Devuelve el fichero de la escena con todas las entidades y componentes
+	SceneMap* SceneLoader::getMapFile()
+	{
+		return lastLoadedScene;
+	}
 }

@@ -1,5 +1,5 @@
-#include <Magma/factory_manager.h>
-#include <Magma/factory.h>
+#include <EC/factory_manager.h>
+#include <EC/factory.h>
 
 
 namespace magma_engine

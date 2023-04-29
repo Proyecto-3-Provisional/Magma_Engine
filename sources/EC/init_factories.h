@@ -1,5 +1,5 @@
 #pragma once
-#include <Magma/factory.h>
+#include <EC/factory.h>
 
 namespace magma_engine
 {
