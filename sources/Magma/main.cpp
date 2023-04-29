@@ -62,7 +62,7 @@ int mainCode() {
 
 	// Carga de mapa
 	Singleton<magma_engine::SceneLoader>::init();
-	Singleton<magma_engine::SceneLoader>::instance()->loadScene("Assets/test.magmascene");
+	Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
 	Singleton<magma_engine::SceneLoader>::release();
 	// Carga de mapa
 
@@ -196,7 +196,7 @@ int mainCode() {
 	componentImageEntity->start();
 
 	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
-	//	("./assets/loop.wav", 50, 2, true, true); 
+	//	("./assets/sounds/loop.wav", 50, 2, true, true); 
 	//componentSound->start(); 
 
 	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
