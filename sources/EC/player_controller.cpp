@@ -1,5 +1,6 @@
 #include "player_controller.h"
 
+#include <Physics/rigidbody.h>
 #include <Input/input_manager.h>
 #include <EC/entity.h>
 #include <EC/transform.h>

@@ -338,10 +338,7 @@ int mainCode() {
 
 		//esto hace que ya pille bien el imput la ui al pulsar el raton
 		imageEntity->update(timeSinceLastFrame * 0.001f);
-		//si dejo descomentado esto de abajo no me hace falta lo de arriba pero necesito confirmacion de los compañeros
-		// ---------- TEST EC ----------
-		//Singleton<ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);	
-		//Singleton<ec::EntityManager>::instance()->refresh();
+
 
 		Singleton<magma_engine::InputManager>::instance()->flush();
 
@@ -349,11 +346,8 @@ int mainCode() {
 		fps.update();
 
 		if (miliecsSinceLastReport > miliecsToReport) {
-			//testText->setText(std::to_string(fps.get()) + " fps");
 			miliecsSinceLastReport = 0;
 		}
-		
-		
 
 	}
 	if (error)

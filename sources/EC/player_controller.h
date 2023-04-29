@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Physics/rigidbody.h>
+#include <EC/component.h>
+#include <EC/vector3D.h>
 
 namespace magma_engine
 {

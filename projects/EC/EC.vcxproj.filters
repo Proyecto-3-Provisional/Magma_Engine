@@ -13,10 +13,10 @@
     <ClCompile Include="..\..\sources\EC\transform.cpp" />
     <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
     <ClCompile Include="..\..\sources\EC\quaternion.cpp" />
-    <ClCompile Include="..\..\sources\EC\factory.cpp" />
     <ClCompile Include="..\..\sources\EC\factory_manager.cpp" />
     <ClCompile Include="..\..\sources\EC\init_factories.cpp" />
     <ClCompile Include="..\..\sources\EC\enemy_controller.cpp" />
+    <ClCompile Include="..\..\sources\EC\fps_counter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\EC\component.h" />

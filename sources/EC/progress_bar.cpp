@@ -5,7 +5,7 @@
 
 namespace magma_engine
 {
-	Progress_Bar::Progress_Bar() : Component(), imageName(), normalName(), tamX(), tamY(), posX(), posY(), progress(), limit()
+	Progress_Bar::Progress_Bar() : Component(), progressBar(nullptr), interactive(true), screenHeight(1.0f), screenWidth(1.0f), imageName(), normalName(), tamX(), tamY(), posX(), posY(), progress(), limit()
 	{
 
 	}

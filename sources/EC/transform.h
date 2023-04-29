@@ -1,13 +1,13 @@
 #pragma once
 
-#include <EC/vector3D.h>
 #include <EC/component.h>
-#include <map>
-#include <string>
+#include <EC/vector3D.h>
 
 
 namespace magma_engine
 {
+	class Vector3D;
+
 	class Transform : public ec::Component {
 	public:
 		Transform(){};
@@ -46,7 +46,7 @@ namespace magma_engine
 		// Establece la orientación de la entidad a un punto en el espacio
 		void setDirection(Vector3D v);
 
-		//Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
+		// Modificamos el vector forward para que apunte a un punto en el espacio, sobre el plano XZ
 		void lookAtPoint(Vector3D target);
 
 
@@ -54,7 +54,7 @@ namespace magma_engine
 
 		Vector3D pos;
 		Vector3D scale;
-		//La direccion hacia delante en el eje z del objeto
+		// La direccion hacia delante en el eje z del objeto
 		Vector3D forward;
 	};
 }

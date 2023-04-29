@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Physics/rigidbody.h>
+#include <EC/component.h>
+#include <EC/vector3D.h>
 
 namespace magma_engine
 {
@@ -24,7 +25,7 @@ namespace magma_engine
 
 		Vector3D movementDirection;
 
-		//true para perseguir al jugador,false para huir
+		// true para perseguir al jugador, false para huir
 		bool chasing;
 
 		float timeBetweenMovements;

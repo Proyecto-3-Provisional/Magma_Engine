@@ -6,6 +6,7 @@
 #include <EC/messages.h>
 #include <map>
 #include <string>
+
 namespace magma_engine
 {
 	namespace ec

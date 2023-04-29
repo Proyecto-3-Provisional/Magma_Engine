@@ -49,9 +49,6 @@ namespace magma_engine
 		// multiplicación escalar
 		float operator *(const Vector3D& d) const;
 
-		// bulletVector a Vector3D
-		operator Vector3D() const;
-
 	private:
 		float x;
 		float y;

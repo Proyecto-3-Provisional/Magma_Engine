@@ -2,8 +2,6 @@
 
 #include <EC/component.h>
 
-#include <string>
-
 namespace magma_engine
 {
 	class UI_Progress_Bar;
@@ -45,7 +43,6 @@ namespace magma_engine
 
 	private:
 
-		static std::string name;
 		UI_Progress_Bar* progressBar;
 
 		//Nombre de la imagen

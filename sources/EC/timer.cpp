@@ -6,7 +6,7 @@
 
 namespace magma_engine
 {
-	Timer::Timer() : Component() 
+	Timer::Timer() : textTime(nullptr), timerPause(false), time(0), timeStop(0) 
 	{
 		
 	}

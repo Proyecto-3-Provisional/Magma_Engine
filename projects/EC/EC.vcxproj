@@ -47,8 +47,8 @@
     <ClCompile Include="..\..\sources\EC\enemy_controller.cpp" />
     <ClCompile Include="..\..\sources\EC\entity.cpp" />
     <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
-    <ClCompile Include="..\..\sources\EC\factory.cpp" />
     <ClCompile Include="..\..\sources\EC\factory_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\fps_counter.cpp" />
     <ClCompile Include="..\..\sources\EC\init_factories.cpp" />
     <ClCompile Include="..\..\sources\EC\player_controller.cpp" />
     <ClCompile Include="..\..\sources\EC\progress_bar.cpp" />

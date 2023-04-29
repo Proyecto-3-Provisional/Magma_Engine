@@ -1,7 +1,7 @@
 #include <EC/scene.h>
 #include <EC/entity_manager.h>
-#include <Lua/scene_loader.h>
 #include <EC/factory_manager.h>
+#include <Lua/scene_loader.h>
 
 namespace magma_engine
 {

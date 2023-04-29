@@ -1,6 +1,9 @@
 #include <EC/transform.h>
 #include <EC/entity.h>
 
+#include <iostream>
+#include <exception>
+
 namespace magma_engine
 {
 	Vector3D& Transform::getPos()
@@ -65,7 +68,8 @@ namespace magma_engine
 			scale = scale_;
 			forward = Vector3D(0, 0, 1);
 		}
-		catch (...) {
+		catch (std::exception& e) {
+			std::cout << "Error inicializando componente Transform de una entidad: "  << e.what() << '\n';
 			return false;
 		}
 

@@ -22,7 +22,6 @@ namespace magma_engine
 {
 	ec::Component* TransformFactory::createComponent(ec::Entity* e)
 	{
-		//return e->addComponent<Transform>()->initComponent({ 0, 0, 0 }, { 40,40,40 });
 		return e->addComponent<Transform>();
 	}
 

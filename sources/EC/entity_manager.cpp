@@ -5,10 +5,6 @@
 namespace magma_engine
 {
 	namespace ec {
-		//EntityManager::EntityManager() :
-		//	ents_() {
-		//	ents_.reserve(100);
-		//}
 
 		EntityManager::~EntityManager() {
 			for (auto& ents : entsByGroup) {

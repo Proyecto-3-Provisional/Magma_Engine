@@ -1,5 +1,5 @@
 // Samir Genaim (modificado mas o menos en funcion de nuestras necesidades)
-//unfinished
+
 #pragma once
 
 #include <array>
@@ -69,23 +69,6 @@ namespace magma_engine
 				currCmps.push_back(c);
 			}
 
-			/*template<typename T, typename ...Ts>
-			void addCompon(T* c, Ts &&... args) {
-
-				constexpr cmpId_type cId = cmpId<T>;
-				assert(cId < maxComponentId);
-
-
-				removeComponent<T>();
-
-
-				Component* component = c;
-				component->setContext(this, mngr);
-				component->initComponent();
-				cmps[cId] = component;
-				currCmps.push_back(component);
-			}*/
-
 			// Elimina el componente de la entidad 'e' que este en la posicion T::id
 			template<typename T>
 			void removeComponent() {
@@ -143,11 +126,6 @@ namespace magma_engine
 			// Manda un mensaje 'm' a todos los componentes de la entidad. 'delay' indica si deberia
 			// mandarse inmediatamente o mas tarde cuando llamamos a flushMessages
 			void send(const Message& m, bool delay = false); //por ahora no tenemos flush de mensajes implementado, dejar elay a false
-
-			//unfinished, no lo usamos todavia
-			// Metodo que se llama en ¿main? para mandar mensajes en una cola.
-			// Esto es, cuando send tiene delay = true
-			//void flushMessages();
 
 		private:
 

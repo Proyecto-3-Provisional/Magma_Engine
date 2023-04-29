@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <EC/ec.h>
-
 // Definimos los nombres de los mensajes, son accesibles desde nuestros componentes, por ejemplo en transform.h, pitch(). 
 // Para recibir, usar como ejemplo mesh recieve 
 using msgId_type = uint8_t;

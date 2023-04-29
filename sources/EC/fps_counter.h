@@ -9,12 +9,11 @@ namespace magma_engine
         unsigned int initial_;
 
     public:
-        // Ctor
+        
         inline Interval() : initial_((unsigned int)SDL_GetTicks64())
         {
         }
 
-        // Dtor
         virtual ~Interval()
         {
         }
@@ -33,31 +32,12 @@ namespace magma_engine
         Interval m_fpsinterval;
 
     public:
-        // Constructor
-        Fps() : m_fps(0), m_fpscount(0)
-        {
-        }
 
-        // Update
-        void update()
-        {
-            // increase the counter by one
-            m_fpscount++;
+        Fps();
 
-            // one second elapsed? (= 1000 milliseconds)
-            if (m_fpsinterval.value() > 1000)
-            {
-                // save the current counter value to m_fps
-                m_fps = m_fpscount;
+        void update();
 
-                // reset the counter and the interval
-                m_fpscount = 0;
-                m_fpsinterval = Interval();
-            }
-        }
-
-        // Get fps
-        int get() const
+        inline int get() const
         {
             return m_fps;
         }

@@ -2,8 +2,6 @@
 
 #include <EC/component.h>
 
-#include <string>
-
 namespace magma_engine
 {
 	class Text; 
@@ -39,8 +37,6 @@ namespace magma_engine
 		void assignText(Text* text); 
 
 	private:
-
-		static std::string name;
 
 		Text* textTime; 
 
