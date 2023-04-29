@@ -31,6 +31,7 @@ namespace magma_engine
 		void setLinearDamping(float d);
 		void setAngularDamping(float d);
 
+
 	private:
 
 		Transform* trPtr = nullptr;

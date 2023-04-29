@@ -82,7 +82,7 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Cámara
-	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 0, 1000 });
+	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1500, 1000 });
 	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
 	Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
@@ -91,13 +91,16 @@ int mainCode() {
 	magma_engine::GraphicalObject* sol = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
 	sol->setLightColor(0.9f, 0.9f, 0.9f);
-	sol->setDirection({ 0.0f, -0.8f, -1.0f });
+	sol->setDirection({ 0.0f, 1.0f, -1.0f });
+
+	magma_engine::ec::Entity* solEnt = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
 
 	// Fondo
 	magma_engine::GraphicalObject* lavaBg = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("background", nullptr, "mPlane1080x800", "magma_background");
 	lavaBg->setScale(1.67);	// Adaptar segun viewport camara
 	lavaBg->setPosition({ 0, 0, -225 });
+	lavaBg->pitch(-90.0f);
 
 	// ---------- Inicialización EC ----------
 
@@ -161,13 +164,8 @@ int mainCode() {
 	}
 	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>();
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("PlayerController", physicsEntity3);
-	bool funca = physicsEntity3->getComponent<magma_engine::PlayerController>()->initComponent();
+	physicsEntity3->getComponent<magma_engine::PlayerController>()->initComponent(50000.0f, 1.0f);
 
-
-
-	if (!funca) {
-		std::cout << "no funca";
-	}
 
 	magma_engine::Fps fps;
 

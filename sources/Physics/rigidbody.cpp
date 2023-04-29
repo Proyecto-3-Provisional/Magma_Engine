@@ -90,7 +90,6 @@ namespace magma_engine
 	void Rigidbody::setAngularDamping(float d) {
 		angularDamping = d;
 		rigidPtr->setDamping(linearDamping, angularDamping);
-
 	}
 }
 

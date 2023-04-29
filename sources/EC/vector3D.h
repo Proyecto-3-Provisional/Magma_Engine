@@ -4,11 +4,12 @@
 
 namespace magma_engine
 {
+
 	class Vector3D {
 	public:
-		Vector3D() : x(), y(), z() {};
-		Vector3D(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {};
-		Vector3D(const Vector3D& vmag) : x(vmag.getX()), y(vmag.getY()), z(vmag.getZ()) {};
+		Vector3D();
+		Vector3D(float x_, float y_, float z_);
+		Vector3D(const Vector3D& vmag);
 		~Vector3D() {};
 
 
@@ -47,6 +48,9 @@ namespace magma_engine
 
 		// multiplicación escalar
 		float operator *(const Vector3D& d) const;
+
+		// bulletVector a Vector3D
+		operator Vector3D() const;
 
 	private:
 		float x;

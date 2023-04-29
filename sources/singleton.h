@@ -19,8 +19,6 @@ public:
 		return instance_.get();
 	}
 	static T* instance() {
-		/*if (instance_.get() == nullptr) init();
-		return instance_.get();*/
 		assert(instance_.get() != nullptr);
 		return instance_.get();
 	}

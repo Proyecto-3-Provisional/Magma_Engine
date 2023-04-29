@@ -1,7 +1,13 @@
 #include <EC/vector3D.h>
 
+#include <LinearMath/btVector3.h>
+
 namespace magma_engine
 {
+	Vector3D::Vector3D() : x(), y(), z() {};
+	Vector3D::Vector3D(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {};
+	Vector3D::Vector3D(const Vector3D& vmag) : x(vmag.getX()), y(vmag.getY()), z(vmag.getZ()) {};
+
 	void Vector3D::setX(float x_)
 	{
 		x = x_;
