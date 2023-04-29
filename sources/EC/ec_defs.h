@@ -14,6 +14,7 @@ class AudioSource;
 class Progress_Bar;
 class Timer; 
 class PlayerController;
+class EnemyController;
 
 #define _CMPS_LIST_ Transform,\
 					Mesh,\
@@ -24,5 +25,6 @@ class PlayerController;
 					AudioSource, \
 					Progress_Bar, \
 					Timer, \
-					PlayerController
+					PlayerController, \
+					EnemyController
 		

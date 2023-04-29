@@ -16,6 +16,7 @@
     <ClCompile Include="..\..\sources\EC\factory.cpp" />
     <ClCompile Include="..\..\sources\EC\factory_manager.cpp" />
     <ClCompile Include="..\..\sources\EC\init_factories.cpp" />
+    <ClCompile Include="..\..\sources\EC\enemy_controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\EC\component.h" />
@@ -39,5 +40,6 @@
     <ClInclude Include="..\..\sources\EC\factory.h" />
     <ClInclude Include="..\..\sources\EC\factory_manager.h" />
     <ClInclude Include="..\..\sources\EC\init_factories.h" />
+    <ClInclude Include="..\..\sources\EC\enemy_controller.h" />
   </ItemGroup>
 </Project>

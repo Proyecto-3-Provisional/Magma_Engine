@@ -22,6 +22,7 @@
     <ClInclude Include="..\..\sources\EC\component.h" />
     <ClInclude Include="..\..\sources\EC\ec.h" />
     <ClInclude Include="..\..\sources\EC\ec_defs.h" />
+    <ClInclude Include="..\..\sources\EC\enemy_controller.h" />
     <ClInclude Include="..\..\sources\EC\entity.h" />
     <ClInclude Include="..\..\sources\EC\entity_manager.h" />
     <ClInclude Include="..\..\sources\EC\factory.h" />
@@ -43,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\EC\component.cpp" />
+    <ClCompile Include="..\..\sources\EC\enemy_controller.cpp" />
     <ClCompile Include="..\..\sources\EC\entity.cpp" />
     <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
     <ClCompile Include="..\..\sources\EC\factory.cpp" />

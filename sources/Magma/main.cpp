@@ -27,6 +27,7 @@
 #include <EC/progress_bar.h>
 #include <EC/timer.h>
 #include <EC/player_controller.h>
+#include <EC/enemy_controller.h>
 #include <Render/image.h>
 #include <Render/text.h>
 #include <Render/button.h>
@@ -161,9 +162,12 @@ int mainCode() {
 		physicsEntityMeshCmp3->getObj()->setOriLookingAt({ 0, 0, 1000 }, Ogre::Node::TS_WORLD, magma_engine::Vector3D(1, 0, 0));
 	}
 	magma_engine::Rigidbody* physicsEntityRigidbodyCmp3 = physicsEntity3->addComponent<magma_engine::Rigidbody>();
+
 	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("PlayerController", physicsEntity3);
 	physicsEntity3->getComponent<magma_engine::PlayerController>()->initComponent(50000.0f, 1.0f);
 
+	Singleton<magma_engine::FactoryManager>::instance()->findAndCreate("EnemyController", physicsEntity2);
+	physicsEntity2->getComponent<magma_engine::EnemyController>()->initComponent(physicsEntityTransformCmp3, 45000.0f, 2.0f, true);
 
 	magma_engine::Fps fps;
 
@@ -249,10 +253,6 @@ int mainCode() {
 		if (!Singleton<magma_engine::RenderManager>::instance()->renderFrame())
 			error = true;
 
-		// ---------- TEST EC ----------
-		Singleton<magma_engine::ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);
-		Singleton<magma_engine::ec::EntityManager>::instance()->refresh();
-
 
 		// ---------- TEST PHYSICS ----------
 
@@ -270,7 +270,11 @@ int mainCode() {
 
 		// ---------- TEST INPUT & UI ----------update
 		Singleton<magma_engine::InputManager>::instance()->inputEvent();
-		physicsEntity3->getComponent<magma_engine::PlayerController>()->update(timeSinceLastFrame * 0.001f);
+
+		// ---------- TEST EC ----------
+		Singleton<magma_engine::ec::EntityManager>::instance()->update(timeSinceLastFrame * 0.001f);
+		Singleton<magma_engine::ec::EntityManager>::instance()->refresh();
+
 
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 

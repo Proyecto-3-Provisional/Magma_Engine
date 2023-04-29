@@ -7,7 +7,7 @@
 
 namespace magma_engine
 {
-	PlayerController::PlayerController() : playerSpeed(0.0f), timeBetweenMovements(0.0f), currTimeBetweenMovements(0.0f)
+	PlayerController::PlayerController() : enemySpeed(0.0f), timeBetweenMovements(0.0f), currTimeBetweenMovements(0.0f)
 	{
 	}
 
@@ -22,7 +22,7 @@ namespace magma_engine
 			rb = ent->getComponent<Rigidbody>();
 			tr = ent->getComponent<Transform>();
 
-			playerSpeed = playerSpeed_;
+			enemySpeed = playerSpeed_;
 			timeBetweenMovements = timeBetweenMovements_;
 			currTimeBetweenMovements = timeBetweenMovements;
 			
@@ -43,14 +43,14 @@ namespace magma_engine
 
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_A)) {
 
-				rb->addForce(Vector3D(-1, 0, 0) * playerSpeed * deltaTime);
+				rb->addForce(Vector3D(-1, 0, 0) * enemySpeed * deltaTime);
 				movementDirection += Vector3D(-1, 0, 0);
 				move = true;
 			}
 		
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_D)) {
 
-				rb->addForce(Vector3D(1, 0, 0) * playerSpeed * deltaTime);
+				rb->addForce(Vector3D(1, 0, 0) * enemySpeed * deltaTime);
 				movementDirection += Vector3D(1, 0, 0);
 
 				move = true;
@@ -59,7 +59,7 @@ namespace magma_engine
 
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_W)) {
 
-				rb->addForce(Vector3D(0, 0, -1) * playerSpeed * deltaTime);
+				rb->addForce(Vector3D(0, 0, -1) * enemySpeed * deltaTime);
 				movementDirection += Vector3D(0, 0, -1);
 
 				move = true;
@@ -68,7 +68,7 @@ namespace magma_engine
 
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_S)) {
 
-				rb->addForce(Vector3D(0, 0, 1) * playerSpeed * deltaTime);
+				rb->addForce(Vector3D(0, 0, 1) * enemySpeed * deltaTime);
 				movementDirection += Vector3D(0, 0, 1);
 
 				move = true;
