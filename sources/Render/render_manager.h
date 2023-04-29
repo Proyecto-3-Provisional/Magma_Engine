@@ -97,30 +97,6 @@ namespace magma_engine
 		Ogre::SceneNode* cameraNode = nullptr;
 		Ogre::Viewport* cameraViewport = nullptr;
 		GraphicalObject* cameraFollows = nullptr;
-
-	private:
-//		// Colores de tripulantes
-//#define NUM_CREWMATES 16
-//		const Ogre::String crew_colors[NUM_CREWMATES]
-//		{
-//			"amongus_red",
-//			"amongus_brown",
-//			"amongus_orange",
-//			"amongus_yellow",
-//			"amongus_lime",
-//			"amongus_green",
-//			"amongus_aqua",
-//			"amongus_cyan",
-//			"amongus_blue",
-//			"amongus_purple",
-//			"amongus_magenta",
-//			"amongus_pink",
-//			"amongus_white",
-//			"amongus_grey_light",
-//			"amongus_grey_dark",
-//			"amongus_black"
-//		};
 	};
-
 }
 

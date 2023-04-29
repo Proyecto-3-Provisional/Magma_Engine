@@ -81,33 +81,23 @@ int mainCode() {
 
 	// ---------- Inicialización RENDER ----------
 
-	//Cámara
+	// Cámara
 	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 0, 1000 });
 	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
 	Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
 
-	//Sol
+	// Sol
 	magma_engine::GraphicalObject* sol = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
-	sol->setLightColor(0.8f, 0.8f, 0.8f);
+	sol->setLightColor(0.9f, 0.9f, 0.9f);
 	sol->setDirection({ 0.0f, -0.8f, -1.0f });
 
-	magma_engine::GraphicalObject* equis = Singleton<magma_engine::RenderManager>::instance()->
-		addObject("x", nullptr, "cube.mesh", "magmaBackMat");
-	equis->setPosition({ 0, 0, 550 });
-
-	// Adaptar segun viewport camara
-	equis->setScaleX(24);
-	equis->setScaleY(12);
-
-	equis->setPosition({ 400, 0, 0 });
-	magma_engine::GraphicalObject* igriega = Singleton<magma_engine::RenderManager>::instance()->
-		addObject("y", nullptr, "cube.mesh", "golf");
-	igriega->setPosition({ 0, 400, 0 });
-	magma_engine::GraphicalObject* ceta = Singleton<magma_engine::RenderManager>::instance()->
-		addObject("z", nullptr, "cube.mesh", "logo");
-	ceta->setPosition({ 0, 0, 400 });
+	// Fondo
+	magma_engine::GraphicalObject* lavaBg = Singleton<magma_engine::RenderManager>::instance()->
+		addObject("background", nullptr, "mPlane1080x800", "magmaBackMat");
+	lavaBg->setScale(1.67);	// Adaptar segun viewport camara
+	lavaBg->setPosition({ 0, 0, -225 });
 
 	// ---------- Inicialización EC ----------
 

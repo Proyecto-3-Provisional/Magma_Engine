@@ -151,8 +151,7 @@ namespace magma_engine
 
 			std::cout << "* " << nEnts << "\n";
 		}
-
-		popLStack();
+		lua_pop(L, 1);						//+1 // desapilar lista de entidades
 
 		if (nEnts <= 0) {
 			// Deshacer lo hecho...

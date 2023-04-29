@@ -16,7 +16,7 @@ namespace magma_engine
 
 	bool AudioSource::initComponent(std::string path, int vol, int channel, bool loop, bool start)
 	{
-		audio = new AudioData;
+		audio = new AudioData();
 
 		audio->audio_path = path;
 		audio->volume = vol;
@@ -27,6 +27,8 @@ namespace magma_engine
 
 		playing = false;
 		paused = false;
+
+		return true; // supongo
 	}
 
 	void AudioSource::start()
