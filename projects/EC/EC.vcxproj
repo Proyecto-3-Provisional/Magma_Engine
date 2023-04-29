@@ -30,6 +30,7 @@
     <ClInclude Include="..\..\sources\EC\mpl.h" />
     <ClInclude Include="..\..\sources\EC\player_controller.h" />
     <ClInclude Include="..\..\sources\EC\progress_bar.h" />
+    <ClInclude Include="..\..\sources\EC\quaternion.h" />
     <ClInclude Include="..\..\sources\EC\scene.h" />
     <ClInclude Include="..\..\sources\EC\scene_manager.h" />
     <ClInclude Include="..\..\sources\EC\size_temp.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
     <ClCompile Include="..\..\sources\EC\player_controller.cpp" />
     <ClCompile Include="..\..\sources\EC\progress_bar.cpp" />
+    <ClCompile Include="..\..\sources\EC\quaternion.cpp" />
     <ClCompile Include="..\..\sources\EC\scene.cpp" />
     <ClCompile Include="..\..\sources\EC\scene_manager.cpp" />
     <ClCompile Include="..\..\sources\EC\size_temp.cpp" />

@@ -71,6 +71,7 @@ namespace magma_engine
 
 		// Malla
 		Vector3D getMeshProportions();
+		Ogre::Quaternion getOrientation();
 
 	protected:
 		// Notificar existencia de objetos hijos

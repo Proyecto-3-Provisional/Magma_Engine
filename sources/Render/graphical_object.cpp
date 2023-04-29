@@ -286,9 +286,15 @@ namespace magma_engine
 		if (entityAnimation)
 			entityAnimation->setLoop(val);
 	}
+
 	Vector3D GraphicalObject::getMeshProportions()
 	{
 		return meshProportions;
+	}
+
+	Ogre::Quaternion GraphicalObject::getOrientation()
+	{
+		return objectNode->getOrientation();
 	}
 }
 
