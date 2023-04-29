@@ -32,7 +32,7 @@ namespace magma_engine
 	bool Button::initComponent(std::string overlayName, std::string imageName,
 		std::string hoverImageName, std::string pressedImageName,
 		float width, float height, float x, float y)
-	{ 
+	{
 		buttonName = overlayName;
 		normalButtonName = imageName;
 		hoverButtonName = hoverImageName;
@@ -45,7 +45,24 @@ namespace magma_engine
 		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
 		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
 		pressed = false;
-		return true; 
+		return true;
+	}
+
+	bool Button::initComponent(std::map<std::string, std::string> args)
+	{
+		buttonName = args["overlayName"];
+		normalButtonName = args["imageName"];
+		hoverButtonName = args["hoverImageName"];
+		pressedButtonName = args["pressedImageName"];
+
+		tamX = stof(args["width"]);
+		tamY = stof(args["height"]);
+		posX = stof(args["x"]);
+		posY = stof(args["y"]);
+		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		pressed = false;
+		return true;
 	}
 
 	bool Button::isCursorInsideBounds(int mouseX, int mouseY)

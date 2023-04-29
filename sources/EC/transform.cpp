@@ -72,6 +72,23 @@ namespace magma_engine
 		return true;
 	}
 
+	bool Transform::initComponent(std::map<std::string, std::string> args)
+	{
+		try {
+			Vector3D v = Vector3D(stof(args["PositionX"]), stof(args["PositionY"]), stof(args["PositionZ"]));
+			Vector3D s = Vector3D(stof(args["ScaleX"]), stof(args["ScaleY"]), stof(args["ScaleZ"]));
+
+			pos = v;
+			scale = s;
+			forward = Vector3D(0, 0, 1);
+		}
+		catch (...) {
+			return false;
+		}
+
+		return true;
+	}
+
 	void Transform::pitch(float deg)
 	{
 		Message m;

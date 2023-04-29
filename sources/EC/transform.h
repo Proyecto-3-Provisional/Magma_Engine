@@ -2,6 +2,9 @@
 
 #include <EC/vector3D.h>
 #include <EC/component.h>
+#include <map>
+#include <string>
+
 
 namespace magma_engine
 {
@@ -34,6 +37,7 @@ namespace magma_engine
 		void setD(float depth_);
 
 		virtual bool initComponent(Vector3D pos_, Vector3D scale_);
+		virtual bool initComponent(std::map<std::string, std::string> args);
 
 		void pitch(float deg);
 		void yaw(float deg);

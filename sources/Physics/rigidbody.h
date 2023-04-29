@@ -4,6 +4,7 @@
 #include <vector>
 #include <EC/component.h>
 #include <EC/vector3D.h>
+#include <map>
 
 class btRigidBody;
 
@@ -19,6 +20,7 @@ namespace magma_engine
 		~Rigidbody();
 
 		bool initComponent();
+		bool initComponent(std::map<std::string, std::string> args);
 		void update(float deltaTime) override;
 
 		bool isOnCollision(); // Determina si el objeto se encuentra en colisión con otros objetos

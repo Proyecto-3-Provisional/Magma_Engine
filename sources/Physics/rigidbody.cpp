@@ -42,6 +42,33 @@ namespace magma_engine
 		return true;
 	}
 
+	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
+	{
+		// Pasar asignaciones de componentes al Start()
+		trPtr = ent->getComponent<Transform>();
+		meshPtr = ent->getComponent<Mesh>();
+
+		if (trPtr == nullptr || meshPtr == nullptr)
+			return false;
+
+		Vector3D pos = trPtr->getPos();
+		proportions = meshPtr->getProportions();
+
+		if (PhysicsManager::instance() != nullptr) {
+			int index = PhysicsManager::instance()->addRigidBody(proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2,
+				pos.getX(), pos.getY(), pos.getZ());
+
+			rigidPtr = PhysicsManager::instance()->getRigidBody(index);
+
+			if (rigidPtr == nullptr)
+				return false;
+
+			rigidPtr->setDamping(linearDamping, angularDamping);
+		}
+
+		return true;
+	}
+
 	void Rigidbody::update(float deltaTime)
 	{
 		if (trPtr != nullptr)

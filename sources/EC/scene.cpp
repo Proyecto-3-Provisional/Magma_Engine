@@ -7,13 +7,17 @@ namespace magma_engine
 {
 	Scene::Scene()
 	{
+		Singleton<ec::EntityManager>::init();
+		Singleton<FactoryManager>::init();
 		Singleton<SceneLoader>::init();
 
 	}
 
 	Scene::~Scene()
 	{
+		Singleton<SceneLoader>::release();
 		Singleton<ec::EntityManager>::release();
+		Singleton<FactoryManager>::release();
 	}
 
 	void Scene::update(float deltaTime)
@@ -30,27 +34,20 @@ namespace magma_engine
 
 		if (file != nullptr)
 		{
-
 			for (auto itEntity = file->begin(); itEntity != file->end(); itEntity++)
 			{
 				ec::Entity* e = ec::EntityManager::instance()->addEntity();
 
 				for (auto itComponent = itEntity->second.begin(); itComponent != itEntity->second.end(); itComponent++)
 				{
-					for (auto itArgs = itComponent->second.begin(); itArgs != itComponent->second.end(); itArgs++)
-					{
-						ec::Component* c = Singleton<FactoryManager>::instance()->findAndCreate(itComponent->first, e);
-						//c->initComponent(itArgs);
-						
-					}
+					ec::Component* c = Singleton<FactoryManager>::instance()->findAndCreate(itComponent->first, e);
+					c->initComponent(itComponent->second);
 				}
 			}
 		}
 		
 
-
-		// Pasar LUA a scene bien
-		Singleton<ec::EntityManager>::init();
+		
 		return false;
 	}
 }

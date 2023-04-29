@@ -18,8 +18,8 @@ namespace magma_engine
 	}
 
 	bool Image::initComponent(std::string overlayName, std::string name,
-		float width, float height, float x, float y) 
-	{ 
+		float width, float height, float x, float y)
+	{
 		imageName = overlayName;
 		normalName = name;
 
@@ -31,7 +31,23 @@ namespace magma_engine
 
 		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
 		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-		return true; 
+		return true;
+	}
+
+	bool Image::initComponent(std::map<std::string, std::string> args)
+	{
+		imageName = stof(args["overlayName"]);
+		normalName = stof(args["name"]);
+
+		tamX = stof(args["width"]);
+		tamY = stof(args["height"]);
+
+		posX = stof(args["x"]);
+		posY = stof(args["y"]);
+
+		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		return true;
 	}
 
 	void Image::start()

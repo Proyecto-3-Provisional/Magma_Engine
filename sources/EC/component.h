@@ -4,7 +4,8 @@
 
 #include <EC/ec.h>
 #include <EC/messages.h>
-
+#include <map>
+#include <string>
 namespace magma_engine
 {
 	namespace ec
@@ -20,6 +21,7 @@ namespace magma_engine
 			void setEnable(bool set_);
 
 			virtual bool initComponent() { return false; };
+			virtual bool initComponent(std::map<std::string, std::string> args) { return false; };
 			virtual void update(float deltaTime) {};
 			virtual void render() {};
 			virtual void onEnable() {};

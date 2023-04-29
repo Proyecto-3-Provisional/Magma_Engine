@@ -35,7 +35,7 @@
 #include <EC/factory_manager.h>
 #include <EC/init_factories.h>
 #include <Lua/scene_loader.h>
-
+#include <EC/scene.h>
 
 // DECLARACIÓN DE FUNCIONES
 void initManagers();
@@ -77,6 +77,9 @@ int mainCode() {
 	initManagers();
 
 	magma_engine::setUpFactories();
+
+	//magma_engine::Scene* escenita = new magma_engine::Scene();
+	//escenita->loadScene("assets/scenes/test.magmascene");
 
 	std::cout << "Managers inicializados\n";
 
