@@ -23,7 +23,7 @@ namespace magma_engine
 		// Transformaciones
 		void translate(const Vector3D& vec, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_PARENT);
 		void setPosition(const Vector3D& vec);
-		void setDirection(const Vector3D& vec);
+		void setDirection(const Vector3D& vec, bool m = false);
 		void yaw(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 		void pitch(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
 		void roll(float deg, Ogre::Node::TransformSpace relTo = Ogre::Node::TransformSpace::TS_LOCAL);
@@ -71,6 +71,7 @@ namespace magma_engine
 
 		// Malla
 		Vector3D getMeshProportions();
+		Ogre::Quaternion getOrientation();
 
 	protected:
 		// Notificar existencia de objetos hijos

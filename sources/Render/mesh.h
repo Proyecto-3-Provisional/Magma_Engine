@@ -1,6 +1,7 @@
 #pragma once
 
 #include <EC/component.h>
+#include <EC/quaternion.h>
 
 namespace magma_engine
 {
@@ -26,6 +27,7 @@ namespace magma_engine
 		void setDirection(float x, float y, float z);
 
 		Vector3D getProportions();
+		Quaternion getOrientation();
 
 	private:
 

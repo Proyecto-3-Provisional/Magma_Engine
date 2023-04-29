@@ -31,6 +31,7 @@ namespace magma_engine
 		void setLinearDamping(float d);
 		void setAngularDamping(float d);
 
+		Vector3D getVelocity();
 
 	private:
 

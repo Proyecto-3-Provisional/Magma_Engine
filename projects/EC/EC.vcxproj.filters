@@ -1,115 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{1b47da7d-d7d5-4ab3-9e91-6006e2b6c9f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Components">
-      <UniqueIdentifier>{33538b4c-4d47-45aa-8bc1-46ef8f3e2881}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Components\Game">
-      <UniqueIdentifier>{82414e52-cd02-4abe-b3e1-6dfd6bd2d3c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Components\Game">
-      <UniqueIdentifier>{7943bad3-548f-4fe6-a275-f4c0ea6c6c26}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="..\..\sources\EC\component.cpp" />
+    <ClCompile Include="..\..\sources\EC\entity.cpp" />
+    <ClCompile Include="..\..\sources\EC\entity_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\player_controller.cpp" />
+    <ClCompile Include="..\..\sources\EC\progress_bar.cpp" />
+    <ClCompile Include="..\..\sources\EC\scene.cpp" />
+    <ClCompile Include="..\..\sources\EC\scene_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\size_temp.cpp" />
+    <ClCompile Include="..\..\sources\EC\timer.cpp" />
+    <ClCompile Include="..\..\sources\EC\transform.cpp" />
+    <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
+    <ClCompile Include="..\..\sources\EC\quaternion.cpp" />
+    <ClCompile Include="..\..\sources\EC\factory.cpp" />
+    <ClCompile Include="..\..\sources\EC\factory_manager.cpp" />
+    <ClCompile Include="..\..\sources\EC\init_factories.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\EC\component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\transform.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\entity_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\mpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\messages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\messages_defs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\vector3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\fps_counter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\ec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\ec_defs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\scene_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\progress_bar.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\timer.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\sources\EC\size_temp.h">
-      <Filter>Header Files\Components</Filter>
-    <ClInclude Include="..\..\sources\EC\player_controller.h">
-      <Filter>Header Files\Components\Game</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\sources\EC\entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\transform.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\entity_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\vector3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\scene_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\progress_bar.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\timer.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\EC\size_temp.cpp">
-      <Filter>Source Files\Components</Filter>
-    <ClCompile Include="..\..\sources\EC\player_controller.cpp">
-      <Filter>Source Files\Components\Game</Filter>
-    </ClCompile>
+    <ClInclude Include="..\..\sources\EC\component.h" />
+    <ClInclude Include="..\..\sources\EC\ec.h" />
+    <ClInclude Include="..\..\sources\EC\ec_defs.h" />
+    <ClInclude Include="..\..\sources\EC\entity.h" />
+    <ClInclude Include="..\..\sources\EC\entity_manager.h" />
+    <ClInclude Include="..\..\sources\EC\fps_counter.h" />
+    <ClInclude Include="..\..\sources\EC\messages.h" />
+    <ClInclude Include="..\..\sources\EC\messages_defs.h" />
+    <ClInclude Include="..\..\sources\EC\mpl.h" />
+    <ClInclude Include="..\..\sources\EC\player_controller.h" />
+    <ClInclude Include="..\..\sources\EC\progress_bar.h" />
+    <ClInclude Include="..\..\sources\EC\scene.h" />
+    <ClInclude Include="..\..\sources\EC\scene_manager.h" />
+    <ClInclude Include="..\..\sources\EC\size_temp.h" />
+    <ClInclude Include="..\..\sources\EC\timer.h" />
+    <ClInclude Include="..\..\sources\EC\transform.h" />
+    <ClInclude Include="..\..\sources\EC\vector3D.h" />
+    <ClInclude Include="..\..\sources\EC\quaternion.h" />
+    <ClInclude Include="..\..\sources\EC\factory.h" />
+    <ClInclude Include="..\..\sources\EC\factory_manager.h" />
+    <ClInclude Include="..\..\sources\EC\init_factories.h" />
   </ItemGroup>
 </Project>

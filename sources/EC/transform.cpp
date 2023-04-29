@@ -99,11 +99,6 @@ namespace magma_engine
 	void Transform::setDirection(Vector3D v)
 	{
 		forward = v.normalize();
-
-		Message m;
-		m.id = _m_OBJECT_LOOKAT;
-		m.object_lookedat_data = { v.getX(), v.getY(), v.getZ() };
-		ent->send(m);
 	}
 
 	void Transform::lookAtPoint(Vector3D target)

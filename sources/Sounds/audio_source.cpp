@@ -28,7 +28,7 @@ namespace magma_engine
 		playing = false;
 		paused = false;
 
-		return true; // supongo
+		return true; 
 	}
 
 	void AudioSource::start()

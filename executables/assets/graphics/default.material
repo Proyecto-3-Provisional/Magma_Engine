@@ -1,0 +1,12 @@
+material default {	// nombre
+technique {			// al menos una
+	pass {		// al menos uno
+		diffuse 1.0 0.3 1.0
+		texture_unit {
+			texture default.png
+			colour_op modulate 	// replace;add
+			tex_address_mode wrap	// clamp;repeat
+			}
+		}
+	}
+}

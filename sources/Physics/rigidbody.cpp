@@ -7,7 +7,7 @@
 
 namespace magma_engine
 {
-	Rigidbody::Rigidbody() : proportions({1, 1, 1}), linearDamping(0.8f), angularDamping(0.8f)
+	Rigidbody::Rigidbody() : proportions({1, 1, 1}), linearDamping(0.5f), angularDamping(0)
 	{
 	}
 
@@ -44,13 +44,14 @@ namespace magma_engine
 
 	void Rigidbody::update(float deltaTime)
 	{
-
-		Vector3D pos = PhysicsManager::instance()->getPos(rigidPtr->getUserIndex());
-		
 		if (trPtr != nullptr)
 		{
 			// Actualizamos la posición del transform
-			trPtr->setPosition(pos);
+			trPtr->setPosition(PhysicsManager::instance()->getPos(rigidPtr->getUserIndex()));
+
+			// Actualizamos la rotación del collider 
+			Quaternion q = meshPtr->getOrientation();
+			rigidPtr->getWorldTransform().setRotation(btQuaternion(q.getX(), q.getY(), q.getZ(), q.getW()));
 
 			// Actualizamos la escala del collider en función del transform
 			rigidPtr->getCollisionShape()->setLocalScaling(btVector3(trPtr->getScale().getX(), trPtr->getScale().getY(), trPtr->getScale().getZ()));
@@ -90,6 +91,10 @@ namespace magma_engine
 	void Rigidbody::setAngularDamping(float d) {
 		angularDamping = d;
 		rigidPtr->setDamping(linearDamping, angularDamping);
+	}
+	Vector3D Rigidbody::getVelocity()
+	{
+		return Vector3D(rigidPtr->getLinearVelocity().getX(), rigidPtr->getLinearVelocity().getY(), rigidPtr->getLinearVelocity().getZ());
 	}
 }
 

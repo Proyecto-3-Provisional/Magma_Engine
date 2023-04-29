@@ -275,12 +275,12 @@ namespace magma_engine
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
-	// Los resursos gráficos se buscan en el directorio '/executables/assets'
+	// Los resursos gráficos se buscan en el directorio '/executables/assets/graphics'
 	// Se añaden ubicaciones para lenguajes de sharders con soporte
 	void RenderManagerContext::locateResources()
 	{
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-			Ogre::FileSystemLayer::resolveBundlePath(appPath + "assets"),
+			Ogre::FileSystemLayer::resolveBundlePath(appPath + "assets/graphics"),
 			"FileSystem");
 
 		Ogre::String sec = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;

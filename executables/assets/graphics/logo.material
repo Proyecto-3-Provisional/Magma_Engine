@@ -1,0 +1,14 @@
+material logo {
+technique {
+	pass {
+		depth_write off
+		scene_blend alpha_blend
+		diffuse 1.0 1.0 1.0
+		texture_unit {
+			texture logo.png
+			colour_op modulate
+			tex_address_mode wrap
+			}
+		}
+	}
+}

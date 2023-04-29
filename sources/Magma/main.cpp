@@ -31,8 +31,8 @@
 #include <Render/text.h>
 #include <Render/button.h>
 #include <Sounds/audio_source.h>
-#include <Magma/factory_manager.h>
-#include <Magma/init_factories.h>
+#include <EC/factory_manager.h>
+#include <EC/init_factories.h>
 #include <Lua/scene_loader.h>
 
 
@@ -62,7 +62,7 @@ int mainCode() {
 
 	// Carga de mapa
 	Singleton<magma_engine::SceneLoader>::init();
-	Singleton<magma_engine::SceneLoader>::instance()->loadScene("Assets/test.magmascene");
+	Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
 	Singleton<magma_engine::SceneLoader>::release();
 	// Carga de mapa
 
@@ -82,25 +82,23 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Cámara
-	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1500, 1000 });
-	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, 0, 0 });
+	Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1000, 0 });
+	Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, -1000, 0 });
 	Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
 	Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
 
 	// Sol
 	magma_engine::GraphicalObject* sol = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("sol", nullptr, "SUN");
-	sol->setLightColor(0.9f, 0.9f, 0.9f);
-	sol->setDirection({ 0.0f, 1.0f, -1.0f });
-
-	magma_engine::ec::Entity* solEnt = Singleton<magma_engine::ec::EntityManager>::instance()->addEntity();
-
+	sol->setLightColor(0.8f, 0.8f, 0.8f);
+	sol->setDirection({ 0.0f, -1.0f, 0.0f }, true);
+	
 	// Fondo
 	magma_engine::GraphicalObject* lavaBg = Singleton<magma_engine::RenderManager>::instance()->
 		addObject("background", nullptr, "mPlane1080x800", "magma_background");
 	lavaBg->setScale(1.67);	// Adaptar segun viewport camara
-	lavaBg->setPosition({ 0, 0, -225 });
-	lavaBg->pitch(-90.0f);
+	lavaBg->setPosition({ 0, -225, 0 });
+	lavaBg->yaw(90);
 
 	// ---------- Inicialización EC ----------
 
@@ -193,9 +191,24 @@ int mainCode() {
 	componentImageEntity->initComponent("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
 	componentImageEntity->start();
 
-	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
-	//	("./assets/loop.wav", 50, 2, true, true); 
-	//componentSound->start(); 
+	// Botones volumenes
+	magma_engine::Button* componentButtonVolEntity = imageEntity->addComponent<magma_engine::Button>();
+	componentButtonVolEntity->initComponent("ButtonDownVol", "buttonVol1_solid", "buttonVol1_solid", "buttonVol1_transparent", 50.0f, 50.0f, 350.0f, 350.0f);
+	componentButtonVolEntity->start();
+
+	magma_engine::Button* componentButtonVol2Entity = imageEntity->addComponent<magma_engine::Button>();
+	componentButtonVol2Entity->initComponent("ButtonUpVol", "buttonVol2_solid", "buttonVol2_solid", "buttonVol2_transparent", 50.0f, 50.0f, 650.0f, 350.0f);
+	componentButtonVol2Entity->start();
+
+	magma_engine::AudioSource* componentSoundEffect = imageEntity->addComponent<magma_engine::AudioSource>();
+	componentSoundEffect->initComponent("./assets/sounds/eat.wav", 50, 3, false, false);
+	componentSoundEffect->start();
+
+	magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>();
+	componentSound->initComponent("./assets/sounds/popcorn.wav", 50, 2, true, true);
+	componentSound->start();
+	
+	
 
 	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
 	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
@@ -261,15 +274,17 @@ int mainCode() {
 
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
-		/*if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
+		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 		{
-			progreso += 5.0f; 
+			/*progreso += 5.0f;
 			componentProgress->setProgress(progreso);
 
-			timeComponent->pause(); 
+			timeComponent->pause(); */
+			componentSoundEffect->playSong();
+
 		}
 
-		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
+		/*else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
 		{
 			timeComponent->resume();
 		}

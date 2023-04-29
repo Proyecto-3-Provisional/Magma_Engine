@@ -109,10 +109,9 @@ namespace magma_engine
 		camera->setFarClipDistance(10000);	//
 		camera->setAutoAspectRatio(true);	//
 		setCamPos(startPos);
+		setCamLookAt({ 0, 0, 0 });
 		if (cameraFollows)
 			setCamLookAt({ startPos.getX(), startPos.getY(), startPos.getZ() - 1000 });
-		else
-			setCamLookAt({ 0, 0, 0 });
 
 		cameraViewport = getRenderWindow()->addViewport(camera);
 	}
@@ -332,8 +331,8 @@ namespace magma_engine
 	{
 		Ogre::MeshManager::getSingleton().createPlane("mPlane1080x800",
 			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::Plane(Ogre::Vector3::UNIT_Z, 0), // vector normal, vector up
-			1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_Y);
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), // vector normal, vector up
+			1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_X);
 	}
 
 	// Usado en la práctica para desanclar la cámara de la jerarquía de objetos

@@ -116,6 +116,7 @@ namespace magma_engine
 		int r = luaL_dofile(L, filename.c_str());
 		if (r != LUA_OK) {
 			std::cout << "Error loading scene: " << filename << "\n";
+			delScene();
 			return -1; // ERROR al leer el fichero
 		}
 
@@ -158,11 +159,18 @@ namespace magma_engine
 			delete sceneMap;
 			sceneMap = nullptr;
 			// Deshacer lo hecho...
+			delScene();
 			return -1;
 		}
 		else {
 			lastLoadedScene = sceneMap;
 			return 0;
 		}
+	}
+
+	// Devuelve el fichero de la escena con todas las entidades y componentes
+	SceneMap* SceneLoader::getMapFile()
+	{
+		return lastLoadedScene;
 	}
 }
