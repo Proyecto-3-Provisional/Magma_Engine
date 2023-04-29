@@ -31,8 +31,8 @@
 #include <Render/text.h>
 #include <Render/button.h>
 #include <Sounds/audio_source.h>
-#include <Magma/factory_manager.h>
-#include <Magma/init_factories.h>
+#include <EC/factory_manager.h>
+#include <EC/init_factories.h>
 #include <Lua/scene_loader.h>
 
 
@@ -196,9 +196,24 @@ int mainCode() {
 	componentImageEntity->initComponent("ImgPrueba", "bubble", 200.0f, 200.0f, 100.0f, 100.0f);
 	componentImageEntity->start();
 
-	//magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>
-	//	("./assets/sounds/loop.wav", 50, 2, true, true); 
-	//componentSound->start(); 
+	// Botones volumenes
+	magma_engine::Button* componentButtonVolEntity = imageEntity->addComponent<magma_engine::Button>();
+	componentButtonVolEntity->initComponent("ButtonDownVol", "buttonVol1_solid", "buttonVol1_solid", "buttonVol1_transparent", 50.0f, 50.0f, 350.0f, 350.0f);
+	componentButtonVolEntity->start();
+
+	magma_engine::Button* componentButtonVol2Entity = imageEntity->addComponent<magma_engine::Button>();
+	componentButtonVol2Entity->initComponent("ButtonUpVol", "buttonVol2_solid", "buttonVol2_solid", "buttonVol2_transparent", 50.0f, 50.0f, 650.0f, 350.0f);
+	componentButtonVol2Entity->start();
+
+	magma_engine::AudioSource* componentSoundEffect = imageEntity->addComponent<magma_engine::AudioSource>();
+	componentSoundEffect->initComponent("./assets/sounds/eat.wav", 50, 3, false, false);
+	componentSoundEffect->start();
+
+	magma_engine::AudioSource* componentSound = imageEntity->addComponent<magma_engine::AudioSource>();
+	componentSound->initComponent("./assets/sounds/popcorn.wav", 50, 2, true, true);
+	componentSound->start();
+	
+	
 
 	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
 	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
@@ -264,15 +279,17 @@ int mainCode() {
 
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
-		/*if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
+		if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_SPACE))
 		{
-			progreso += 5.0f; 
+			/*progreso += 5.0f;
 			componentProgress->setProgress(progreso);
 
-			timeComponent->pause(); 
+			timeComponent->pause(); */
+			componentSoundEffect->playSong();
+
 		}
 
-		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
+		/*else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
 		{
 			timeComponent->resume();
 		}

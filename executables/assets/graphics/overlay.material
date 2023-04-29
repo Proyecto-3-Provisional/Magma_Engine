@@ -1,3 +1,59 @@
+material buttonVol1_solid {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
+			texture_unit {
+				texture botonvolv1.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material buttonVol1_transparent {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
+			texture_unit {
+				texture botonvolv2.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material buttonVol2_solid {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
+			texture_unit {
+				texture botonvolv3.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+material buttonVol2_transparent {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
+			texture_unit {
+				texture botonvolv4.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
 material button_solid {
 	technique {
 		pass {
