@@ -19,7 +19,9 @@ namespace magma_engine
 		audio = new AudioData();
 
 		audio->audio_path = path;
-		audio->volume = vol;
+
+		setVolume(vol); 
+
 		audio->channel = channel;
 
 		isLoop = loop;
@@ -33,16 +35,14 @@ namespace magma_engine
 
 	void AudioSource::start()
 	{
-		Singleton<SoundManager>::instance()->loadWAV(audio->audio_path.c_str(), audio->volume, audio->channel, isLoop);
+		Singleton<SoundManager>::instance()->loadWAV(audio);
 
 		if (hasStarted)
 			playSong();
 	}
 
-	void AudioSource::update(int frameTime)
+	void AudioSource::update(float frameTime)
 	{
-		playSong();
-
 		playing = !Singleton<SoundManager>::instance()->hasEnded(audio->channel);
 
 		if (playing)
@@ -60,7 +60,6 @@ namespace magma_engine
 
 			Singleton<SoundManager>::instance()->playSound(audio->channel);
 			playing = true;
-			toPlay = false;
 		}
 	}
 
@@ -96,7 +95,14 @@ namespace magma_engine
 
 	void AudioSource::setVolume(int vol)
 	{
-		audio->volume = vol;
+		if (vol < 0)
+			audio->volume = 0;
+		else if (vol > 100)
+			audio->volume = 100; 
+		else
+			audio->volume = vol;
+
+		Singleton<SoundManager>::instance()->setVolumeSongs(); 
 	}
 
 

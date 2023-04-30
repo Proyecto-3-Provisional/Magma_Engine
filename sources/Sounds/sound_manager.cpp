@@ -9,11 +9,7 @@ namespace magma_engine
 
 	SoundManager::~SoundManager()
 	{
-		for (int i = 0; i < songs.size(); i++)
 		{
-			delete songs[i];
-		}
-
 		songs.clear();
 	}
 
@@ -38,19 +34,14 @@ namespace magma_engine
 		Mix_CloseAudio();
 	}
 
-	void SoundManager::loadWAV(const char* path, int vol, int channel, bool loop)
+	void SoundManager::loadWAV(AudioData* data)
 	{
-		Mix_Chunk* wav = Mix_LoadWAV(path);
+		Mix_Chunk* wav = Mix_LoadWAV(data->audio_path.c_str());
 
 		if (wav == 0)
 			std::cout << ".wav can't be loaded\n";
 
-		AudioData* data = new AudioData;
-
 		data->wavSound = wav;
-		data->volume = vol;
-		data->channel = channel;
-		data->loop = loop;
 
 		songs.push_back(data);
 	}
@@ -66,7 +57,7 @@ namespace magma_engine
 
 		if (it != songs.end())
 		{
-			Mix_VolumeChunk((*it)->wavSound, volume * (*it)->volume * MIX_MAX_VOLUME);
+			Mix_VolumeChunk((*it)->wavSound, volume * (*it)->volume);
 
 			if (Mix_PlayChannel((*it)->channel, (*it)->wavSound, (*it)->loop) == -1)
 				std::cout << ".wav can't be played\n";
@@ -88,18 +79,12 @@ namespace magma_engine
 
 	void SoundManager::stopSound(int channel)
 	{
-		removeSong(channel);
 		Mix_HaltChannel(channel);
 	}
 
 	bool SoundManager::hasEnded(int channel)
 	{
-		bool end = !Mix_Playing(channel);
-
-		if (end)
-			removeSong(channel);
-
-		return end;
+		return !Mix_Playing(channel);
 	}
 
 	void SoundManager::removeSong(int channel)
@@ -120,15 +105,20 @@ namespace magma_engine
 	void SoundManager::setVolumeSongs()
 	{
 		for (size_t i = 0; i < songs.size(); i++)
-			Mix_VolumeChunk(songs[i]->wavSound, volume * songs[i]->volume * MIX_MAX_VOLUME);
+			Mix_VolumeChunk(songs[i]->wavSound, volume * songs[i]->volume);
 	}
 
-	void SoundManager::setVolume(int newVol)
+	void SoundManager::setVolume(float newVol)
 	{
-		volume = newVol;
+		if (newVol > 1)
+			volume = 1;
+		else if (newVol < 0)
+			volume = 0; 
+		else
+			volume = newVol;
 	}
 
-	int SoundManager::getVolume()
+	float SoundManager::getVolume()
 	{
 		return volume;
 	}

@@ -18,10 +18,10 @@ namespace magma_engine
 		virtual ~AudioSource();
 
 		// Establece los valores iniciales del sonido
-		virtual bool initComponent(std::string path, int vol, int channel, bool loop, bool start);
+		bool initComponent(std::string path, int vol, int channel, bool loop, bool start);
 
-		virtual void start();
-		virtual void update(int frameTime);
+		void start();
+		void update(float frameTime) override;
 
 
 		void playSong(); // Reproduce el audio si no se está reproduciendo
@@ -38,9 +38,10 @@ namespace magma_engine
 
 		AudioData* audio;
 
-		bool isLoop, hasStarted, playing, paused;
-
-		bool toPlay = false;
+		bool isLoop; 
+		bool hasStarted; 
+		bool playing; 
+		bool paused;
 	};
 }
 

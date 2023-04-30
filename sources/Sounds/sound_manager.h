@@ -32,7 +32,7 @@ namespace magma_engine
 		~SoundManager();
 
 		//Metodo para cargar los sonidos y poder ejecutarlos
-		void loadWAV(const char* path, int vol, int channel, bool loop);
+		void loadWAV(AudioData* data);
 
 		//Metodos para activar, parar, pausar y continuar con los sonidos
 		void playSound(int channel);
@@ -45,9 +45,9 @@ namespace magma_engine
 
 		//Metodos para indicar el volumen, cambiar el volumen de todas 
 		//las canciones y obtener el valor actual 
-		void setVolume(int soundVolume);
+		void setVolume(float soundVolume);
 		void setVolumeSongs();
-		int getVolume();
+		float getVolume();
 
 		//Metodo para inicializar el audio o cerrarlo
 		bool initAudio();
@@ -58,8 +58,8 @@ namespace magma_engine
 
 	private:
 
-		//Volumen general 
-		int volume;
+		//Volumen general (De 0 a 1)
+		float volume;
 
 		//Vector de canciones
 		std::vector<AudioData*> songs;
