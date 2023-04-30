@@ -9,7 +9,6 @@ namespace magma_engine
 
 	SoundManager::~SoundManager()
 	{
-		{
 		songs.clear();
 	}
 
