@@ -40,15 +40,13 @@ namespace magma_engine
 
 	bool Mesh::initComponent(std::map<std::string, std::string> args)
 	{
-		// Pasar asignaciones de componentes a Start()
-		trPtr = ent->getComponent<Transform>();
-
-		if (trPtr == nullptr)
-			return false;
-
 		gObjPtr = RenderManager::instance()->addObject(args["entityName"], nullptr, args["mesh"], args["material"]);
-
 		return (gObjPtr != nullptr);
+	}
+
+	void Mesh::start()
+	{
+		trPtr = ent->getComponent<Transform>();
 	}
 
 	void Mesh::update(float deltaTime)
