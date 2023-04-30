@@ -1,8 +1,6 @@
 #pragma once
 
-#include <map>
-#include <string>
-
+#include <Lua/scene_loader.h>
 namespace magma_engine
 {
 	class Scene
@@ -13,10 +11,7 @@ namespace magma_engine
 
 		void update(float deltaTime);
 
-		bool loadScene(std::map<std::string,
-						std::map<std::string,
-							std::map<std::string,
-								std::string>>>* map);
+		bool loadScene(SceneMap* map);
 
 		bool isValid();
 

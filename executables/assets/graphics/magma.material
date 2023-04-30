@@ -27,11 +27,12 @@ technique {
 material lava {
 technique {
 	pass {
-		diffuse 1.0 1.0 1.0
-		texture_unit {
-			texture lava.jpg
-			colour_op modulate
-			tex_address_mode wrap
+		depth_write off
+			diffuse vertexcolour
+			texture_unit {
+				texture lava.jpg
+				tex_address_mode clamp
+				colour_op modulate
 			}
 		}
 	}

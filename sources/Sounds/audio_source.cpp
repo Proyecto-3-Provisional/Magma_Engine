@@ -33,6 +33,23 @@ namespace magma_engine
 		return true; 
 	}
 
+	bool AudioSource::initComponent(std::map<std::string, std::string> args)
+	{
+		audio = new AudioData();
+
+		audio->audio_path = "./assets/sounds/" + args["path"];
+		audio->volume = stoi(args["vol"]);
+		audio->channel = stoi(args["channel"]);
+
+		isLoop = stoi(args["loop"]);
+		hasStarted = stoi(args["start"]);
+
+		playing = false;
+		paused = false;
+
+		return true;
+	}
+
 	void AudioSource::start()
 	{
 		Singleton<SoundManager>::instance()->loadWAV(audio);

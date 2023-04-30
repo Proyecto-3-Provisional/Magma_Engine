@@ -127,6 +127,8 @@ namespace magma_engine
 			// mandarse inmediatamente o mas tarde cuando llamamos a flushMessages
 			void send(const Message& m, bool delay = false); //por ahora no tenemos flush de mensajes implementado, dejar elay a false
 
+			std::vector<Component*> getAllCmps();
+
 		private:
 
 			EntityManager* mngr;

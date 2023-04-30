@@ -1,7 +1,8 @@
 #include <EC/scene.h>
 #include <EC/entity_manager.h>
 #include <EC/factory_manager.h>
-#include <Lua/scene_loader.h>
+
+#include <Render/render_manager.h>
 
 namespace magma_engine
 {
@@ -27,6 +28,11 @@ namespace magma_engine
 	{
 		bool noErrors = true;
 
+		Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1000, 0 });
+		Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, -1000, 0 });
+		Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
+		Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
+
 		if (map != nullptr)
 		{
 			for (auto itEntity = map->begin(); itEntity != map->end(); itEntity++)
@@ -37,10 +43,22 @@ namespace magma_engine
 				{
 					ec::Component* c = Singleton<FactoryManager>::instance()->findAndCreate(itComponent->first, e);
 					noErrors = noErrors && c->initComponent(itComponent->second);
+
+					// Si el componente falla, hay que borrarlo
+
 				}
 			}
 		}
 		else return false;
+		
+		for (ec::Entity* e : ec::EntityManager::instance()->getEntities())
+		{
+			for (int i = 0; i < e->getAllCmps().size(); i++)
+			{
+				e->getAllCmps()[i]->start();
+			}
+		}
+
 		
 		return noErrors;
 	}

@@ -3,25 +3,54 @@
 entities = {
 	axolotl = {
 		Transform = {
-			pX = 1,
-			pY = 2,
-			pZ = 4,
-			sX = 1,
-			sY = 1,
-			sZ = 1
+			PositionX = 1,
+			PositionY = 5,
+			PositionZ = 4,
+			ScaleX = 40,
+			ScaleY = 40,
+			ScaleZ = 40
 		},
 		Mesh = {
-			name = "mesh_axolotl",
-			shape = "cube.mesh",
-			material = "default",
+			entityName = "mesh_axolotl",
+			mesh = "axolotl.mesh",
+			material = "axolotl",
+		},
+		Rigidbody = {
 		}
 	},
 	cube = {
 		Transform = {
-			pX = 1.25,
-			pZ = 3.75
+			PositionX = 1.25,
+			PositionY = 4,
+			PositionZ = 3.75,
+			ScaleX = 1,
+			ScaleY = 1,
+			ScaleZ = 1
 		},
 		Mesh = {
+		}
+	},
+
+	solesito = {
+		Transform = {
+			PositionX = 1.25,
+			PositionY = 4,
+			PositionZ = 3.75,
+			ScaleX = 1,
+			ScaleY = 1,
+			ScaleZ = 1
+		},
+		Mesh = {
+			entityName = "sehisolalus",
+			mesh = "SUN",
+			material = "default",
+		},
+		AudioSource = {
+			path = "popcorn.wav",
+			vol = 50,
+			channel = 2,
+			loop = 1,
+			start = 1
 		}
 	}
 }

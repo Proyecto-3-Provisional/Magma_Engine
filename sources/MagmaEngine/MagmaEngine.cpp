@@ -9,6 +9,8 @@
 #include <Sounds/sound_manager.h>
 #include <EC/scene_manager.h>
 #include <Lua/scene_loader.h>
+#include <EC/factory_manager.h>
+#include <EC/init_factories.h>
 
 #include "SDL_timer.h"
 
@@ -85,9 +87,11 @@ namespace magma_engine
 					&& Singleton<SoundManager>::init()	// ------ SOUND ------
 					&& Singleton<SceneManager>::init()	// ------ SCENE MANAGER ------
 					&& Singleton<SceneLoader>::init()	// ------ SCENE_LOADER ------
+					&& Singleton<magma_engine::FactoryManager>::init()
 					)
 				{
 					Singleton<magma_engine::SoundManager>::instance()->initAudio();
+					setUpFactories();
 					return true;
 				}
 				else {

@@ -19,6 +19,7 @@ namespace magma_engine
 
 		// Establece los valores iniciales del sonido
 		bool initComponent(std::string path, int vol, int channel, bool loop, bool start);
+		bool initComponent(std::map<std::string, std::string> args);
 
 		void start();
 		void update(float frameTime) override;
