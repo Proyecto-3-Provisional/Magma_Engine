@@ -14,15 +14,15 @@ namespace magma_engine
 		struct Component
 		{
 		public:
-			Component() : ent(), mngr() {}
-			Component(Entity* entity) : ent(), mngr() { ent = entity; }
-			virtual ~Component() { }
+			Component();
+			Component(Entity* entity);
+			virtual ~Component() {}
 			void setContext(Entity* ent_, EntityManager* mngr_);
-			inline bool isEnable() { return enable; }
+			bool isEnable();
 			void setEnable(bool set_);
 
-			virtual bool initComponent() { return false; };
-			virtual bool initComponent(std::map<std::string, std::string> args) { return false; };
+			virtual bool initComponent();
+			virtual bool initComponent(std::map<std::string, std::string> args);
 			virtual void start() {};
 			virtual void update(float deltaTime) {};
 			virtual void render() {};
