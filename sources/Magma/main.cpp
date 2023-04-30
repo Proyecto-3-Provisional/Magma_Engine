@@ -146,6 +146,8 @@ int mainCode() {
 		Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
 
+		Singleton<magma_engine::PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
+
 		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
 
 		/*else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))

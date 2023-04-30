@@ -26,13 +26,34 @@ namespace magma_engine
 			enemySpeed = playerSpeed_;
 			timeBetweenMovements = timeBetweenMovements_;
 			currTimeBetweenMovements = timeBetweenMovements;
-			
+
 			Vector3D movementDirection(0, 0, 0);
 		}
 		catch (...) {
 			return false;
 		}
 		return false;
+	}
+
+	bool PlayerController::initComponent(std::map<std::string, std::string> args)
+	{
+		try {
+			enemySpeed = stof(args["playerSpeed"]);
+			timeBetweenMovements = stof(args["timeBetweenMovements"]);
+			currTimeBetweenMovements = stof(args["timeBetweenMovements"]); ;
+
+			Vector3D movementDirection(0, 0, 0);
+		}
+		catch (...) {
+			return false;
+		}
+		return true;
+	}
+
+	void PlayerController::start()
+	{
+		tr = ent->getComponent<Transform>();
+		rb = ent->getComponent<Rigidbody>();
 	}
 
 	void PlayerController::update(float deltaTime)
@@ -44,14 +65,14 @@ namespace magma_engine
 
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_A)) {
 
-				rb->addForce(Vector3D(-1, 0, 0) * enemySpeed * deltaTime);
+				rb->addForce(Vector3D(-1, 0, 0) * enemySpeed);
 				movementDirection += Vector3D(-1, 0, 0);
 				move = true;
 			}
 		
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_D)) {
 
-				rb->addForce(Vector3D(1, 0, 0) * enemySpeed * deltaTime);
+				rb->addForce(Vector3D(1, 0, 0) * enemySpeed);
 				movementDirection += Vector3D(1, 0, 0);
 
 				move = true;
@@ -60,7 +81,7 @@ namespace magma_engine
 
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_W)) {
 
-				rb->addForce(Vector3D(0, 0, -1) * enemySpeed * deltaTime);
+				rb->addForce(Vector3D(0, 0, -1) * enemySpeed);
 				movementDirection += Vector3D(0, 0, -1);
 
 				move = true;
@@ -69,7 +90,7 @@ namespace magma_engine
 
 			if (Singleton<InputManager>::instance()->isKeyDown(SCANCODE_S)) {
 
-				rb->addForce(Vector3D(0, 0, 1) * enemySpeed * deltaTime);
+				rb->addForce(Vector3D(0, 0, 1) * enemySpeed);
 				movementDirection += Vector3D(0, 0, 1);
 
 				move = true;

@@ -25,16 +25,15 @@ namespace magma_engine
 
 	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
 	{
-		
 
 		return true;
 	}
 
 	void Rigidbody::start()
 	{
-		// Pasar asignaciones de componentes al Start()
 		trPtr = ent->getComponent<Transform>();
 		meshPtr = ent->getComponent<Mesh>();
+
 
 		Vector3D pos = trPtr->getPos();
 		proportions = meshPtr->getProportions();

@@ -42,7 +42,7 @@ namespace magma_engine
 				for (auto itComponent = itEntity->second.begin(); itComponent != itEntity->second.end(); itComponent++)
 				{
 					ec::Component* c = Singleton<FactoryManager>::instance()->findAndCreate(itComponent->first, e);
-					noErrors = noErrors && c->initComponent(itComponent->second);
+					noErrors = c->initComponent(itComponent->second) && noErrors;
 
 					// Si el componente falla, hay que borrarlo
 

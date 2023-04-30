@@ -6,9 +6,9 @@ entities = {
 			PositionX = 1,
 			PositionY = 5,
 			PositionZ = 4,
-			ScaleX = 40,
-			ScaleY = 40,
-			ScaleZ = 40
+			ScaleX = 25,
+			ScaleY = 25,
+			ScaleZ = 25
 		},
 		Mesh = {
 			entityName = "mesh_axolotl",
@@ -16,6 +16,11 @@ entities = {
 			material = "axolotl",
 		},
 		Rigidbody = {
+			
+		},
+		PlayerController = {
+			playerSpeed = 250,
+			timeBetweenMovements = 1
 		}
 	},
 	cube = {

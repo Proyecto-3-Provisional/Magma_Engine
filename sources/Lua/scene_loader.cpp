@@ -93,7 +93,7 @@ namespace magma_engine
 			if (lua_istable(L, -1))
 			{
 				std::map<std::string, std::string> auxM;
-				if (readComponent(L, &auxM) > 0)
+				if (readComponent(L, &auxM) >= 0)
 				{
 					// añadir componente
 					cmpsM->insert(std::make_pair(componentName, auxM));

@@ -14,6 +14,8 @@ namespace magma_engine
 		~PlayerController();
 
 		bool initComponent(float playerSpeed_ = 10000.0f, float timeBetweenMovements_ = 1.0f);
+		virtual bool initComponent(std::map<std::string, std::string> args);
+		virtual void start(); 
 		void update(float deltaTime);
 
 
