@@ -14,7 +14,7 @@ material bubble {
 	}
 }
 
-material bubble_color {
+material bubble_blue {
 	technique {
 		pass {
 			lighting off
@@ -22,7 +22,7 @@ material bubble_color {
 			depth_write off
 			diffuse vertexcolour
 			texture_unit {
-				texture bubble_color.png
+				texture bubble_blue.png
 				tex_address_mode clamp
 				colour_op modulate
 			}
