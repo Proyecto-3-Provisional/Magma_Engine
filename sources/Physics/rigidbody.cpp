@@ -32,7 +32,7 @@ namespace magma_engine
 		proportions = meshPtr->getProportions();
 
 		if (PhysicsManager::instance() != nullptr) {
-			int index = PhysicsManager::instance()->addRigidBody(proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2,
+			int index = PhysicsManager::instance()->addRigidBody(ent, proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2,
 				pos.getX(), pos.getY(), pos.getZ());
 
 			rigidPtr = PhysicsManager::instance()->getRigidBody(index);
@@ -64,12 +64,12 @@ namespace magma_engine
 
 	bool Rigidbody::isOnCollision()
 	{
-		return (PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex()).size() > 0);
+		return (PhysicsManager::instance()->getArrayOfColliders(rigidPtr->getUserIndex()).size() > 0);
 	}
 
-	std::vector<int> Rigidbody::getCollisionObjs()
+	std::vector<ec::Entity*> Rigidbody::getCollisionObjs()
 	{
-		return PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
+		return PhysicsManager::instance()->getArrayOfColliders(rigidPtr->getUserIndex());
 	}
 
 	void Rigidbody::addForce(const Vector3D& force)

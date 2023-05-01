@@ -28,7 +28,8 @@ namespace magma_engine
 		return 1;
 	}
 
-	int PhysicsManager::addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform)
+	int PhysicsManager::addRigidBody(ec::Entity* e, const double& xShape, const double& yShape, const double& zShape, 
+		const double& xTransform, const double& yTransform, const double& zTransform)
 	{
 		btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
 
@@ -54,10 +55,9 @@ namespace magma_engine
 		body->setActivationState(DISABLE_DEACTIVATION);
 
 		body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
-		//body->setUserIndex(lastUserIndex);
-		//lastUserIndex++;
 
 		dynamicsWorld->addRigidBody(body);
+		entities.push_back(e);
 
 		return body->getUserIndex();
 	}
@@ -75,11 +75,18 @@ namespace magma_engine
 
 		int size = dynamicsWorld->getCollisionObjectArray().size();
 
-		if (size > 0 && size != userIndex) {
+		// Como el array de colisiones rellena el hueco con el último elemento...
+		if (size > 0 && size != userIndex) { // Si el que hemos eliminado no era el último...
 			btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
 			btRigidBody* body1 = btRigidBody::upcast(obj1);
-			body1->setUserIndex(userIndex);
+			body1->setUserIndex(userIndex); // Actualizamos su índice (para que se corresponda con su nueva pos en el array)
+			
+			entities[userIndex] = entities.back(); // Actualizamos el vector de entidades
 		}
+		
+		// Eliminamos la última entidad del vector. Bien porque el rigidbody era el último del array o porque
+		// no lo era y copiamos el último al hueco dejado por el eliminado
+		entities.pop_back();
 	}
 
 	void PhysicsManager::deleteRigidBodies(std::vector<int>& vIndex)
@@ -160,14 +167,14 @@ namespace magma_engine
 		return colision;
 	}
 
-	std::vector<int> PhysicsManager::getArrayOfIndexColliders(int index)
+	std::vector<ec::Entity*> PhysicsManager::getArrayOfColliders(int index)
 	{
 		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
 		btRigidBody* body = btRigidBody::upcast(obj);
 
 		btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
 
-		std::vector<int> colliders;
+		std::vector<ec::Entity*> colliders;
 		for (int i = 0; i < collisionPairs.size(); ++i) {
 			btBroadphasePair& collisionPair = collisionPairs[i];
 
@@ -176,8 +183,8 @@ namespace magma_engine
 
 			if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
 
-				if (body == body1Pair) colliders.push_back(body2Pair->getUserIndex());
-				else if (body == body2Pair) colliders.push_back(body1Pair->getUserIndex());
+				if (body == body1Pair) colliders.push_back(entities[body2Pair->getUserIndex()]);
+				else if (body == body2Pair) colliders.push_back(entities[body1Pair->getUserIndex()]);
 			}
 		}
 
@@ -245,6 +252,8 @@ namespace magma_engine
 		delete collisionConfiguration;
 
 		collisionShapes.clear();
+
+		entities.clear();
 	}
 }
 

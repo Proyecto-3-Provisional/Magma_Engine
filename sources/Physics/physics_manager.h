@@ -2,6 +2,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <singleton.h>
 #include <vector>
+#include <EC/entity.h>
 
 namespace magma_engine
 {
@@ -14,7 +15,8 @@ namespace magma_engine
 		~PhysicsManager();
 
 		//Metodo para añadir un elemento rigidbody 
-		int addRigidBody(const double& xShape, const double& yShape, const double& zShape, const double& xTransform, const double& yTransform, const double& zTransform);
+		int addRigidBody(ec::Entity* e, const double& xShape, const double& yShape, const double& zShape, 
+			const double& xTransform, const double& yTransform, const double& zTransform);
 
 		//Metodos para eliminar rigidbodys almacenados 
 		void deleteRigidBody(const int& userIndex);
@@ -30,7 +32,7 @@ namespace magma_engine
 		bool isCollide(const int& index1, const int& index2);
 
 		//Metodo para obtener un vector con 
-		std::vector<int> getArrayOfIndexColliders(int index);
+		std::vector<ec::Entity*> getArrayOfColliders(int index);
 
 		Vector3D getPos(int index);
 
@@ -50,7 +52,8 @@ namespace magma_engine
 		btSequentialImpulseConstraintSolver* solver;
 		btDiscreteDynamicsWorld* dynamicsWorld;
 		btAlignedObjectArray<btCollisionShape*> collisionShapes;
-		//int lastUserIndex = 0;
+		
+		std::vector<ec::Entity *> entities;
 	};
 }
 
