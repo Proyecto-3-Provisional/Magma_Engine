@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Lua/scene_loader.h>
+
 namespace magma_engine
 {
 	class Scene
