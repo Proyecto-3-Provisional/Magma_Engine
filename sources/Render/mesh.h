@@ -36,4 +36,3 @@ namespace magma_engine
 		Transform* trPtr = nullptr;
 	};
 }
-
