@@ -2,11 +2,7 @@
 #include <EC/factory_manager.h>
 
 #include <EC/entity.h>
-#include <EC/player_controller.h>
-#include <EC/enemy_controller.h>
 #include <EC/transform.h>
-#include <EC/progress_bar.h>
-#include <EC/timer.h>
 
 #include <Physics/rigidbody.h>
 
@@ -55,26 +51,6 @@ namespace magma_engine
 		return e->addComponent<Text>();
 	}
 
-	ec::Component* ProgressBarFactory::createComponent(ec::Entity* e)
-	{
-		return e->addComponent<Progress_Bar>();
-	}
-
-	ec::Component* TimerFactory::createComponent(ec::Entity* e)
-	{
-		return e->addComponent<Timer>();
-	}
-
-	ec::Component* PlayerControllerFactory::createComponent(ec::Entity* e)
-	{
-		return e->addComponent<PlayerController>();
-	}
-
-	ec::Component* EnemyControllerFactory::createComponent(ec::Entity* e)
-	{
-		return e->addComponent<EnemyController>();
-	}
-
 	void setUpFactories()
 	{
 		FactoryManager::instance()->addFactory("Transform", new TransformFactory());
@@ -84,10 +60,6 @@ namespace magma_engine
 		FactoryManager::instance()->addFactory("Button", new ButtonFactory());
 		FactoryManager::instance()->addFactory("Image", new ImageFactory());
 		FactoryManager::instance()->addFactory("Text", new TextFactory());
-		FactoryManager::instance()->addFactory("PlayerController", new PlayerControllerFactory());
-		FactoryManager::instance()->addFactory("EnemyController", new EnemyControllerFactory());
-		FactoryManager::instance()->addFactory("ProgressBar", new ProgressBarFactory());
-		FactoryManager::instance()->addFactory("Timer", new TimerFactory());
 	}
 }
 
