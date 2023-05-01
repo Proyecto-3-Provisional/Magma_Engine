@@ -28,12 +28,22 @@ namespace magma_engine
 		playing = false;
 		paused = false;
 
+		if (audio->audio_path == "")
+		{
+			std::cout << "WARNING! - No hay un archivo de sonido en AudioSource \n\n";
+			return false;
+		}
+
 		return true;
 	}
 
 	bool AudioSource::start()
 	{
-		Singleton<SoundManager>::instance()->loadWAV(audio);
+		if (!Singleton<SoundManager>::instance()->loadWAV(audio))
+		{
+			std::cout << "WARNING! - error al cargar un sonido WAV, se recomienda mirar si el archivo existe o si esta bien escrito su nombre \n\n";
+			return false;
+		}
 
 		if (hasStarted)
 			playSong();

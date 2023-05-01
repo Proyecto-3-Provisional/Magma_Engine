@@ -32,7 +32,7 @@ namespace magma_engine
 		~SoundManager();
 
 		//Metodo para cargar los sonidos y poder ejecutarlos
-		void loadWAV(AudioData* data);
+		bool loadWAV(AudioData* data);
 
 		//Metodos para activar, parar, pausar y continuar con los sonidos
 		void playSound(int channel);

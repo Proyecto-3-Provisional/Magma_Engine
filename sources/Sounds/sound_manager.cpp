@@ -33,16 +33,18 @@ namespace magma_engine
 		Mix_CloseAudio();
 	}
 
-	void SoundManager::loadWAV(AudioData* data)
+	bool SoundManager::loadWAV(AudioData* data)
 	{
 		Mix_Chunk* wav = Mix_LoadWAV(data->audio_path.c_str());
 
 		if (wav == 0)
-			std::cout << ".wav can't be loaded\n";
+			return false;
 
 		data->wavSound = wav;
 
 		songs.push_back(data);
+		
+		return true;
 	}
 
 	//Interacciones con el sonido

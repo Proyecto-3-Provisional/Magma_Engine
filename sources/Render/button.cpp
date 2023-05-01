@@ -23,6 +23,12 @@ namespace magma_engine
 			buttonName, normalButtonName, hoverButtonName,
 			pressedButtonName, posX, posY, tamX, tamY);
 
+		if (button == nullptr)
+		{
+			std::cout << "WARNING! - error al cargar button \n\n";
+			return false;
+		}
+
 		button->setPanelPosition(posX, posY);
 		button->setPanelSize(tamX, tamY);
 		button->setInteractive(true);

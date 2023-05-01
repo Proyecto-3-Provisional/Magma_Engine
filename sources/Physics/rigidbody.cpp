@@ -50,7 +50,7 @@ namespace magma_engine
 				rigidPtr->setDamping(linearDamping, angularDamping);
 			}
 			else
-				std::cout << "WARNING! - physicsManager no creado\n";
+				std::cout << "WARNING! - physicsManager no creado\n\n";
 		}
 		catch (std::exception& e) {
 			std::cout << "WARNING! - error en un componente rigidbody:\n\n     " << e.what() << "\n\n";

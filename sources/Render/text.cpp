@@ -55,6 +55,12 @@ namespace magma_engine
 		text = Singleton<UI_Manager>::instance()->createElement<UI_Text>(
 				textReference, textTitle, posX, posY, tamX, tamY);
 
+		if (text == nullptr)
+		{
+			std::cout << "WARNING! - error al cargar text:\n\n";
+			return false;
+		}
+
 		text->setTextPosition(posX, posY);
 		text->setTextSize(tamX, tamY);
 

@@ -37,7 +37,7 @@ namespace magma_engine
 		}
 		catch (std::exception e)
 		{
-			std::cout << "Image Component : " << e.what();
+			std::cout << "WARNING!- error en un componente Image : \n\n     " << e.what();
 			return false;
 		}
 
@@ -48,6 +48,12 @@ namespace magma_engine
 	{
 		image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(
 				imageName, normalName, posX, posY, tamX, tamY);
+
+		if (image == nullptr)
+		{
+			std::cout << "WARNING!- error al cargar Image  \n\n";
+			return false;
+		}
 
 		image->setPanelPosition(posX, posY);
 		image->setPanelSize(tamX, tamY);
