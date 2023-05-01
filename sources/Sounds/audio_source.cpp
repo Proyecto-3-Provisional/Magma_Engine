@@ -31,12 +31,14 @@ namespace magma_engine
 		return true;
 	}
 
-	void AudioSource::start()
+	bool AudioSource::start()
 	{
 		Singleton<SoundManager>::instance()->loadWAV(audio);
 
 		if (hasStarted)
 			playSong();
+
+		return true;
 	}
 
 	void AudioSource::update(float frameTime)

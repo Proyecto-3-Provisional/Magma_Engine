@@ -24,9 +24,10 @@ namespace magma_engine
 		return true; 
 	}
 
-	void Timer::start() 
+	bool Timer::start()
 	{
-		reset(); 
+		reset();
+		return true;
 	}
 
 	void Timer::onEnable() 

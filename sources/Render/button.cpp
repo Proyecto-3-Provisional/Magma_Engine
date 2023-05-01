@@ -19,14 +19,17 @@ namespace magma_engine
 		return buttonName;
 	}
 
-	void Button::start()
+	bool Button::start()
 	{
-		button = Singleton<UI_Manager>::instance()->createElement<UIButton>(buttonName, normalButtonName, hoverButtonName,
+		button = Singleton<UI_Manager>::instance()->createElement<UIButton>(
+			buttonName, normalButtonName, hoverButtonName,
 			pressedButtonName, posX, posY, tamX, tamY);
 
 		button->setPanelPosition(posX, posY);
 		button->setPanelSize(tamX, tamY);
 		button->setInteractive(true);
+
+		return true;
 	}
 
 	bool Button::initComponent(std::map<std::string, std::string> args)

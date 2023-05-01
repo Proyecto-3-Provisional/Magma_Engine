@@ -40,9 +40,10 @@ namespace magma_engine
 		return true;
 	}
 
-	void Text::start()
+	bool Text::start()
 	{
-		text = Singleton<UI_Manager>::instance()->createElement<UI_Text>(textReference, textTitle, posX, posY, tamX, tamY);
+		text = Singleton<UI_Manager>::instance()->createElement<UI_Text>(
+				textReference, textTitle, posX, posY, tamX, tamY);
 
 		text->setTextPosition(posX, posY);
 		text->setTextSize(tamX, tamY);
@@ -50,6 +51,8 @@ namespace magma_engine
 		text->setFont(fontName);
 		text->setText(textContent);
 		text->setTextColor(red, green, blue);
+
+		return true;
 	}
 
 	void Text::onEnable()

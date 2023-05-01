@@ -23,7 +23,7 @@ namespace magma_engine
 		virtual void onDisable();
 
 		//Metodo para inicializar el componente
-		virtual void start();
+		virtual bool start();
 
 		//Metodo para actualizar el componente
 		virtual void update(float deltaTime);

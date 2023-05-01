@@ -34,13 +34,16 @@ namespace magma_engine
 		return true;
 	}
 
-	void Image::start()
+	bool Image::start()
 	{
-		image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(imageName, normalName, posX, posY, tamX, tamY);
+		image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(
+				imageName, normalName, posX, posY, tamX, tamY);
 
 		image->setPanelPosition(posX, posY);
 		image->setPanelSize(tamX, tamY);
 		image->setInteractive(interactive);
+
+		return true;
 	}
 
 	void Image::onEnable()

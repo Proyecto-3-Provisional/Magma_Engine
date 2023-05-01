@@ -16,19 +16,20 @@ namespace magma_engine
 		public:
 			Component();
 			Component(Entity* entity);
-			virtual ~Component() {}
+			virtual ~Component();
 			void setContext(Entity* ent_, EntityManager* mngr_);
 			bool isEnable();
 			void setEnable(bool set_);
 
+			// ¡Si el componente falla, hay que borrar lo que haya ya creado!
 			virtual bool initComponent(std::map<std::string, std::string> args);
-			virtual void start() {};
-			virtual void update(float deltaTime) {};
-			virtual void render() {};
-			virtual void onEnable() {};
-			virtual void onDisable() {};
+			virtual bool start();
+			virtual void update(float deltaTime);
+			virtual void render();
+			virtual void onEnable();
+			virtual void onDisable();
 
-			virtual void recieve(const Message&) {};
+			virtual void recieve(const Message&);
 
 		protected:
 

@@ -1,7 +1,6 @@
 #include <EC/factory_manager.h>
 #include <EC/factory.h>
 
-
 namespace magma_engine
 {
 	FactoryManager::~FactoryManager()
@@ -14,10 +13,9 @@ namespace magma_engine
 	ec::Component* FactoryManager::findAndCreate(const std::string& name, ec::Entity* e)
 	{
 		std::map<std::string, Factory*>::iterator it = map_.find(name);
-		if (it != map_.end())
-			return (*it).second->createComponent(e);
-
-		throw "ERROR: NO SE HA PODIDO LEER EL COMPONENTE: " + name + "\n";
+		if (it == map_.end())
+			return nullptr;
+		return (*it).second->createComponent(e);
 	}
 
 	void FactoryManager::addFactory(const std::string& name, Factory* f)

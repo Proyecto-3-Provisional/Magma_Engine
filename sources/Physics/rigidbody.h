@@ -20,7 +20,7 @@ namespace magma_engine
 		~Rigidbody();
 
 		virtual bool initComponent(std::map<std::string, std::string> args);
-		virtual void start();
+		virtual bool start();
 		virtual void update(float deltaTime) override;
 
 		bool isOnCollision(); // Determina si el objeto se encuentra en colisión con otros objetos

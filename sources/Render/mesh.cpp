@@ -32,9 +32,10 @@ namespace magma_engine
 		return (gObjPtr != nullptr);
 	}
 
-	void Mesh::start()
+	bool Mesh::start()
 	{
 		trPtr = ent->getComponent<Transform>();
+		return (trPtr != nullptr);
 	}
 
 	void Mesh::update(float deltaTime)
