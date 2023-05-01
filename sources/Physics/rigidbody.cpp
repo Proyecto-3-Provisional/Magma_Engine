@@ -42,13 +42,17 @@ namespace magma_engine
 			proportions = meshPtr->getProportions();
 
 		if (PhysicsManager::instance() != nullptr) {
+
+
 			int index = PhysicsManager::instance()->addRigidBody(
+				ent,
 				proportions.getX() / 2,
 				proportions.getY() / 2,
 				proportions.getZ() / 2,
 				pos.getX(),
 				pos.getY(),
-				pos.getZ());
+				pos.getZ()
+			);
 
 				rigidPtr = PhysicsManager::instance()->getRigidBody(index);
 
