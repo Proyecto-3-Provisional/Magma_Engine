@@ -76,7 +76,7 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Carga de mapa
-	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
+	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/menu.magmascene");
 	bool sceneCreated = false;
 	magma_engine::Scene* scn = nullptr;
 	if (sceneRead >= 0) {
@@ -91,7 +91,9 @@ int mainCode() {
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
 	int s = 50;
-	if (sceneCreated) {
+
+	if (sceneCreated) 
+	{
 		while (!Singleton<magma_engine::InputManager>::instance()->exitRequested() && !error && s > 0)
 		{
 			// Marcas de tiempo y cálculo del "delta"
@@ -116,6 +118,7 @@ int mainCode() {
 				std::cout << f <<
 					" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
 			}
+
 			//Renderizar fotogramas de uno en uno
 			if (!Singleton<magma_engine::RenderManager>::instance()->renderFrame())
 				error = true;
@@ -142,7 +145,8 @@ int mainCode() {
 
 
 	// Carga de mapa
-	if (sceneRead >= 0) {
+	if (sceneRead >= 0) 
+	{
 		if (sceneCreated)
 			Singleton<magma_engine::SceneManager>::instance()->popScene();
 		delete scn;

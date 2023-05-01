@@ -1,0 +1,8 @@
+font minecraft_font
+{
+	zorder 1
+	type 		truetype
+	source 				minecraft_font.ttf
+	size 		15
+	resolution 	180
+}

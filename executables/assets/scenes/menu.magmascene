@@ -1,0 +1,114 @@
+SceneLoader:printInfo()
+
+entities = 
+{
+	background = {
+		Image = {
+			overlayName = "ImgFondo",
+			name = "magma_background",
+			width = 1280,
+			height = 720,
+			x = 0,
+			y = 0
+		}
+	},
+
+	titleImage = {
+		Image = {
+			overlayName = "ImgFondoTlile",
+			name = "button_transparent",
+			width = 750,
+			height = 80,
+			x = 270,
+			y = 190
+		}, 
+
+		Text = {
+			overlayName = "textito",
+			title = "textaco",
+			font = "minecraft_font",
+			textCont = "The Rise of Suxalote",
+			width = 60,
+			height = 60,
+			x = 300,
+			y = 200,
+			r = 1,
+			g = 1,
+			b = 1
+		}
+	}, 
+
+	buttonStart = 
+	{
+		Button = {
+			overlayName = "buttonPrueba",
+			imageName = "button_solid",
+			hoverImageName = "button_transparent",
+			pressedImageName = "button_bright",
+			width = 300,
+			height = 80,
+			x = 500,
+			y = 300
+		}, 
+		Text = {
+			overlayName = "textillo",
+			title = "texttitle",
+			font = "minecraft_font",
+			textCont = "Play",
+			width = 30,
+			height = 60,
+			x = 590,
+			y = 310,
+			r = 0,
+			g = 0,
+			b = 0
+		}
+	}, 
+
+	changeVolumePos = {
+		Button = {
+			overlayName = "buttonPruebaPre",
+			imageName = "buttonVol2_solid",
+			hoverImageName = "buttonVol2_transparent",
+			pressedImageName = "buttonVol2_solid",
+			width = 70,
+			height = 70,
+			x = 450,
+			y = 450
+		}
+	}, 
+
+	changeVolumePre = {
+		Button = {
+			overlayName = "buttonPruebaPos",
+			imageName = "buttonVol1_solid",
+			hoverImageName = "buttonVol1_transparent",
+			pressedImageName = "buttonVol1_solid",
+			width = 70,
+			height = 70,
+			x = 350,
+			y = 450
+		}
+	},
+
+	sonido = {
+		Image = {
+			overlayName = "ImgPrueba",
+			name = "bar_background",
+			width = 400,
+			height = 70,
+			x = 550,
+			y = 450
+		},
+		
+		AudioSource = {
+			path = "popcorn.wav",
+			vol = 50,
+			channel = 2,
+			loop = 1,
+			start = 1
+		}
+	}
+
+}
+
