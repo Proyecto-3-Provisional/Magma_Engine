@@ -24,10 +24,6 @@
 #include <EC/vector3D.h>
 #include <EC/fps_counter.h>
 #include <EC/transform.h>
-#include <EC/progress_bar.h>
-#include <EC/timer.h>
-#include <EC/player_controller.h>
-#include <EC/enemy_controller.h>
 #include <Render/image.h>
 #include <Render/text.h>
 #include <Render/button.h>
