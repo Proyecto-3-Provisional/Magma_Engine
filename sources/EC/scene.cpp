@@ -51,14 +51,17 @@ namespace magma_engine
 		}
 		else return false;
 		
-		for (ec::Entity* e : ec::EntityManager::instance()->getEntities())
+		if (noErrors)
 		{
-			for (int i = 0; i < e->getAllCmps().size(); i++)
+			for (ec::Entity* e : ec::EntityManager::instance()->getEntities())
 			{
-				e->getAllCmps()[i]->start();
+				for (int i = 0; i < e->getAllCmps().size(); i++)
+				{
+					noErrors = e->getAllCmps()[i]->start() && noErrors;
+				}
 			}
 		}
-
+		
 		return noErrors;
 	}
 

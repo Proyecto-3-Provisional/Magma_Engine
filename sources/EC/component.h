@@ -22,7 +22,7 @@ namespace magma_engine
 			void setEnable(bool set_);
 
 			virtual bool initComponent(std::map<std::string, std::string> args);
-			virtual void start() {};
+			virtual bool start() { return false; };
 			virtual void update(float deltaTime) {};
 			virtual void render() {};
 			virtual void onEnable() {};

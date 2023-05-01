@@ -1,5 +1,5 @@
+#include <iostream>
 #include <Render/image.h>
-
 #include <Render/UI_Image.h>
 #include <Render/UI_Manager.h>
 
@@ -20,27 +20,37 @@ namespace magma_engine
 
 	bool Image::initComponent(std::map<std::string, std::string> args)
 	{
-		imageName = args["overlayName"];
-		normalName = args["name"];
+		try
+		{
+			imageName = args["overlayName"];
+			normalName = args["name"];
 
-		tamX = stof(args["width"]);
-		tamY = stof(args["height"]);
+			tamX = stof(args["width"]);
+			tamY = stof(args["height"]);
 
-		posX = stof(args["x"]);
-		posY = stof(args["y"]);
+			posX = stof(args["x"]);
+			posY = stof(args["y"]);
 
-		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+			screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+			screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		}
+		catch (std::exception e)
+		{
+			std::cout << "Image Component : " << e.what();
+			return false;
+		}
+
 		return true;
 	}
 
-	void Image::start()
+	bool Image::start()
 	{
 		image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(imageName, normalName, posX, posY, tamX, tamY);
 
 		image->setPanelPosition(posX, posY);
 		image->setPanelSize(tamX, tamY);
 		image->setInteractive(interactive);
+		return true;
 	}
 
 	void Image::onEnable()

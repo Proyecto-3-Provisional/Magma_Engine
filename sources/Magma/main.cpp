@@ -84,9 +84,17 @@ int mainCode() {
 		SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
 
 		scn = new magma_engine::Scene();
-		scn->loadScene(sncMp);
+		
 
-		Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+		if (scn->loadScene(sncMp))
+		{
+			Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+		}
+		else
+		{
+			releaseManagers();
+			return 0;
+		}
 	}
 	// Carga de mapa
 

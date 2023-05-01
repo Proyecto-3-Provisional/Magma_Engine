@@ -79,6 +79,11 @@ namespace magma_engine
 		return true;
 	}
 
+	bool Transform::start()
+	{
+		return true;
+	}
+
 	void Transform::pitch(float deg)
 	{
 		Message m;

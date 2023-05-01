@@ -1,6 +1,6 @@
 
 #include <singleton.h>
-
+#include <iostream>
 #include <Render/graphical_object.h>
 #include <Render/render_manager.h>
 #include <Render/mesh.h>
@@ -28,13 +28,35 @@ namespace magma_engine
 
 	bool Mesh::initComponent(std::map<std::string, std::string> args)
 	{
-		gObjPtr = RenderManager::instance()->addObject(args["entityName"], nullptr, args["mesh"], args["material"]);
-		return (gObjPtr != nullptr);
+		try
+		{
+			gObjPtr = RenderManager::instance()->addObject(args["entityName"], nullptr, args["mesh"], args["material"]);
+			if (gObjPtr == nullptr)
+			{
+				std::cout << "WARNING! - error al asignar modelo en Mesh \n" ;
+				return false;
+			}
+		}
+		catch (std::exception& e)
+		{
+			std::cout << "WARNING! - error en un componente Mesh \n \n      " << e.what();
+			return false;
+		}
+
+		return true;
 	}
 
-	void Mesh::start()
+	bool Mesh::start()
 	{
 		trPtr = ent->getComponent<Transform>();
+
+		if (trPtr == nullptr)
+		{
+			std::cout << "Mesh no tiene asignado el transform";
+			return false;
+		}
+
+		return true;
 	}
 
 	void Mesh::update(float deltaTime)

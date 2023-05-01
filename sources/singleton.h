@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <memory>
+#include <exception>
 
 template<typename T>
 class Singleton {

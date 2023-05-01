@@ -17,7 +17,7 @@ namespace magma_engine
 		GraphicalObject* getObj();
 
 		virtual bool initComponent(std::map<std::string, std::string> args);
-		virtual void start();
+		virtual bool start();
 		void update(float deltaTime);
 		void render();
 

@@ -18,11 +18,10 @@ namespace magma_engine
 
 	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
 	{
-
 		return true;
 	}
 
-	void Rigidbody::start()
+	bool Rigidbody::start()
 	{
 		trPtr = ent->getComponent<Transform>();
 		meshPtr = ent->getComponent<Mesh>();
@@ -39,6 +38,7 @@ namespace magma_engine
 
 			rigidPtr->setDamping(linearDamping, angularDamping);
 		}
+		return true;
 	}
 
 	void Rigidbody::update(float deltaTime)

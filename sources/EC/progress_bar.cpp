@@ -37,13 +37,14 @@ namespace magma_engine
 		return true; 
 	}
 
-	void Progress_Bar::start()
+	bool Progress_Bar::start()
 	{
 		progressBar = Singleton<UI_Manager>::instance()->createElement<UI_Progress_Bar>(imageName, normalName, posX, posY, tamX, tamY);
 
 		progressBar->setPanelPosition(posX, posY);
 		progressBar->setPanelSize(tamX, tamY);
 		progressBar->setInteractive(interactive);
+		return true;
 	}
 
 	void Progress_Bar::onEnable()

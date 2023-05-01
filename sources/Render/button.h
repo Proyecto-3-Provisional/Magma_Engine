@@ -26,7 +26,7 @@ namespace magma_engine
 		std::string GetName();
 
 		//Metodo para inicializar el componente
-		virtual void start();
+		virtual bool start();
 
 		//Metodo para actualizar el componente
 		//En este caso, modificamos el tamaño del boton si ha habido

@@ -50,10 +50,11 @@ namespace magma_engine
 		return true;
 	}
 
-	void PlayerController::start()
+	bool PlayerController::start()
 	{
 		tr = ent->getComponent<Transform>();
 		rb = ent->getComponent<Rigidbody>();
+		return true;
 	}
 
 	void PlayerController::update(float deltaTime)

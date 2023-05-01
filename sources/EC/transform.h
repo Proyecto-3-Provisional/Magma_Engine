@@ -37,7 +37,7 @@ namespace magma_engine
 		void setD(float depth_);
 
 		virtual bool initComponent(std::map<std::string, std::string> args);
-
+		virtual bool start();
 		void pitch(float deg);
 		void yaw(float deg);
 		void roll(float deg);
