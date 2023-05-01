@@ -74,134 +74,80 @@ int mainCode() {
 
 
 	// ---------- Inicialización RENDER ----------
-	
-	
 
 	// Carga de mapa
-	int errScn = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
+	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
+	bool sceneCreated = false;
 	magma_engine::Scene* scn = nullptr;
-	if (errScn >= 0) {
+	if (sceneRead >= 0) {
 		SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
 
 		scn = new magma_engine::Scene();
-		
-
-		if (scn->loadScene(sncMp))
-		{
+		sceneCreated = scn->loadScene(sncMp);
+		if (sceneCreated)
 			Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
-		}
-		else
-		{
-			releaseManagers();
-			return 0;
-		}
 	}
-	// Carga de mapa
-
-
-
-	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
-	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
-	componentProgress->start();
-
-	magma_engine::Timer* timeComponent = imageEntity->addComponent<magma_engine::Timer>();
-	timeComponent->initComponent();
-	timeComponent->start();*/
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;
 	int s = 50;
-	while (!Singleton<magma_engine::InputManager>::instance()->exitRequested() && !error && s > 0)
-	{
-		// Marcas de tiempo y cálculo del "delta"
-		timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
-		lastFrameTime = (int)SDL_GetTicks();
-
-		// ---------- TEST RENDER ----------
-
-		//Prueba de animaciones
-		Singleton<magma_engine::RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
-		//Imprimir número de objetos gráficos cada cierto tiempo
-		miliecsSinceLastReport += timeSinceLastFrame;
-		if (miliecsSinceLastReport > miliecsToReport)
+	if (sceneCreated) {
+		while (!Singleton<magma_engine::InputManager>::instance()->exitRequested() && !error && s > 0)
 		{
-			std::cout << "Objetos gráficos: " <<
-				Singleton<magma_engine::RenderManager>::instance()->getNumObjects() << std::endl;
-		}
-		//Control de cuándo se borran aquellos que deben ser borrados
-		int f = Singleton<magma_engine::RenderManager>::instance()->refreshObjects();
-		if (f != 0)
-		{
-			std::cout << f <<
-				" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
-		}
-		//Renderizar fotogramas de uno en uno
-		if (!Singleton<magma_engine::RenderManager>::instance()->renderFrame())
-			error = true;
+			// Marcas de tiempo y cálculo del "delta"
+			timeSinceLastFrame = SDL_GetTicks() - lastFrameTime;
+			lastFrameTime = (int)SDL_GetTicks();
 
+			// ------- TEST RENDER -------
 
-		// ---------- TEST INPUT & UI ----------update
-		Singleton<magma_engine::InputManager>::instance()->inputEvent();
-
-		// ---------- TEST EC ----------
-		Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
-
-
-		Singleton<magma_engine::PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
-
-		//mouseImage->setImagePosition(input->getMousePos().first, input->getMousePos().second); 
-
-		/*else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_O))
-		{
-			timeComponent->resume();
-		}
-
-		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_I))
-		{
-			timeComponent->reset();
-		}
-
-		else if (Singleton<magma_engine::InputManager>::instance()->isKeyDown(ScancodeKey::SCANCODE_P))
-		{
-			timeComponent->assignText(componentTextEntity);
-		}*/
-
-
-		/*if (testButton->isCursorInsideBounds(posMouse.first, posMouse.second))
-		{
-			testButton->cursorOnButton();
-
-			if (Singleton<InputManager>::instance()->isMouseDown())
+			//Prueba de animaciones
+			Singleton<magma_engine::RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
+			//Imprimir número de objetos gráficos cada cierto tiempo
+			miliecsSinceLastReport += timeSinceLastFrame;
+			if (miliecsSinceLastReport > miliecsToReport)
 			{
-				testButton->mousePressedButton();
-				std::cout << "Boton pulsado\n";
+				std::cout << "Objetos gráficos: " <<
+					Singleton<magma_engine::RenderManager>::instance()->getNumObjects() << std::endl;
 			}
+			//Control de cuándo se borran aquellos que deben ser borrados
+			int f = Singleton<magma_engine::RenderManager>::instance()->refreshObjects();
+			if (f != 0)
+			{
+				std::cout << f <<
+					" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
+			}
+			//Renderizar fotogramas de uno en uno
+			if (!Singleton<magma_engine::RenderManager>::instance()->renderFrame())
+				error = true;
+
+
+			// ------- TEST INPUT & UI -------
+			Singleton<magma_engine::InputManager>::instance()->inputEvent();
+
+			// ------- TEST EC -------
+			Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
+			Singleton<magma_engine::PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
+
+			//Redimensión ventana
+			if (Singleton<magma_engine::InputManager>::instance()->hasWindowChange()) {
+				Singleton<magma_engine::RenderManager>::instance()->notifyWindowResized();
+			}
+
 		}
-		else
+		if (error)
 		{
-			if (testButton->isOnButton())
-				testButton->mouseLeavingButton();
-		}*/
-
-		//Redimensión ventana
-		if (Singleton<magma_engine::InputManager>::instance()->hasWindowChange()) {
-			Singleton<magma_engine::RenderManager>::instance()->notifyWindowResized();
+			std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 		}
-
-	}
-	if (error)
-	{
-		std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 	}
 
 
 	// Carga de mapa
-	if (errScn >= 0) {
-		//Singleton<magma_engine::SceneManager>::instance()->popScene();
+	if (sceneRead >= 0) {
+		if (sceneCreated)
+			Singleton<magma_engine::SceneManager>::instance()->popScene();
 		delete scn;
 		scn = nullptr;
 	}
-	// Carga de mapa
 
 	releaseManagers();
 

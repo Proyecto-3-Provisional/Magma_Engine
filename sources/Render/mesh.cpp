@@ -13,7 +13,6 @@ namespace magma_engine
 {
 	Mesh::Mesh()
 	{
-
 	}
 
 	Mesh::~Mesh()
@@ -49,13 +48,11 @@ namespace magma_engine
 	bool Mesh::start()
 	{
 		trPtr = ent->getComponent<Transform>();
-
 		if (trPtr == nullptr)
 		{
-			std::cout << "Mesh no tiene asignado el transform";
+			std::cout << "Mesh is missing Transform";
 			return false;
 		}
-
 		return true;
 	}
 

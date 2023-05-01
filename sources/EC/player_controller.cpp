@@ -54,7 +54,7 @@ namespace magma_engine
 	{
 		tr = ent->getComponent<Transform>();
 		rb = ent->getComponent<Rigidbody>();
-		return true;
+		return (tr != nullptr && rb != nullptr);
 	}
 
 	void PlayerController::update(float deltaTime)

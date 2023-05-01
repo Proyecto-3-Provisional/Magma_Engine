@@ -18,7 +18,6 @@ namespace magma_engine
 		Vector3D& getForward();
 		Vector3D getScale();
 
-
 		void setPosition(Vector3D pos_);
 		void setScale(Vector3D scale_);
 
@@ -38,6 +37,7 @@ namespace magma_engine
 
 		virtual bool initComponent(std::map<std::string, std::string> args);
 		virtual bool start();
+
 		void pitch(float deg);
 		void yaw(float deg);
 		void roll(float deg);

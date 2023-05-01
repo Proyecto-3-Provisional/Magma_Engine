@@ -8,7 +8,6 @@ namespace magma_engine
 {
 	Button::Button() : Component(), buttonName(), normalButtonName(), hoverButtonName(), pressedButtonName(), tamX(), tamY(), posX(), posY()
 	{
-
 	}
 
 	Button::~Button() {};
@@ -20,12 +19,14 @@ namespace magma_engine
 
 	bool Button::start()
 	{
-		button = Singleton<UI_Manager>::instance()->createElement<UIButton>(buttonName, normalButtonName, hoverButtonName,
+		button = Singleton<UI_Manager>::instance()->createElement<UIButton>(
+			buttonName, normalButtonName, hoverButtonName,
 			pressedButtonName, posX, posY, tamX, tamY);
 
 		button->setPanelPosition(posX, posY);
 		button->setPanelSize(tamX, tamY);
 		button->setInteractive(true);
+
 		return true;
 	}
 

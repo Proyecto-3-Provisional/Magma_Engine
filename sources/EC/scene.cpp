@@ -24,44 +24,65 @@ namespace magma_engine
 		ec::EntityManager::instance()->refresh();
 	}
 
-	bool Scene::loadScene(SceneMap* map)
+	bool Scene::loadScene(SceneMap* sceneMap)
 	{
 		bool noErrors = true;
 
-		Singleton<magma_engine::RenderManager>::instance()->createCam(nullptr, { 0, 1000, 0 });
-		Singleton<magma_engine::RenderManager>::instance()->setCamLookAt({ 0, -1000, 0 });
-		Singleton<magma_engine::RenderManager>::instance()->setBgColor(0.8f, 0.8f, 0.7f);
-		Singleton<magma_engine::RenderManager>::instance()->objectShowMode(0);
+		if (sceneMap == nullptr)
+			return false;
 
-		if (map != nullptr)
+		Singleton<magma_engine::RenderManager>::instance()->
+			createCam(nullptr, { 0, 1000, 0 });
+		Singleton<magma_engine::RenderManager>::instance()->
+			setCamLookAt({ 0, -1000, 0 });
+		Singleton<magma_engine::RenderManager>::instance()->
+			setBgColor(0.8f, 0.8f, 0.7f);
+		Singleton<magma_engine::RenderManager>::instance()->
+			objectShowMode(0);
+
+		for (auto itEntity = sceneMap->begin();
+			itEntity != sceneMap->end() && noErrors;
+			itEntity++)
 		{
-			for (auto itEntity = map->begin(); itEntity != map->end(); itEntity++)
+			ec::Entity* e = ec::EntityManager::instance()->addEntity();
+
+			for (auto itComponent = itEntity->second.begin();
+				itComponent != itEntity->second.end() && noErrors;
+				itComponent++)
 			{
-				ec::Entity* e = ec::EntityManager::instance()->addEntity();
-
-				for (auto itComponent = itEntity->second.begin(); itComponent != itEntity->second.end(); itComponent++)
-				{
-					ec::Component* c = Singleton<FactoryManager>::instance()->findAndCreate(itComponent->first, e);
-					noErrors = c->initComponent(itComponent->second) && noErrors;
-
-					// Si el componente falla, hay que borrarlo
-
+				ec::Component* c = Singleton<FactoryManager>::instance()->
+					findAndCreate(itComponent->first, e);
+				if (c != nullptr) {
+					bool successfulInit = c->initComponent(itComponent->second);
+					if (!successfulInit) { // borrar entidad
+						delete c;
+						c = nullptr;
+					}
+					noErrors = successfulInit && noErrors;
 				}
 			}
 		}
-		else return false;
+
+		if (!noErrors)
+			return false;
 		
-		if (noErrors)
+		for (ec::Entity* e : ec::EntityManager::instance()->getEntities())
 		{
-			for (ec::Entity* e : ec::EntityManager::instance()->getEntities())
+			if (!noErrors)
+				break;
+			for (magma_engine::ec::Component* cmp : e->getAllCmps())
 			{
-				for (int i = 0; i < e->getAllCmps().size(); i++)
-				{
-					noErrors = e->getAllCmps()[i]->start() && noErrors;
+				if (!noErrors)
+					break;
+
+				bool successfulStart = cmp->start();
+				if (!successfulStart) { 
+					// borrar entidad ?
 				}
+				noErrors = successfulStart && noErrors;
 			}
 		}
-		
+
 		return noErrors;
 	}
 
@@ -70,4 +91,3 @@ namespace magma_engine
 		return valid;
 	}
 }
-

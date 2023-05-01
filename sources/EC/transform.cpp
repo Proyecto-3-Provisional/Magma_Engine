@@ -60,12 +60,19 @@ namespace magma_engine
 		scale.setZ(depth_);
 	}
 
-	
 	bool Transform::initComponent(std::map<std::string, std::string> args)
 	{
 		try {
-			Vector3D v = Vector3D(stof(args["PositionX"]), stof(args["PositionY"]), stof(args["PositionZ"]));
-			Vector3D s = Vector3D(stof(args["ScaleX"]), stof(args["ScaleY"]), stof(args["ScaleZ"]));
+			Vector3D v = Vector3D(
+				stof(args["PositionX"]),
+				stof(args["PositionY"]),
+				stof(args["PositionZ"])
+			);
+			Vector3D s = Vector3D(
+				stof(args["ScaleX"]),
+				stof(args["ScaleY"]),
+				stof(args["ScaleZ"])
+			);
 
 			pos = v;
 			scale = s;

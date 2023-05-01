@@ -15,9 +15,8 @@ namespace magma_engine
 
 		bool initComponent(float playerSpeed_ = 10000.0f, float timeBetweenMovements_ = 1.0f);
 		virtual bool initComponent(std::map<std::string, std::string> args);
-		virtual bool start(); 
+		virtual bool start();
 		void update(float deltaTime);
-
 
 	private:
 		Rigidbody* rb = nullptr;

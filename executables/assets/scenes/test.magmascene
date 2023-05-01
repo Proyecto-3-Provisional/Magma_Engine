@@ -1,4 +1,4 @@
-#SceneLoader:printInfo()
+SceneLoader:printInfo()
 
 entities = {
 	axolotl = {
@@ -20,7 +20,7 @@ entities = {
 			material = "axolotl",
 		},
 		Rigidbody = {
-			
+			pepe = "aaa"
 		},
 		
 	},

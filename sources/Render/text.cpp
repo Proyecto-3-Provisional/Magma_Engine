@@ -52,7 +52,8 @@ namespace magma_engine
 
 	bool Text::start()
 	{
-		text = Singleton<UI_Manager>::instance()->createElement<UI_Text>(textReference, textTitle, posX, posY, tamX, tamY);
+		text = Singleton<UI_Manager>::instance()->createElement<UI_Text>(
+				textReference, textTitle, posX, posY, tamX, tamY);
 
 		text->setTextPosition(posX, posY);
 		text->setTextSize(tamX, tamY);

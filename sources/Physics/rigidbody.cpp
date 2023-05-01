@@ -28,13 +28,27 @@ namespace magma_engine
 			trPtr = ent->getComponent<Transform>();
 			meshPtr = ent->getComponent<Mesh>();
 
+		if (trPtr == nullptr)
+			return false;
+		try {
+			if (meshPtr->getObj() == nullptr) /* meshPtr == nullptr */
+				return false;
+		}
+		catch (...) {
+			return false;
+		}	
 
 			Vector3D pos = trPtr->getPos();
 			proportions = meshPtr->getProportions();
 
-			if (PhysicsManager::instance() != nullptr) {
-				int index = PhysicsManager::instance()->addRigidBody(ent, proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2,
-					pos.getX(), pos.getY(), pos.getZ());
+		if (PhysicsManager::instance() != nullptr) {
+			int index = PhysicsManager::instance()->addRigidBody(
+				proportions.getX() / 2,
+				proportions.getY() / 2,
+				proportions.getZ() / 2,
+				pos.getX(),
+				pos.getY(),
+				pos.getZ());
 
 				rigidPtr = PhysicsManager::instance()->getRigidBody(index);
 

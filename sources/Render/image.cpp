@@ -7,10 +7,11 @@ namespace magma_engine
 {
 	Image::Image() : Component(), imageName(), normalName(), tamX(), tamY(), posX(), posY()
 	{
-
 	}
 
-	Image::~Image() {}
+	Image::~Image()
+	{
+	}
 
 	std::string Image::GetName()
 	{
@@ -45,11 +46,13 @@ namespace magma_engine
 
 	bool Image::start()
 	{
-		image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(imageName, normalName, posX, posY, tamX, tamY);
+		image = Singleton<UI_Manager>::instance()->createElement<UI_Image>(
+				imageName, normalName, posX, posY, tamX, tamY);
 
 		image->setPanelPosition(posX, posY);
 		image->setPanelSize(tamX, tamY);
 		image->setInteractive(interactive);
+		
 		return true;
 	}
 
@@ -86,4 +89,3 @@ namespace magma_engine
 		image->setMaterial(newImage);
 	}
 }
-
