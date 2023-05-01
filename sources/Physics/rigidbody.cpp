@@ -18,7 +18,6 @@ namespace magma_engine
 
 	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
 	{
-
 		return true;
 	}
 
@@ -83,12 +82,12 @@ namespace magma_engine
 
 	bool Rigidbody::isOnCollision()
 	{
-		return (PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex()).size() > 0);
+		return (PhysicsManager::instance()->getArrayOfColliders(rigidPtr->getUserIndex()).size() > 0);
 	}
 
-	std::vector<int> Rigidbody::getCollisionObjs()
+	std::vector<ec::Entity*> Rigidbody::getCollisionObjs()
 	{
-		return PhysicsManager::instance()->getArrayOfIndexColliders(rigidPtr->getUserIndex());
+		return PhysicsManager::instance()->getArrayOfColliders(rigidPtr->getUserIndex());
 	}
 
 	void Rigidbody::addForce(const Vector3D& force)

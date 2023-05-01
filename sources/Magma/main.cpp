@@ -87,15 +87,6 @@ int mainCode() {
 		if (sceneCreated)
 			Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
 	}
-	// Carga de mapa
-
-	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
-	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
-	componentProgress->start();
-
-	magma_engine::Timer* timeComponent = imageEntity->addComponent<magma_engine::Timer>();
-	timeComponent->initComponent();
-	timeComponent->start();*/
 
 	// ---------- BUCLE PRINCIPAL ----------
 	bool error = false;

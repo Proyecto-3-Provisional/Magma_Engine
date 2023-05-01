@@ -1,5 +1,5 @@
+#include <iostream>
 #include <Render/text.h>
-
 #include <Render/UI_Text.h>
 #include <Render/UI_Manager.h>
 
@@ -19,24 +19,33 @@ namespace magma_engine
 
 	bool Text::initComponent(std::map<std::string, std::string> args)
 	{
-		textReference = args["overlayName"];
+		try
+		{
+			textReference = args["overlayName"];
 
-		textTitle = args["title"];
-		fontName = args["font"];
-		textContent = args["textCont"];
+			textTitle = args["title"];
+			fontName = args["font"];
+			textContent = args["textCont"];
 
-		tamX = stof(args["width"]);
-		tamY = stof(args["height"]);
+			tamX = stof(args["width"]);
+			tamY = stof(args["height"]);
 
-		posX = stof(args["x"]);
-		posY = stof(args["y"]);
+			posX = stof(args["x"]);
+			posY = stof(args["y"]);
 
-		red = stof(args["r"]);
-		green = stof(args["g"]);
-		blue = stof(args["b"]);
+			red = stof(args["r"]);
+			green = stof(args["g"]);
+			blue = stof(args["b"]);
 
-		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+			screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+			screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+		}
+		catch (std::exception e)
+		{
+			std::cout << "Text Component : "  << e.what();
+			return false;
+		}
+		
 		return true;
 	}
 

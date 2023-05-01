@@ -54,7 +54,6 @@ namespace magma_engine
 	{
 		tr = ent->getComponent<Transform>();
 		rb = ent->getComponent<Rigidbody>();
-
 		return (tr != nullptr && rb != nullptr);
 	}
 

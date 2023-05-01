@@ -8,10 +8,11 @@ namespace magma_engine
 {
 	Timer::Timer() : textTime(nullptr), timerPause(false), time(0), timeStop(0) 
 	{
-		
 	}
 
-	Timer::~Timer() {}
+	Timer::~Timer()
+	{
+	}
 
 	bool Timer::initComponent() 
 	{ 

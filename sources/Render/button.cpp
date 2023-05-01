@@ -1,15 +1,13 @@
+#include <iostream>
 #include <Render/Button.h>
-
 #include<Render/ui_button.h>
 #include<Render/UI_Manager.h>
-
 #include<Input/input_manager.h>
 
 namespace magma_engine
 {
 	Button::Button() : Component(), buttonName(), normalButtonName(), hoverButtonName(), pressedButtonName(), tamX(), tamY(), posX(), posY()
 	{
-
 	}
 
 	Button::~Button() {};
@@ -34,18 +32,27 @@ namespace magma_engine
 
 	bool Button::initComponent(std::map<std::string, std::string> args)
 	{
-		buttonName = args["overlayName"];
-		normalButtonName = args["imageName"];
-		hoverButtonName = args["hoverImageName"];
-		pressedButtonName = args["pressedImageName"];
+		try
+		{
+			buttonName = args["overlayName"];
+			normalButtonName = args["imageName"];
+			hoverButtonName = args["hoverImageName"];
+			pressedButtonName = args["pressedImageName"];
 
-		tamX = stof(args["width"]);
-		tamY = stof(args["height"]);
-		posX = stof(args["x"]);
-		posY = stof(args["y"]);
-		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-		pressed = false;
+			tamX = stof(args["width"]);
+			tamY = stof(args["height"]);
+			posX = stof(args["x"]);
+			posY = stof(args["y"]);
+			screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
+			screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+			pressed = false;
+		}
+		catch (std::exception e)
+		{
+			std::cout << "Button Component : " << e.what();
+			return false;
+		}
+		
 		return true;
 	}
 

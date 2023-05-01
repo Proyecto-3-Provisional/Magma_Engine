@@ -18,7 +18,6 @@ namespace magma_engine
 		virtual bool start();
 		void update(float deltaTime);
 
-
 	private:
 		Rigidbody* rb = nullptr;
 		Transform* tr = nullptr;
