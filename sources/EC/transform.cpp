@@ -61,21 +61,7 @@ namespace magma_engine
 		scale.setZ(depth_);
 	}
 
-	bool Transform::initComponent(Vector3D pos_, Vector3D scale_)
-	{
-		try {
-			pos = pos_;
-			scale = scale_;
-			forward = Vector3D(0, 0, 1);
-		}
-		catch (std::exception& e) {
-			std::cout << "Error inicializando componente Transform de una entidad: "  << e.what() << '\n';
-			return false;
-		}
-
-		return true;
-	}
-
+	
 	bool Transform::initComponent(std::map<std::string, std::string> args)
 	{
 		try {

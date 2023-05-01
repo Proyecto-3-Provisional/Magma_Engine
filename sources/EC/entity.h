@@ -46,7 +46,7 @@ namespace magma_engine
 
 				Component* c = new T(std::forward<Ts>(args)...);
 				c->setContext(this, mngr);
-				c->initComponent();
+				//c->initComponent();
 				cmps[cId] = c;
 				currCmps.push_back(c);
 

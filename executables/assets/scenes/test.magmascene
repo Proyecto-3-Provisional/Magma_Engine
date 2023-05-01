@@ -1,7 +1,11 @@
-SceneLoader:printInfo()
+#SceneLoader:printInfo()
 
 entities = {
 	axolotl = {
+		PlayerController = {
+			playerSpeed = 250,
+			timeBetweenMovements = 1
+		},
 		Transform = {
 			PositionX = 1,
 			PositionY = 5,
@@ -18,10 +22,7 @@ entities = {
 		Rigidbody = {
 			
 		},
-		PlayerController = {
-			playerSpeed = 250,
-			timeBetweenMovements = 1
-		}
+		
 	},
 	cube = {
 		Transform = {
@@ -32,7 +33,36 @@ entities = {
 			ScaleY = 1,
 			ScaleZ = 1
 		},
-		Mesh = {
+		Button = {
+			overlayName = "buttonPrueba",
+			imageName = "button_solid",
+			hoverImageName = "button_transparent",
+			pressedImageName = "button_bright",
+			width = 100,
+			height = 50,
+			x = 0,
+			y = 0
+		},
+		Image = {
+			overlayName = "ImgPrueba",
+			name = "bubble",
+			width = 200,
+			height = 200,
+			x = 100,
+			y = 100
+		},
+		Text = {
+			overlayName = "textito",
+			title = "textaco",
+			font = "arial",
+			textCont = "Mucho texto por favor detenganse aaaaaa ....",
+			width = 40,
+			height = 40,
+			x = 200,
+			y = 34,
+			r = 0.5,
+			g = 0.3,
+			b = 0.1
 		}
 	},
 

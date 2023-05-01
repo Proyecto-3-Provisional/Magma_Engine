@@ -68,6 +68,20 @@ material button_solid {
 	}
 }
 
+material button_bright {
+	technique {
+		pass {
+			diffuse 1.0 1.0 1.0
+			scene_blend alpha_blend
+			texture_unit {
+				texture button_bright.png
+				colour_op modulate
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
 material button_transparent {
 	technique {
 		pass {

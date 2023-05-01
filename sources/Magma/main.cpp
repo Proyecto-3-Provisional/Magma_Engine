@@ -92,13 +92,6 @@ int mainCode() {
 
 
 
-	auto nEntity = Singleton<magma_engine::ec::EntityManager>::instance()->getEntities(); 
-	std::cout << nEntity.size() << " NEntidades\n";
-	auto nComponente = nEntity[0]->getComponent<magma_engine::Mesh>();
-
-	if (nComponente != nullptr)
-		std::cout << "Mesh existe\n"; 
-
 	/*magma_engine::Progress_Bar* componentProgress = imageEntity->addComponent<magma_engine::Progress_Bar>();
 	componentProgress->initComponent("ImgPrueba", "golf", 50.0f, 50.0f, 200.0f, 200.0f, progreso, 300.0f);
 	componentProgress->start();

@@ -24,10 +24,7 @@ namespace magma_engine
 		else
 			onDisable();
 	}
-	bool ec::Component::initComponent()
-	{
-		return false;
-	};
+
 	bool ec::Component::initComponent(std::map<std::string, std::string> args)
 	{
 		return false;

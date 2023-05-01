@@ -14,25 +14,6 @@ namespace magma_engine
 		delete audio;
 	}
 
-	bool AudioSource::initComponent(std::string path, int vol, int channel, bool loop, bool start)
-	{
-		audio = new AudioData();
-
-		audio->audio_path = path;
-
-		setVolume(vol); 
-
-		audio->channel = channel;
-
-		isLoop = loop;
-		hasStarted = start;
-
-		playing = false;
-		paused = false;
-
-		return true; 
-	}
-
 	bool AudioSource::initComponent(std::map<std::string, std::string> args)
 	{
 		audio = new AudioData();

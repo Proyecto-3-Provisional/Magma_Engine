@@ -59,7 +59,6 @@ namespace magma_engine
 			}
 		}
 
-		
 		return noErrors;
 	}
 

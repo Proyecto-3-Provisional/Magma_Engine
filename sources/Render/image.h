@@ -16,9 +16,6 @@ namespace magma_engine
 		Image();
 		virtual ~Image();
 
-		virtual bool initComponent(std::string overlayName, std::string name,
-			float width, float height, float x, float y);
-
 		virtual bool initComponent(std::map<std::string, std::string> args);
 
 		virtual void render() {};

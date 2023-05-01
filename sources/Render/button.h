@@ -14,9 +14,6 @@ namespace magma_engine
 		Button();
 		virtual ~Button();
 
-		virtual bool initComponent(std::string overlayName, std::string imageName, std::string hoverImageName, std::string pressedImageName,
-			float width, float height, float x, float y);
-
 		virtual bool initComponent(std::map<std::string, std::string> args);
 
 		virtual void render() {};

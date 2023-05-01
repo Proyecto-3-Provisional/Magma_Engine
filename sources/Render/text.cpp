@@ -17,37 +17,13 @@ namespace magma_engine
 		return textTitle;
 	}
 
-	bool Text::initComponent(std::string overlayName, std::string title, std::string font, std::string textCont,
-		float x, float y, float width, float height, float r, float g, float b)
-	{
-		textReference = overlayName;
-
-		textTitle = title;
-		fontName = font;
-		textContent = textCont;
-
-		tamX = width;
-		tamY = height;
-
-		posX = x;
-		posY = y;
-
-		red = r;
-		green = g;
-		blue = b;
-
-		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-		return true;
-	}
-
 	bool Text::initComponent(std::map<std::string, std::string> args)
 	{
-		textReference = stof(args["overlayName"]);
+		textReference = args["overlayName"];
 
-		textTitle = stof(args["title"]);
-		fontName = stof(args["font"]);
-		textContent = stof(args["textCont"]);
+		textTitle = args["title"];
+		fontName = args["font"];
+		textContent = args["textCont"];
 
 		tamX = stof(args["width"]);
 		tamY = stof(args["height"]);

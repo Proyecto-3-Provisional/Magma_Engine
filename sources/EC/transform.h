@@ -36,7 +36,6 @@ namespace magma_engine
 		// d = depth, eje Z
 		void setD(float depth_);
 
-		virtual bool initComponent(Vector3D pos_, Vector3D scale_);
 		virtual bool initComponent(std::map<std::string, std::string> args);
 
 		void pitch(float deg);

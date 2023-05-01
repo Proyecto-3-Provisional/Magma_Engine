@@ -19,7 +19,6 @@ namespace magma_engine
 		Rigidbody();
 		~Rigidbody();
 
-		virtual bool initComponent();
 		virtual bool initComponent(std::map<std::string, std::string> args);
 		virtual void start();
 		virtual void update(float deltaTime) override;

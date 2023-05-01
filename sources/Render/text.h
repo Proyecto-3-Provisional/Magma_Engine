@@ -16,9 +16,6 @@ namespace magma_engine
 		Text();
 		virtual ~Text();
 
-		virtual bool initComponent(std::string overlayName, std::string title, std::string fontName, std::string text,
-			float x, float y, float width, float height, float r, float g, float b);
-
 		virtual bool initComponent(std::map<std::string, std::string> args);
 
 		virtual void render() {};

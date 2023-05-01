@@ -29,25 +29,6 @@ namespace magma_engine
 		button->setInteractive(true);
 	}
 
-	bool Button::initComponent(std::string overlayName, std::string imageName,
-		std::string hoverImageName, std::string pressedImageName,
-		float width, float height, float x, float y)
-	{
-		buttonName = overlayName;
-		normalButtonName = imageName;
-		hoverButtonName = hoverImageName;
-		pressedButtonName = pressedImageName;
-
-		tamX = width;
-		tamY = height;
-		posX = x;
-		posY = y;
-		screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-		pressed = false;
-		return true;
-	}
-
 	bool Button::initComponent(std::map<std::string, std::string> args)
 	{
 		buttonName = args["overlayName"];

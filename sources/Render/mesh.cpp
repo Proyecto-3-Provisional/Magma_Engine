@@ -18,24 +18,12 @@ namespace magma_engine
 
 	Mesh::~Mesh()
 	{
-		/*bool success = */RenderManager::instance()->removeObject(gObjPtr);
+		RenderManager::instance()->removeObject(gObjPtr);
 	}
 
 	GraphicalObject* Mesh::getObj()
 	{
 		return gObjPtr;
-	}
-
-	bool Mesh::initComponent(std::string gObjKey, std::string mesh, std::string material)
-	{
-		trPtr = ent->getComponent<Transform>();
-
-		if (trPtr == nullptr)
-			return false;
-
-		gObjPtr = RenderManager::instance()->addObject(gObjKey, nullptr, mesh, material);
-
-		return (gObjPtr != nullptr);
 	}
 
 	bool Mesh::initComponent(std::map<std::string, std::string> args)

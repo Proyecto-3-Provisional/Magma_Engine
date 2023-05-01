@@ -16,13 +16,6 @@ namespace magma_engine
 		PhysicsManager::instance()->deleteRigidBody(rigidPtr->getUserIndex());
 	}
 
-	bool Rigidbody::initComponent()
-	{
-		
-
-		return true;
-	}
-
 	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
 	{
 
