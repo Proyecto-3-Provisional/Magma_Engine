@@ -3,6 +3,8 @@
 #include <Render/UI_Text.h>
 #include <Render/UI_Manager.h>
 
+#include <iostream>
+
 namespace magma_engine
 {
 	Text::Text() : Component(), textReference(), textTitle(), fontName(), textContent(), posX(), posY(), tamX(), tamY(), red(), green(), blue()
@@ -19,8 +21,7 @@ namespace magma_engine
 
 	bool Text::initComponent(std::map<std::string, std::string> args)
 	{
-		try
-		{
+		try {
 			textReference = args["overlayName"];
 
 			textTitle = args["title"];
@@ -39,13 +40,13 @@ namespace magma_engine
 
 			screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
 			screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+
 		}
-		catch (std::exception e)
-		{
-			std::cout << "Text Component : "  << e.what();
+		catch (std::exception& e) {
+			std::cout << "WARNING! - error en un componente text:\n\n     " << e.what() << "\n\n";
 			return false;
 		}
-		
+
 		return true;
 	}
 

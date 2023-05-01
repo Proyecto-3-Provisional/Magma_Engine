@@ -7,7 +7,7 @@
 
 namespace magma_engine
 {
-	Rigidbody::Rigidbody() : proportions({1, 1, 1}), linearDamping(0.5f), angularDamping(0)
+	Rigidbody::Rigidbody() : proportions({1, 1, 1}), linearDamping(0.5f), angularDamping(0), meshPtr(nullptr)
 	{
 	}
 
@@ -23,21 +23,31 @@ namespace magma_engine
 
 	bool Rigidbody::start()
 	{
-		trPtr = ent->getComponent<Transform>();
-		meshPtr = ent->getComponent<Mesh>();
+		try {
+
+			trPtr = ent->getComponent<Transform>();
+			meshPtr = ent->getComponent<Mesh>();
 
 
-		Vector3D pos = trPtr->getPos();
-		proportions = meshPtr->getProportions();
+			Vector3D pos = trPtr->getPos();
+			proportions = meshPtr->getProportions();
 
-		if (PhysicsManager::instance() != nullptr) {
-			int index = PhysicsManager::instance()->addRigidBody(ent, proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2,
-				pos.getX(), pos.getY(), pos.getZ());
+			if (PhysicsManager::instance() != nullptr) {
+				int index = PhysicsManager::instance()->addRigidBody(ent, proportions.getX() / 2, proportions.getY() / 2, proportions.getZ() / 2,
+					pos.getX(), pos.getY(), pos.getZ());
 
-			rigidPtr = PhysicsManager::instance()->getRigidBody(index);
+				rigidPtr = PhysicsManager::instance()->getRigidBody(index);
 
-			rigidPtr->setDamping(linearDamping, angularDamping);
+				rigidPtr->setDamping(linearDamping, angularDamping);
+			}
+			else
+				std::cout << "WARNING! - physicsManager no creado";
 		}
+		catch (std::exception& e) {
+			std::cout << "WARNING! - error en un componente rigidbody:\n\n     " << e.what() << "\n\n";
+			return false;
+		}
+
 		return true;
 	}
 
@@ -45,14 +55,14 @@ namespace magma_engine
 	{
 		if (trPtr != nullptr)
 		{
-			// Actualizamos la posición del transform
+			// Actualizamos la posiciï¿½n del transform
 			trPtr->setPosition(PhysicsManager::instance()->getPos(rigidPtr->getUserIndex()));
 
-			// Actualizamos la rotación del collider 
+			// Actualizamos la rotaciï¿½n del collider 
 			Quaternion q = meshPtr->getOrientation();
 			rigidPtr->getWorldTransform().setRotation(btQuaternion(q.getX(), q.getY(), q.getZ(), q.getW()));
 
-			// Actualizamos la escala del collider en función del transform
+			// Actualizamos la escala del collider en funciï¿½n del transform
 			rigidPtr->getCollisionShape()->setLocalScaling(btVector3(trPtr->getScale().getX(), trPtr->getScale().getY(), trPtr->getScale().getZ()));
 		}
 	}

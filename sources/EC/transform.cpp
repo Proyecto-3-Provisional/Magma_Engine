@@ -2,7 +2,6 @@
 #include <EC/entity.h>
 
 #include <iostream>
-#include <exception>
 
 namespace magma_engine
 {
@@ -72,7 +71,8 @@ namespace magma_engine
 			scale = s;
 			forward = Vector3D(0, 0, 1);
 		}
-		catch (...) {
+		catch (std::exception& e) {
+			std::cout << "WARNING! - error en un componente transform:\n\n     " << e.what() << "\n\n";
 			return false;
 		}
 

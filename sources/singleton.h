@@ -9,7 +9,7 @@ class Singleton {
 protected:
 	Singleton() {};
 public:
-	// Borrar "constructor por copia" y "operador de asignación"
+	// Borrar "constructor por copia" y "operador de asignaciï¿½n"
 	Singleton(Singleton&) = delete;
 	Singleton& operator=(const Singleton&) = delete;
 
