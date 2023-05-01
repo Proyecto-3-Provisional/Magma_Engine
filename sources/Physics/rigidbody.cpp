@@ -28,15 +28,6 @@ namespace magma_engine
 			trPtr = ent->getComponent<Transform>();
 			meshPtr = ent->getComponent<Mesh>();
 
-		if (trPtr == nullptr)
-			return false;
-		try {
-			if (meshPtr->getObj() == nullptr) /* meshPtr == nullptr */
-				return false;
-		}
-		catch (...) {
-			return false;
-		}	
 
 			Vector3D pos = trPtr->getPos();
 			proportions = meshPtr->getProportions();
