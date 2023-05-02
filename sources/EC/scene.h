@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Lua/scene_loader.h>
+#include <EC/entity_manager.h>
 
 namespace magma_engine
 {
@@ -18,5 +19,7 @@ namespace magma_engine
 
 	private:
 		bool valid;
+
+		ec::EntityManager* mngr;
 	};
 }

@@ -5,12 +5,11 @@
 #include <vector>
 
 #include <EC/entity.h>
-#include <singleton.h>
 
 namespace magma_engine
 {
 	namespace ec {
-		class EntityManager : public Singleton<EntityManager> {
+		class EntityManager {
 		public:
 			EntityManager() {};
 			virtual ~EntityManager();

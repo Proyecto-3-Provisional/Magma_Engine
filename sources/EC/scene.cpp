@@ -8,20 +8,20 @@ namespace magma_engine
 {
 	Scene::Scene() : valid(false)
 	{
-		if (Singleton<ec::EntityManager>::instance() &&
-			Singleton<FactoryManager>::instance()
-		)
+		if (Singleton<FactoryManager>::instance())
 			valid = true;
+		mngr = new ec::EntityManager();
 	}
 
 	Scene::~Scene()
 	{
+		delete mngr; mngr = nullptr;
 	}
 
 	void Scene::update(float deltaTime)
 	{
-		ec::EntityManager::instance()->update(deltaTime);
-		ec::EntityManager::instance()->refresh();
+		mngr->update(deltaTime);
+		mngr->refresh();
 	}
 
 	bool Scene::loadScene(SceneMap* sceneMap)
@@ -44,7 +44,7 @@ namespace magma_engine
 			itEntity != sceneMap->end() && noErrors;
 			itEntity++)
 		{
-			ec::Entity* e = ec::EntityManager::instance()->addEntity();
+			ec::Entity* e = mngr->addEntity();
 
 			for (auto itComponent = itEntity->second.begin();
 				itComponent != itEntity->second.end() && noErrors;
@@ -66,7 +66,7 @@ namespace magma_engine
 		if (!noErrors)
 			return false;
 		
-		for (ec::Entity* e : ec::EntityManager::instance()->getEntities())
+		for (ec::Entity* e : mngr->getEntities())
 		{
 			if (!noErrors)
 				break;

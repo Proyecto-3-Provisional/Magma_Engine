@@ -5,8 +5,8 @@ namespace magma_engine
 {
 	SceneManager::SceneManager()
 	{
-		Scene* escenaVacia = new Scene();
-		pushScene(escenaVacia);
+		//Scene* escenaVacia = new Scene();
+		//pushScene(escenaVacia);
 	}
 
 	SceneManager::~SceneManager()
@@ -39,7 +39,8 @@ namespace magma_engine
 
 	void SceneManager::update(float deltaTime)
 	{
-		scenes.top()->update(deltaTime);
+		if (!scenes.empty())
+			scenes.top()->update(deltaTime);
 		deleteScenes();
 	}
 

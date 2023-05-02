@@ -165,8 +165,6 @@ void initManagers() {
 			Singleton<magma_engine::RenderManager>::instance()->release();
 		}
 	}
-	// ------ EC			------
-	Singleton<magma_engine::ec::EntityManager>::init();
 	// ------ FACTORY		------
 	Singleton<magma_engine::FactoryManager>::init();
 	magma_engine::setUpFactories();
@@ -198,8 +196,6 @@ void releaseManagers() {
 	Singleton<magma_engine::SceneLoader>::release();
 	// ------ GAME SCENES	------
 	Singleton<magma_engine::SceneManager>::release();
-	// ------ EC			------
-	Singleton<magma_engine::ec::EntityManager>::release();
 	// ------ PHYSICS		------
 	Singleton<magma_engine::PhysicsManager>::instance()->detachPhysics();
 	Singleton<magma_engine::PhysicsManager>::release();
