@@ -1,5 +1,10 @@
 #include <render/ui_text.h>
 
+#include <Overlay/OgreOverlay.h>
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlayContainer.h>
+#include <Overlay/OgreTextAreaOverlayElement.h>
+
 namespace magma_engine
 {
 	UI_Text::UI_Text(std::string overlayName, std::string title,

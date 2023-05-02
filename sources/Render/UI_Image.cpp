@@ -1,5 +1,9 @@
 #include <Render/ui_image.h>
 
+#include <Overlay/OgreOverlay.h>
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlayContainer.h>
+
 namespace magma_engine
 {
 	UI_Image::UI_Image(std::string overReference, std::string imageName,

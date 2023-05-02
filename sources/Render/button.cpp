@@ -1,8 +1,9 @@
 #include <iostream>
+#include <Render/render_manager.h>
 #include <Render/Button.h>
-#include<Render/ui_button.h>
-#include<Render/UI_Manager.h>
-#include<Input/input_manager.h>
+#include <Render/ui_button.h>
+#include <Render/UI_Manager.h>
+#include <Input/input_manager.h>
 
 namespace magma_engine
 {

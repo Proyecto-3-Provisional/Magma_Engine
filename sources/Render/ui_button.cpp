@@ -1,5 +1,9 @@
 #include <Render/ui_button.h>
 
+#include <Overlay/OgreOverlay.h>
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlayContainer.h>
+
 namespace magma_engine
 {
 	UIButton::UIButton(std::string overReference, std::string imageName, std::string hoverImageName, std::string pressedImageName,

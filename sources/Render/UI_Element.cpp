@@ -1,5 +1,10 @@
 #include <Render/ui_element.h>
 
+#include <Overlay/OgreOverlay.h>
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlayContainer.h>
+#include <Overlay/OgreTextAreaOverlayElement.h>
+
 namespace magma_engine
 {
 	UI_Element::UI_Element()

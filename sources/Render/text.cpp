@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Render/render_manager.h>
 #include <Render/text.h>
 #include <Render/UI_Text.h>
 #include <Render/UI_Manager.h>

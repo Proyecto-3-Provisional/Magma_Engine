@@ -1,14 +1,13 @@
 #pragma once
 
-#include <Overlay/OgreOverlay.h>
-#include <Overlay/OgreOverlayManager.h>
-#include <Overlay/OgreOverlayContainer.h>
-#include <Overlay/OgreTextAreaOverlayElement.h>
-#include <Overlay/OgreFontManager.h>
-
 #include <string>
 
-#include <Render/render_manager.h>
+namespace Ogre {
+	class Overlay;
+	class OverlayManager;
+	class OverlayContainer;
+	class TextAreaOverlayElement;
+}
 
 namespace magma_engine
 {

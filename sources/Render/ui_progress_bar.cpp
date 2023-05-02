@@ -1,5 +1,10 @@
 #include <Render/ui_progress_bar.h>
 
+#include <Overlay/OgreOverlay.h>
+#include <Overlay/OgreOverlayManager.h>
+#include <Overlay/OgreOverlayContainer.h>
+#include <Overlay/OgreTextAreaOverlayElement.h>
+
 namespace magma_engine
 {
 	UI_Progress_Bar::UI_Progress_Bar(std::string overReference, std::string imageName,
