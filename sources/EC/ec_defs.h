@@ -15,6 +15,7 @@ class Progress_Bar;
 class Timer; 
 class PlayerController;
 class EnemyController;
+class Size_Temp;
 
 #define _CMPS_LIST_ Transform,\
 					Mesh,\
@@ -26,5 +27,6 @@ class EnemyController;
 					Progress_Bar, \
 					Timer, \
 					PlayerController, \
-					EnemyController
+					EnemyController, \
+					Size_Temp
 		

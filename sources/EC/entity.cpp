@@ -1,5 +1,5 @@
 #include <EC/entity.h>
-#include <EC/component.h>
+//#include <EC/component.h>
 
 namespace magma_engine
 {

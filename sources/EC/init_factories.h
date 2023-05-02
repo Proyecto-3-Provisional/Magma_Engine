@@ -71,6 +71,12 @@ namespace magma_engine
 		ec::Component* createComponent(ec::Entity* e);
 	};
 
+	class Size_TempFactory : public Factory
+	{
+	public:
+		ec::Component* createComponent(ec::Entity* e);
+	};
+
 	void setUpFactories();
 }
 

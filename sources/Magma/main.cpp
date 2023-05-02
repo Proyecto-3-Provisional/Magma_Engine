@@ -76,7 +76,7 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Carga de mapa
-	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/menu.magmascene");
+	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
 	bool sceneCreated = false;
 	magma_engine::Scene* scn = nullptr;
 	if (sceneRead >= 0) {

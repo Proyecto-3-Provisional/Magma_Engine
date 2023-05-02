@@ -7,6 +7,7 @@
 #include <EC/transform.h>
 #include <EC/progress_bar.h>
 #include <EC/timer.h>
+#include <EC/size_temp.h>
 
 #include <Physics/rigidbody.h>
 
@@ -75,6 +76,11 @@ namespace magma_engine
 		return e->addComponent<EnemyController>();
 	}
 
+	ec::Component* Size_TempFactory::createComponent(ec::Entity* e)
+	{
+		return e->addComponent<Size_Temp>();
+	}
+
 	void setUpFactories()
 	{
 		FactoryManager::instance()->addFactory("Transform", new TransformFactory());
@@ -88,6 +94,7 @@ namespace magma_engine
 		FactoryManager::instance()->addFactory("EnemyController", new EnemyControllerFactory());
 		FactoryManager::instance()->addFactory("ProgressBar", new ProgressBarFactory());
 		FactoryManager::instance()->addFactory("Timer", new TimerFactory());
+		FactoryManager::instance()->addFactory("Size_Temp", new Size_TempFactory());
 	}
 }
 

@@ -22,6 +22,31 @@ entities = {
 		Rigidbody = {
 			pepe = "aaa"
 		},
+		Size_Temp = {
+			Size = 1.0
+		}
+		
+	},
+	enem = {
+		Transform = {
+			PositionX = 100,
+			PositionY = 5,
+			PositionZ = 4,
+			ScaleX = 20,
+			ScaleY = 20,
+			ScaleZ = 20
+		},
+		Mesh = {
+			entityName = "mesh_axolotl2",
+			mesh = "axolotl.mesh",
+			material = "axolotl",
+		},
+		Rigidbody = {
+			pepe = "aab"
+		},
+		Size_Temp = {
+			Size = 0.8
+		}
 		
 	},
 	cube = {
