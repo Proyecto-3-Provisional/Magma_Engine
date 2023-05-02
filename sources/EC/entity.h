@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <EC/component.h>
+#include <cassert>
 
 namespace magma_engine
 {

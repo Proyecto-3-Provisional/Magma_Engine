@@ -1,7 +1,7 @@
 #pragma once
 //#include <EC/component.h>
 #include <EC/vector3D.h>
-//#include <Physics/rigidbody.h>
+#include <Physics/rigidbody.h>
 #include <EC/entity.h>
 
 
@@ -22,6 +22,8 @@ namespace magma_engine
 
 		float getTam();
 		bool isPlayer();
+
+		void setTam(float ntam);
 
 		float tam = 1.0f;
 		bool player = false;
