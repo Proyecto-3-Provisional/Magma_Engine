@@ -14,30 +14,11 @@ namespace magma_engine
 			EntityManager() {};
 			virtual ~EntityManager();
 
-			//Creamos una instancia de la entidad y la añadimos a la lista del grupo concreto(entsByGroup)
-			// 
-			// NOTA IMPORTANTE:
-			//
-			// Con este diseño introducimos la entidad inmediatamentes en la lista de entidades,
-			// por lo que se apareceran durante este frame en la lista de entidades, si realizamos
-			// alguna operacion sobre ella.
-			//
-			// Una solucion a esto es crear una lista auxiliar de entidades a la que
-			// las añadimos, y un metodo flush() que las pase a la lista "oficial".
-			// Se le llamaria al final de cada iteracion del main loop, y asi no
-			// aparecen hasta el siguiente frame. Si quisieramos tambien se podria incorporar
-			// en nuestro "refresh"
-			template<typename T = _grp_GENERAL>
 			Entity* addEntity() {
-
-				constexpr auto gId = grpId<T>;
-
 				auto e = new Entity();
-				e->init(gId);
 				e->setAlive(true);
-				e->setContext(this);
 
-				entsByGroup[gId].push_back(e);
+				ents_.push_back(e);
 
 				return e;
 			}
@@ -48,19 +29,12 @@ namespace magma_engine
 			void update(float deltaTime);
 			void render();
 
-			std::array<std::vector<Entity*>, maxGroupId> returnEntsByGroup();
-
-
-			// Devuelve un vector con todas las entidades que pertenecen al grupo T
-			template<typename T = _grp_GENERAL>
 			inline const auto& getEntities() {
-				constexpr auto gId = grpId<T>;
-				return entsByGroup[gId];
+				return ents_;
 			}
 
 		private:
-			//std::vector<Entity*> ents_;
-			std::array<std::vector<Entity*>, maxGroupId> entsByGroup;
+			std::vector<Entity*> ents_;
 		};
 	}
 

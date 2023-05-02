@@ -72,7 +72,7 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Carga de mapa
-	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/menu.magmascene");
+	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
 	bool sceneCreated = false;
 	magma_engine::Scene* scn = nullptr;
 	if (sceneRead >= 0) {
@@ -102,11 +102,11 @@ int mainCode() {
 			Singleton<magma_engine::RenderManager>::instance()->stepAnimations(timeSinceLastFrame);
 			//Imprimir número de objetos gráficos cada cierto tiempo
 			miliecsSinceLastReport += timeSinceLastFrame;
-			if (miliecsSinceLastReport > miliecsToReport)
+			/*if (miliecsSinceLastReport > miliecsToReport)
 			{
 				std::cout << "Objetos gráficos: " <<
 					Singleton<magma_engine::RenderManager>::instance()->getNumObjects() << std::endl;
-			}
+			}*/
 			//Control de cuándo se borran aquellos que deben ser borrados
 			int f = Singleton<magma_engine::RenderManager>::instance()->refreshObjects();
 			if (f != 0)

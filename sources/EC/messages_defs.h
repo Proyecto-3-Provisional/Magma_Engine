@@ -4,15 +4,14 @@
 
 // Definimos los nombres de los mensajes, son accesibles desde nuestros componentes, por ejemplo en transform.h, pitch(). 
 // Para recibir, usar como ejemplo mesh recieve 
-using msgId_type = uint8_t;
-enum msgId : msgId_type {
+enum msgId {
 	_m_OBJECT_ROTATED, // rotamos en alguno de los 3 ejes x, y o z
 	_m_OBJECT_LOOKAT // rotamos para mirar a una posicion
 };
 
 
 struct Message {
-	msgId_type id;
+	int id;
 
 	// si usamos union ahorraremos memoria, pero solo usaremos tipos
 	// primitivos, de otra manera se necesitarán definir constructores

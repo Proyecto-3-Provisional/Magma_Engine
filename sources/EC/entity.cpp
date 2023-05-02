@@ -4,24 +4,10 @@
 namespace magma_engine
 {
 	namespace ec {
+		Entity::Entity() : cmps(), alive() {}
 
 		Entity::~Entity() {
-			for (auto c : cmps)
-				if (c != nullptr)
-					delete c;
-		}
-
-		bool Entity::init(ec::grpId_type gId_)
-		{
-			gId = gId_;
-			currCmps.reserve(ec::maxComponentId);
-
-			return true;
-		}
-
-		void Entity::setContext(EntityManager* mngr_)
-		{
-			mngr = mngr_;
+			for (auto it = cmps.begin(); it != cmps.end(); ++it) delete it->second;
 		}
 
 		void Entity::setAlive(bool alive_)
@@ -30,24 +16,17 @@ namespace magma_engine
 		}
 
 		void Entity::update(float deltaTime) {
-			auto n = currCmps.size();
-			for (auto i = 0u; i < n; i++)
-				currCmps[i]->update(deltaTime);
+			for (auto it = cmps.begin(); it != cmps.end(); ++it)  it->second->update(deltaTime);
 		}
 
 		void Entity::render() {
-			auto n = currCmps.size();
-			for (auto i = 0u; i < n; i++)
-				currCmps[i]->render();
+			for (auto it = cmps.begin(); it != cmps.end(); ++it)  it->second->render();
 		}
 
 		// por ahora no tenemos flush de mensajes implementado, dejar elay a false
 		void Entity::send(const Message& m, bool delay) {
 			if (!delay) {
-				for (Component* c : cmps) {
-					if (c != nullptr)
-						c->recieve(m);
-				}
+				for (auto it = cmps.begin(); it != cmps.end(); ++it)  it->second->recieve(m);
 			}
 			else {
 				msgs_.emplace_back(m);
@@ -55,7 +34,9 @@ namespace magma_engine
 		}
 
 		std::vector<Component*> Entity::getAllCmps() {
-			return currCmps;
+			std::vector<Component*> c;
+			for (auto it = cmps.begin(); it != cmps.end(); ++it)  c.push_back(it->second);
+			return c;
 		}
 	}
 }

@@ -2,50 +2,51 @@
 
 namespace magma_engine
 {
-	ec::Component::Component() : ent(), mngr() {}
-	ec::Component::Component(Entity* entity) : ent(entity), mngr() {}
-	ec::Component::~Component() {}
+	namespace ec {
+		Component::Component() : ent() {}
+		Component::Component(Entity* entity) : ent(entity) {}
+		Component::~Component() {}
 
-	void ec::Component::setContext(Entity* ent_, EntityManager* mngr_)
-	{
-		ent = ent_;
-		mngr = mngr_;
-	}
+		void Component::setContext(Entity* ent_)
+		{
+			ent = ent_;
+		}
 
-	bool ec::Component::isEnable()
-	{
-		return enable;
-	}
+		bool Component::isEnable()
+		{
+			return enable;
+		}
 
-	void ec::Component::setEnable(bool set_)
-	{
-		enable = set_;
-		if (set_)
-			onEnable();
-		else
-			onDisable();
-	}
-	bool ec::Component::initComponent(std::map<std::string, std::string> args)
-	{
-		return false;
-	}
-	bool ec::Component::start()
-	{
-		return false;
-	}
-	void ec::Component::update(float deltaTime)
-	{
-	}
-	void ec::Component::render()
-	{
-	}
-	void ec::Component::onEnable()
-	{
-	}
-	void ec::Component::onDisable()
-	{
-	}
-	void ec::Component::recieve(const Message&)
-	{
+		void Component::setEnable(bool set_)
+		{
+			enable = set_;
+			if (set_)
+				onEnable();
+			else
+				onDisable();
+		}
+		bool Component::initComponent(std::map<std::string, std::string> args)
+		{
+			return false;
+		}
+		bool Component::start()
+		{
+			return false;
+		}
+		void Component::update(float deltaTime)
+		{
+		}
+		void Component::render()
+		{
+		}
+		void Component::onEnable()
+		{
+		}
+		void Component::onDisable()
+		{
+		}
+		void Component::recieve(const Message&)
+		{
+		}
 	}
 }

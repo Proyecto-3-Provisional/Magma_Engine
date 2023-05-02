@@ -2,22 +2,22 @@
 
 #pragma once
 
-#include <EC/ec.h>
 #include <EC/messages.h>
 #include <map>
 #include <string>
 
 namespace magma_engine
 {
-	namespace ec
-	{
-		struct Component
+	namespace ec {
+		class Entity;
+
+		class Component
 		{
 		public:
 			Component();
 			Component(Entity* entity);
 			virtual ~Component();
-			void setContext(Entity* ent_, EntityManager* mngr_);
+			void setContext(Entity* ent_);
 			bool isEnable();
 			void setEnable(bool set_);
 
@@ -34,7 +34,6 @@ namespace magma_engine
 		protected:
 
 			Entity* ent;
-			EntityManager* mngr;
 			bool enable = true;
 		};
 	}
