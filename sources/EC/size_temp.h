@@ -5,7 +5,7 @@ namespace magma_engine
 {
 	class Rigidbody;
 	
-	class Size_Temp : public ec::Component
+	class Size_Temp : public Component
 	{
 	public:
 		Size_Temp();

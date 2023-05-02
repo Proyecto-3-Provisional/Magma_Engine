@@ -8,7 +8,7 @@ namespace magma_engine
 {
 	class UI_Image;
 
-	class Image : public ec::Component
+	class Image : public Component
 	{
 	public:
 

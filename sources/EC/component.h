@@ -8,34 +8,32 @@
 
 namespace magma_engine
 {
-	namespace ec {
-		class Entity;
+	class Entity;
 
-		class Component
-		{
-		public:
-			Component();
-			Component(Entity* entity);
-			virtual ~Component();
-			void setContext(Entity* ent_);
-			bool isEnable();
-			void setEnable(bool set_);
+	class Component
+	{
+	public:
+		Component();
+		Component(Entity* entity);
+		virtual ~Component();
+		void setContext(Entity* ent_);
+		bool isEnable();
+		void setEnable(bool set_);
 
-			// ¡Si el componente falla, hay que borrar lo que haya ya creado!
-			virtual bool initComponent(std::map<std::string, std::string> args);
-			virtual bool start();
-			virtual void update(float deltaTime);
-			virtual void render();
-			virtual void onEnable();
-			virtual void onDisable();
+		// ¡Si el componente falla, hay que borrar lo que haya ya creado!
+		virtual bool initComponent(std::map<std::string, std::string> args);
+		virtual bool start();
+		virtual void update(float deltaTime);
+		virtual void render();
+		virtual void onEnable();
+		virtual void onDisable();
 
-			virtual void recieve(const Message&);
+		virtual void recieve(const Message&);
 
-		protected:
+	protected:
 
-			Entity* ent;
-			bool enable = true;
-		};
-	}
+		Entity* ent;
+		bool enable = true;
+	};
 }
 

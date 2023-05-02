@@ -20,6 +20,6 @@ namespace magma_engine
 	private:
 		bool valid;
 
-		ec::EntityManager* mngr;
+		EntityManager* mngr;
 	};
 }

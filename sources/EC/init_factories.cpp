@@ -16,37 +16,37 @@
 
 namespace magma_engine
 {
-	ec::Component* TransformFactory::createComponent(ec::Entity* e)
+	Component* TransformFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<Transform>();
 	}
 
-	ec::Component* RigidbodyFactory::createComponent(ec::Entity* e)
+	Component* RigidbodyFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<Rigidbody>();
 	}
 
-	ec::Component* MeshFactory::createComponent(ec::Entity* e)
+	Component* MeshFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<Mesh>();
 	}
 
-	ec::Component* AudioSourceFactory::createComponent(ec::Entity* e)
+	Component* AudioSourceFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<AudioSource>();
 	}
 
-	ec::Component* ButtonFactory::createComponent(ec::Entity* e)
+	Component* ButtonFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<Button>();
 	}
 
-	ec::Component* ImageFactory::createComponent(ec::Entity* e)
+	Component* ImageFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<Image>();
 	}
 
-	ec::Component* TextFactory::createComponent(ec::Entity* e)
+	Component* TextFactory::createComponent(Entity* e)
 	{
 		return e->addComponent<Text>();
 	}

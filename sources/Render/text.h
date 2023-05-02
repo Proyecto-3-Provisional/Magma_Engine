@@ -8,7 +8,7 @@ namespace magma_engine
 {
 	class UI_Text;
 
-	class Text : public ec::Component
+	class Text : public Component
 	{
 	public:
 

@@ -4,36 +4,32 @@
 
 namespace magma_engine
 {
-	namespace ec {
+	EntityManager::~EntityManager() {
+		for (auto& e : ents_) {
+			delete e;
+			e = nullptr;
+		}
+		ents_.clear();
+	}
 
-		EntityManager::~EntityManager() {
-			for (auto& e : ents_) {
-				delete e;
-				e = nullptr;
+	void EntityManager::refresh()
+	{
+		auto it = ents_.begin();
+		while (it != ents_.end()) {
+			if (!(*it)->isAlive()) {
+				delete (*it); // Borra la entidad
+				it = ents_.erase(it);
 			}
-			ents_.clear();
+			else ++it;
 		}
+	}
 
-		void EntityManager::refresh()
-		{
-			auto it = ents_.begin();
-			while (it != ents_.end()) {
-				if (!(*it)->isAlive()) {
-					delete (*it); // Borra la entidad
-					it = ents_.erase(it);
-				}
-				else ++it;
-			}
-		}
+	void EntityManager::update(float deltaTime) {
+		for (auto& e : ents_) e->update(deltaTime);
+	}
 
-		void EntityManager::update(float deltaTime) {
-			for (auto& e : ents_) e->update(deltaTime);
-		}
-
-		void EntityManager::render() {
-			for (auto& e : ents_) e->render();
-		}
-
+	void EntityManager::render() {
+		for (auto& e : ents_) e->render();
 	}
 }
 

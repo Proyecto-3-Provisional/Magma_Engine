@@ -28,7 +28,7 @@ namespace magma_engine
 		return 1;
 	}
 
-	int PhysicsManager::addRigidBody(ec::Entity* e, const double& xShape, const double& yShape, const double& zShape, 
+	int PhysicsManager::addRigidBody(Entity* e, const double& xShape, const double& yShape, const double& zShape, 
 		const double& xTransform, const double& yTransform, const double& zTransform)
 	{
 		btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
@@ -167,14 +167,14 @@ namespace magma_engine
 		return colision;
 	}
 
-	std::vector<ec::Entity*> PhysicsManager::getArrayOfColliders(int index)
+	std::vector<Entity*> PhysicsManager::getArrayOfColliders(int index)
 	{
 		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[index];
 		btRigidBody* body = btRigidBody::upcast(obj);
 
 		btBroadphasePairArray& collisionPairs = dynamicsWorld->getPairCache()->getOverlappingPairArray();
 
-		std::vector<ec::Entity*> colliders;
+		std::vector<Entity*> colliders;
 		for (int i = 0; i < collisionPairs.size(); ++i) {
 			btBroadphasePair& collisionPair = collisionPairs[i];
 

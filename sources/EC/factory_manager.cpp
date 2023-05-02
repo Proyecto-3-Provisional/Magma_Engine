@@ -10,7 +10,7 @@ namespace magma_engine
 		map_.clear();
 	}
 
-	ec::Component* FactoryManager::findAndCreate(const std::string& name, ec::Entity* e)
+	Component* FactoryManager::findAndCreate(const std::string& name, Entity* e)
 	{
 		std::map<std::string, Factory*>::iterator it = map_.find(name);
 		if (it == map_.end())

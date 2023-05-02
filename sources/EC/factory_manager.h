@@ -15,12 +15,12 @@ namespace magma_engine
 	public:
 		~FactoryManager();
 
-		ec::Component* findAndCreate(const std::string& name, ec::Entity* ent = nullptr);
+		Component* findAndCreate(const std::string& name, Entity* ent = nullptr);
 		void addFactory(const std::string& name, Factory* fact);
 	private:
 		std::map<std::string, Factory*> map_;
 		template <typename T>
-		ec::Component* createComponent() { return new T; };
+		Component* createComponent() { return new T; };
 	};
 }
 

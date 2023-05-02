@@ -86,7 +86,7 @@ namespace magma_engine
 		return (PhysicsManager::instance()->getArrayOfColliders(rigidPtr->getUserIndex()).size() > 0);
 	}
 
-	std::vector<ec::Entity*> Rigidbody::getCollisionObjs()
+	std::vector<Entity*> Rigidbody::getCollisionObjs()
 	{
 		return PhysicsManager::instance()->getArrayOfColliders(rigidPtr->getUserIndex());
 	}

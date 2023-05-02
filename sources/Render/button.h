@@ -6,7 +6,7 @@ namespace magma_engine
 {
 	class UIButton;
 
-	class Button : public ec::Component
+	class Button : public Component
 	{
 	public:
 

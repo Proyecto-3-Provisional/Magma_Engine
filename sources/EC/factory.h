@@ -9,7 +9,7 @@ namespace magma_engine
 	public:
 		Factory() {};
 		virtual ~Factory() {};
-		virtual ec::Component* createComponent(ec::Entity* ent = nullptr) = 0;
+		virtual Component* createComponent(Entity* ent = nullptr) = 0;
 	};
 }
 

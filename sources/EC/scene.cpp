@@ -10,7 +10,7 @@ namespace magma_engine
 	{
 		if (Singleton<FactoryManager>::instance())
 			valid = true;
-		mngr = new ec::EntityManager();
+		mngr = new EntityManager();
 	}
 
 	Scene::~Scene()
@@ -31,26 +31,26 @@ namespace magma_engine
 		if (sceneMap == nullptr)
 			return false;
 
-		Singleton<magma_engine::RenderManager>::instance()->
+		Singleton<RenderManager>::instance()->
 			createCam(nullptr, { 0, 1000, 0 });
-		Singleton<magma_engine::RenderManager>::instance()->
+		Singleton<RenderManager>::instance()->
 			setCamLookAt({ 0, -1000, 0 });
-		Singleton<magma_engine::RenderManager>::instance()->
+		Singleton<RenderManager>::instance()->
 			setBgColor(0.8f, 0.8f, 0.7f);
-		Singleton<magma_engine::RenderManager>::instance()->
+		Singleton<RenderManager>::instance()->
 			objectShowMode(0);
 
 		for (auto itEntity = sceneMap->begin();
 			itEntity != sceneMap->end() && noErrors;
 			itEntity++)
 		{
-			ec::Entity* e = mngr->addEntity();
+			Entity* e = mngr->addEntity();
 
 			for (auto itComponent = itEntity->second.begin();
 				itComponent != itEntity->second.end() && noErrors;
 				itComponent++)
 			{
-				ec::Component* c = Singleton<FactoryManager>::instance()->
+				Component* c = Singleton<FactoryManager>::instance()->
 					findAndCreate(itComponent->first, e);
 				if (c != nullptr) {
 					bool successfulInit = c->initComponent(itComponent->second);
@@ -66,11 +66,11 @@ namespace magma_engine
 		if (!noErrors)
 			return false;
 		
-		for (ec::Entity* e : mngr->getEntities())
+		for (Entity* e : mngr->getEntities())
 		{
 			if (!noErrors)
 				break;
-			for (magma_engine::ec::Component* cmp : e->getAllCmps())
+			for (Component* cmp : e->getAllCmps())
 			{
 				if (!noErrors)
 					break;

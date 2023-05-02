@@ -15,7 +15,7 @@ namespace magma_engine
 		~PhysicsManager();
 
 		//Metodo para añadir un elemento rigidbody 
-		int addRigidBody(ec::Entity* e, const double& xShape, const double& yShape, const double& zShape, 
+		int addRigidBody(Entity* e, const double& xShape, const double& yShape, const double& zShape, 
 			const double& xTransform, const double& yTransform, const double& zTransform);
 
 		//Metodos para eliminar rigidbodys almacenados 
@@ -32,7 +32,7 @@ namespace magma_engine
 		bool isCollide(const int& index1, const int& index2);
 
 		//Metodo para obtener un vector con 
-		std::vector<ec::Entity*> getArrayOfColliders(int index);
+		std::vector<Entity*> getArrayOfColliders(int index);
 
 		Vector3D getPos(int index);
 
@@ -53,7 +53,7 @@ namespace magma_engine
 		btDiscreteDynamicsWorld* dynamicsWorld;
 		btAlignedObjectArray<btCollisionShape*> collisionShapes;
 		
-		std::vector<ec::Entity *> entities;
+		std::vector<Entity *> entities;
 	};
 }
 

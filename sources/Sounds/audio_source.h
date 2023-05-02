@@ -10,7 +10,7 @@ namespace magma_engine
 
 	struct AudioData;
 
-	class AudioSource : public ec::Component
+	class AudioSource : public Component
 	{
 	public:
 

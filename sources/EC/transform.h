@@ -8,7 +8,7 @@ namespace magma_engine
 {
 	class Vector3D;
 
-	class Transform : public ec::Component {
+	class Transform : public Component {
 	public:
 		Transform(){};
 

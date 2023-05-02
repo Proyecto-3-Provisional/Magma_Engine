@@ -8,7 +8,7 @@ namespace magma_engine
 	class Transform;
 	class GraphicalObject;
 
-	class Mesh : public ec::Component
+	class Mesh : public Component
 	{
 	public:
 		Mesh();

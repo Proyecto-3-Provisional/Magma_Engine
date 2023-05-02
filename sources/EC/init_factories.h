@@ -3,48 +3,48 @@
 
 namespace magma_engine
 {
-	struct ec::Component;
+	struct Component;
 
 	class TransformFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	class RigidbodyFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	class MeshFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	class AudioSourceFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	class ButtonFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	class ImageFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	class TextFactory : public Factory
 	{
 	public:
-		ec::Component* createComponent(ec::Entity* e);
+		Component* createComponent(Entity* e);
 	};
 
 	void setUpFactories();

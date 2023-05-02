@@ -8,35 +8,32 @@
 
 namespace magma_engine
 {
-	namespace ec {
-		class EntityManager {
-		public:
-			EntityManager() {};
-			virtual ~EntityManager();
+	class EntityManager {
+	public:
+		EntityManager() {};
+		virtual ~EntityManager();
 
-			Entity* addEntity() {
-				auto e = new Entity();
-				e->setAlive(true);
+		Entity* addEntity() {
+			auto e = new Entity();
+			e->setAlive(true);
 
-				ents_.push_back(e);
+			ents_.push_back(e);
 
-				return e;
-			}
+			return e;
+		}
 
-			// Elimina las entidades muertas de las listas de grupos y las que ya no pertenecen a ningun grupo
-			void refresh();
+		// Elimina las entidades muertas de las listas de grupos y las que ya no pertenecen a ningun grupo
+		void refresh();
 
-			void update(float deltaTime);
-			void render();
+		void update(float deltaTime);
+		void render();
 
-			inline const auto& getEntities() {
-				return ents_;
-			}
+		inline const auto& getEntities() {
+			return ents_;
+		}
 
-		private:
-			std::vector<Entity*> ents_;
-		};
-	}
-
+	private:
+		std::vector<Entity*> ents_;
+	};
 }
 
