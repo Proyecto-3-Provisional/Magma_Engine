@@ -25,6 +25,8 @@ namespace magma_engine
 		void update();
 		void cleanPanel(); // Borra todos los elementos del overlay
 
+		void flush(); 
+
 		/*
 		Crea un UI_Element de X tipo(Texto, Image, etc.) con su nombre de panel,
 		una referencia al overlay y los argumentos que necesite su tipo

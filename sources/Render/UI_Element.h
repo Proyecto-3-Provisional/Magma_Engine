@@ -34,6 +34,9 @@ namespace magma_engine
 
 		void setInteractive(bool isInteractive) {};
 
+		bool isHidden();
+		void setHide(); 
+
 	protected:
 
 		int nOverlay;
@@ -47,6 +50,8 @@ namespace magma_engine
 		Ogre::OverlayContainer* panel;
 
 		bool isInteractive_;
+
+		bool hidden; 
 
 
 		//RenderManagerContext* rend;

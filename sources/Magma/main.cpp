@@ -72,7 +72,7 @@ int mainCode() {
 	// ---------- Inicialización RENDER ----------
 
 	// Carga de mapa
-	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/test.magmascene");
+	int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene("assets/scenes/menu.magmascene");
 	bool sceneCreated = false;
 	magma_engine::Scene* scn = nullptr;
 	if (sceneRead >= 0) {
@@ -123,6 +123,9 @@ int mainCode() {
 			// ------- TEST INPUT & UI -------
 			Singleton<magma_engine::InputManager>::instance()->inputEvent();
 
+			Singleton<magma_engine::UI_Manager>::instance()->update();
+
+
 			// ------- TEST EC -------
 			Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 			Singleton<magma_engine::PhysicsManager>::instance()->update(timeSinceLastFrame * 0.001f);
@@ -132,13 +135,13 @@ int mainCode() {
 				Singleton<magma_engine::RenderManager>::instance()->notifyWindowResized();
 			}
 
+			Singleton<magma_engine::InputManager>::instance()->flush();
 		}
 		if (error)
 		{
 			std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 		}
 	}
-
 
 	// Carga de mapa
 	if (sceneRead >= 0) 

@@ -52,6 +52,11 @@ namespace magma_engine
 		return exitRequest;
 	}
 
+	void InputManager::exitPetition()
+	{
+		exitRequest = true; 
+	}
+
 	void InputManager::showOrHideMouse()
 	{
 		cursorState = !cursorState;

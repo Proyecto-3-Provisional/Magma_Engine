@@ -4,6 +4,19 @@
 
 namespace magma_engine
 {
+	enum ButtonType
+	{
+		NEXT_SCENE,
+		BACK_SCENE, 
+		CHANGE_SCENE, 
+		MORE_VOLUME, 
+		LESS_VOLUME, 
+		LETTER, 
+		QUIT
+	};
+
+	ButtonType convert(const std::string& str); 
+
 	class UIButton;
 
 	class Button : public Component
@@ -16,7 +29,7 @@ namespace magma_engine
 
 		virtual bool initComponent(std::map<std::string, std::string> args);
 
-		virtual void render() {};
+		virtual void render();
 
 		//Metodos para activación o desactivación del componente
 		virtual void onEnable();
@@ -39,7 +52,10 @@ namespace magma_engine
 		//Comprobamos si el cursor está en los limites del botón y si
 		//ha sido pulsado
 		bool isCursorInsideBounds(int x, int y);
+
 		bool isButtonPressed();
+
+		std::string getSceneRoute(); 
 
 	private:
 
@@ -63,6 +79,17 @@ namespace magma_engine
 		float posY;
 		float screenHeight;
 		float screenWidth;
+
+		//////////////////////////////////////////////////////
+
+		//Acciones del boton 
+
+		ButtonType typeButton;
+		std::string sceneRoute; 
+
+		float sound; 
+
+		bool sceneRead;
 	};
 }
 

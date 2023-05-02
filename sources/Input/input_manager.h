@@ -19,6 +19,7 @@ namespace magma_engine
 
         //Comprueba si se debe salir del bucle principal
         bool exitRequested();
+        void exitPetition(); 
 
         // COMANDOS TECLADO
 

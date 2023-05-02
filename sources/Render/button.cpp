@@ -1,17 +1,45 @@
 #include <iostream>
-#include <Render/render_manager.h>
-#include <Render/Button.h>
+
 #include <Render/ui_button.h>
+#include <Render/Button.h>
 #include <Render/UI_Manager.h>
+
 #include <Input/input_manager.h>
+
+#include <EC/scene_manager.h>
+#include <EC/scene.h>
+
+#include <Lua/scene_loader.h>
+
+#include <Sounds/sound_manager.h>
 
 namespace magma_engine
 {
+	ButtonType convert(const std::string& str)
+	{
+		if (str == "NEXT_SCENE")
+			return NEXT_SCENE;
+		else if (str == "BACK_SCENE")
+			return BACK_SCENE;
+		else if (str == "CHANGE_SCENE")
+			return CHANGE_SCENE;
+		else if (str == "MORE_VOLUME")
+			return MORE_VOLUME;
+		else if (str == "LESS_VOLUME")
+			return LESS_VOLUME;
+		else if (str == "LETTER")
+			return LETTER;
+		else
+			return QUIT; 
+	}
+
 	Button::Button() : Component(), buttonName(), normalButtonName(), hoverButtonName(), pressedButtonName(), tamX(), tamY(), posX(), posY()
 	{
 	}
 
 	Button::~Button() {};
+
+	void Button::render() {}
 
 	std::string Button::GetName()
 	{
@@ -46,12 +74,15 @@ namespace magma_engine
 			hoverButtonName = args["hoverImageName"];
 			pressedButtonName = args["pressedImageName"];
 
+			typeButton = convert(args["buttonType"]);
+
+			sceneRoute = args["sceneRoute"]; 
+
 			tamX = stof(args["width"]);
 			tamY = stof(args["height"]);
 			posX = stof(args["x"]);
 			posY = stof(args["y"]);
-			screenWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-			screenHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
+
 			pressed = false;
 		}
 		catch (std::exception e)
@@ -77,7 +108,68 @@ namespace magma_engine
 			if (Singleton<InputManager>::instance()->isMouseDown())
 			{
 				pressed = true;
-				button->setMaterial(pressedButtonName);
+				button->setMaterial(pressedButtonName); 
+
+				switch (typeButton)
+				{
+				case NEXT_SCENE: 
+
+					Singleton<magma_engine::UI_Manager>::instance()->flush();
+
+					sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(sceneRoute);
+
+					if (sceneRead >= 0)
+					{
+						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
+
+						Scene* scn = new magma_engine::Scene();
+
+						bool sceneCreated = scn->loadScene(sncMp);
+
+						if (sceneCreated)
+							Singleton<magma_engine::SceneManager>::instance()->pushScene(scn);
+					}
+					break;
+				case BACK_SCENE:
+
+					Singleton<magma_engine::UI_Manager>::instance()->flush();
+
+					Singleton<magma_engine::SceneManager>::instance()->popScene();
+					break;
+				case CHANGE_SCENE:
+
+					Singleton<magma_engine::UI_Manager>::instance()->flush();
+
+					sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(sceneRoute);
+
+					if (sceneRead >= 0)
+					{
+						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
+
+						Scene* scn = new magma_engine::Scene();
+
+						bool sceneCreated = scn->loadScene(sncMp);
+
+						if (sceneCreated)
+							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+					}
+					break;
+				case MORE_VOLUME: 
+					sound = Singleton<magma_engine::SoundManager>::instance()->getVolume(); 
+					Singleton<magma_engine::SoundManager>::instance()->setVolume(sound + 0.1f);
+					Singleton<magma_engine::SoundManager>::instance()->setVolumeSongs();
+					break; 
+				case LESS_VOLUME:
+					sound = Singleton<magma_engine::SoundManager>::instance()->getVolume();
+					Singleton<magma_engine::SoundManager>::instance()->setVolume(sound - 0.1f);
+					Singleton<magma_engine::SoundManager>::instance()->setVolumeSongs(); 
+					break;
+				case QUIT:
+					Singleton<InputManager>::instance()->exitPetition(); 
+					break;
+				default: 
+					break; 
+				}
 			}
 
 			else
@@ -89,17 +181,7 @@ namespace magma_engine
 		else
 		{
 			button->setMaterial(normalButtonName);
-			pressed = false;
-		}
-
-		float newWidth = (float)Singleton<RenderManager>::instance()->getWinWidth();
-		float newHeight = (float)Singleton<RenderManager>::instance()->getWinHeight();
-
-		if (newWidth != 0 && newHeight != 0 && screenWidth != 0 && screenHeight != 0)
-		{
-			button->setPanelPosition(posX * (newWidth / screenWidth), posY * (newHeight / screenHeight));
-			button->setPanelSize(tamX * (newWidth / screenWidth), tamY * (newHeight / screenHeight));
-		}
+		}		
 	}
 
 	void Button::onEnable()
@@ -118,8 +200,14 @@ namespace magma_engine
 		interactive = interact;
 	}
 
-	bool Button::isButtonPressed() {
+	bool Button::isButtonPressed() 
+	{
 		return pressed;
+	}
+
+	std::string Button::getSceneRoute()
+	{
+		return sceneRoute; 
 	}
 }
 

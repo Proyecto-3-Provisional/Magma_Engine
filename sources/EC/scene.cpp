@@ -4,6 +4,8 @@
 
 #include <Render/render_manager.h>
 
+#include <Render/ui_manager.h>
+
 namespace magma_engine
 {
 	Scene::Scene() : valid(false)

@@ -18,6 +18,7 @@ namespace magma_engine
 		bool isValid();
 
 	private:
+
 		bool valid;
 
 		EntityManager* mngr;

@@ -14,6 +14,8 @@ namespace magma_engine
 		isInteractive_ = false;
 
 		nOverlay++;
+
+		hidden = false; 
 	}
 
 	UI_Element::~UI_Element()
@@ -81,6 +83,16 @@ namespace magma_engine
 	std::pair<float, float> UI_Element::getSize()
 	{
 		return size;
+	}
+
+	bool UI_Element::isHidden()
+	{
+		return hidden; 
+	}
+
+	void UI_Element::setHide()
+	{
+		hidden = !hidden; 
 	}
 }
 
