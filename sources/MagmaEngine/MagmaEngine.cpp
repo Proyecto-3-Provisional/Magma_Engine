@@ -8,6 +8,7 @@
 #include <Physics/physics_manager.h>
 #include <Sounds/sound_manager.h>
 #include <EC/scene_manager.h>
+#include <EC/scene.h>
 #include <Lua/scene_loader.h>
 #include <EC/factory_manager.h>
 #include <EC/init_factories.h>
@@ -33,11 +34,11 @@ namespace magma_engine
 		if (game != NULL)
 		{
 			std::cout << "Libreria del juego cargada" << std::endl;
-			GameExample pruebaJuego = (GameExample)GetProcAddress(game, "prueba");
+			GameString gameSceneName = (GameString)GetProcAddress(game, "gameNameScene");
 
 
-			if (pruebaJuego != NULL)
-				pruebaJuego();
+			if (gameSceneName != NULL)
+				name = gameSceneName();
 			else
 				std::cout << "No se ha encontrado el metodo del juego\n";
 
@@ -92,6 +93,19 @@ namespace magma_engine
 				{
 					Singleton<magma_engine::SoundManager>::instance()->initAudio();
 					setUpFactories();
+
+					// Carga de mapa
+					int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(name);
+					bool sceneCreated = false;
+					Scene* scn = new Scene();
+					if (sceneRead >= 0) {
+						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
+
+						sceneCreated = scn->loadScene(sncMp);
+						if (sceneCreated)
+							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+					}
+
 					return true;
 				}
 				else {
@@ -170,6 +184,9 @@ namespace magma_engine
 			// Si la ventana cambia de tamaño
 			if (Singleton<InputManager>::instance()->hasWindowChange())
 				Singleton<RenderManager>::instance()->notifyWindowResized();
+
+			// Actualizamos todas las entidades de la escena y borramos las escenas en la cola de eliminacion
+			Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
 
 			// Borrar elementos de pantalla y volver a dibujarlos
