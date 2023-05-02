@@ -1,4 +1,6 @@
 #include <Render/render_manager.h>
+#include <Render/graphical_object.h>
+#include <Render/render_manager_context.h>
 
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
@@ -11,27 +13,28 @@
 namespace magma_engine
 {
 	// Recibe un booleano que indica si el cursor puede salir de la ventana o no
-	RenderManager::RenderManager(bool grabCursor) : RenderManagerContext("MagmaTest")
+	RenderManager::RenderManager(bool grabCursor)
 	{
+		context = new RenderManagerContext("MagmaTest");
 		bgColR = bgColG = bgColB = 0.0f;
-		RenderManagerContext::cursorGrab = grabCursor;
+		context->setCursor(grabCursor);
 		// CONTEXT: new -> setup()
 	}
 
 	// Recibe un booleano que indica si el cursor puede salir de la ventana o no
 	// y parámetros que modifican la ventana y las condiciones del renderizado
 	RenderManager::RenderManager(bool grabCursor, uint32_t w, uint32_t h, bool fScr,
-		bool vSyn, int fsaa, bool gamm) : RenderManagerContext("MagmaTest", w, h,
-			fScr, vSyn, fsaa, gamm)
+		bool vSyn, int fsaa, bool gamm)
 	{
+		context = new RenderManagerContext("MagmaTest", w, h, fScr, vSyn, fsaa, gamm);
 		bgColR = bgColG = bgColB = 0.0f;
-		RenderManagerContext::cursorGrab = grabCursor;
+		context->setCursor(grabCursor);
 		// CONTEXT: new -> setup()
 	}
 
 	RenderManager::~RenderManager()
 	{
-		// CONTEXT: delete -> shutdown()
+		delete context;
 	}
 
 	void RenderManager::setCamPos(const Vector3D& vec)
@@ -113,7 +116,7 @@ namespace magma_engine
 		if (cameraFollows)
 			setCamLookAt({ startPos.getX(), startPos.getY(), startPos.getZ() - 1000 });
 
-		cameraViewport = getRenderWindow()->addViewport(camera);
+		cameraViewport = context->getRenderWindow()->addViewport(camera);
 	}
 
 	// 0. Comprobar que hay cámara
@@ -126,7 +129,7 @@ namespace magma_engine
 		if (!camera && !cameraNode && !cameraViewport)
 			return;
 
-		getRenderWindow()->removeAllViewports();
+		context->getRenderWindow()->removeAllViewports();
 		cameraViewport = nullptr;
 
 		cameraNode->detachObject(camera);
@@ -299,16 +302,35 @@ namespace magma_engine
 		}
 	}
 
-	// Al final crea la malla de un plano por código
-	// NO CAMBIAR LA PRIMERA LÍNEA
-	void RenderManager::setup()
+	bool RenderManager::renderFrame()
 	{
-		RenderManagerContext::setup();
+		return context->renderFrame();
+	}
 
-		mSM = mRoot->createSceneManager();
-		mSM->addRenderQueueListener(mOverlaySystem);
+	void RenderManager::notifyWindowResized()
+	{
+		context->notifyWindowResized();
+	}
 
-		createPlaneMesh();
+	bool RenderManager::initApp()
+	{
+		mSM = context->initApp();
+		return mSM != nullptr;
+	}
+
+	void RenderManager::closeApp()
+	{
+		context->closeApp();
+	}
+
+	int RenderManager::getWinWidth()
+	{
+		return context->getWinWidth();
+	}
+
+	int RenderManager::getWinHeight()
+	{
+		return context->getWinHeight();
 	}
 
 	// POSIBLEMENTE BLOQUEANTE debido a removeObjects() -> Destruir cámara antes
@@ -320,19 +342,10 @@ namespace magma_engine
 		removeObjects();
 		destroyCam();
 
-		mSM->removeRenderQueueListener(mOverlaySystem);
-		mRoot->destroySceneManager(mSM);
+		mSM->removeRenderQueueListener(context->getOverlaySystem());
+		context->getRoot()->destroySceneManager(mSM);
 
-		RenderManagerContext::shutdown();
-	}
-
-	// Definir malla mPlane1080x800
-	void RenderManager::createPlaneMesh(Ogre::String name)
-	{
-		Ogre::MeshManager::getSingleton().createPlane("mPlane1080x800",
-			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), // vector normal, vector up
-			1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_X);
+		context->shutdown();
 	}
 
 	// Usado en la práctica para desanclar la cámara de la jerarquía de objetos

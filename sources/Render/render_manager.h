@@ -2,13 +2,23 @@
 
 #include <EC/vector3D.h>
 #include <singleton.h>
+#include <string>
+#include <list>
+#include <unordered_map>
 
-#include <Render/render_manager_context.h>
-#include <Render/graphical_object.h>
+namespace Ogre {
+	class SceneManager;
+	class Camera;
+	class SceneNode;
+	class Viewport;
+}
 
 namespace magma_engine
 {
-	class RenderManager : public RenderManagerContext, public Singleton<RenderManager>
+	class RenderManagerContext;
+	class GraphicalObject;
+
+	class RenderManager : public Singleton<RenderManager>
 	{
 		// Permiso para construir
 		friend Singleton<RenderManager>;
@@ -17,7 +27,7 @@ namespace magma_engine
 		explicit RenderManager(bool grabCursor, uint32_t w, uint32_t h,
 			bool fScr, bool vSyn, int fsaa, bool gamm);
 	public:
-		virtual ~RenderManager();
+		~RenderManager();
 
 		// Crear y destruir cámara
 		void createCam(GraphicalObject* follow, const Vector3D& startPos = Vector3D(0, 0, 1000));
@@ -69,19 +79,21 @@ namespace magma_engine
 		// Hacer avanzar las animaciones de los Objetos
 		void stepAnimations(int deltaTime);
 
+		// Funciones de RenderManagerContext
+		bool renderFrame();
+		void notifyWindowResized();
+		bool initApp();
+		void closeApp();
+		int getWinWidth();
+		int getWinHeight();
+
 	protected:
 		// Objetos nuestros del mundo gráfico
 		std::unordered_map<std::string, GraphicalObject*> sceneObjects;
 		std::list<GraphicalObject*> sceneObjectsToRemove;
 
-		// Preparar
-		virtual void setup();
-
 		// Cerrar
-		virtual void shutdown();
-
-		// Crear malla por código: plano
-		void createPlaneMesh(Ogre::String name = "mPlane1080x800");
+		void shutdown();
 
 		// Destruir cámara y volverla a crear con configuración básica
 		void replaceCam();
@@ -92,6 +104,8 @@ namespace magma_engine
 		float bgColB;
 
 		// Punteros
+		RenderManagerContext* context = nullptr;
+
 		Ogre::SceneManager* mSM = nullptr;
 		Ogre::Camera* camera = nullptr;
 		Ogre::SceneNode* cameraNode = nullptr;

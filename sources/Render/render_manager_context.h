@@ -23,12 +23,11 @@ namespace magma_engine
 	// con ventana. La subclase debe especificar los callbacks a eventos.
 	class RenderManagerContext : public Ogre::FrameListener
 	{
-	protected:
+	public:
 		explicit RenderManagerContext(const Ogre::String& appName = OGRE_VERSION_NAME);
 		explicit RenderManagerContext(const Ogre::String& appName,
 			uint32_t w, uint32_t h, bool fScr, bool vSyn, int fsaa, bool gamm);
-	public:
-		virtual ~RenderManagerContext();
+		~RenderManagerContext();
 
 		// Obtener la RenderWindow; posee el contexto en OpenGL
 		Ogre::RenderWindow* getRenderWindow() const;
@@ -38,43 +37,43 @@ namespace magma_engine
 		Ogre::OverlaySystem* getOverlaySystem() const;
 
 		// Inicializar sistema de renderizado y recursos
-		bool initApp();
+		Ogre::SceneManager* initApp();
 
 		// Cerrar la aplicación, tras salvar la configuración
 		void closeApp();
 
 		// Interfaz de callbacks copiada de varios listeners para usarse aquí
-		virtual bool frameStarted(const Ogre::FrameEvent& evt);
-		virtual bool frameEnded(const Ogre::FrameEvent& evt);
-		virtual void windowMoved(Ogre::RenderWindow* rw);
-		virtual void windowResized(Ogre::RenderWindow* rw);
-		virtual bool windowClosing(Ogre::RenderWindow* rw);
-		virtual void windowClosed(Ogre::RenderWindow* rw);
-		virtual void windowFocusChange(Ogre::RenderWindow* rw);
+		bool frameStarted(const Ogre::FrameEvent& evt);
+		bool frameEnded(const Ogre::FrameEvent& evt);
+		void windowMoved(Ogre::RenderWindow* rw);
+		void windowResized(Ogre::RenderWindow* rw);
+		bool windowClosing(Ogre::RenderWindow* rw);
+		void windowClosed(Ogre::RenderWindow* rw);
+		void windowFocusChange(Ogre::RenderWindow* rw);
 
 		// Crear la raíz de Ogre
-		virtual void createRoot();
+		void createRoot();
 
 		// Configura las opciones de inicio para Ogre
-		virtual bool oneTimeConfig();
+		bool oneTimeConfig();
 
 		// Preparar el contexto tras la configuración
-		virtual void setup();
+		void setup();
 
 		// Crear una nueva ventana para renderizar
-		virtual NativeWindowPair createWindow(const Ogre::String& name);
+		NativeWindowPair createWindow(const Ogre::String& name);
 
 		// Confinar ratón dentro de la ventana
 		void setWindowGrab(bool grab);
 
 		// Encontrar grupos de recursos para el contexto
-		virtual void locateResources();
+		void locateResources();
 
 		// Cargar grupos de recursos para el contexto
-		virtual void loadResources();
+		void loadResources();
 
 		// Limpiar y cerrar el contexto
-		virtual void shutdown();
+		void shutdown();
 
 		// Reaccionar al reescalado de ventana
 		void notifyWindowResized();
@@ -84,6 +83,10 @@ namespace magma_engine
 
 		int getWinWidth();
 		int getWinHeight();
+
+		void setCursor(bool grab);
+		Ogre::Root* getRoot();
+		Ogre::OverlaySystem* getOverlaySystem();
 
 	protected:
 		bool cursorGrab;

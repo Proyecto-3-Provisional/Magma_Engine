@@ -6,6 +6,7 @@
 #include <OgreConfigFile.h>
 #include <OgreRenderWindow.h>
 #include <OgreLogManager.h>
+#include <OgreMeshManager.h>
 
 #include <SDL.h>
 #include <SDL_syswm.h>
@@ -59,21 +60,30 @@ namespace magma_engine
 		return mOverlaySystem;
 	}
 
-	bool RenderManagerContext::initApp()
+	Ogre::SceneManager* RenderManagerContext::initApp()
 	{
+		Ogre::SceneManager* mSM = nullptr;
 		try {
 			createRoot();
 
-			if (oneTimeConfig())
+			if (oneTimeConfig()) {
 				setup();
+
+				mSM = mRoot->createSceneManager();
+				mSM->addRenderQueueListener(mOverlaySystem);
+
+				Ogre::MeshManager::getSingleton().createPlane("mPlane1080x800",
+					Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+					Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), // vector normal, vector up
+					1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_X);
+			}
 		}
 		catch (Ogre::Exception& e) {
 			Ogre::String errMsg = "An exception has occured: " +
 				e.getFullDescription() + "\n";
 			Ogre::LogManager::getSingleton().logMessage(errMsg);
-			return false;
 		}
-		return true;
+		return mSM;
 	}
 
 	void RenderManagerContext::closeApp()
@@ -333,6 +343,18 @@ namespace magma_engine
 
 	int RenderManagerContext::getWinHeight() {
 		return winHeight;
+	}
+	void RenderManagerContext::setCursor(bool grab)
+	{
+		cursorGrab = grab;
+	}
+	Ogre::Root* RenderManagerContext::getRoot()
+	{
+		return mRoot;
+	}
+	Ogre::OverlaySystem* RenderManagerContext::getOverlaySystem()
+	{
+		return mOverlaySystem;
 	}
 }
 
