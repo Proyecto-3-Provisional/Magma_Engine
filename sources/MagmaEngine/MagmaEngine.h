@@ -5,6 +5,7 @@
 #endif
 
 #include <string>
+#include <windows.h>
 
 
 
