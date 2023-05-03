@@ -67,7 +67,7 @@ int main(int argc, char const** argv) {
 	return mainCode();
 }
 #else
-int __stdcall WinMain(void*, void*, char* cmdLine, int) {
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	return mainCode();
 }
 #endif

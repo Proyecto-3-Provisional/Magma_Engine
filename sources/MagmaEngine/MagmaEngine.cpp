@@ -48,7 +48,7 @@ namespace magma_engine
 	{
 		return Singleton<SceneManager>::instance();;
 	}
-	
+
 	UI_Manager* CMagmaEngine::getUI()
 	{
 		return Singleton<UI_Manager>::instance();;
@@ -66,6 +66,7 @@ namespace magma_engine
 			std::cout << "Libreria del juego cargada" << std::endl;
 			GameString gameSceneName = (GameString)GetProcAddress(game, "gameNameScene");
 			gComponent = (GameComponents)GetProcAddress(game, "setUpGameFactories");
+			eReference = (EngineReference)GetProcAddress(game, "getEngineInstances");
 
 			if (gameSceneName != NULL)
 				name = gameSceneName();
@@ -123,7 +124,7 @@ namespace magma_engine
 				{
 					Singleton<SoundManager>::instance()->initAudio();
 					setUpFactories();
-					
+
 					// Cargamos los componentes del juego
 					if (gComponent != NULL)
 						gComponent(Singleton<FactoryManager>::instance());
@@ -133,7 +134,17 @@ namespace magma_engine
 						ShutDown();
 						return false;
 					}
-					
+
+					// Cargamos los componentes del juego
+					if (eReference != NULL)
+						eReference(_instance);
+					else
+					{
+						std::cout << "WARNING! El juego no recibió la referencia al motor \n\n";
+						ShutDown();
+						return false;
+					}
+
 
 					// Carga de mapa
 					int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(name);
