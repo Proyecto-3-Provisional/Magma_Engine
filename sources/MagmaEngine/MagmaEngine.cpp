@@ -86,7 +86,7 @@ namespace magma_engine
 	{
 		if (_instance == nullptr)
 		{
-			_instance = new CMagmaEngine();
+			_instance = this;
 
 			// Si consigue cargar el juego, se inicializa el resto
 			if (loadGame())
@@ -159,6 +159,10 @@ namespace magma_engine
 						if (sceneCreated)
 							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
 					}
+					else {
+						ShutDown();
+						return false;
+					}
 
 					return true;
 				}
@@ -177,6 +181,8 @@ namespace magma_engine
 	{
 		switch (i) {
 		case 0:
+			// ------ FACTORY MANAGER ------
+			Singleton<FactoryManager>::release();
 			// ------ SCENE_LOADER ------
 			Singleton<SceneLoader>::release();
 			// ------ SCENE MANAGER ------
