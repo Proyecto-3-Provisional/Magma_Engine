@@ -13,7 +13,7 @@ namespace magma_engine
 	class RenderManager;
 	class InputManager;
 	class PhysicsManager;
-	class AudioManager;
+	class SoundManager;
 	class SceneManager;
 	class UI_Manager;
 
@@ -32,7 +32,7 @@ namespace magma_engine
 		RenderManager* getRender();
 		InputManager* getInput();
 		PhysicsManager* getPhysics();
-		AudioManager* getAudio();
+		SoundManager* getAudio();
 		SceneManager* getSceneMngr();
 		UI_Manager* getUI();
 

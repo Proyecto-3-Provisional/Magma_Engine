@@ -39,9 +39,9 @@ namespace magma_engine
 		return Singleton<InputManager>::instance();;
 	}
 
-	AudioManager* CMagmaEngine::getAudio()
+	SoundManager* CMagmaEngine::getAudio()
 	{
-		return Singleton<AudioManager>::instance();;
+		return Singleton<SoundManager>::instance();;
 	}
 
 	SceneManager* CMagmaEngine::getSceneMngr()
