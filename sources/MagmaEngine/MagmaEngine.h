@@ -6,8 +6,20 @@
 
 #include <string>
 
+
+
 namespace magma_engine
 {
+	class RenderManager;
+	class InputManager;
+	class PhysicsManager;
+	class AudioManager;
+	class SceneManager;
+	class UI_Manager;
+
+
+	class FactoryManager;
+
 	class MAGMAENGINE_API CMagmaEngine {
 	public:
 		bool Init();
@@ -15,13 +27,22 @@ namespace magma_engine
 		void run();
 		static CMagmaEngine* _instance;
 		CMagmaEngine();
+
+		// Get Instances
+		RenderManager* getRender();
+		InputManager* getInput();
+		PhysicsManager* getPhysics();
+		AudioManager* getAudio();
+		SceneManager* getSceneMngr();
+		UI_Manager* getUI();
+
 	private:
-		//typedef void(__cdecl* GameString)(std::string);
+		typedef void(__cdecl* GameComponents)(FactoryManager*);
 		typedef std::string(*GameString)();
 
 		HMODULE game;
 		bool loadGame();
-		
+		GameComponents gComponent;
 		std::string name;
 	};
 

@@ -24,6 +24,36 @@ namespace magma_engine
 	{
 	}
 
+	RenderManager* CMagmaEngine::getRender()
+	{
+		return Singleton<RenderManager>::instance();;
+	}
+
+	PhysicsManager* CMagmaEngine::getPhysics()
+	{
+		return Singleton<PhysicsManager>::instance();;
+	}
+
+	InputManager* CMagmaEngine::getInput()
+	{
+		return Singleton<InputManager>::instance();;
+	}
+
+	AudioManager* CMagmaEngine::getAudio()
+	{
+		return Singleton<AudioManager>::instance();;
+	}
+
+	SceneManager* CMagmaEngine::getSceneMngr()
+	{
+		return Singleton<SceneManager>::instance();;
+	}
+	
+	UI_Manager* CMagmaEngine::getUI()
+	{
+		return Singleton<UI_Manager>::instance();;
+	}
+
 	bool CMagmaEngine::loadGame()
 	{
 #ifdef _DEBUG
@@ -35,7 +65,7 @@ namespace magma_engine
 		{
 			std::cout << "Libreria del juego cargada" << std::endl;
 			GameString gameSceneName = (GameString)GetProcAddress(game, "gameNameScene");
-
+			gComponent = (GameComponents)GetProcAddress(game, "setUpGameFactories");
 
 			if (gameSceneName != NULL)
 				name = gameSceneName();
@@ -88,17 +118,30 @@ namespace magma_engine
 					&& Singleton<SoundManager>::init()	// ------ SOUND ------
 					&& Singleton<SceneManager>::init()	// ------ SCENE MANAGER ------
 					&& Singleton<SceneLoader>::init()	// ------ SCENE_LOADER ------
-					&& Singleton<magma_engine::FactoryManager>::init()
+					&& Singleton<FactoryManager>::init()
 					)
 				{
-					Singleton<magma_engine::SoundManager>::instance()->initAudio();
+					Singleton<SoundManager>::instance()->initAudio();
 					setUpFactories();
+					
+					// Cargamos los componentes del juego
+					if (gComponent != NULL)
+						gComponent(Singleton<FactoryManager>::instance());
+					else
+					{
+						std::cout << "WARNING! No se cargaron los componentes del juego correctamente \n\n";
+						ShutDown();
+						return false;
+					}
+					
 
 					// Carga de mapa
 					int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(name);
 					bool sceneCreated = false;
-					Scene* scn = new Scene();
+					Scene* scn = nullptr;
+
 					if (sceneRead >= 0) {
+						scn = new Scene();
 						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
 
 						sceneCreated = scn->loadScene(sncMp);
@@ -180,19 +223,27 @@ namespace magma_engine
 			// Actualizar la escena y todas sus entidades
 			Singleton<SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
-
-			// Si la ventana cambia de tamaño
-			if (Singleton<InputManager>::instance()->hasWindowChange())
-				Singleton<RenderManager>::instance()->notifyWindowResized();
-
 			// Actualizamos todas las entidades de la escena y borramos las escenas en la cola de eliminacion
 			Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
 
 			// Borrar elementos de pantalla y volver a dibujarlos
-			Singleton<RenderManager>::instance()->refreshObjects();
+			//Control de cuándo se borran aquellos que deben ser borrados
+			int f = Singleton<magma_engine::RenderManager>::instance()->refreshObjects();
+			if (f != 0)
+			{
+				std::cout << f <<
+					" destrucciones graficas diferidas fallidas\t/!\\" << std::endl;
+			}
 			if (!Singleton<RenderManager>::instance()->renderFrame())
 				error = true;
+
+			Singleton<magma_engine::UI_Manager>::instance()->update();
+
+
+			// Si la ventana cambia de tamaño
+			if (Singleton<InputManager>::instance()->hasWindowChange())
+				Singleton<RenderManager>::instance()->notifyWindowResized();
 
 
 			// Vaciamos el input
@@ -203,5 +254,6 @@ namespace magma_engine
 			std::cout << "****** ****** ERROR DE FOTOGRAMA ****** ******\n";
 		}
 	}
+
 }
 
