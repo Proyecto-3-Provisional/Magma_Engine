@@ -45,6 +45,8 @@ namespace magma_engine
 			return elem;
 		}
 
+		void deleteElement(UI_Element* f); 
+
 	private:
 		Ogre::OverlayManager* overlayMngr_;
 		Ogre::Overlay* overlay;

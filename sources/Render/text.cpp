@@ -13,7 +13,10 @@ namespace magma_engine
 
 	}
 
-	Text::~Text() {}
+	Text::~Text() 
+	{
+		Singleton<UI_Manager>::instance()->deleteElement(text);
+	}
 
 	std::string Text::GetName()
 	{

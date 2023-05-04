@@ -5,6 +5,8 @@
 #include <Overlay/OgreOverlayManager.h>
 #include <Overlay/OgreOverlayContainer.h>
 
+#include <iostream>
+
 namespace magma_engine
 {
 	UI_Manager::UI_Manager()
@@ -25,6 +27,28 @@ namespace magma_engine
 
 	void UI_Manager::init()
 	{}
+
+	void UI_Manager::deleteElement(UI_Element* f)
+	{
+		auto it = elements.begin(); 
+		bool found = false;
+
+		while (it != elements.end() && !found)
+		{
+			if ((*it) == f)
+			{
+				delete f; 
+
+				it = elements.erase(it); 
+				found = true;
+			}
+
+			else it++; 
+		}
+
+		if (!found)
+			std::cout << "No eliminado\n";
+	}
 
 	void UI_Manager::update() 
 	{

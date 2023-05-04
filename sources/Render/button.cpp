@@ -37,7 +37,10 @@ namespace magma_engine
 	{
 	}
 
-	Button::~Button() {};
+	Button::~Button() 
+	{
+		Singleton<UI_Manager>::instance()->deleteElement(button);
+	};
 
 	void Button::render() {}
 
@@ -132,9 +135,9 @@ namespace magma_engine
 					break;
 				case BACK_SCENE:
 
-					Singleton<magma_engine::UI_Manager>::instance()->flush();
-
 					Singleton<magma_engine::SceneManager>::instance()->popScene();
+
+					Singleton<magma_engine::UI_Manager>::instance()->flush();
 					break;
 				case CHANGE_SCENE:
 
