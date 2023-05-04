@@ -101,7 +101,7 @@ namespace magma_engine
 
 	void PhysicsManager::update(float deltaTime)
 	{
-		dynamicsWorld->stepSimulation(deltaTime, 10);
+		dynamicsWorld->stepSimulation(1.f / 60.f, 10, deltaTime);
 
 		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
 		{

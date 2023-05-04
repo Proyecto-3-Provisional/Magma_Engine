@@ -3,7 +3,7 @@ technique {
 	pass {
 		diffuse 1.0 1.0 1.0
 		texture_unit {
-			texture magma_block.png
+			texture magma_cube.png
 			colour_op modulate
 			tex_address_mode wrap
 			}
@@ -35,5 +35,13 @@ technique {
 				colour_op modulate
 			}
 		}
+	}
+}
+
+material black {
+technique {
+    pass {
+    	diffuse 0.0 0.0 0.0
+    	}
 	}
 }

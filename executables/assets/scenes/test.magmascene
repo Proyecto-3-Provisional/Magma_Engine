@@ -8,9 +8,9 @@ entities = {
 			timeBetweenMovements = 1
 		},
 		Transform = {
-			PositionX = 1,
+			PositionX = 0,
 			PositionY = 200,
-			PositionZ = 5,
+			PositionZ = -100,
 			ScaleX = 25,
 			ScaleY = 25,
 			ScaleZ = 25
@@ -22,7 +22,7 @@ entities = {
 		},
 		Rigidbody = {
 			mass = 1.0
-		},
+		}
 		
 	},
 	
@@ -73,355 +73,99 @@ entities = {
 		}
 	},
 
-	border = {
-		Image = {
-			overlayName = "Bloque1",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1180,
-			y = 700
+	background = {
+		Transform = {
+			PositionX = 0,
+			PositionY = 0,
+			PositionZ = 0,
+			ScaleX = 20,
+			ScaleY = 1,
+			ScaleZ = 20
+		},
+		Mesh = {
+			entityName = "lava",
+			mesh = "cube.mesh",
+			material = "magma_background"
 		}
 	},
 
-	border2 = {
-		Image = {
-			overlayName = "Bloque2",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1000,
-			y = 700
+	wall1 = {
+		Transform = {
+			PositionX = 0,
+			PositionY = 200,
+			PositionZ = -825,
+			ScaleX = 1,
+			ScaleY = 0.2,
+			ScaleZ = 20
+		},
+		Mesh = {
+			entityName = "mesh_wall1",
+			mesh = "cube.mesh",
+			material = "black"
+		},
+		Rigidbody = {
+			mass = 0.0
 		}
+		
 	},
 
-	border3 = {
-		Image = {
-			overlayName = "Bloque3",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 920,
-			y = 700
+	wall2 = {
+		Transform = {
+			PositionX = 0,
+			PositionY = 200,
+			PositionZ = 540,
+			ScaleX = 1,
+			ScaleY = 0.2,
+			ScaleZ = 20
+		},
+		Mesh = {
+			entityName = "mesh_wall2",
+			mesh = "cube.mesh",
+			material = "black"
+		},
+		Rigidbody = {
+			mass = 0.0
 		}
+		
 	},
 
-	border4 = {
-		Image = {
-			overlayName = "Bloque4",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 740,
-			y = 700
+	wall3 = {
+		Transform = {
+			PositionX = -925,
+			PositionY = 200,
+			PositionZ = 0,
+			ScaleX = 20,
+			ScaleY = 0.2,
+			ScaleZ = 1
+		},
+		Mesh = {
+			entityName = "mesh_wall3",
+			mesh = "cube.mesh",
+			material = "black"
+		},
+		Rigidbody = {
+			mass = 0.0
 		}
+		
 	},
 
-	border5 = {
-		Image = {
-			overlayName = "Bloque5",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 560,
-			y = 700
+	wall4 = {
+		Transform = {
+			PositionX = 925,
+			PositionY = 200,
+			PositionZ = 0,
+			ScaleX = 20,
+			ScaleY = 0.2,
+			ScaleZ = 1
+		},
+		Mesh = {
+			entityName = "mesh_wall4",
+			mesh = "cube.mesh",
+			material = "black"
+		},
+		Rigidbody = {
+			mass = 0.0
 		}
-	},
-
-	border6 = {
-		Image = {
-			overlayName = "Bloque6",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 380,
-			y = 700
-		}
-	},
-
-	border7 = {
-		Image = {
-			overlayName = "Bloque7",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 200,
-			y = 700
-		}
-	},
-
-	border8 = {
-		Image = {
-			overlayName = "Bloque8",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 20,
-			y = 700
-		}
-	},
-
-	border9 = {
-		Image = {
-			overlayName = "Bloque9",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 700
-		}
-	},
-
-	border10 = {
-		Image = {
-			overlayName = "Bloque10",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1180,
-			y = -80
-		}
-	},
-
-	border11 = {
-		Image = {
-			overlayName = "Bloque11",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1000,
-			y = -80
-		}
-	},
-
-	border12 = {
-		Image = {
-			overlayName = "Bloque12",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 920,
-			y = -80
-		}
-	},
-
-	border13 = {
-		Image = {
-			overlayName = "Bloque13",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 740,
-			y = -80
-		}
-	},
-
-	border14 = {
-		Image = {
-			overlayName = "Bloque14",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 560,
-			y = -80
-		}
-	},
-
-	border15 = {
-		Image = {
-			overlayName = "Bloque15",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 380,
-			y = -80
-		}
-	},
-
-	border16 = {
-		Image = {
-			overlayName = "Bloque16",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 200,
-			y = -80
-		}
-	},
-
-	border17 = {
-		Image = {
-			overlayName = "Bloque17",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 20,
-			y = -80
-		}
-	},
-
-	border18 = {
-		Image = {
-			overlayName = "Bloque18",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = -80
-		}
-	},
-
-	border19 = {
-		Image = {
-			overlayName = "Bloque19",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 20
-		}
-	},
-
-	border20 = {
-		Image = {
-			overlayName = "Bloque20",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 120
-		} 
-	},
-
-	border21 = {
-		Image = {
-			overlayName = "Bloque21",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 220
-		} 
-	},
-
-	border22 = {
-		Image = {
-			overlayName = "Bloque22",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 320
-		} 
-	},
-
-	border23 = {
-		Image = {
-			overlayName = "Bloque23",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 420
-		} 
-	},
-
-	border24 = {
-		Image = {
-			overlayName = "Bloque24",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 520
-		} 
-	},
-
-	border25 = {
-		Image = {
-			overlayName = "Bloque25",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = -160,
-			y = 620
-		} 
-	},
-
-	border26 = {
-		Image = {
-			overlayName = "Bloque26",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 20
-		}
-	},
-
-	border27 = {
-		Image = {
-			overlayName = "Bloque27",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 120
-		} 
-	},
-
-	border28 = {
-		Image = {
-			overlayName = "Bloque28",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 220
-		} 
-	},
-
-	border29 = {
-		Image = {
-			overlayName = "Bloque29",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 320
-		} 
-	},
-
-	border30 = {
-		Image = {
-			overlayName = "Bloque30",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 420
-		} 
-	},
-
-	border31 = {
-		Image = {
-			overlayName = "Bloque31",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 520
-		} 
-	},
-
-	border32 = {
-		Image = {
-			overlayName = "Bloque32",
-			name = "lava",
-			width = 180,
-			height = 100,
-			x = 1250,
-			y = 620
-		} 
+		
 	}
 }
