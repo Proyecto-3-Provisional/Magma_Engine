@@ -8,7 +8,7 @@
 
 namespace magma_engine
 {
-	Rigidbody::Rigidbody() : proportions({1, 1, 1}), linearDamping(0.5f), angularDamping(0), meshPtr(nullptr)
+	Rigidbody::Rigidbody() : proportions({1, 1, 1}), mass(1.f), linearDamping(0.5f), angularDamping(0), meshPtr(nullptr)
 	{
 	}
 
@@ -19,6 +19,7 @@ namespace magma_engine
 
 	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
 	{
+		mass = stof(args["mass"]);
 		return true;
 	}
 
@@ -43,7 +44,8 @@ namespace magma_engine
 					proportions.getZ() / 2,
 					pos.getX(),
 					pos.getY(),
-					pos.getZ()
+					pos.getZ(),
+					mass
 				);
 
 				rigidPtr = PhysicsManager::instance()->getRigidBody(index);

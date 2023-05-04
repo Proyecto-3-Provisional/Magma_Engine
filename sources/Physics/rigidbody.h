@@ -41,6 +41,7 @@ namespace magma_engine
 		Mesh* meshPtr;
 		btRigidBody* rigidPtr = nullptr;
 		Vector3D proportions;
+		float mass;
 		float linearDamping;
 		float angularDamping;
 	};

@@ -32,7 +32,7 @@ namespace magma_engine
 	}
 
 	int PhysicsManager::addRigidBody(Entity* e, const double& xShape, const double& yShape, const double& zShape, 
-		const double& xTransform, const double& yTransform, const double& zTransform)
+		const double& xTransform, const double& yTransform, const double& zTransform, const float& mass)
 	{
 		btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
 
@@ -41,8 +41,6 @@ namespace magma_engine
 		btTransform newRigidBody;
 		newRigidBody.setIdentity();
 		newRigidBody.setOrigin(btVector3(btScalar(xTransform), btScalar(yTransform), btScalar(zTransform)));
-
-		btScalar mass(1.);
 
 		bool isDynamic = (mass != 0.f);
 

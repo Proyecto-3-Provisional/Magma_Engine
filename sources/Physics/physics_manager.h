@@ -31,7 +31,7 @@ namespace magma_engine
 
 		//Metodo para añadir un elemento rigidbody 
 		int addRigidBody(Entity* e, const double& xShape, const double& yShape, const double& zShape, 
-			const double& xTransform, const double& yTransform, const double& zTransform);
+			const double& xTransform, const double& yTransform, const double& zTransform, const float& mass = 1.0f);
 
 		//Metodos para eliminar rigidbodys almacenados 
 		void deleteRigidBody(const int& userIndex);
