@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <singleton.h>
 
 #include <stack>
@@ -8,7 +14,7 @@ namespace magma_engine
 {
 	class Scene;
 
-	class SceneManager : public Singleton<SceneManager> {
+	class MAGMAENGINE_API SceneManager : public Singleton<SceneManager> {
 
 	public:
 		SceneManager();

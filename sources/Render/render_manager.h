@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <EC/vector3D.h>
 #include <singleton.h>
 #include <string>
@@ -18,7 +24,7 @@ namespace magma_engine
 	class RenderManagerContext;
 	class GraphicalObject;
 
-	class RenderManager : public Singleton<RenderManager>
+	class MAGMAENGINE_API RenderManager : public Singleton<RenderManager>
 	{
 		// Permiso para construir
 		friend Singleton<RenderManager>;

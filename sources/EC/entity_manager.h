@@ -2,13 +2,19 @@
 
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <vector>
 
 #include <EC/entity.h>
 
 namespace magma_engine
 {
-	class EntityManager {
+	class MAGMAENGINE_API EntityManager {
 	public:
 		EntityManager() {};
 		virtual ~EntityManager();
