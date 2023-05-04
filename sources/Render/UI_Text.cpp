@@ -14,14 +14,18 @@ namespace magma_engine
 		overlayReferenceName = overlayName + std::to_string(nOverlay);
 
 		overlayText = static_cast<Ogre::TextAreaOverlayElement*>
-			(overlayMan_->createOverlayElement("TextArea", overlayName + std::to_string(nOverlay)));
+			(overlayMan_->createOverlayElement("TextArea", overlayReferenceName + "Text"));
+
+		panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", overlayReferenceName));
 
 		overlayText->setMetricsMode(Ogre::GMM_PIXELS);
 		overlayText->setPosition(posX, posY);
 		overlayText->setDimensions(sizeX, sizeY);
 
+		panel->addChild(overlayText);
+
 		overlay_ = overlayMan_->create(overlayName + std::to_string(nOverlay));
-		overlay_->add2D((Ogre::OverlayContainer*)overlayText);
+		overlay_->add2D((Ogre::OverlayContainer*)panel);
 		overlay_->show();
 	}
 
