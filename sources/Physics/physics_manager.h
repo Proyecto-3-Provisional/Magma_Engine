@@ -6,10 +6,18 @@
 #define MAGMAENGINE_API __declspec(dllimport)
 #endif
 
-#include <btBulletDynamicsCommon.h>
 #include <singleton.h>
 #include <vector>
 #include <EC/entity.h>
+
+class btDefaultCollisionConfiguration;
+class btCollisionDispatcher;
+class btBroadphaseInterface;
+class btSequentialImpulseConstraintSolver;
+class btDiscreteDynamicsWorld;
+class btCollisionShape;
+class btRigidBody;
+template <typename T> class btAlignedObjectArray;
 
 namespace magma_engine
 {
@@ -58,7 +66,7 @@ namespace magma_engine
 		btBroadphaseInterface* overlappingPairCache;
 		btSequentialImpulseConstraintSolver* solver;
 		btDiscreteDynamicsWorld* dynamicsWorld;
-		btAlignedObjectArray<btCollisionShape*> collisionShapes;
+		btAlignedObjectArray<btCollisionShape*>* collisionShapes;
 		
 		std::vector<Entity *> entities;
 	};

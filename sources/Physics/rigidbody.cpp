@@ -1,5 +1,6 @@
 #include <Physics/rigidbody.h>
 #include <Physics/physics_manager.h>
+#include <btBulletDynamicsCommon.h>
 
 #include <EC/entity.h>
 #include <EC/transform.h>

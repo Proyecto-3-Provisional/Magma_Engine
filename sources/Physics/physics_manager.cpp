@@ -1,4 +1,5 @@
 #include <Physics/physics_manager.h>
+#include <btBulletDynamicsCommon.h>
 #include <EC/vector3D.h>
 
 #include <iostream>
@@ -25,6 +26,8 @@ namespace magma_engine
 
 		dynamicsWorld->setGravity(btVector3(0, 0, 0));
 
+		collisionShapes = new btAlignedObjectArray<btCollisionShape*>();
+
 		return 1;
 	}
 
@@ -33,7 +36,7 @@ namespace magma_engine
 	{
 		btCollisionShape* rigidBodyShape = new btBoxShape(btVector3(btScalar(xShape), btScalar(yShape), btScalar(zShape)));
 
-		collisionShapes.push_back(rigidBodyShape);
+		collisionShapes->push_back(rigidBodyShape);
 
 		btTransform newRigidBody;
 		newRigidBody.setIdentity();
@@ -234,12 +237,14 @@ namespace magma_engine
 			delete obj;
 		}
 
-		for (int j = 0; j < collisionShapes.size(); j++)
+		for (int j = 0; j < collisionShapes->size(); j++)
 		{
-			btCollisionShape* shape = collisionShapes[j];
-			collisionShapes[j] = 0;
+			btCollisionShape* shape = (*collisionShapes)[j];
+			(*collisionShapes)[j] = 0;
 			delete shape;
 		}
+
+		delete collisionShapes;
 
 		delete dynamicsWorld;
 
@@ -251,7 +256,7 @@ namespace magma_engine
 
 		delete collisionConfiguration;
 
-		collisionShapes.clear();
+		collisionShapes->clear();
 
 		entities.clear();
 	}
