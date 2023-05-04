@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef MAGMAENGINE_EXPORTS
 #define MAGMAENGINE_API __declspec(dllexport)
 #else

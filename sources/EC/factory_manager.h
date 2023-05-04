@@ -1,4 +1,11 @@
 #pragma once
+
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <string>
 #include <map>
 
@@ -10,7 +17,7 @@ namespace magma_engine
 {
 	class Factory;
 
-	class FactoryManager : public Singleton<FactoryManager>
+	class MAGMAENGINE_API FactoryManager : public Singleton<FactoryManager>
 	{
 	public:
 		~FactoryManager();

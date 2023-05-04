@@ -1,4 +1,11 @@
 #pragma once
+
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <btBulletDynamicsCommon.h>
 #include <singleton.h>
 #include <vector>
@@ -8,7 +15,7 @@ namespace magma_engine
 {
 	class Vector3D;
 
-	class PhysicsManager : public Singleton<PhysicsManager>
+	class MAGMAENGINE_API PhysicsManager : public Singleton<PhysicsManager>
 	{
 	public:
 		PhysicsManager();

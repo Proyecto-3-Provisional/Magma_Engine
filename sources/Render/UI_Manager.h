@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <string>
 #include <vector>
 #include <singleton.h>
@@ -15,7 +21,7 @@ namespace magma_engine
 {
 	class UI_Element;
 
-	class UI_Manager : public Singleton<UI_Manager>
+	class MAGMAENGINE_API UI_Manager : public Singleton<UI_Manager>
 	{
 	public:
 		UI_Manager(); // Crea un overlay y lo muestra en pantalla

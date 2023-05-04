@@ -1,11 +1,17 @@
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <singleton.h>
 #include <Input/input_commands.h>
 
 namespace magma_engine
 {
-    class InputManager : public Singleton<InputManager>
+    class MAGMAENGINE_API InputManager : public Singleton<InputManager>
     {
     public:
 

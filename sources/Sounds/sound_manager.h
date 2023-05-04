@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <iostream>
 #include <vector> 
 #include <singleton.h>
@@ -25,7 +31,7 @@ namespace magma_engine
 		bool loop = false;
 	};
 
-	class SoundManager : public Singleton<SoundManager>
+	class MAGMAENGINE_API SoundManager : public Singleton<SoundManager>
 	{
 	public:
 		SoundManager();
