@@ -256,8 +256,6 @@ namespace magma_engine
 
 		delete collisionConfiguration;
 
-		collisionShapes->clear();
-
 		entities.clear();
 	}
 }
