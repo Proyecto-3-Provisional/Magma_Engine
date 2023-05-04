@@ -6,7 +6,7 @@ rmdir /Q /S libraries
 
 :: Borrar ejecutable del programa y otros ficheros de los que depende
 cd executables
-rmdir /s assets
+rmdir /Q /S assets
 del *.exe
 del *.pdb
 del *.dll
