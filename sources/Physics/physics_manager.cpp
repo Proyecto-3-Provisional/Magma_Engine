@@ -57,6 +57,8 @@ namespace magma_engine
 
 		body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
 
+		body->setLinearFactor(btVector3(1, 0, 1)); // Constrain en el eje Y
+
 		dynamicsWorld->addRigidBody(body);
 		entities.push_back(e);
 
