@@ -16,21 +16,28 @@ namespace magma_engine
 
 	bool AudioSource::initComponent(std::map<std::string, std::string> args)
 	{
-		audio = new AudioData();
+		try {
 
-		audio->audio_path = "./assets/sounds/" + args["path"];
-		audio->volume = stoi(args["vol"]);
-		audio->channel = stoi(args["channel"]);
+			audio = new AudioData();
 
-		isLoop = stoi(args["loop"]);
-		hasStarted = stoi(args["start"]);
+			audio->audio_path = "./assets/sounds/" + args["path"];
+			audio->volume = stoi(args["vol"]);
+			audio->channel = stoi(args["channel"]);
 
-		playing = false;
-		paused = false;
+			isLoop = stoi(args["loop"]);
+			hasStarted = stoi(args["start"]);
 
-		if (audio->audio_path == "")
-		{
-			std::cout << "WARNING! - No hay un archivo de sonido en AudioSource \n\n";
+			playing = false;
+			paused = false;
+
+			if (audio->audio_path == "")
+			{
+				std::cout << "WARNING! - No hay un archivo de sonido en AudioSource \n\n";
+				return false;
+			}
+		}
+		catch (std::exception& e) {
+			std::cout << "WARNING! - error en un componente AudioSource:\n\n     " << e.what() << "\n\n";
 			return false;
 		}
 

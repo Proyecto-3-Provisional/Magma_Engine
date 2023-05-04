@@ -108,6 +108,7 @@ namespace magma_engine
 		camera = mSM->createCamera("MagmaCamera");
 		cameraNode->attachObject(camera);
 
+		camera->setProjectionType(Ogre::PT_ORTHOGRAPHIC);
 		camera->setNearClipDistance(1);		//
 		camera->setFarClipDistance(10000);	//
 		camera->setAutoAspectRatio(true);	//

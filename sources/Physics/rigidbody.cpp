@@ -33,18 +33,18 @@ namespace magma_engine
 			Vector3D pos = trPtr->getPos();
 			proportions = meshPtr->getProportions();
 
-		if (PhysicsManager::instance() != nullptr) {
+			if (PhysicsManager::instance() != nullptr) {
 
 
-			int index = PhysicsManager::instance()->addRigidBody(
-				ent,
-				proportions.getX() / 2,
-				proportions.getY() / 2,
-				proportions.getZ() / 2,
-				pos.getX(),
-				pos.getY(),
-				pos.getZ()
-			);
+				int index = PhysicsManager::instance()->addRigidBody(
+					ent,
+					proportions.getX() / 2,
+					proportions.getY() / 2,
+					proportions.getZ() / 2,
+					pos.getX(),
+					pos.getY(),
+					pos.getZ()
+				);
 
 				rigidPtr = PhysicsManager::instance()->getRigidBody(index);
 
