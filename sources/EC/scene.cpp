@@ -34,13 +34,15 @@ namespace magma_engine
 			return false;
 
 		Singleton<RenderManager>::instance()->
-			createCam(nullptr, { 0, 1000, 0 });
+			createCam(nullptr, { 0, 1000, 500 });
 		Singleton<RenderManager>::instance()->
 			setCamLookAt({ 0, -1000, 0 });
 		Singleton<RenderManager>::instance()->
 			setBgColor(0.8f, 0.8f, 0.7f);
 		Singleton<RenderManager>::instance()->
 			objectShowMode(0);
+		Singleton<RenderManager>::instance()->
+			pitchCam(25);
 
 		for (auto itEntity = sceneMap->begin();
 			itEntity != sceneMap->end() && noErrors;
