@@ -94,4 +94,8 @@ namespace magma_engine
 	{
 		return valid;
 	}
+
+	std::vector<Entity*> Scene::getSceneEntities() {
+		return mngr->getEntities();
+	}
 }

@@ -17,6 +17,8 @@ namespace magma_engine
 
 		bool isValid();
 
+		std::vector<Entity*> getSceneEntities();
+
 	private:
 
 		bool valid;
