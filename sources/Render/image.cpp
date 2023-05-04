@@ -12,6 +12,7 @@ namespace magma_engine
 
 	Image::~Image()
 	{
+		Singleton<UI_Manager>::instance()->deleteElement(image);
 	}
 
 	std::string Image::GetName()

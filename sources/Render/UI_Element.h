@@ -53,6 +53,8 @@ namespace magma_engine
 
 		bool hidden; 
 
+		std::string overlayReferenceName; 
+
 
 		//RenderManagerContext* rend;
 

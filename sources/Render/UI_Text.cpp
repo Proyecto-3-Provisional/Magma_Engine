@@ -11,8 +11,10 @@ namespace magma_engine
 		float posX, float posY, float sizeX, float sizeY)
 		: UI_Element()
 	{
+		overlayReferenceName = overlayName + std::to_string(nOverlay);
+
 		overlayText = static_cast<Ogre::TextAreaOverlayElement*>
-			(overlayMan_->createOverlayElement("TextArea", overlayName + "Text"));
+			(overlayMan_->createOverlayElement("TextArea", overlayName + std::to_string(nOverlay)));
 
 		overlayText->setMetricsMode(Ogre::GMM_PIXELS);
 		overlayText->setPosition(posX, posY);
@@ -23,7 +25,10 @@ namespace magma_engine
 		overlay_->show();
 	}
 
-	UI_Text::~UI_Text() = default;
+	UI_Text::~UI_Text() 
+	{
+		overlayMan_->destroyOverlayElement(overlayReferenceName);
+	}
 
 	void UI_Text::setFont(std::string font)
 	{
