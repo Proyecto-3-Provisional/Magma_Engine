@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef MAGMAENGINE_EXPORTS
+#define MAGMAENGINE_API __declspec(dllexport)
+#else
+#define MAGMAENGINE_API __declspec(dllimport)
+#endif
+
 #include <singleton.h>
 #include <string>
 #include <map>
@@ -17,16 +23,14 @@ class lua_State;
 
 namespace magma_engine
 {
-	class SceneLoader : public Singleton<SceneLoader>
+	class MAGMAENGINE_API SceneLoader : public Singleton<SceneLoader>
 	{
 		// Permiso para construir
 		friend Singleton<SceneLoader>;
 
-	protected:
-		explicit SceneLoader();
-
 	public:
-		virtual ~SceneLoader();
+		SceneLoader();
+		~SceneLoader();
 		int loadScene(std::string filename);
 		SceneMap* getMapFile();
 
