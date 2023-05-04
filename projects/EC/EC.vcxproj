@@ -31,7 +31,6 @@
     <ClInclude Include="..\..\sources\EC\quaternion.h" />
     <ClInclude Include="..\..\sources\EC\scene.h" />
     <ClInclude Include="..\..\sources\EC\scene_manager.h" />
-    <ClInclude Include="..\..\sources\EC\size_temp.h" />
     <ClInclude Include="..\..\sources\EC\transform.h" />
     <ClInclude Include="..\..\sources\EC\vector3D.h" />
   </ItemGroup>
@@ -45,7 +44,6 @@
     <ClCompile Include="..\..\sources\EC\quaternion.cpp" />
     <ClCompile Include="..\..\sources\EC\scene.cpp" />
     <ClCompile Include="..\..\sources\EC\scene_manager.cpp" />
-    <ClCompile Include="..\..\sources\EC\size_temp.cpp" />
     <ClCompile Include="..\..\sources\EC\transform.cpp" />
     <ClCompile Include="..\..\sources\EC\vector3D.cpp" />
   </ItemGroup>
