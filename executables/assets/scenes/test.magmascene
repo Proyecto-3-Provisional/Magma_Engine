@@ -21,7 +21,7 @@ entities = {
 			material = "axolotl",
 		},
 		Rigidbody = {
-			pepe = "aaa"
+			mass = 1.0
 		},
 		
 	},
