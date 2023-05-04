@@ -11,6 +11,9 @@ namespace magma_engine
 
 	SceneManager::~SceneManager()
 	{
+		while (!scenes.empty())
+			popScene();
+		deleteScenes();
 	}
 
 	void SceneManager::popScene()

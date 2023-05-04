@@ -8,7 +8,7 @@
 
 namespace magma_engine
 {
-	Text::Text() : Component(), textReference(), textTitle(), fontName(), textContent(), posX(), posY(), tamX(), tamY(), red(), green(), blue()
+	Text::Text() : Component(), textReference(), textTitle(), fontName(), textContent(), posX(), posY(), tamX(), tamY(), red(), green(), blue(), screenHeight(), screenWidth(), text(nullptr)
 	{
 
 	}

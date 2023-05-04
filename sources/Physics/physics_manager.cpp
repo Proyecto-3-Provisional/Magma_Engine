@@ -8,7 +8,7 @@
 
 namespace magma_engine
 {
-	PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr) {}
+	PhysicsManager::PhysicsManager() : collisionConfiguration(nullptr), dispatcher(nullptr), overlappingPairCache(nullptr), solver(nullptr), dynamicsWorld(nullptr), collisionShapes(nullptr) {}
 
 	PhysicsManager::~PhysicsManager() {}
 

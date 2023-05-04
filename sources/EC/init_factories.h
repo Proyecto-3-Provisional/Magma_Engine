@@ -3,7 +3,7 @@
 
 namespace magma_engine
 {
-	struct Component;
+	class Component;
 
 	class TransformFactory : public Factory
 	{

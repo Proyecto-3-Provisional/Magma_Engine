@@ -14,7 +14,7 @@ namespace magma_engine
 
 		//Metodo de declaración del componente
 		Text();
-		virtual ~Text();
+		~Text();
 
 		virtual bool initComponent(std::map<std::string, std::string> args);
 

@@ -20,6 +20,7 @@ namespace magma_engine
 		void run();
 		static CMagmaEngine* _instance;
 		CMagmaEngine();
+		~CMagmaEngine();
 
 	private:
 		typedef void(__cdecl* GameComponents)(); // Añade las factorías del juego

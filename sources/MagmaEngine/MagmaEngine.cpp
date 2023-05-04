@@ -20,8 +20,13 @@ namespace magma_engine
 	CMagmaEngine* CMagmaEngine::_instance = nullptr;
 
 	// Constructor de clase exportada.
-	CMagmaEngine::CMagmaEngine()
+	CMagmaEngine::CMagmaEngine() : gComponent(NULL), game(NULL)
 	{
+	}
+
+	CMagmaEngine::~CMagmaEngine()
+	{
+		
 	}
 
 	bool CMagmaEngine::loadGame()
@@ -165,6 +170,7 @@ namespace magma_engine
 		}
 
 		bool success = FreeLibrary(game);
+
 
 		return success;
 	}
