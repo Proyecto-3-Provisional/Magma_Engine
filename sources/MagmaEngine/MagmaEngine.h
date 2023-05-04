@@ -13,16 +13,6 @@
 
 namespace magma_engine
 {
-	class RenderManager;
-	class InputManager;
-	class PhysicsManager;
-	class SoundManager;
-	class SceneManager;
-	class UI_Manager;
-
-
-	class FactoryManager;
-
 	class MAGMAENGINE_API CMagmaEngine {
 	public:
 		bool Init();
@@ -30,14 +20,6 @@ namespace magma_engine
 		void run();
 		static CMagmaEngine* _instance;
 		CMagmaEngine();
-
-		// Get Instances
-		RenderManager* getRender();
-		InputManager* getInput();
-		PhysicsManager* getPhysics();
-		SoundManager* getAudio();
-		SceneManager* getSceneMngr();
-		UI_Manager* getUI();
 
 	private:
 		typedef void(__cdecl* GameComponents)(); // Añade las factorías del juego

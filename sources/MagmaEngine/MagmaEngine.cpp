@@ -24,36 +24,6 @@ namespace magma_engine
 	{
 	}
 
-	RenderManager* CMagmaEngine::getRender()
-	{
-		return Singleton<RenderManager>::instance();;
-	}
-
-	PhysicsManager* CMagmaEngine::getPhysics()
-	{
-		return Singleton<PhysicsManager>::instance();;
-	}
-
-	InputManager* CMagmaEngine::getInput()
-	{
-		return Singleton<InputManager>::instance();;
-	}
-
-	SoundManager* CMagmaEngine::getAudio()
-	{
-		return Singleton<SoundManager>::instance();;
-	}
-
-	SceneManager* CMagmaEngine::getSceneMngr()
-	{
-		return Singleton<SceneManager>::instance();;
-	}
-
-	UI_Manager* CMagmaEngine::getUI()
-	{
-		return Singleton<UI_Manager>::instance();;
-	}
-
 	bool CMagmaEngine::loadGame()
 	{
 #ifdef _DEBUG
@@ -195,8 +165,6 @@ namespace magma_engine
 		}
 
 		bool success = FreeLibrary(game);
-
-		delete _instance;
 
 		return success;
 	}
