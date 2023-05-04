@@ -1,5 +1,6 @@
 #include <EC/scene_manager.h>
 #include <EC/scene.h>
+#include <Lua/scene_loader.h>
 
 namespace magma_engine
 {
@@ -26,6 +27,7 @@ namespace magma_engine
 
 	void SceneManager::pushScene(Scene* newScene)
 	{
+		Singleton<SceneLoader>::instance()->delScene();
 		scenes.push(newScene);
 	}
 

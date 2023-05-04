@@ -34,9 +34,10 @@ namespace magma_engine
 		int loadScene(std::string filename);
 		SceneMap* getMapFile();
 
+		void delScene();
+
 	private:
 		void popLStack();
-		void delScene();
 		size_t readComponent(lua_State* L, ComponentMap* argsM);
 		size_t readEntity(lua_State* L, EntityMap* cmpsM);
 
