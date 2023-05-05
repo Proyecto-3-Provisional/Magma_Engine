@@ -108,7 +108,7 @@ namespace magma_engine
 
 		if (isCursorInsideBounds(pointPos.first, pointPos.second))
 		{
-			if (Singleton<InputManager>::instance()->isMouseDown())
+			if (Singleton<InputManager>::instance()->isMouseReleased())
 			{
 				pressed = true;
 				button->setMaterial(pressedButtonName); 
@@ -131,6 +131,7 @@ namespace magma_engine
 
 						if (sceneCreated)
 							Singleton<magma_engine::SceneManager>::instance()->pushScene(scn);
+						else delete scn;
 					}
 					break;
 				case BACK_SCENE:
@@ -155,6 +156,7 @@ namespace magma_engine
 
 						if (sceneCreated)
 							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+						else delete scn;
 					}
 					break;
 				case MORE_VOLUME: 

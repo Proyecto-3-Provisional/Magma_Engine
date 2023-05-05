@@ -126,20 +126,14 @@ namespace magma_engine
 						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
 
 						sceneCreated = scn->loadScene(sncMp);
-						if (sceneCreated)
+						if (sceneCreated) {
 							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+							return true;
+						}
+						else delete scn;
 					}
-					else {
-						ShutDown();
-						return false;
-					}
-
-					return true;
 				}
-				else {
-					ShutDown();
-					return false;
-				}
+				ShutDown();
 			}
 
 		}
@@ -209,9 +203,6 @@ namespace magma_engine
 
 			// Actualizar la escena y todas sus entidades
 			Singleton<SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
-
-			// Actualizamos todas las entidades de la escena y borramos las escenas en la cola de eliminacion
-			Singleton<magma_engine::SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
 
 
 			// Borrar elementos de pantalla y volver a dibujarlos

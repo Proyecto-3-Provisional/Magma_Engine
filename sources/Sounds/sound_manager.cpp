@@ -9,6 +9,7 @@ namespace magma_engine
 
 	SoundManager::~SoundManager()
 	{
+		for (auto s : songs) removeSong(s->channel);
 		songs.clear();
 	}
 
@@ -88,7 +89,7 @@ namespace magma_engine
 		return !Mix_Playing(channel);
 	}
 
-	void SoundManager::removeSong(int channel)
+	bool SoundManager::removeSong(int channel)
 	{
 		auto it = songs.begin();
 
@@ -98,7 +99,9 @@ namespace magma_engine
 		if (it != songs.end()) {
 			delete (*it);
 			songs.erase(it);
+			return true;
 		}
+		return false;
 	}
 
 	//Ajustes de volumen del sonido

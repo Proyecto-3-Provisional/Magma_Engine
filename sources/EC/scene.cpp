@@ -58,11 +58,7 @@ namespace magma_engine
 					findAndCreate(itComponent->first, e);
 				if (c != nullptr) {
 					bool successfulInit = c->initComponent(itComponent->second);
-					// borrar entidad
-					if (!successfulInit) { 
-						delete c;
-						c = nullptr;
-					}
+
 					noErrors = successfulInit && noErrors;
 				}
 			}

@@ -37,7 +37,6 @@ namespace magma_engine
 				for (auto* c : e->getAllCmps())
 					c->onDisable();
 			}
-		Singleton<SceneLoader>::instance()->delScene();
 		scenes.push(newScene);
 	}
 

@@ -17,7 +17,7 @@ namespace magma_engine
 
 	Mesh::~Mesh()
 	{
-		RenderManager::instance()->removeObject(gObjPtr);
+		if(gObjPtr != nullptr) RenderManager::instance()->removeObject(gObjPtr);
 	}
 
 	GraphicalObject* Mesh::getObj()

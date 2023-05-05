@@ -14,7 +14,7 @@ namespace magma_engine
 
 	Rigidbody::~Rigidbody()
 	{
-		PhysicsManager::instance()->deleteRigidBody(rigidPtr->getUserIndex());
+		if(rigidPtr != nullptr) PhysicsManager::instance()->deleteRigidBody(rigidPtr->getUserIndex());
 	}
 
 	bool Rigidbody::initComponent(std::map<std::string, std::string> args)
@@ -30,6 +30,8 @@ namespace magma_engine
 			trPtr = ent->getComponent<Transform>();
 			meshPtr = ent->getComponent<Mesh>();
 
+			if (trPtr == nullptr || meshPtr == nullptr)
+				return false;
 
 			Vector3D pos = trPtr->getPos();
 			proportions = meshPtr->getProportions();

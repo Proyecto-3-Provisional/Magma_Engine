@@ -60,7 +60,7 @@ namespace magma_engine
 		void closeAudio();
 
 		//Metodo para eliminar canciones
-		void removeSong(int channel);
+		bool removeSong(int channel);
 
 	private:
 

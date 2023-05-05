@@ -11,7 +11,8 @@ namespace magma_engine
 	AudioSource::~AudioSource()
 	{
 		stopSong();
-		Singleton<SoundManager>::instance()->removeSong(audio->channel);
+		if(!Singleton<SoundManager>::instance()->removeSong(audio->channel))
+			delete audio;
 	}
 
 	bool AudioSource::initComponent(std::map<std::string, std::string> args)

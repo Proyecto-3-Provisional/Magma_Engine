@@ -111,6 +111,8 @@ namespace magma_engine
 
 	// Devuelve 0 solo si todo fue bien
 	int SceneLoader::loadScene(std::string filename) {
+		delScene();
+
 		// Mapa de Entidades -> Mapa de Componentes -> Argumentos
 		SceneMap* sceneMap;
 
