@@ -10,7 +10,9 @@ namespace magma_engine
 	UI_Progress_Bar::UI_Progress_Bar(std::string overReference, std::string imageName,
 		float posX, float posY, float sizeX, float sizeY) : UI_Element()
 	{
-		panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", overReference + std::to_string(nOverlay)));
+		overlayReferenceName = overReference + std::to_string(nOverlay);
+		panel = static_cast<Ogre::OverlayContainer*>(overlayMan_->createOverlayElement("Panel", overlayReferenceName));
+
 		panel->setMetricsMode(Ogre::GMM_PIXELS);
 		panel->setPosition(posX, posY);
 		panel->setDimensions(sizeX, sizeY);
@@ -22,5 +24,7 @@ namespace magma_engine
 		overlay_->show();
 	}
 
-	UI_Progress_Bar::~UI_Progress_Bar() = default;
+	UI_Progress_Bar::~UI_Progress_Bar() {
+		overlayMan_->destroyOverlayElement(overlayReferenceName);
+	}
 }
