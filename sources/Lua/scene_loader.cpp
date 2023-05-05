@@ -55,10 +55,11 @@ namespace magma_engine
 	{
 		std::string argumentName = "";
 		std::string argumentValue = "";
-
-		lua_pushnil(L);						//+1
+		//+1
+		lua_pushnil(L);						
 		// ¡ahora se pasa a recorrer la tabla del componente!
-		while (lua_next(L, -2) != 0) {		//-1;+2/+0
+		//-1;+2/+0
+		while (lua_next(L, -2) != 0) {		
 			// valor: -1; clave: -2
 
 			if (lua_isstring(L, -2) && lua_isstring(L, -1)) {
@@ -68,8 +69,8 @@ namespace magma_engine
 				// añadir argumento
 				argsM->insert(std::make_pair(argumentName, argumentValue));
 			}
-
-			lua_pop(L, 1);					//-1
+			//-1
+			lua_pop(L, 1);					
 		}
 		// clave desaparece
 
@@ -81,10 +82,11 @@ namespace magma_engine
 	size_t SceneLoader::readEntity(lua_State* L, EntityMap* cmpsM)
 	{
 		std::string componentName = "";
-
-		lua_pushnil(L);						//+1
+		//+1
+		lua_pushnil(L);						
 		// ¡ahora se pasa a recorrer la tabla de la entidad!
-		while (lua_next(L, -2) != 0) {		//-1;+2/+0
+		//-1;+2/+0
+		while (lua_next(L, -2) != 0) {		
 			// tras lua_next: valor en -1; clave en -2
 			componentName = lua_tostring(L, -2);
 			std::cout << "  " << componentName << "\n";
@@ -98,8 +100,8 @@ namespace magma_engine
 					cmpsM->insert(std::make_pair(componentName, auxM));
 				}
 			}
-
-			lua_pop(L, 1);					//-1
+			//-1
+			lua_pop(L, 1);					
 		}
 		// lua_next quita clave final
 
@@ -117,20 +119,24 @@ namespace magma_engine
 		if (r != LUA_OK) {
 			std::cout << "Error loading scene: " << filename << "\n";
 			delScene();
-			return -1; // ERROR al leer el fichero
+			// ERROR al leer el fichero
+			return -1; 
 		}
 
 		// Ir reservando memoria...
 		sceneMap = new SceneMap;
 
 		int nEnts = 0;
-		lua_getglobal(L, "entities");		//+1 // apilar lista de entidades
+		//+1 // apilar lista de entidades
+		lua_getglobal(L, "entities");		
 		if (lua_istable(L, -1)) {
 			std::string entityName = "";
 
 			/* https://www.lua.org/manual/5.4/manual.html#lua_next */
-			lua_pushnil(L);					//+1 // apilar nada
-			while (lua_next(L, -2) != 0) {	//-1;+2/+0 // siguiente elemento de la tabla
+			//+1 // apilar nada
+			lua_pushnil(L);					
+			//-1;+2/+0 // siguiente elemento de la tabla
+			while (lua_next(L, -2) != 0) {	
 				// CIMA -> valor -> clave -> ...
 				entityName = lua_tostring(L, -2);
 				std::cout << entityName << "\n";
@@ -145,14 +151,15 @@ namespace magma_engine
 						++nEnts;
 					}
 				}
-
-				lua_pop(L, 1);				// -1 // quitar valor, mantener clave para lua_next
+				// -1 // quitar valor, mantener clave para lua_next
+				lua_pop(L, 1);				
 			}
 			// ¡ lua_next quita la clave final al terminar el bucle !
 
 			std::cout << "* " << nEnts << "\n";
 		}
-		lua_pop(L, 1);						//+1 // desapilar lista de entidades
+		//+1 // desapilar lista de entidades
+		lua_pop(L, 1);						
 
 		if (nEnts <= 0) {
 			// Deshacer lo hecho...

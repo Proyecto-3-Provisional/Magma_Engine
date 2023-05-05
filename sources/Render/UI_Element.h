@@ -16,18 +16,22 @@ namespace magma_engine
 	public:
 		UI_Element();
 		virtual ~UI_Element();
-
-		void showElement(); // Muestra el elemento dentro del overlay
-		void hideElement(); // Esconde el elemento dentro del overlay
-		bool isElementVisible(); // Comprueba si el elemento es visible o no
-
-		void setPanelPosition(float x, float y); // Establece la posición del panel
-		void setPanelSize(float w, float h); // Establece el tamaño del panel
-
-		void setTextPosition(float x, float y); // Establece la posicion del texto dentro del overlay
-		void setTextSize(float w, float h); // Establece el tamaño del texto
-
-		void setMaterial(std::string nameMaterial); // Establece el material del panel
+		// Muestra el elemento dentro del overlay
+		void showElement(); 
+		// Esconde el elemento dentro del overlay
+		void hideElement(); 
+		// Comprueba si el elemento es visible o no
+		bool isElementVisible(); 
+		// Establece la posición del panel
+		void setPanelPosition(float x, float y); 
+		// Establece el tamaño del panel
+		void setPanelSize(float w, float h); 
+		// Establece la posicion del texto dentro del overlay
+		void setTextPosition(float x, float y); 
+		// Establece el tamaño del texto
+		void setTextSize(float w, float h); 
+		// Establece el material del panel
+		void setMaterial(std::string nameMaterial); 
 
 		std::pair<float, float> getPosition();
 		std::pair<float, float> getSize();

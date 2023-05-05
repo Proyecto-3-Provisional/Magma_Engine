@@ -69,7 +69,7 @@ namespace magma_engine
 		}
 	}
 
-	void Mesh::render() // planteárselo...
+	void Mesh::render()
 	{
 	}
 
@@ -108,10 +108,6 @@ namespace magma_engine
 
 	void Mesh::setDirection(float x, float y, float z)
 	{
-		////getObj()->setDirection({ x, y, z });
-		//getObj()->setOrientation(45, { 0,0,1 });
-		//getObj()->setOrientation(180, { 0,1,0 });
-		//getObj()->setOriLookingAt
 	}
 
 	Vector3D Mesh::getProportions()

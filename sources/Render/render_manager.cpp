@@ -109,9 +109,9 @@ namespace magma_engine
 		cameraNode->attachObject(camera);
 
 		camera->setProjectionType(Ogre::PT_ORTHOGRAPHIC);
-		camera->setNearClipDistance(1);		//
-		camera->setFarClipDistance(10000);	//
-		camera->setAutoAspectRatio(true);	//
+		camera->setNearClipDistance(1);		
+		camera->setFarClipDistance(10000);	
+		camera->setAutoAspectRatio(true);	
 		setCamPos(startPos);
 		setCamLookAt({ 0, 0, 0 });
 		if (cameraFollows)
@@ -141,8 +141,8 @@ namespace magma_engine
 		cameraNode = nullptr;
 		if (cameraFollows)
 			cameraFollows->setCamAttached(false);
-
-		cameraFollows = nullptr; // No hacer delete de cameraFollows
+		// No hacer delete de cameraFollows
+		cameraFollows = nullptr; 
 	}
 
 	// Devuelve un puntero al Objeto creado, o nullptr si falla
@@ -241,7 +241,8 @@ namespace magma_engine
 				// avanzar índice, pero dejando acceso también al Objeto a borrar
 				auto it_aux = it;
 				it++;
-				/*bool b = */removeObject((*it_aux).second);
+				/*bool b = */
+				removeObject((*it_aux).second);
 			}
 		}
 	}

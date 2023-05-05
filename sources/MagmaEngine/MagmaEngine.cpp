@@ -88,11 +88,17 @@ namespace magma_engine
 				else return false;
 
 				// INITS RESTANTES
-				if (Singleton<UI_Manager>::init()		// ------ UI ------
-					&& Singleton<InputManager>::init()	// ------ INPUT ------
-					&& Singleton<SoundManager>::init()	// ------ SOUND ------
-					&& Singleton<SceneManager>::init()	// ------ SCENE MANAGER ------
-					&& Singleton<SceneLoader>::init()	// ------ SCENE_LOADER ------
+				// ------ UI ------
+				if (Singleton<UI_Manager>::init()		
+					// ------ INPUT ------
+					&& Singleton<InputManager>::init()	
+					// ------ SOUND ------
+					&& Singleton<SoundManager>::init()	
+					// ------ SCENE MANAGER ------
+					&& Singleton<SceneManager>::init()	
+					// ------ SCENE_LOADER ------
+					&& Singleton<SceneLoader>::init()	
+					// ------ FACTORY MANAGER ------
 					&& Singleton<FactoryManager>::init()
 					)
 				{
@@ -181,7 +187,8 @@ namespace magma_engine
 		bool error = false;
 
 		// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
-		int lastFrameTime = (int)SDL_GetTicks(); // uint32 a int
+		// uint32 a int
+		int lastFrameTime = (int)SDL_GetTicks(); 
 		// Cálculo del tiempo, en milisegundos, entre fotogramas
 		int timeSinceLastFrame = 0;
 

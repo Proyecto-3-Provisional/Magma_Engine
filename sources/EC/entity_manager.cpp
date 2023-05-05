@@ -17,7 +17,8 @@ namespace magma_engine
 		auto it = ents_.begin();
 		while (it != ents_.end()) {
 			if (!(*it)->isAlive()) {
-				delete (*it); // Borra la entidad
+				// Borra la entidad
+				delete (*it); 
 				it = ents_.erase(it);
 			}
 			else ++it;

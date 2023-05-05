@@ -56,8 +56,8 @@ namespace magma_engine
 		body->setActivationState(DISABLE_DEACTIVATION);
 
 		body->setUserIndex(dynamicsWorld->getNumCollisionObjects());
-
-		body->setLinearFactor(btVector3(1, 0, 1)); // Constrain en el eje Y
+		// Constrain en el eje Y
+		body->setLinearFactor(btVector3(1, 0, 1)); 
 
 		dynamicsWorld->addRigidBody(body);
 		entities.push_back(e);
@@ -79,12 +79,14 @@ namespace magma_engine
 		int size = dynamicsWorld->getCollisionObjectArray().size();
 
 		// Como el array de colisiones rellena el hueco con el último elemento...
-		if (size > 0 && size != userIndex) { // Si el que hemos eliminado no era el último...
+		// Si el que hemos eliminado no era el último...
+		if (size > 0 && size != userIndex) { 
 			btCollisionObject* obj1 = dynamicsWorld->getCollisionObjectArray()[userIndex];
 			btRigidBody* body1 = btRigidBody::upcast(obj1);
-			body1->setUserIndex(userIndex); // Actualizamos su índice (para que se corresponda con su nueva pos en el array)
-			
-			entities[userIndex] = entities.back(); // Actualizamos el vector de entidades
+			// Actualizamos su índice (para que se corresponda con su nueva pos en el array)
+			body1->setUserIndex(userIndex); 
+			// Actualizamos el vector de entidades
+			entities[userIndex] = entities.back(); 
 		}
 		
 		// Eliminamos la última entidad del vector. Bien porque el rigidbody era el último del array o porque

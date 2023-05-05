@@ -22,13 +22,16 @@ namespace magma_engine
 		virtual bool initComponent(std::map<std::string, std::string> args);
 		virtual bool start();
 		virtual void update(float deltaTime) override;
-
-		bool isOnCollision(); // Determina si el objeto se encuentra en colisión con otros objetos
-		std::vector<Entity*> getCollisionObjs(); // Devuelve todos los objetos que colisionan con este rigidbody
-		bool isCollideWith(int indexCollide); // Detectar colision con otro objeto cuyo índice se proporciona como parámetro
-
-		void addForce(const Vector3D& force); // Aplica una fuerza al objeto
-		int getIndex(); // Devuelve el índice del objeto
+		// Determina si el objeto se encuentra en colisión con otros objetos
+		bool isOnCollision(); 
+		// Devuelve todos los objetos que colisionan con este rigidbody
+		std::vector<Entity*> getCollisionObjs(); 
+		// Detectar colision con otro objeto cuyo índice se proporciona como parámetro
+		bool isCollideWith(int indexCollide); 
+		// Aplica una fuerza al objeto
+		void addForce(const Vector3D& force);
+		// Devuelve el índice del objeto
+		int getIndex(); 
 
 		void setLinearDamping(float d);
 		void setAngularDamping(float d);

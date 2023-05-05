@@ -74,7 +74,8 @@ namespace magma_engine
 
 				Ogre::MeshManager::getSingleton().createPlane("mPlane1080x800",
 					Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-					Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), // vector normal, vector up
+					// vector normal, vector up
+					Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 
 					1080, 800, 100, 80, true, 1, 1.0, 1.0, Ogre::Vector3::UNIT_X);
 			}
 		}
@@ -208,13 +209,18 @@ namespace magma_engine
 
 		std::istringstream mode(ropts["Video Mode"].currentValue);
 		Ogre::String token;
-		mode >> w;		// width
-		mode >> token;	// 'x' as seperator between width and height
-		mode >> h;		// height
-
-		miscParams["vsync"] = ropts["VSync"].currentValue; // Yes / No
-		miscParams["FSAA"] = ropts["FSAA"].currentValue; // 0 / 2 / 4 / 8 / 16
-		miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue; // Yes / No
+		// width
+		mode >> w;		
+		// 'x' as seperator between width and height
+		mode >> token;	
+		// height
+		mode >> h;		
+		// Yes / No
+		miscParams["vsync"] = ropts["VSync"].currentValue; 
+		// 0 / 2 / 4 / 8 / 16
+		miscParams["FSAA"] = ropts["FSAA"].currentValue; 
+		// Yes / No
+		miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue; 
 
 		if (!SDL_WasInit(SDL_INIT_VIDEO)) SDL_InitSubSystem(SDL_INIT_VIDEO);
 

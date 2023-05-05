@@ -46,7 +46,8 @@ namespace magma_engine
 			std::string tipo = typeid(T).name();
 
 			auto it = cmps.find(tipo);
-			if (it != cmps.end()) { // Ha encontrado el componente
+			// Ha encontrado el componente
+			if (it != cmps.end()) { 
 				//Eliminarlo
 				delete it->second;
 				it->second = nullptr;
@@ -61,7 +62,8 @@ namespace magma_engine
 			std::string tipo = typeid(T).name();
 
 			auto it = cmps.find(tipo);
-			if (it != cmps.end()) { // Ha encontrado el componente
+			// Ha encontrado el componente
+			if (it != cmps.end()) { 
 				return static_cast<T*>(it->second);
 			}
 
@@ -74,7 +76,8 @@ namespace magma_engine
 			std::string tipo = typeid(T).name();
 
 			auto it = cmps.find(tipo);
-			if (it != cmps.end()) { // Ha encontrado el componente
+			// Ha encontrado el componente
+			if (it != cmps.end()) { 
 				return true;
 			}
 
@@ -87,7 +90,8 @@ namespace magma_engine
 
 		// Manda un mensaje 'm' a todos los componentes de la entidad. 'delay' indica si deberia
 		// mandarse inmediatamente o mas tarde cuando llamamos a flushMessages
-		void send(const Message& m, bool delay = false); //por ahora no tenemos flush de mensajes implementado, dejar elay a false
+		// Por ahora no tenemos flush de mensajes implementado, dejar elay a false
+		void send(const Message& m, bool delay = false); 
 
 		std::vector<Component*> getAllCmps();
 

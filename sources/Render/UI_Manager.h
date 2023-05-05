@@ -24,12 +24,14 @@ namespace magma_engine
 	class MAGMAENGINE_API UI_Manager : public Singleton<UI_Manager>
 	{
 	public:
-		UI_Manager(); // Crea un overlay y lo muestra en pantalla
+		// Crea un overlay y lo muestra en pantalla
+		UI_Manager(); 
 		~UI_Manager();
 
 		void init();
 		void update();
-		void cleanPanel(); // Borra todos los elementos del overlay
+		// Borra todos los elementos del overlay
+		void cleanPanel(); 
 
 		void flush(); 
 

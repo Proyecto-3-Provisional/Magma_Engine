@@ -23,11 +23,14 @@ namespace magma_engine
 		bool start();
 		void update(float frameTime) override;
 
-
-		void playSong(); // Reproduce el audio si no se está reproduciendo
-		void pauseSong(); // Pausa la reproducción del audio
-		void resumeSong(); // Reanuda la reproducción del audio si se había pausado previamente
-		void stopSong(); // Detiene la reproducción del audio
+		// Reproduce el audio si no se está reproduciendo
+		void playSong(); 
+		// Pausa la reproducción del audio
+		void pauseSong(); 
+		// Reanuda la reproducción del audio si se había pausado previamente
+		void resumeSong(); 
+		// Detiene la reproducción del audio
+		void stopSong(); 
 
 		void setVolume(int vol);
 		int getVolume();

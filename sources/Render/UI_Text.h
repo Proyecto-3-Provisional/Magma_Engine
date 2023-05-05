@@ -18,11 +18,14 @@ namespace magma_engine
 		UI_Text(std::string overlayName, std::string title,
 			float posX, float posY, float sizeX, float sizeY);
 		~UI_Text();
-
-		void setFont(std::string font); // Cambia la fuente del texto
-		void setText(std::string text); // Cambia el contenido del texto
-		void setFontSize(float fontSize); // Cambia el tamaño del texto
-		void setTextColor(float r, float g, float b); // Cambia el color del texto
+		// Cambia la fuente del texto
+		void setFont(std::string font); 
+		// Cambia el contenido del texto
+		void setText(std::string text); 
+		// Cambia el tamaño del texto
+		void setFontSize(float fontSize); 
+		// Cambia el color del texto
+		void setTextColor(float r, float g, float b); 
 
 	};
 

@@ -90,14 +90,18 @@ namespace magma_engine
 
 	protected:
 		bool cursorGrab;
-
-		Ogre::String mAppName;				// Nombre de la aplicación
-		Ogre::String appPath;				// Ruta a la aplicación
-
-		NativeWindowPair mWindow;			// Ventana
-		Ogre::Root* mRoot;					// Raíz de Ogre
-		Ogre::FileSystemLayer* mFSLayer;	// Abstracción del sist. de ficheros
-		Ogre::OverlaySystem* mOverlaySystem;// Requerido por OverlayManager (UI)
+		// Nombre de la aplicación
+		Ogre::String mAppName;		
+		// Ruta a la aplicación
+		Ogre::String appPath;				
+		// Ventana
+		NativeWindowPair mWindow;			
+		// Raíz de Ogre
+		Ogre::Root* mRoot;					
+		// Abstracción del sist. de ficheros
+		Ogre::FileSystemLayer* mFSLayer;	
+		// Requerido por OverlayManager (UI)
+		Ogre::OverlaySystem* mOverlaySystem;
 
 		// Config. de ventana
 		uint32_t winWidth;

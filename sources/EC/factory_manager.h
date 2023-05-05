@@ -21,8 +21,9 @@ namespace magma_engine
 	{
 	public:
 		~FactoryManager();
-
+		// Busca la factoría en el mapa, si la encuentra, crea el componente
 		Component* findAndCreate(const std::string& name, Entity* ent = nullptr);
+		// Añade las factorías en un mapa de strings en factorías
 		void addFactory(const std::string& name, Factory* fact);
 	private:
 		std::map<std::string, Factory*> map_;

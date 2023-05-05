@@ -7,8 +7,7 @@ namespace magma_engine
 {
 	SceneManager::SceneManager()
 	{
-		//Scene* escenaVacia = new Scene();
-		//pushScene(escenaVacia);
+
 	}
 
 	SceneManager::~SceneManager()
