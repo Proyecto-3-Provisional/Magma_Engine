@@ -52,13 +52,13 @@ namespace magma_engine
 
 	void UI_Manager::update() 
 	{
-		for (UI_Element* elem : elements)
-		{
-			if (elem->isHidden() && elem->isElementVisible())
-				elem->hideElement();
-			else if (!elem->isHidden() && !elem->isElementVisible())
-				elem->showElement(); 
-		}
+		//for (UI_Element* elem : elements)
+		//{
+		//	//if (elem->isHidden() && elem->isElementVisible())
+		//	//	elem->hideElement();
+		//	//else if (!elem->isHidden() && !elem->isElementVisible())
+		//	//	elem->showElement(); 
+		//}
 			
 	}
 

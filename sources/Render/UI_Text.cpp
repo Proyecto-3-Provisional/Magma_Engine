@@ -32,6 +32,7 @@ namespace magma_engine
 	UI_Text::~UI_Text() 
 	{
 		overlayMan_->destroyOverlayElement(overlayReferenceName);
+		overlayMan_->destroyOverlayElement(overlayText); 
 	}
 
 	void UI_Text::setFont(std::string font)

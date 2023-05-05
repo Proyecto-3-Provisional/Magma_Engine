@@ -1,5 +1,6 @@
 #include <EC/scene_manager.h>
 #include <EC/scene.h>
+#include <EC/entity.h>
 #include <Lua/scene_loader.h>
 
 namespace magma_engine
@@ -22,11 +23,21 @@ namespace magma_engine
 		if (!scenes.empty()) {
 			scenesToDelete.push(scenes.top());
 			scenes.pop();
+			if (!scenes.empty())
+				for (auto* e : currentScene()->getSceneEntities()) {
+					for (auto* c : e->getAllCmps())
+						c->onEnable();
+				}
 		}
 	}
 
 	void SceneManager::pushScene(Scene* newScene)
 	{
+		if (!scenes.empty())
+			for (auto* e : currentScene()->getSceneEntities()) {
+				for (auto* c : e->getAllCmps())
+					c->onDisable();
+			}
 		Singleton<SceneLoader>::instance()->delScene();
 		scenes.push(newScene);
 	}

@@ -117,7 +117,7 @@ namespace magma_engine
 				{
 				case NEXT_SCENE: 
 
-					Singleton<magma_engine::UI_Manager>::instance()->flush();
+					//Singleton<magma_engine::UI_Manager>::instance()->flush();
 
 					sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(sceneRoute);
 
@@ -137,11 +137,11 @@ namespace magma_engine
 
 					Singleton<magma_engine::SceneManager>::instance()->popScene();
 
-					Singleton<magma_engine::UI_Manager>::instance()->flush();
+					//Singleton<magma_engine::UI_Manager>::instance()->flush();
 					break;
 				case CHANGE_SCENE:
 
-					Singleton<magma_engine::UI_Manager>::instance()->flush();
+					//Singleton<magma_engine::UI_Manager>::instance()->flush();
 
 					sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(sceneRoute);
 
