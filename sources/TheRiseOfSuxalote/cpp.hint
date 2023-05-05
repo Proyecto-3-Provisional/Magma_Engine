@@ -1,2 +1,0 @@
-#define SUXALOTE_API __declspec(dllexport)
-#define SUXALOTE_API __declspec(dllimport)
