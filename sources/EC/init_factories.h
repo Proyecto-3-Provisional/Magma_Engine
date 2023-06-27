@@ -3,7 +3,7 @@
 
 namespace magma_engine
 {
-	class Component;
+	struct Component;
 
 	class TransformFactory : public Factory
 	{
@@ -42,6 +42,12 @@ namespace magma_engine
 	};
 
 	class TextFactory : public Factory
+	{
+	public:
+		Component* createComponent(Entity* e);
+	};
+
+	class ParticleSystemFactory : public Factory
 	{
 	public:
 		Component* createComponent(Entity* e);

@@ -93,6 +93,8 @@ namespace magma_engine
 		int getWinWidth();
 		int getWinHeight();
 
+		Ogre::SceneManager* getSceneManager();
+
 	protected:
 		// Objetos nuestros del mundo gráfico
 		std::unordered_map<std::string, GraphicalObject*> sceneObjects;

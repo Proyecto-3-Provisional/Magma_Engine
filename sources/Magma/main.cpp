@@ -31,6 +31,7 @@
 #include <Lua/scene_loader.h>
 #include <EC/scene.h>
 #include <EC/scene_manager.h>
+#include <Render/particle_system.h>
 
 #include <MagmaEngine/MagmaEngine.h>
 

@@ -43,7 +43,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\Render\ui_progress_bar.cpp">
-          <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\Render\button.cpp">
       <Filter>Archivos de origen</Filter>
@@ -52,6 +52,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\Render\text.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\The_Rise_of_Suxalote\MagmaEngine\sources\Render\particle_system.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,7 +87,7 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\ui_progress_bar.h">
-          <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\button.h">
       <Filter>Archivos de encabezado</Filter>
@@ -93,6 +96,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\text.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\The_Rise_of_Suxalote\MagmaEngine\sources\Render\particle_system.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
