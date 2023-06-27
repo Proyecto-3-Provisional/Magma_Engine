@@ -54,7 +54,7 @@
     <ClCompile Include="..\..\sources\Render\text.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\The_Rise_of_Suxalote\MagmaEngine\sources\Render\particle_system.cpp">
+    <ClCompile Include="..\..\sources\Render\particle_system.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +98,7 @@
     <ClInclude Include="..\..\sources\Render\text.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\The_Rise_of_Suxalote\MagmaEngine\sources\Render\particle_system.h">
+    <ClInclude Include="..\..\sources\Render\particle_system.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,7 @@
 #pragma once
 
 #include <EC/component.h>
-//#include <OgreSceneManager.h>
-//#include <OgreSceneNode.h>
 #include <Render/render_manager.h>
-//#include <OgreParticleSystem.h>
 #include <iostream>
 
 namespace Ogre {

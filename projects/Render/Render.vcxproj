@@ -163,11 +163,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\The_Rise_of_Suxalote\MagmaEngine\sources\Render\particle_system.cpp" />
     <ClCompile Include="..\..\sources\Render\button.cpp" />
     <ClCompile Include="..\..\sources\Render\graphical_object.cpp" />
     <ClCompile Include="..\..\sources\Render\image.cpp" />
     <ClCompile Include="..\..\sources\Render\mesh.cpp" />
+    <ClCompile Include="..\..\sources\Render\particle_system.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager.cpp" />
     <ClCompile Include="..\..\sources\Render\render_manager_context.cpp" />
     <ClCompile Include="..\..\sources\Render\text.cpp" />
@@ -179,11 +179,11 @@
     <ClCompile Include="..\..\sources\Render\ui_text.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\The_Rise_of_Suxalote\MagmaEngine\sources\Render\particle_system.h" />
     <ClInclude Include="..\..\sources\Render\button.h" />
     <ClInclude Include="..\..\sources\Render\graphical_object.h" />
     <ClInclude Include="..\..\sources\Render\image.h" />
     <ClInclude Include="..\..\sources\Render\mesh.h" />
+    <ClInclude Include="..\..\sources\Render\particle_system.h" />
     <ClInclude Include="..\..\sources\Render\render_manager.h" />
     <ClInclude Include="..\..\sources\Render\render_manager_context.h" />
     <ClInclude Include="..\..\sources\Render\text.h" />

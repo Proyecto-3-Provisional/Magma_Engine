@@ -55,7 +55,6 @@ namespace magma_engine
 
 	void ParticleSystem::update(float deltaTime) 
 	{
-		//std::cout << "AAAAAAAAAAAAAAAAAAAAAAA";
 		if (particleSystem->getEmitting()) {
 			if (emisionDuration < 0.0f) {
 				particleSystem->setEmitting(false);
