@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\sources\Render\particle_system.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\Render\light.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Render\ui_manager.h">
@@ -99,6 +102,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\sources\Render\particle_system.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sources\Render\light.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

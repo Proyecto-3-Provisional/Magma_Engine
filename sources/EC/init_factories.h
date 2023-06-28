@@ -53,6 +53,12 @@ namespace magma_engine
 		Component* createComponent(Entity* e);
 	};
 
+	class LightFactory : public Factory
+	{
+	public:
+		Component* createComponent(Entity* e);
+	};
+
 	void setUpFactories();
 }
 

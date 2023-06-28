@@ -12,6 +12,7 @@
 #include <Render/text.h>
 
 #include<Render/particle_system.h>
+#include<Render/light.h>
 
 #include <Sounds/audio_source.h>
 
@@ -56,6 +57,11 @@ namespace magma_engine
 	{
 		return e->addComponent<ParticleSystem>();
 	}
+	
+	Component* LightFactory::createComponent(Entity* e)
+	{
+		return e->addComponent<Light>();
+	}
 
 	void setUpFactories()
 	{
@@ -67,6 +73,7 @@ namespace magma_engine
 		FactoryManager::instance()->addFactory("Image", new ImageFactory());
 		FactoryManager::instance()->addFactory("Text", new TextFactory());
 		FactoryManager::instance()->addFactory("ParticleSystem", new ParticleSystemFactory());
+		FactoryManager::instance()->addFactory("Light", new LightFactory());
 	}
 }
 
