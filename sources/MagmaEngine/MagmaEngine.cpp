@@ -123,7 +123,7 @@ namespace magma_engine
 						int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(name);
 
 						if (sceneRead < 0) {
-							Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + name + " no se ha podido cargar con exito").c_str());
+							Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + name + " no se ha podido leer con exito").c_str());
 							ShutDown();
 							return false;
 						}
@@ -135,7 +135,10 @@ namespace magma_engine
 						Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
 						return true;
 					}
-					else delete scn;
+					else {
+						Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + names[0] + " no se ha podido cargar con exito").c_str());
+						delete scn;
+					}
 				}
 				ShutDown();
 			}
@@ -207,6 +210,8 @@ namespace magma_engine
 
 			// Actualizar la escena y todas sus entidades
 			Singleton<SceneManager>::instance()->update(timeSinceLastFrame * 0.001f);
+			if (Singleton<SceneManager>::instance()->isSceneFailed())
+				error = true;
 
 
 			// Borrar elementos de pantalla y volver a dibujarlos

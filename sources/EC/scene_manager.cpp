@@ -2,10 +2,11 @@
 #include <EC/scene.h>
 #include <EC/entity.h>
 #include <Lua/scene_loader.h>
+#include <Render/render_manager.h>
 
 namespace magma_engine
 {
-	SceneManager::SceneManager()
+	SceneManager::SceneManager() : sceneFailed(false)
 	{
 
 	}
@@ -65,5 +66,17 @@ namespace magma_engine
 			delete scenesToDelete.top();
 			scenesToDelete.pop();
 		}
+	}
+
+
+
+	void SceneManager::setSceneFailed(std::string scene)
+	{
+		Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + scene + " no se ha podido cargar con exito").c_str());
+		sceneFailed = true;
+	}
+
+	bool SceneManager::isSceneFailed() {
+		return sceneFailed;
 	}
 }

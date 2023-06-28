@@ -9,6 +9,7 @@
 #include <singleton.h>
 
 #include <stack>
+#include <string>
 
 namespace magma_engine
 {
@@ -29,7 +30,11 @@ namespace magma_engine
 		Scene* currentScene();
 
 		void update(float deltaTime);
+
+		void setSceneFailed(std::string scene);
+		bool isSceneFailed();
 	private:
+		bool sceneFailed;
 
 		void deleteScenes();
 

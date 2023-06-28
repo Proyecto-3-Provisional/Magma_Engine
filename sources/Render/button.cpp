@@ -126,7 +126,10 @@ namespace magma_engine
 
 					if (sceneCreated)
 						Singleton<magma_engine::SceneManager>::instance()->pushScene(scn);
-					else delete scn;
+					else {
+						Singleton<magma_engine::SceneManager>::instance()->setSceneFailed(sceneRoute);
+						delete scn;
+					}
 
 					break;
 				}
@@ -147,7 +150,10 @@ namespace magma_engine
 
 					if (sceneCreated)
 						Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
-					else delete scn;
+					else {
+						Singleton<magma_engine::SceneManager>::instance()->setSceneFailed(sceneRoute);
+						delete scn;
+					}
 
 					break;
 				}
