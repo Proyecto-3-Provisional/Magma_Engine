@@ -9,6 +9,7 @@
 #include <OgreMeshManager.h>
 
 #include <SDL_events.h>
+#include <SDL.h>
 
 namespace magma_engine
 {
@@ -332,6 +333,10 @@ namespace magma_engine
 	int RenderManager::getWinHeight()
 	{
 		return context->getWinHeight();
+	}
+
+	void RenderManager::makeMessageBox(const char* title, const char* message) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_WARNING, title, message, nullptr);
 	}
 
 	// POSIBLEMENTE BLOQUEANTE debido a removeObjects() -> Destruir cámara antes

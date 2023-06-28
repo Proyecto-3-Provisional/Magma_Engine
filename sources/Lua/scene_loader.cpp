@@ -28,19 +28,17 @@ namespace magma_engine
 	SceneLoader::~SceneLoader()
 	{
 		// Borrar escena si existe
-		delScene();
+		while (!loadedScenes.empty()) {
+			auto iter = loadedScenes.begin();
+			delete (*iter).second; (*iter).second = nullptr;
+			loadedScenes.erase(iter);
+		}
+
+		//delScene();
 
 		// Cierre de Lua
 		lua_close(L);
 		L = nullptr;
-	}
-
-	void SceneLoader::delScene() {
-		// Borrar mapa
-		if (lastLoadedScene) {
-			delete lastLoadedScene;
-			lastLoadedScene = nullptr;
-		}
 	}
 
 	void SceneLoader::popLStack() {
@@ -111,16 +109,14 @@ namespace magma_engine
 
 	// Devuelve 0 solo si todo fue bien
 	int SceneLoader::loadScene(std::string filename) {
-		delScene();
-
 		// Mapa de Entidades -> Mapa de Componentes -> Argumentos
 		SceneMap* sceneMap;
 
 		// Lectura y evaluación del fichero
+		std::string file = "assets/scenes/" + filename + ".magmascene";
 		int r = luaL_dofile(L, filename.c_str());
 		if (r != LUA_OK) {
-			std::cout << "Error loading scene: " << filename << "\n";
-			delScene();
+			std::cout << "Error loading scene: " << file << "\n";
 			// ERROR al leer el fichero
 			return -1; 
 		}
@@ -167,19 +163,17 @@ namespace magma_engine
 			// Deshacer lo hecho...
 			delete sceneMap;
 			sceneMap = nullptr;
-			// Deshacer lo hecho...
-			delScene();
 			return -1;
 		}
 		else {
-			lastLoadedScene = sceneMap;
+			loadedScenes.insert(std::make_pair(filename, sceneMap));
 			return 0;
 		}
 	}
 
 	// Devuelve el fichero de la escena con todas las entidades y componentes
-	SceneMap* SceneLoader::getMapFile()
+	SceneMap* SceneLoader::getMapFile(std::string filename)
 	{
-		return lastLoadedScene;
+		return loadedScenes[filename];
 	}
 }

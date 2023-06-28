@@ -30,14 +30,14 @@ namespace magma_engine
 		else if (str == "LETTER")
 			return LETTER;
 		else
-			return QUIT; 
+			return QUIT;
 	}
 
 	Button::Button() : Component(), buttonName(), normalButtonName(), hoverButtonName(), pressedButtonName(), tamX(), tamY(), posX(), posY()
 	{
 	}
 
-	Button::~Button() 
+	Button::~Button()
 	{
 		Singleton<UI_Manager>::instance()->deleteElement(button);
 	};
@@ -79,7 +79,7 @@ namespace magma_engine
 
 			typeButton = convert(args["buttonType"]);
 
-			sceneRoute = args["sceneRoute"]; 
+			sceneRoute = args["sceneRoute"];
 
 			tamX = stof(args["width"]);
 			tamY = stof(args["height"]);
@@ -93,7 +93,7 @@ namespace magma_engine
 			std::cout << "Button Component : " << e.what();
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -111,29 +111,25 @@ namespace magma_engine
 			if (Singleton<InputManager>::instance()->isMouseReleased())
 			{
 				pressed = true;
-				button->setMaterial(pressedButtonName); 
+				button->setMaterial(pressedButtonName);
 
 				switch (typeButton)
 				{
-				case NEXT_SCENE: 
-
+				case NEXT_SCENE:
+				{
 					//Singleton<magma_engine::UI_Manager>::instance()->flush();
+					SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile(sceneRoute);
 
-					sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(sceneRoute);
+					Scene* scn = new magma_engine::Scene();
 
-					if (sceneRead >= 0)
-					{
-						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
+					bool sceneCreated = scn->loadScene(sncMp);
 
-						Scene* scn = new magma_engine::Scene();
+					if (sceneCreated)
+						Singleton<magma_engine::SceneManager>::instance()->pushScene(scn);
+					else delete scn;
 
-						bool sceneCreated = scn->loadScene(sncMp);
-
-						if (sceneCreated)
-							Singleton<magma_engine::SceneManager>::instance()->pushScene(scn);
-						else delete scn;
-					}
 					break;
+				}
 				case BACK_SCENE:
 
 					Singleton<magma_engine::SceneManager>::instance()->popScene();
@@ -141,39 +137,35 @@ namespace magma_engine
 					//Singleton<magma_engine::UI_Manager>::instance()->flush();
 					break;
 				case CHANGE_SCENE:
-
+				{
 					//Singleton<magma_engine::UI_Manager>::instance()->flush();
+					SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile(sceneRoute);
 
-					sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(sceneRoute);
+					Scene* scn = new magma_engine::Scene();
 
-					if (sceneRead >= 0)
-					{
-						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
+					bool sceneCreated = scn->loadScene(sncMp);
 
-						Scene* scn = new magma_engine::Scene();
+					if (sceneCreated)
+						Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+					else delete scn;
 
-						bool sceneCreated = scn->loadScene(sncMp);
-
-						if (sceneCreated)
-							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
-						else delete scn;
-					}
 					break;
-				case MORE_VOLUME: 
-					sound = Singleton<magma_engine::SoundManager>::instance()->getVolume(); 
+				}
+				case MORE_VOLUME:
+					sound = Singleton<magma_engine::SoundManager>::instance()->getVolume();
 					Singleton<magma_engine::SoundManager>::instance()->setVolume(sound + 0.1f);
 					Singleton<magma_engine::SoundManager>::instance()->setVolumeSongs();
-					break; 
+					break;
 				case LESS_VOLUME:
 					sound = Singleton<magma_engine::SoundManager>::instance()->getVolume();
 					Singleton<magma_engine::SoundManager>::instance()->setVolume(sound - 0.1f);
-					Singleton<magma_engine::SoundManager>::instance()->setVolumeSongs(); 
+					Singleton<magma_engine::SoundManager>::instance()->setVolumeSongs();
 					break;
 				case QUIT:
-					Singleton<InputManager>::instance()->exitPetition(); 
+					Singleton<InputManager>::instance()->exitPetition();
 					break;
-				default: 
-					break; 
+				default:
+					break;
 				}
 			}
 
@@ -186,7 +178,7 @@ namespace magma_engine
 		else
 		{
 			button->setMaterial(normalButtonName);
-		}		
+		}
 	}
 
 	void Button::onEnable()
@@ -205,14 +197,14 @@ namespace magma_engine
 		interactive = interact;
 	}
 
-	bool Button::isButtonPressed() 
+	bool Button::isButtonPressed()
 	{
 		return pressed;
 	}
 
 	std::string Button::getSceneRoute()
 	{
-		return sceneRoute; 
+		return sceneRoute;
 	}
 }
 

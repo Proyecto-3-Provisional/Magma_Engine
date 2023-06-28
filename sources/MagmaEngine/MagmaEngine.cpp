@@ -26,7 +26,7 @@ namespace magma_engine
 
 	CMagmaEngine::~CMagmaEngine()
 	{
-		
+
 	}
 
 	bool CMagmaEngine::loadGame()
@@ -43,7 +43,7 @@ namespace magma_engine
 			gComponent = (GameComponents)GetProcAddress(game, "setUpGameFactories");
 
 			if (gameSceneName != NULL)
-				name = gameSceneName();
+				names = gameSceneName();
 			else
 				std::cout << "No se ha encontrado el metodo del juego\n";
 
@@ -89,15 +89,15 @@ namespace magma_engine
 
 				// INITS RESTANTES
 				// ------ UI ------
-				if (Singleton<UI_Manager>::init()		
+				if (Singleton<UI_Manager>::init()
 					// ------ INPUT ------
-					&& Singleton<InputManager>::init()	
+					&& Singleton<InputManager>::init()
 					// ------ SOUND ------
-					&& Singleton<SoundManager>::init()	
+					&& Singleton<SoundManager>::init()
 					// ------ SCENE MANAGER ------
-					&& Singleton<SceneManager>::init()	
+					&& Singleton<SceneManager>::init()
 					// ------ SCENE_LOADER ------
-					&& Singleton<SceneLoader>::init()	
+					&& Singleton<SceneLoader>::init()
 					// ------ FACTORY MANAGER ------
 					&& Singleton<FactoryManager>::init()
 					)
@@ -117,21 +117,24 @@ namespace magma_engine
 
 
 					// Carga de mapa
-					int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(name);
-					bool sceneCreated = false;
-					Scene* scn = nullptr;
+					bool todoCargado = true;
+					for (std::string name : names) {
+						int sceneRead = Singleton<magma_engine::SceneLoader>::instance()->loadScene(name);
 
-					if (sceneRead >= 0) {
-						scn = new Scene();
-						SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile();
-
-						sceneCreated = scn->loadScene(sncMp);
-						if (sceneCreated) {
-							Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
-							return true;
+						if (sceneRead < 0) {
+							Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + name + " no se ha podido cargar con exito").c_str());
+							ShutDown();
+							return false;
 						}
-						else delete scn;
 					}
+					Scene* scn = new Scene();
+					SceneMap* sncMp = Singleton<magma_engine::SceneLoader>::instance()->getMapFile(names[0]);
+
+					if (scn->loadScene(sncMp)) {
+						Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
+						return true;
+					}
+					else delete scn;
 				}
 				ShutDown();
 			}
@@ -182,7 +185,7 @@ namespace magma_engine
 
 		// Marca de tiempo del último fotograma, en milisegundos transcurridos desde el inicio
 		// uint32 a int
-		int lastFrameTime = (int)SDL_GetTicks(); 
+		int lastFrameTime = (int)SDL_GetTicks();
 		// Cálculo del tiempo, en milisegundos, entre fotogramas
 		int timeSinceLastFrame = 0;
 

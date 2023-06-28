@@ -7,6 +7,7 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <windows.h>
 
 
@@ -26,12 +27,12 @@ namespace magma_engine
 		// Añade las factorías del juego
 		typedef void(__cdecl* GameComponents)(); 
 		// Devuelve el mapa a cargar
-		typedef std::string(*GameString)(); 
+		typedef std::vector<std::string>(*GameString)(); 
 
 		HMODULE game;
 		bool loadGame();
 		GameComponents gComponent;
-		std::string name;
+		std::vector<std::string> names;
 	};
 
 	//extern MAGMAENGINE_API int nMagmaEngine;

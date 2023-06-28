@@ -93,6 +93,8 @@ namespace magma_engine
 		int getWinWidth();
 		int getWinHeight();
 
+		void makeMessageBox(const char* title, const char* message);
+
 		Ogre::SceneManager* getSceneManager();
 
 	protected:

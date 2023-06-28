@@ -32,9 +32,7 @@ namespace magma_engine
 		SceneLoader();
 		~SceneLoader();
 		int loadScene(std::string filename);
-		SceneMap* getMapFile();
-
-		void delScene();
+		SceneMap* getMapFile(std::string filename);
 
 	private:
 		void popLStack();
@@ -42,6 +40,6 @@ namespace magma_engine
 		size_t readEntity(lua_State* L, EntityMap* cmpsM);
 
 		lua_State* L = nullptr;
-		SceneMap* lastLoadedScene = nullptr;
+		std::map<std::string, SceneMap*> loadedScenes;
 	};
 }
