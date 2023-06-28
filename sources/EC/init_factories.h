@@ -59,6 +59,12 @@ namespace magma_engine
 		Component* createComponent(Entity* e);
 	};
 
+	class CameraFactory : public Factory
+	{
+	public:
+		Component* createComponent(Entity* e);
+	};
+
 	void setUpFactories();
 }
 

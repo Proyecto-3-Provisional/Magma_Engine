@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sources\Render\button.cpp" />
+    <ClCompile Include="..\..\sources\Render\camera.cpp" />
     <ClCompile Include="..\..\sources\Render\graphical_object.cpp" />
     <ClCompile Include="..\..\sources\Render\image.cpp" />
     <ClCompile Include="..\..\sources\Render\light.cpp" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\Render\button.h" />
+    <ClInclude Include="..\..\sources\Render\camera.h" />
     <ClInclude Include="..\..\sources\Render\graphical_object.h" />
     <ClInclude Include="..\..\sources\Render\image.h" />
     <ClInclude Include="..\..\sources\Render\light.h" />

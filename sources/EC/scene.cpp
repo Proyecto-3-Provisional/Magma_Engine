@@ -33,7 +33,7 @@ namespace magma_engine
 		if (sceneMap == nullptr)
 			return false;
 
-		Singleton<RenderManager>::instance()->
+		/*Singleton<RenderManager>::instance()->
 			createCam(nullptr, { 0, 1000, 500 });
 		Singleton<RenderManager>::instance()->
 			setCamLookAt({ 0, -1000, 0 });
@@ -42,7 +42,7 @@ namespace magma_engine
 		Singleton<RenderManager>::instance()->
 			objectShowMode(0);
 		Singleton<RenderManager>::instance()->
-			pitchCam(25);
+			pitchCam(25);*/
 
 		for (auto itEntity = sceneMap->begin();
 			itEntity != sceneMap->end() && noErrors;
