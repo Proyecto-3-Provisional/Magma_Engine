@@ -27,7 +27,7 @@ namespace magma_engine
 		// Añade las factorías del juego
 		typedef void(__cdecl* GameComponents)(); 
 		// Devuelve el mapa a cargar
-		typedef std::vector<std::string>(*GameString)(); 
+		typedef void(__cdecl* GameString)(std::vector<std::string>&);
 
 		HMODULE game;
 		bool loadGame();

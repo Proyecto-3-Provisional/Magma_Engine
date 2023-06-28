@@ -114,7 +114,7 @@ namespace magma_engine
 
 		// Lectura y evaluación del fichero
 		std::string file = "assets/scenes/" + filename + ".magmascene";
-		int r = luaL_dofile(L, filename.c_str());
+		int r = luaL_dofile(L, file.c_str());
 		if (r != LUA_OK) {
 			std::cout << "Error loading scene: " << file << "\n";
 			// ERROR al leer el fichero

@@ -42,8 +42,9 @@ namespace magma_engine
 			GameString gameSceneName = (GameString)GetProcAddress(game, "gameNameScene");
 			gComponent = (GameComponents)GetProcAddress(game, "setUpGameFactories");
 
+
 			if (gameSceneName != NULL)
-				names = gameSceneName();
+				gameSceneName(names);
 			else
 				std::cout << "No se ha encontrado el metodo del juego\n";
 
