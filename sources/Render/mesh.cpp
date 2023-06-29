@@ -120,5 +120,10 @@ namespace magma_engine
 		Ogre::Quaternion q = gObjPtr->getOrientation();
 		return Quaternion(q.w, q.x, q.y, q.z);
 	}
+
+	void Mesh::setVisible(bool visible)
+	{
+		gObjPtr->makeVisible(visible);
+	}
 }
 

@@ -30,6 +30,8 @@ namespace magma_engine
 		Vector3D getProportions();
 		Quaternion getOrientation();
 
+		void setVisible(bool visible);
+
 	private:
 
 		GraphicalObject* gObjPtr = nullptr;
