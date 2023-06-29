@@ -135,10 +135,8 @@ namespace magma_engine
 						Singleton<magma_engine::SceneManager>::instance()->changeScene(scn);
 						return true;
 					}
-					else {
-						Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + names[0] + " no se ha podido cargar con exito").c_str());
+					else 
 						delete scn;
-					}
 				}
 				ShutDown();
 			}

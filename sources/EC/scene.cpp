@@ -1,6 +1,7 @@
 #include <EC/scene.h>
 #include <EC/entity_manager.h>
 #include <EC/factory_manager.h>
+#include <EC/scene_manager.h>
 
 #include <Render/render_manager.h>
 
@@ -30,19 +31,11 @@ namespace magma_engine
 	{
 		bool noErrors = true;
 
-		if (sceneMap == nullptr)
+		if (sceneMap == nullptr) {
+			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed("");
 			return false;
+		}
 
-		/*Singleton<RenderManager>::instance()->
-			createCam(nullptr, { 0, 1000, 500 });
-		Singleton<RenderManager>::instance()->
-			setCamLookAt({ 0, -1000, 0 });
-		Singleton<RenderManager>::instance()->
-			setBgColor(0.8f, 0.8f, 0.7f);
-		Singleton<RenderManager>::instance()->
-			objectShowMode(0);
-		Singleton<RenderManager>::instance()->
-			pitchCam(25);*/
 
 		for (auto itEntity = sceneMap->begin();
 			itEntity != sceneMap->end() && noErrors;
@@ -64,8 +57,10 @@ namespace magma_engine
 			}
 		}
 
-		if (!noErrors)
+		if (!noErrors) {
+			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed("");
 			return false;
+		}
 		
 		for (Entity* e : mngr->getEntities())
 		{
@@ -84,7 +79,12 @@ namespace magma_engine
 			}
 		}
 
-		return noErrors;
+		if (!noErrors) {
+			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed("");
+			return false;
+		}
+
+		return true;
 	}
 
 	bool Scene::isValid()
