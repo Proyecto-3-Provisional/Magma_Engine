@@ -160,7 +160,7 @@ namespace magma_engine
 			btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
 			btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
 
-			if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
+			if (body1Pair && body2Pair) {
 
 				if ((body1 == body1Pair && body2 == body2Pair) || (body2 == body1Pair && body1 == body2Pair)) {
 					colision = true;
@@ -186,7 +186,7 @@ namespace magma_engine
 			btRigidBody* body1Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy0->m_clientObject);
 			btRigidBody* body2Pair = static_cast<btRigidBody*>(collisionPair.m_pProxy1->m_clientObject);
 
-			if (body1Pair && body2Pair && body1Pair->getInvMass() > 0.0f && body2Pair->getInvMass() > 0.0f) {
+			if (body1Pair && body2Pair) {
 
 				if (body == body1Pair) colliders.push_back(entities[body2Pair->getUserIndex()]);
 				else if (body == body2Pair) colliders.push_back(entities[body1Pair->getUserIndex()]);
