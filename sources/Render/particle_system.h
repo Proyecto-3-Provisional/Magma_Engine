@@ -22,6 +22,7 @@ namespace magma_engine
 		virtual bool initComponent(std::map<std::string, std::string> args);
 		virtual bool start();
 
+		//Aqui se dejaran de emitir las particulas cuando pase cierto rato definido en el initComponent
 		void update(float deltaTime);
 
 		//Esto es para que otros componentes puedan activar y desactivar la emision del sistema
