@@ -44,12 +44,6 @@ namespace magma_engine
 		void makeVisible(bool show);
 		void showDebugBox(bool show);
 
-		// Luces
-		void setLightColor(float r, float g, float b);
-
-		// Emisores de part.
-		void setEmitting(bool b);
-
 		// Acerca del nodo
 		std::string getKeyName();
 		Ogre::SceneNode* getNode();
@@ -78,12 +72,10 @@ namespace magma_engine
 		void aknowledgeChild();
 		void childRemoved();
 
-		// Nodo (y entidad/luz/part.) asociado a este constructo
+		// Nodo y entidad/part. asociado a este constructo
 		Ogre::SceneNode* objectNode = nullptr;
 		// Cosas que pueden ser (si todas = nullptr -> nodo vacío)
 		Ogre::Entity* entity = nullptr;
-		Ogre::Light* light = nullptr;
-		Ogre::ParticleSystem* particleSystem = nullptr;
 
 		// Animación para la entidad
 		Ogre::AnimationState* entityAnimation = nullptr;

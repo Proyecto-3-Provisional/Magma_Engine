@@ -23,45 +23,13 @@ namespace magma_engine
 			objectNode = mySceneManager.getRootSceneNode()->createChildSceneNode();
 		}
 
-		if (meshFile != "") {
-			if (meshFile == "SUN")
-			{
-				light = mySceneManager.createLight();
-				light->setType(Ogre::Light::LT_DIRECTIONAL);
-				light->setDiffuseColour(0.90f, 0.90f, 0.90f);
-				objectNode->attachObject(light);
-			}
-			else if (meshFile == "LIGHTBULB")
-			{
-				light = mySceneManager.createLight();
-				light->setType(Ogre::Light::LT_POINT);
-				light->setDiffuseColour(0.90f, 0.90f, 0.90f);
-				objectNode->attachObject(light);
-			}
-			else if (meshFile == "SPOTLIGHT")
-			{
-				light = mySceneManager.createLight();
-				light->setType(Ogre::Light::LT_SPOTLIGHT);
-				light->setDiffuseColour(0.90f, 0.90f, 0.90f);
-				light->setSpotlightInnerAngle(Ogre::Degree(5.0f));	//
-				light->setSpotlightOuterAngle(Ogre::Degree(90.0f));	//
-				light->setSpotlightFalloff(2.0f);					//
-				objectNode->attachObject(light);
-			}
-			else if (meshFile == "EMITTER") {
-				Ogre::String partSysName = "ps_" + keyName;
-				particleSystem = mySceneManager.createParticleSystem(partSysName, materialName);
-				particleSystem->setEmitting(true);
-				objectNode->attachObject(particleSystem);
-			}
-			else
-			{
-				entity = mySceneManager.createEntity(meshFile);
-				entity->setMaterialName(materialName);
-				objectNode->attachObject(entity);
-				Ogre::Vector3 size = entity->getBoundingBox().getSize();
-				meshProportions = Vector3D({ size.x, size.y, size.z });
-			}
+		if (meshFile != "") 
+		{
+			entity = mySceneManager.createEntity(meshFile);
+			entity->setMaterialName(materialName);
+			objectNode->attachObject(entity);
+			Ogre::Vector3 size = entity->getBoundingBox().getSize();
+			meshProportions = Vector3D({ size.x, size.y, size.z });
 		}
 	}
 
@@ -75,17 +43,6 @@ namespace magma_engine
 			objectNode->detachObject(entity);
 			mySceneManager.destroyEntity(entity);
 			entity = nullptr;
-		}
-		if (light)
-		{
-			objectNode->detachObject(light);
-			mySceneManager.destroyLight(light);
-			light = nullptr;
-		}
-		if (particleSystem) {
-			objectNode->detachObject(particleSystem);
-			mySceneManager.destroyParticleSystem(particleSystem);
-			particleSystem = nullptr;
 		}
 
 		if (parentObject)
@@ -198,18 +155,6 @@ namespace magma_engine
 	{
 		showsBox = show;
 		objectNode->showBoundingBox(show);
-	}
-
-	void GraphicalObject::setLightColor(float r, float g, float b)
-	{
-		if (light)
-			light->setDiffuseColour(r, g, b);
-	}
-
-	void GraphicalObject::setEmitting(bool b)
-	{
-		if (particleSystem)
-			particleSystem->setEmitting(b);
 	}
 
 	std::string GraphicalObject::getKeyName()
