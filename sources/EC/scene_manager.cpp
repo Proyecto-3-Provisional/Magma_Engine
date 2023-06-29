@@ -79,4 +79,8 @@ namespace magma_engine
 	bool SceneManager::isSceneFailed() {
 		return sceneFailed;
 	}
+	std::vector<Entity*> SceneManager::getSceneEntities()
+	{
+		return currentScene()->getSceneEntities();
+	}
 }

@@ -10,6 +10,8 @@
 
 #include <stack>
 #include <string>
+#include <vector>
+#include <EC/entity.h>
 
 namespace magma_engine
 {
@@ -33,6 +35,8 @@ namespace magma_engine
 
 		void setSceneFailed();
 		bool isSceneFailed();
+
+		std::vector<Entity*> getSceneEntities();
 	private:
 		bool sceneFailed;
 
