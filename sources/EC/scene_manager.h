@@ -31,7 +31,7 @@ namespace magma_engine
 
 		void update(float deltaTime);
 
-		void setSceneFailed(std::string scene);
+		void setSceneFailed();
 		bool isSceneFailed();
 	private:
 		bool sceneFailed;

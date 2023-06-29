@@ -70,9 +70,9 @@ namespace magma_engine
 
 
 
-	void SceneManager::setSceneFailed(std::string scene)
+	void SceneManager::setSceneFailed()
 	{
-		Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", ("La escena " + scene + " no se ha podido cargar con exito").c_str());
+		Singleton<magma_engine::RenderManager>::instance()->makeMessageBox("LUA", "La escena no se ha podido cargar con exito");
 		sceneFailed = true;
 	}
 

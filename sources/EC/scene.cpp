@@ -32,7 +32,7 @@ namespace magma_engine
 		bool noErrors = true;
 
 		if (sceneMap == nullptr) {
-			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed("");
+			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed();
 			return false;
 		}
 
@@ -58,7 +58,7 @@ namespace magma_engine
 		}
 
 		if (!noErrors) {
-			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed("");
+			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed();
 			return false;
 		}
 		
@@ -80,7 +80,7 @@ namespace magma_engine
 		}
 
 		if (!noErrors) {
-			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed("");
+			Singleton<magma_engine::SceneManager>::instance()->setSceneFailed();
 			return false;
 		}
 
