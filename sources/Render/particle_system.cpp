@@ -64,16 +64,6 @@ namespace magma_engine
 				emisionDuration -= deltaTime;
 
 		}
-		/*else
-		{
-			if (emisionDuration < 0.0f)
-			{
-				particleSystem->setEmitting(true);
-				emisionDuration = emisionTime;
-			}
-			else
-				emisionDuration -= deltaTime;
-		}*/
 	}
 
 	void ParticleSystem::emisionControl(bool activate)
